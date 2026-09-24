@@ -1,0 +1,42 @@
+# Reference integration. It is packaged and locally checked, but was not installed
+# in an external organization during this study. Collection and reviewer identity
+# remain responsibilities of the adopting repository.
+name: FedFence trust review
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 3 * * *'
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout trusted checker from the base revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.event.pull_request.base.sha || github.sha }}
+          path: trusted
+          persist-credentials: false
+      - name: Checkout candidate configuration as data
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          path: candidate
+          persist-credentials: false
+      - name: Review candidate trust packet
+        id: fedfence
+        uses: ./trusted
+        with:
+          packet: candidate/.fedfence/production.json
+          timeout: '15'
+      - name: Retain the machine-readable receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: fedfence-result
+          path: ${{ steps.fedfence.outputs.result-json }}
+          if-no-files-found: error
+# The checker has no id-token permission, secrets, write access, terraform apply,
+# or pull_request_target trigger. Fail exits 1; unknown exits 2. Branch protection
+# must require this job. External cloud state is not refreshed by the action.

@@ -1,0 +1,9 @@
+{
+  "admitted": 1,
+  "finding_kinds": [],
+  "findings": [],
+  "intended_admitted": 1,
+  "name": "repository_id_ref_environment_safe",
+  "safe": true,
+  "states": 4
+}

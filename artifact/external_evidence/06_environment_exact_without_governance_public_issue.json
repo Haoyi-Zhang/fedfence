@@ -1,0 +1,36 @@
+{
+  "expected_safe": false,
+  "name": "environment_exact_without_governance_public_issue",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:sample-org/sample-repo:environment:dev"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "public GitHub issue",
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "source_note": "Environment subject is exact, but no repository-scoped environment protection premise is supplied to the artifact.",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials/issues/672",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:sample-org/sample-repo:environment:dev"
+    ]
+  }
+}

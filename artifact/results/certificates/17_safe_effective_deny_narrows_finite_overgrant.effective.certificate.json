@@ -1,0 +1,159 @@
+{
+  "case": {
+    "expected_safe": true,
+    "name": "safe_effective_deny_narrows_finite_overgrant",
+    "policy": {
+      "Statement": [
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringEquals": {
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+            },
+            "StringLike": {
+              "token.actions.githubusercontent.com:sub": [
+                "repo:acme/api:ref:refs/heads/main",
+                "repo:acme/api:ref:refs/heads/dev"
+              ]
+            }
+          },
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          }
+        },
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringEquals": {
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+              "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/dev"
+            }
+          },
+          "Effect": "Deny",
+          "Principal": {
+            "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          }
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "repository_governance": {
+      "protected_environments": []
+    },
+    "spec": {
+      "allowed_audiences": [
+        "sts.amazonaws.com"
+      ],
+      "allowed_subjects": [
+        "repo:acme/api:ref:refs/heads/main"
+      ]
+    }
+  },
+  "certificate_components": [
+    "PrincipalCert",
+    "ClaimKeyCert",
+    "ConditionErasureCert",
+    "IssuerProjectionCert",
+    "EffectiveAllowMinusDenyCert",
+    "GovernanceCert",
+    "UnsupportedBoundaryCert",
+    "ReplayWitnessCert",
+    "SelectedClaimProjectionCert"
+  ],
+  "judgment": "effective-claim-product-admission",
+  "kind": "fedfence-effective-case-certificate",
+  "name": "safe_effective_deny_narrows_finite_overgrant",
+  "policy_profile": {
+    "allows": [
+      {
+        "allow_overapprox_core": true,
+        "aud_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "deny_exact_core": true,
+        "effect": "Allow",
+        "exact_github_principal": true,
+        "index": 0,
+        "malformed_principal": false,
+        "mixed_principal": false,
+        "principal_federated": [
+          "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        ],
+        "principal_wildcard": false,
+        "raw_condition_keys": [
+          "token.actions.githubusercontent.com:aud",
+          "token.actions.githubusercontent.com:sub"
+        ],
+        "selected_claim_groups": {},
+        "sub_groups": [
+          {
+            "op": "like",
+            "values": [
+              "repo:acme/api:ref:refs/heads/main",
+              "repo:acme/api:ref:refs/heads/dev"
+            ]
+          }
+        ],
+        "unsupported_claim_keys": [],
+        "unsupported_conditions": [],
+        "unsupported_principal": false,
+        "unsupported_statement_fields": []
+      }
+    ],
+    "denies": [
+      {
+        "allow_overapprox_core": true,
+        "aud_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "deny_exact_core": true,
+        "effect": "Deny",
+        "exact_github_principal": true,
+        "index": 0,
+        "malformed_principal": false,
+        "mixed_principal": false,
+        "principal_federated": [
+          "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        ],
+        "principal_wildcard": false,
+        "raw_condition_keys": [
+          "token.actions.githubusercontent.com:aud",
+          "token.actions.githubusercontent.com:sub"
+        ],
+        "selected_claim_groups": {},
+        "sub_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "repo:acme/api:ref:refs/heads/dev"
+            ]
+          }
+        ],
+        "unsupported_claim_keys": [],
+        "unsupported_conditions": [],
+        "unsupported_principal": false,
+        "unsupported_statement_fields": []
+      }
+    ]
+  },
+  "replay_summary": {
+    "all_kinds": [],
+    "blocking_kinds": [],
+    "findings": [],
+    "safe": true,
+    "witnesses": []
+  },
+  "verdict": "safe",
+  "version": 5
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "fedfence-pdf-visual-qa-v1",
+  "recorded_at_utc": "2026-09-24T06:11:41.209223+00:00",
+  "pdf": "paper/FedFence_FSE_final_submission_candidate.pdf",
+  "pdf_sha256": "048428903698c03d17804a660a8164cbf3302fb2d51d26f656afdf89a3198b84",
+  "pages_inspected": 12,
+  "renderers": [
+    {
+      "engine": "pdfium",
+      "dpi": 200,
+      "pages_rendered": 12,
+      "render_directory_external_to_package": "/mnt/data/fedfence_final_render_pdfium"
+    },
+    {
+      "engine": "pdftoppm",
+      "dpi": 160,
+      "pages_rendered": 12,
+      "render_directory_external_to_package": "/mnt/data/fedfence_final_render_pdftoppm"
+    }
+  ],
+  "checks": {
+    "clipped_text": false,
+    "overlap": false,
+    "broken_glyphs_or_black_boxes": false,
+    "table_or_figure_overflow": false,
+    "missing_pages": false,
+    "reference_clipping": false
+  },
+  "issues": [],
+  "inspection_note": "All 12 final pages were visually inspected after removing the placeholder submission ID. Both PDFium and pdftoppm renders show the workflow figure, executable-output box, four tables, equations, and references without clipping, overlap, broken glyphs, or black boxes. Automated preflight reports openable, unencrypted, non-scanned, no XFA."
+}

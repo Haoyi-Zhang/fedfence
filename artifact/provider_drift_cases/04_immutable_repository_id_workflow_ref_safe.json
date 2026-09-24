@@ -1,0 +1,94 @@
+{
+  "description": "Selected repository_id and job_workflow_ref claims discharge rename-sensitive subject strings while rejecting the wrong workflow or repository id.",
+  "expected_safe": true,
+  "name": "immutable_repository_id_workflow_ref_safe",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:environment": "prod",
+            "token.actions.githubusercontent.com:job_workflow_ref": "acme/platform/.github/workflows/deploy.yml@refs/heads/main",
+            "token.actions.githubusercontent.com:repository_id": "200"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "GitHub Docs OpenID Connect reference, accessed Jun. 12, 2026",
+  "source_basis": "GitHub OIDC reference: repository_id and job_workflow_ref can be included in customized subject/claim policies.",
+  "source_url": "https://docs.github.com/en/actions/reference/security/oidc",
+  "states": [
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/platform/.github/workflows/deploy.yml@refs/heads/main",
+        "ref": "refs/heads/main",
+        "repository": "acme/api",
+        "repository_id": "200",
+        "repository_owner_id": "100",
+        "repository_visibility": "private",
+        "sub": "repo:acme@100/api@200:environment:prod"
+      },
+      "id": "main-prod-approved-workflow",
+      "intended": true,
+      "mintable": true
+    },
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/platform/.github/workflows/deploy.yml@refs/heads/dev",
+        "ref": "refs/heads/dev",
+        "repository": "acme/api",
+        "repository_id": "200",
+        "repository_owner_id": "100",
+        "repository_visibility": "private",
+        "sub": "repo:acme@100/api@200:environment:prod"
+      },
+      "id": "main-prod-dev-workflow",
+      "intended": false,
+      "mintable": true
+    },
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/platform/.github/workflows/deploy.yml@refs/heads/main",
+        "ref": "refs/heads/main",
+        "repository": "acme-renamed/api-renamed",
+        "repository_id": "200",
+        "repository_owner_id": "100",
+        "repository_visibility": "private",
+        "sub": "repo:acme-renamed@100/api-renamed@200:environment:prod"
+      },
+      "id": "renamed-same-id-approved-workflow",
+      "intended": true,
+      "mintable": true
+    },
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/platform/.github/workflows/deploy.yml@refs/heads/main",
+        "ref": "refs/heads/main",
+        "repository": "acme/evil",
+        "repository_id": "999",
+        "repository_owner_id": "100",
+        "repository_visibility": "private",
+        "sub": "repo:acme@100/evil@999:environment:prod"
+      },
+      "id": "other-repo-id-approved-workflow",
+      "intended": false,
+      "mintable": true
+    }
+  ]
+}

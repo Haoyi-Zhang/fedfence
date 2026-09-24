@@ -1,0 +1,15 @@
+{
+  "correct": 4480,
+  "hardening_templates": 5,
+  "median_ms": 3.18,
+  "p95_ms": 7.301,
+  "per_template": 128,
+  "profile": "registered",
+  "registered_templates": 35,
+  "representatives": 35,
+  "templates": 35,
+  "total_cases": 4480,
+  "transport_mode": true,
+  "transported_cases": 4445,
+  "unsafe_cases": 2816
+}

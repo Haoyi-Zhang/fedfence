@@ -1,0 +1,5 @@
+file,case,source_basis,expected_safe,fedfence_safe,correct,findings,witnesses
+01_immutable_subject_exact_branch_safe.json,immutable_subject_exact_branch_safe,"GitHub OIDC reference: immutable subject claims for repositories created after July 15, 2026.",True,True,True,0,
+02_immutable_subject_wildcard_unsafe.json,immutable_subject_wildcard_unsafe,GitHub OIDC reference: immutable subject claims preserve the context suffix after owner/repo IDs.,False,False,True,1,sub=repo:acme@100/api@200:pull_request; aud=sts.amazonaws.com
+03_immutable_environment_governed_safe.json,immutable_environment_governed_safe,GitHub OIDC reference: immutable repo segment plus default environment context.,True,True,True,0,
+04_immutable_repository_id_workflow_ref_safe.json,immutable_repository_id_workflow_ref_safe,GitHub OIDC reference: repository_id and job_workflow_ref can be included in customized subject/claim policies.,True,True,True,0,

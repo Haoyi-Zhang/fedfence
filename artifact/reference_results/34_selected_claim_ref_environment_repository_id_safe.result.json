@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 1,
+  "allow_subject_states": 4,
+  "findings": [],
+  "intended_subject_edges": 0,
+  "intended_subject_states": 1,
+  "name": "34_selected_claim_ref_environment_repository_id_safe",
+  "safe": true
+}

@@ -1,0 +1,16 @@
+{
+  "baselines": 4,
+  "correct": 20,
+  "examples": 20,
+  "hosts": [
+    "040code.github.io",
+    "awsfundamentals.com",
+    "docs.aws.amazon.com",
+    "docs.github.com",
+    "gist.github.com",
+    "github.com",
+    "oneuptime.com",
+    "stackoverflow.com"
+  ],
+  "unsafe": 14
+}

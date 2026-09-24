@@ -1,0 +1,10 @@
+component,files,physical_loc,logical_loc,json_objects
+core_checker,13,2887,2433,0
+reproduction_harness,35,3754,3273,0
+registered_cases,37,0,0,37
+optional_hardening_cases,3,0,0,3
+public_examples,20,0,0,20
+external_evidence,8,0,0,8
+provider_drift_cases,4,0,0,4
+governance_exports,6,0,0,6
+deployment_manifest,1,0,0,1

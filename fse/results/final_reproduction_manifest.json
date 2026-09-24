@@ -1,0 +1,192 @@
+{
+  "actual_comparative_benchmark_runs": 0,
+  "execution_mode": "single-driver-run",
+  "external_validation_complete": false,
+  "finite_models": 65536,
+  "historical_cases": 37,
+  "human_study_participants": 0,
+  "legacy_self_checks": 3945,
+  "limitations": [
+    "public studies are purposive or query-defined rather than representative",
+    "commit and run metadata are source evidence rather than independent root-cause adjudication",
+    "no owner-confirmed labels, live FedFence deployment, vendor common-corpus benchmark, or human study",
+    "finite required tokens are regression examples, not a complete availability language",
+    "no machine-checked refinement from mathematics to Python"
+  ],
+  "local_reproduction_passed": true,
+  "normalized_public_changes": 9,
+  "owner_confirmed_findings": 0,
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "public_post_fix_action_runs_observed": 2,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "recorded_at_utc": "2026-09-24T06:13:26.071919+00:00",
+  "result_files": {
+    "fse/results/demo_after_stale.json": "d0ae0e8b63600c487c08998ea6f5309f75086791e7a1a5cf85238d7b19ef2571",
+    "fse/results/demo_after_unsupported.json": "352edbfead4aaa0a43609523021964c04342429d0d575aa0c031ed5b90da39d7",
+    "fse/results/demo_after_wildcard.json": "e7834d9654579397626b1497fb3b97f95cc84535ebf4126e8a6e76261d213cdb",
+    "fse/results/demo_availability_after.json": "759585ef3fc40d533928b84260a855bbf7757b9301fcdf1b936170f10cad632d",
+    "fse/results/demo_availability_before.json": "875d72937de59f606cbf34f9e6ae456f398ddd7ea53380e5ae85340274a084ad",
+    "fse/results/demo_availability_regression.json": "f6c41c08ffd38729083d8fd89d13bf77dfbf3a704640b0277a447d7257ef6b9f",
+    "fse/results/demo_before.json": "927527738f044c9dab6879c436775259eae2be77acb9d36c69f3585c9a131ec6",
+    "fse/results/demo_environment_missing.json": "6d8a6452078c1f666cca9c2270dbca94da4c28245047e93de8bcf4d1f3353197",
+    "fse/results/demo_environment_reviewed.json": "d56568d5a83791e10ef2fd8569f262e3370c63d3450a07be999f495f2735e6fc",
+    "fse/results/demo_regression.json": "9034ad638632db1e118b193e2efd01da45bc755f8fefbad1e229fab462c6b584",
+    "fse/results/demo_summary.json": "f9c8166d6395c9eb3dc785c24dff13c4068b90d0b2350a1d2c69ff6ece41f4de",
+    "fse/results/external_tool_availability.json": "5cb7562e20fc83da3d8f5d555db31526440886b9c9e501158faee4f390377dfb",
+    "fse/results/finite_semantics_audit.json": "d24bd06ef68872558eefd69bb91577cc55660009bcf8216e10e28cb2f7bb0ff3",
+    "fse/results/legacy_boundary_probe.json": "478f2215b654be37802c020757b7b3ff1d5f2db57b85f23380aefda033ffa1f8",
+    "fse/results/legacy_boundary_probe_case.json": "e28a3080260513833193c5ced54638ec0885fc0b209ca70b361c5ffeaf3939cc",
+    "fse/results/legacy_case_replay.json": "8a9749643ca935884423afa8708bd1b3692c083daa854914ed5ff365134c0c6a",
+    "fse/results/legacy_fragment_inventory.json": "cb1b92cbdcd9a40b69f8db4f7b6688832e18782e78505e67457458978a3db99e",
+    "fse/results/pdf_visual_qa.json": "cd460458df0e8e80cff005907d0b6c10e99fc4eb6f472514bcc0d43519db8675",
+    "fse/results/provenance.json": "cf32dd19ec536f85d23b6cd6d8aa2a2cc3e5017db39a2083a79672671ed6dfa6",
+    "fse/results/public_change_latency.json": "601f8e7a12a2117cdd4bbd80ece2dab4ac113d40e3cc940780933501844a63a1",
+    "fse/results/public_change_study.csv": "bde7fea64b894fb6fb7429011c77407d879ee679c0bd8c7347d611641442278b",
+    "fse/results/public_change_study.json": "bf70fe437aff8db3b7e319de5b8e5c4988a91e4bfd285c40f92546f50ff9f670",
+    "fse/results/runtime_compatibility_rows.csv": "45a72a3eef1aff864102a5b157381ebefc13eefee5c801b9e3be20133be7b797",
+    "fse/results/runtime_compatibility_summary.json": "96fc9b5c5ab7bb9814f78933b25adecfd455f43e9a51b0aa97e24a00ed60c7e6",
+    "fse/results/source_frontier_rows.csv": "146a08a1c054f2cb55d2b00e25fb7d966381c13e2ee285725b01918d17fe7414",
+    "fse/results/source_frontier_summary.json": "62e7e4ab1667016a6c6a2222dadd97b179835155f7dd49d4a66af7941570f333",
+    "fse/results/unit_tests.json": "1fdf815c3798ff72cba3acc0e026a54ddc2346ea5e9b09be9494f79b88b07ed5"
+  },
+  "runtime_maintenance_commits": 12,
+  "schema": "fedfence-final-reproduction-v1",
+  "source_frontier_repositories": 24,
+  "steps": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/run_fse_tests.py"
+      ],
+      "elapsed_seconds": 20.0644,
+      "exit_code": 0,
+      "log": "logs/unit_tests.log",
+      "status": "passed",
+      "step": "unit_tests"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/run_finite_audit.py"
+      ],
+      "elapsed_seconds": 0.6694,
+      "exit_code": 0,
+      "log": "logs/finite_semantics_audit.log",
+      "status": "passed",
+      "step": "finite_semantics_audit"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/run_legacy_boundary_probe.py"
+      ],
+      "elapsed_seconds": 0.7196,
+      "exit_code": 0,
+      "log": "logs/legacy_boundary_probe.log",
+      "status": "passed",
+      "step": "legacy_boundary_probe"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/inventory_legacy_fragment.py"
+      ],
+      "elapsed_seconds": 0.6718,
+      "exit_code": 0,
+      "log": "logs/legacy_fragment_inventory.log",
+      "status": "passed",
+      "step": "legacy_fragment_inventory"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/replay_legacy_cases.py"
+      ],
+      "elapsed_seconds": 0.8164,
+      "exit_code": 0,
+      "log": "logs/legacy_case_replay.log",
+      "status": "passed",
+      "step": "legacy_case_replay"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "artifact/scripts/self_check.py"
+      ],
+      "elapsed_seconds": 0.8838,
+      "exit_code": 0,
+      "log": "logs/legacy_self_check.log",
+      "status": "passed",
+      "step": "legacy_self_check"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/run_demo_suite.py"
+      ],
+      "elapsed_seconds": 6.722,
+      "exit_code": 0,
+      "log": "logs/demo_suite.log",
+      "status": "passed",
+      "step": "demo_suite"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/run_public_change_study.py"
+      ],
+      "elapsed_seconds": 1.8191,
+      "exit_code": 0,
+      "log": "logs/public_change_study.log",
+      "status": "passed",
+      "step": "public_change_study"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/validate_public_change_latency.py"
+      ],
+      "elapsed_seconds": 0.6179,
+      "exit_code": 0,
+      "log": "logs/public_change_latency.log",
+      "status": "passed",
+      "step": "public_change_latency"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/run_source_frontier_study.py"
+      ],
+      "elapsed_seconds": 0.6177,
+      "exit_code": 0,
+      "log": "logs/source_frontier_study.log",
+      "status": "passed",
+      "step": "source_frontier_study"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/run_runtime_compatibility_study.py"
+      ],
+      "elapsed_seconds": 0.6157,
+      "exit_code": 0,
+      "log": "logs/runtime_compatibility_study.log",
+      "status": "passed",
+      "step": "runtime_compatibility_study"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "scripts/check_baseline_availability.py"
+      ],
+      "elapsed_seconds": 0.6708,
+      "exit_code": 0,
+      "log": "logs/external_tool_availability.log",
+      "status": "passed",
+      "step": "external_tool_availability"
+    }
+  ],
+  "submission_package_complete": true,
+  "synthetic_walkthroughs": 8,
+  "unit_tests": 79
+}

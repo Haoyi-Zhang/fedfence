@@ -1,0 +1,4 @@
+case,expected_safe,safe,correct,num_findings,finding_kinds,first_witness,registered_profile
+action_sts_star_outside_core,False,False,True,1,unsupported-allow-statement-field,,False
+empty_condition_value_boundary,False,False,True,3,unsupported-allow-condition;missing-sub;subject-overgrant,sub=repo:./.:pull_request; aud=sts.amazonaws.com,False
+malformed_condition_value_boundary,False,False,True,3,unsupported-allow-condition;missing-aud;audience-overgrant,sub=repo:acme/api:ref:refs/heads/main; aud=.,False

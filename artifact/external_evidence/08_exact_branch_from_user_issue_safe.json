@@ -1,0 +1,36 @@
+{
+  "expected_safe": true,
+  "name": "exact_branch_from_user_issue_safe",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:MYORG/operations:ref:refs/heads/main"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "public GitHub issue",
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "source_note": "Issue includes an exact branch trust policy; normalized security label is safe under matching intent.",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials/issues/511",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:MYORG/operations:ref:refs/heads/main"
+    ]
+  }
+}

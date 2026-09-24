@@ -1,0 +1,15 @@
+{
+  "manifest_name": "fedfence-review-object-smoke-manifest",
+  "schema": "fedfence-role-review-manifest-v1",
+  "description": "Anonymous example manifest showing how reviewer-supplied role objects enter the same proof path as the registered cases. Rows reference submitted JSON cases rather than live accounts.",
+  "entries": [
+    {"id": "manifest-safe-branch", "case_path": "cases/01_safe_exact_branch.json", "source_type": "role-review-object", "source_ref": "anonymous/cloud-export/role-001", "source_hash": "sha256:demo-safe-branch"},
+    {"id": "manifest-repo-wildcard", "case_path": "cases/02_repo_wildcard_all_events.json", "source_type": "role-review-object", "source_ref": "anonymous/iac-export/role-002", "source_hash": "sha256:demo-repo-wildcard"},
+    {"id": "manifest-governed-env", "case_path": "cases/06_safe_protected_environment.json", "source_type": "governance-snapshot", "source_ref": "anonymous/env-export/prod", "source_hash": "sha256:demo-governed-env"},
+    {"id": "manifest-missing-sub", "case_path": "cases/07_missing_subject.json", "source_type": "role-review-object", "source_ref": "anonymous/cloud-export/role-007", "source_hash": "sha256:demo-missing-sub"},
+    {"id": "manifest-public-doc-branch", "case_path": "public_examples/11_aws_exact_branch_safe.json", "source_type": "source-backed-normalized-row", "source_ref": "public-doc/example-branch", "source_hash": "sha256:demo-public-branch"},
+    {"id": "manifest-public-env", "case_path": "public_examples/20_github_oidc_ref_environment_with_governance_safe.json", "source_type": "source-backed-normalized-row", "source_ref": "public-doc/example-env", "source_hash": "sha256:demo-public-env"},
+    {"id": "manifest-challenge-pr", "case_path": "external_evidence/05_configure_credentials_pull_request_review_wildcard_issue.json", "source_type": "optional-public-challenge", "source_ref": "public-issue/example-pr", "source_hash": "sha256:demo-challenge-pr"},
+    {"id": "manifest-challenge-exact", "case_path": "external_evidence/08_exact_branch_from_user_issue_safe.json", "source_type": "optional-public-challenge", "source_ref": "public-issue/example-exact", "source_hash": "sha256:demo-challenge-exact"}
+  ]
+}

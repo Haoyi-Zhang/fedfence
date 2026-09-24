@@ -1,0 +1,6 @@
+{
+  "findings": [],
+  "safe": true,
+  "source": "GitHub environment subject guidance",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "branch_and_environment_protected",
+  "owner": "acme",
+  "repository": "api",
+  "exports": {
+    "branches": [
+      {"name": "main", "protected": true, "required_reviews": 2, "required_status_checks": ["build", "test"]}
+    ],
+    "environments": [
+      {"name": "prod", "reviewers": 2, "deployment_branches": ["main"], "prevent_self_review": true}
+    ]
+  },
+  "premises": [
+    {"kind": "protected_branch", "branch": "main", "expected": true},
+    {"kind": "protected_environment", "environment": "prod", "branch": "main", "expected": true}
+  ]
+}

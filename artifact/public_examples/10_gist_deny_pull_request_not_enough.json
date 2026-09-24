@@ -1,0 +1,49 @@
+{
+  "name": "gist_deny_pull_request_not_enough",
+  "public_source": "Public Terraform gist using repo wildcard plus pull-request deny",
+  "source_url": "https://gist.github.com/npalm/8f796f57fcdc95b09699baf330294a93",
+  "expected_safe": false,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:demo/oidc:*"
+          }
+        }
+      },
+      {
+        "Effect": "Deny",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringNotLike": {
+            "token.actions.githubusercontent.com:sub": "repo:demo/oidc:pull_request"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:demo/oidc:ref:refs/heads/main"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  }
+}

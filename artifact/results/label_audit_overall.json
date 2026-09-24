@@ -1,0 +1,10 @@
+{
+  "agreements": 65,
+  "optional_public_issue_rows": 8,
+  "passed": true,
+  "public_rows": 20,
+  "purpose": "standalone finite-domain audit of expected labels; not the analyzer or certificate verifier",
+  "registered_rows": 37,
+  "rows": 65,
+  "uses_fedfence_imports": false
+}

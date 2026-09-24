@@ -1,0 +1,24 @@
+{
+  "checked_candidate_narrowings": 248832,
+  "checked_triples": 32768,
+  "failures": [],
+  "formula": "P_star = P \u2229 (I \u222a (U \\ G))",
+  "passed": true,
+  "universe_size": 5,
+  "wrong_formula": "P \u2229 (I \u222a G)",
+  "wrong_formula_counterexample": {
+    "G": [],
+    "I": [],
+    "P": [
+      "u0"
+    ],
+    "correct_star": [
+      "u0"
+    ],
+    "safe_Q": [
+      "u0"
+    ],
+    "wrong_formula": []
+  },
+  "wrong_formula_counterexample_found": true
+}

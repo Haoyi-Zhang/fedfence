@@ -1,0 +1,36 @@
+{
+  "expected_safe": false,
+  "name": "marketplace_org_repo_wildcard",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringLike": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:ORGANIZATION_OR_USERNAME/*"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "GitHub Marketplace action page",
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "source_note": "Marketplace example admits all repositories under an account when the intent is one repository branch.",
+  "source_url": "https://github.com/marketplace/actions/aws-iam-assume-role",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:ORGANIZATION_OR_USERNAME/project:ref:refs/heads/main"
+    ]
+  }
+}

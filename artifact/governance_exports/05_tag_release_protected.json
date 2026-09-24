@@ -1,0 +1,16 @@
+{
+  "name": "tag_release_protected",
+  "owner": "acme",
+  "repository": "api",
+  "exports": {
+    "branches": [],
+    "tags": [
+      {"pattern": "v*", "protected": true, "required_reviews": 1}
+    ],
+    "environments": []
+  },
+  "premises": [
+    {"kind": "protected_tag", "tag": "v1.2.3", "expected": true},
+    {"kind": "protected_tag", "tag": "beta", "expected": false}
+  ]
+}

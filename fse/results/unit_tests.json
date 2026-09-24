@@ -1,0 +1,8 @@
+{
+  "errors": 0,
+  "evidence_type": "local synthetic regression tests, not deployment evidence",
+  "failures": 0,
+  "passed": true,
+  "skipped": 0,
+  "tests_run": 79
+}

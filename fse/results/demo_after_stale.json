@@ -1,0 +1,20 @@
+{
+  "cache_used_for_verdict": false,
+  "changed_fields": [],
+  "deployment_authorized": false,
+  "exit_code": 2,
+  "findings": [
+    {
+      "code": "stale-snapshot",
+      "detail": "governance: snapshot age outside reviewed bound"
+    }
+  ],
+  "replay_ok": false,
+  "reviewer_identity_verified": false,
+  "runtime_provider_behavior_verified": false,
+  "schema": "fedfence-gate-result-v1",
+  "scope": "relative to supplied snapshots and reviewed specification; not live-cloud safety",
+  "source_authenticity_verified": false,
+  "verdict": "unknown",
+  "workflow_reachability_checked": false
+}

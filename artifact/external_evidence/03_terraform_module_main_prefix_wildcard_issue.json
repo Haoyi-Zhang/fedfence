@@ -1,0 +1,36 @@
+{
+  "expected_safe": false,
+  "name": "terraform_module_main_prefix_wildcard_issue",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringLike": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:dejan-mladenovski/my-repo:ref:refs/heads/main*"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "public GitHub issue",
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "source_note": "Issue discusses main* branch prefix and the security implication of a branch such as main-vulnerable.",
+  "source_url": "https://github.com/terraform-aws-modules/terraform-aws-iam/issues/522",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:dejan-mladenovski/my-repo:ref:refs/heads/main"
+    ]
+  }
+}

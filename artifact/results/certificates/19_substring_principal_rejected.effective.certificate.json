@@ -1,0 +1,116 @@
+{
+  "case": {
+    "expected_safe": false,
+    "name": "substring_principal_rejected",
+    "policy": {
+      "Statement": [
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringEquals": {
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+              "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main"
+            }
+          },
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com.evil.example"
+          }
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "repository_governance": {
+      "protected_environments": []
+    },
+    "spec": {
+      "allowed_audiences": [
+        "sts.amazonaws.com"
+      ],
+      "allowed_subjects": [
+        "repo:acme/api:ref:refs/heads/main"
+      ]
+    }
+  },
+  "certificate_components": [
+    "PrincipalCert",
+    "ClaimKeyCert",
+    "ConditionErasureCert",
+    "IssuerProjectionCert",
+    "EffectiveAllowMinusDenyCert",
+    "GovernanceCert",
+    "UnsupportedBoundaryCert",
+    "ReplayWitnessCert",
+    "SelectedClaimProjectionCert"
+  ],
+  "judgment": "effective-claim-product-admission",
+  "kind": "fedfence-effective-case-certificate",
+  "name": "substring_principal_rejected",
+  "policy_profile": {
+    "allows": [
+      {
+        "allow_overapprox_core": false,
+        "aud_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "deny_exact_core": false,
+        "effect": "Allow",
+        "exact_github_principal": false,
+        "index": 0,
+        "malformed_principal": true,
+        "mixed_principal": false,
+        "principal_federated": [
+          "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com.evil.example"
+        ],
+        "principal_wildcard": false,
+        "raw_condition_keys": [
+          "token.actions.githubusercontent.com:aud",
+          "token.actions.githubusercontent.com:sub"
+        ],
+        "selected_claim_groups": {},
+        "sub_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "repo:acme/api:ref:refs/heads/main"
+            ]
+          }
+        ],
+        "unsupported_claim_keys": [],
+        "unsupported_conditions": [],
+        "unsupported_principal": false,
+        "unsupported_statement_fields": []
+      }
+    ],
+    "denies": []
+  },
+  "replay_summary": {
+    "all_kinds": [
+      "non-github-allow-oidc-principal"
+    ],
+    "blocking_kinds": [
+      "non-github-allow-oidc-principal"
+    ],
+    "findings": [
+      {
+        "blocking": true,
+        "kind": "non-github-allow-oidc-principal",
+        "message": "Allow statement does not name the exact GitHub OIDC provider.",
+        "severity": "high",
+        "statement": 0,
+        "witness": ""
+      }
+    ],
+    "safe": false,
+    "witnesses": [
+      ""
+    ]
+  },
+  "verdict": "unsafe",
+  "version": 5
+}

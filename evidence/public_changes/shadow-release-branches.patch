@@ -1,0 +1,12 @@
+Repository: shadow-architect-dev/aws-landing-zone
+Commit: f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1
+File: terraform/modules/shared_services/main.tf
+Commit message: feat: restrict GitHub OIDC trust policy to specific branches
+
+Relevant source hunk (verbatim from the public commit):
+-            "token.actions.githubusercontent.com:sub" = "repo:${var.github_repo}:*"
++            "token.actions.githubusercontent.com:sub" = [
++              "repo:${var.github_repo}:ref:refs/heads/main",
++              "repo:${var.github_repo}:ref:refs/heads/develop",
++              "repo:${var.github_repo}:ref:refs/heads/release/*"
++            ]

@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 68,
+  "allow_subject_states": 70,
+  "findings": [],
+  "intended_subject_edges": 70,
+  "intended_subject_states": 72,
+  "name": "safe_deny_removes_bad_audience",
+  "safe": true
+}

@@ -1,0 +1,28 @@
+{
+  "admitted": 2,
+  "finding_kinds": [
+    "event-overgrant"
+  ],
+  "findings": [
+    {
+      "kind": "event-overgrant",
+      "message": "A mintable workflow event satisfies the effective trust predicate but is outside intent.",
+      "state": "dev-prod",
+      "witness_claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/api/.github/workflows/deploy.yml@refs/heads/dev",
+        "ref": "refs/heads/dev",
+        "repository": "acme/api",
+        "repository_custom_properties.tier": "prod",
+        "repository_id": "R_100",
+        "repository_visibility": "private",
+        "sub": "repo:acme/api:environment:prod"
+      }
+    }
+  ],
+  "intended_admitted": 1,
+  "name": "default_environment_subject_is_not_branch_definable",
+  "safe": false,
+  "states": 4
+}

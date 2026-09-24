@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:octo-org/octo-repo:pull_request; aud=sts.amazonaws.com"
+    }
+  ],
+  "safe": false,
+  "source": "GitHub OIDC reference pull_request subject form",
+  "source_url": "https://docs.github.com/actions/reference/openid-connect-reference"
+}

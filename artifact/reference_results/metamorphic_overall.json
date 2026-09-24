@@ -1,0 +1,12 @@
+{
+  "correct": 768,
+  "laws": 6,
+  "median_ms": 3.083,
+  "p95_ms": 5.541,
+  "per_law": 128,
+  "representatives": 6,
+  "total_checks": 768,
+  "transport_mode": true,
+  "transported_checks": 762,
+  "unsafe_checks": 256
+}

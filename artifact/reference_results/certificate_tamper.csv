@@ -1,0 +1,235 @@
+case,tamper,rejected,verifier_note
+01_safe_exact_branch,flip-verdict,True,verdict mismatch
+01_safe_exact_branch,flip-summary-safe,True,safe mismatch
+01_safe_exact_branch,add-fake-allow-profile,True,policy profile mismatch
+01_safe_exact_branch,remove-embedded-case,True,missing embedded case
+01_safe_exact_branch,drop-component-list,True,certificate component manifest mismatch
+02_repo_wildcard_all_events,flip-verdict,True,verdict mismatch
+02_repo_wildcard_all_events,flip-summary-safe,True,safe mismatch
+02_repo_wildcard_all_events,add-fake-allow-profile,True,policy profile mismatch
+02_repo_wildcard_all_events,drop-blocking-kinds,True,blocking_kinds mismatch
+02_repo_wildcard_all_events,replace-witnesses,True,witnesses mismatch
+02_repo_wildcard_all_events,remove-embedded-case,True,missing embedded case
+02_repo_wildcard_all_events,drop-component-list,True,certificate component manifest mismatch
+03_org_wildcard_any_repo,flip-verdict,True,verdict mismatch
+03_org_wildcard_any_repo,flip-summary-safe,True,safe mismatch
+03_org_wildcard_any_repo,add-fake-allow-profile,True,policy profile mismatch
+03_org_wildcard_any_repo,drop-blocking-kinds,True,blocking_kinds mismatch
+03_org_wildcard_any_repo,replace-witnesses,True,witnesses mismatch
+03_org_wildcard_any_repo,remove-embedded-case,True,missing embedded case
+03_org_wildcard_any_repo,drop-component-list,True,certificate component manifest mismatch
+04_pull_request_admitted,flip-verdict,True,verdict mismatch
+04_pull_request_admitted,flip-summary-safe,True,safe mismatch
+04_pull_request_admitted,add-fake-allow-profile,True,policy profile mismatch
+04_pull_request_admitted,drop-blocking-kinds,True,blocking_kinds mismatch
+04_pull_request_admitted,replace-witnesses,True,witnesses mismatch
+04_pull_request_admitted,remove-embedded-case,True,missing embedded case
+04_pull_request_admitted,drop-component-list,True,certificate component manifest mismatch
+05_unprotected_environment,flip-verdict,True,verdict mismatch
+05_unprotected_environment,flip-summary-safe,True,safe mismatch
+05_unprotected_environment,add-fake-allow-profile,True,policy profile mismatch
+05_unprotected_environment,drop-blocking-kinds,True,blocking_kinds mismatch
+05_unprotected_environment,replace-witnesses,True,witnesses mismatch
+05_unprotected_environment,remove-embedded-case,True,missing embedded case
+05_unprotected_environment,drop-component-list,True,certificate component manifest mismatch
+06_safe_protected_environment,flip-verdict,True,verdict mismatch
+06_safe_protected_environment,flip-summary-safe,True,safe mismatch
+06_safe_protected_environment,add-fake-allow-profile,True,policy profile mismatch
+06_safe_protected_environment,remove-embedded-case,True,missing embedded case
+06_safe_protected_environment,drop-component-list,True,certificate component manifest mismatch
+07_missing_subject,flip-verdict,True,verdict mismatch
+07_missing_subject,flip-summary-safe,True,safe mismatch
+07_missing_subject,add-fake-allow-profile,True,policy profile mismatch
+07_missing_subject,drop-blocking-kinds,True,blocking_kinds mismatch
+07_missing_subject,replace-witnesses,True,witnesses mismatch
+07_missing_subject,remove-embedded-case,True,missing embedded case
+07_missing_subject,drop-component-list,True,certificate component manifest mismatch
+08_audience_wildcard,flip-verdict,True,verdict mismatch
+08_audience_wildcard,flip-summary-safe,True,safe mismatch
+08_audience_wildcard,add-fake-allow-profile,True,policy profile mismatch
+08_audience_wildcard,drop-blocking-kinds,True,blocking_kinds mismatch
+08_audience_wildcard,replace-witnesses,True,witnesses mismatch
+08_audience_wildcard,remove-embedded-case,True,missing embedded case
+08_audience_wildcard,drop-component-list,True,certificate component manifest mismatch
+09_multi_statement_broad,flip-verdict,True,verdict mismatch
+09_multi_statement_broad,flip-summary-safe,True,safe mismatch
+09_multi_statement_broad,add-fake-allow-profile,True,policy profile mismatch
+09_multi_statement_broad,drop-blocking-kinds,True,blocking_kinds mismatch
+09_multi_statement_broad,replace-witnesses,True,witnesses mismatch
+09_multi_statement_broad,remove-embedded-case,True,missing embedded case
+09_multi_statement_broad,drop-component-list,True,certificate component manifest mismatch
+10_tag_wildcard_overgrant,flip-verdict,True,verdict mismatch
+10_tag_wildcard_overgrant,flip-summary-safe,True,safe mismatch
+10_tag_wildcard_overgrant,add-fake-allow-profile,True,policy profile mismatch
+10_tag_wildcard_overgrant,drop-blocking-kinds,True,blocking_kinds mismatch
+10_tag_wildcard_overgrant,replace-witnesses,True,witnesses mismatch
+10_tag_wildcard_overgrant,remove-embedded-case,True,missing embedded case
+10_tag_wildcard_overgrant,drop-component-list,True,certificate component manifest mismatch
+11_safe_conjunctive_refinement,flip-verdict,True,verdict mismatch
+11_safe_conjunctive_refinement,flip-summary-safe,True,safe mismatch
+11_safe_conjunctive_refinement,add-fake-allow-profile,True,policy profile mismatch
+11_safe_conjunctive_refinement,remove-embedded-case,True,missing embedded case
+11_safe_conjunctive_refinement,drop-component-list,True,certificate component manifest mismatch
+12_conjunctive_ref_broad,flip-verdict,True,verdict mismatch
+12_conjunctive_ref_broad,flip-summary-safe,True,safe mismatch
+12_conjunctive_ref_broad,add-fake-allow-profile,True,policy profile mismatch
+12_conjunctive_ref_broad,drop-blocking-kinds,True,blocking_kinds mismatch
+12_conjunctive_ref_broad,replace-witnesses,True,witnesses mismatch
+12_conjunctive_ref_broad,remove-embedded-case,True,missing embedded case
+12_conjunctive_ref_broad,drop-component-list,True,certificate component manifest mismatch
+13_safe_dynamic_alphabet,flip-verdict,True,verdict mismatch
+13_safe_dynamic_alphabet,flip-summary-safe,True,safe mismatch
+13_safe_dynamic_alphabet,add-fake-allow-profile,True,policy profile mismatch
+13_safe_dynamic_alphabet,remove-embedded-case,True,missing embedded case
+13_safe_dynamic_alphabet,drop-component-list,True,certificate component manifest mismatch
+14_non_github_oidc_principal,flip-verdict,True,verdict mismatch
+14_non_github_oidc_principal,flip-summary-safe,True,safe mismatch
+14_non_github_oidc_principal,add-fake-allow-profile,True,policy profile mismatch
+14_non_github_oidc_principal,drop-blocking-kinds,True,blocking_kinds mismatch
+14_non_github_oidc_principal,replace-witnesses,True,witnesses mismatch
+14_non_github_oidc_principal,remove-embedded-case,True,missing embedded case
+14_non_github_oidc_principal,drop-component-list,True,certificate component manifest mismatch
+15_wildcard_federated_principal,flip-verdict,True,verdict mismatch
+15_wildcard_federated_principal,flip-summary-safe,True,safe mismatch
+15_wildcard_federated_principal,add-fake-allow-profile,True,policy profile mismatch
+15_wildcard_federated_principal,drop-blocking-kinds,True,blocking_kinds mismatch
+15_wildcard_federated_principal,replace-witnesses,True,witnesses mismatch
+15_wildcard_federated_principal,remove-embedded-case,True,missing embedded case
+15_wildcard_federated_principal,drop-component-list,True,certificate component manifest mismatch
+16_mixed_principal_outside_core,flip-verdict,True,verdict mismatch
+16_mixed_principal_outside_core,flip-summary-safe,True,safe mismatch
+16_mixed_principal_outside_core,add-fake-allow-profile,True,policy profile mismatch
+16_mixed_principal_outside_core,drop-blocking-kinds,True,blocking_kinds mismatch
+16_mixed_principal_outside_core,replace-witnesses,True,witnesses mismatch
+16_mixed_principal_outside_core,remove-embedded-case,True,missing embedded case
+16_mixed_principal_outside_core,drop-component-list,True,certificate component manifest mismatch
+17_safe_effective_deny_narrows_finite_overgrant,flip-verdict,True,verdict mismatch
+17_safe_effective_deny_narrows_finite_overgrant,flip-summary-safe,True,safe mismatch
+17_safe_effective_deny_narrows_finite_overgrant,add-fake-allow-profile,True,policy profile mismatch
+17_safe_effective_deny_narrows_finite_overgrant,remove-embedded-case,True,missing embedded case
+17_safe_effective_deny_narrows_finite_overgrant,drop-component-list,True,certificate component manifest mismatch
+18_unqualified_claim_keys_ineffective,flip-verdict,True,verdict mismatch
+18_unqualified_claim_keys_ineffective,flip-summary-safe,True,safe mismatch
+18_unqualified_claim_keys_ineffective,add-fake-allow-profile,True,policy profile mismatch
+18_unqualified_claim_keys_ineffective,drop-blocking-kinds,True,blocking_kinds mismatch
+18_unqualified_claim_keys_ineffective,replace-witnesses,True,witnesses mismatch
+18_unqualified_claim_keys_ineffective,remove-embedded-case,True,missing embedded case
+18_unqualified_claim_keys_ineffective,drop-component-list,True,certificate component manifest mismatch
+19_substring_principal_rejected,flip-verdict,True,verdict mismatch
+19_substring_principal_rejected,flip-summary-safe,True,safe mismatch
+19_substring_principal_rejected,add-fake-allow-profile,True,policy profile mismatch
+19_substring_principal_rejected,drop-blocking-kinds,True,blocking_kinds mismatch
+19_substring_principal_rejected,replace-witnesses,True,witnesses mismatch
+19_substring_principal_rejected,remove-embedded-case,True,missing embedded case
+19_substring_principal_rejected,drop-component-list,True,certificate component manifest mismatch
+20_cross_repository_environment_governance,flip-verdict,True,verdict mismatch
+20_cross_repository_environment_governance,flip-summary-safe,True,safe mismatch
+20_cross_repository_environment_governance,add-fake-allow-profile,True,policy profile mismatch
+20_cross_repository_environment_governance,drop-blocking-kinds,True,blocking_kinds mismatch
+20_cross_repository_environment_governance,replace-witnesses,True,witnesses mismatch
+20_cross_repository_environment_governance,remove-embedded-case,True,missing embedded case
+20_cross_repository_environment_governance,drop-component-list,True,certificate component manifest mismatch
+21_audience_issuer_intersection_safe,flip-verdict,True,verdict mismatch
+21_audience_issuer_intersection_safe,flip-summary-safe,True,safe mismatch
+21_audience_issuer_intersection_safe,add-fake-allow-profile,True,policy profile mismatch
+21_audience_issuer_intersection_safe,remove-embedded-case,True,missing embedded case
+21_audience_issuer_intersection_safe,drop-component-list,True,certificate component manifest mismatch
+22_literal_star_audience_unsafe,flip-verdict,True,verdict mismatch
+22_literal_star_audience_unsafe,flip-summary-safe,True,safe mismatch
+22_literal_star_audience_unsafe,add-fake-allow-profile,True,policy profile mismatch
+22_literal_star_audience_unsafe,drop-blocking-kinds,True,blocking_kinds mismatch
+22_literal_star_audience_unsafe,replace-witnesses,True,witnesses mismatch
+22_literal_star_audience_unsafe,remove-embedded-case,True,missing embedded case
+22_literal_star_audience_unsafe,drop-component-list,True,certificate component manifest mismatch
+23_literal_question_audience_unsafe,flip-verdict,True,verdict mismatch
+23_literal_question_audience_unsafe,flip-summary-safe,True,safe mismatch
+23_literal_question_audience_unsafe,add-fake-allow-profile,True,policy profile mismatch
+23_literal_question_audience_unsafe,drop-blocking-kinds,True,blocking_kinds mismatch
+23_literal_question_audience_unsafe,replace-witnesses,True,witnesses mismatch
+23_literal_question_audience_unsafe,remove-embedded-case,True,missing embedded case
+23_literal_question_audience_unsafe,drop-component-list,True,certificate component manifest mismatch
+24_unsupported_allow_condition_erased_safe,flip-verdict,True,verdict mismatch
+24_unsupported_allow_condition_erased_safe,flip-summary-safe,True,safe mismatch
+24_unsupported_allow_condition_erased_safe,add-fake-allow-profile,True,policy profile mismatch
+24_unsupported_allow_condition_erased_safe,replace-witnesses,True,witnesses mismatch
+24_unsupported_allow_condition_erased_safe,remove-embedded-case,True,missing embedded case
+24_unsupported_allow_condition_erased_safe,drop-component-list,True,certificate component manifest mismatch
+25_branch_slash_safe,flip-verdict,True,verdict mismatch
+25_branch_slash_safe,flip-summary-safe,True,safe mismatch
+25_branch_slash_safe,add-fake-allow-profile,True,policy profile mismatch
+25_branch_slash_safe,remove-embedded-case,True,missing embedded case
+25_branch_slash_safe,drop-component-list,True,certificate component manifest mismatch
+26_encoded_colon_environment_safe,flip-verdict,True,verdict mismatch
+26_encoded_colon_environment_safe,flip-summary-safe,True,safe mismatch
+26_encoded_colon_environment_safe,add-fake-allow-profile,True,policy profile mismatch
+26_encoded_colon_environment_safe,remove-embedded-case,True,missing embedded case
+26_encoded_colon_environment_safe,drop-component-list,True,certificate component manifest mismatch
+27_unsupported_deny_cannot_discharge_unsafe,flip-verdict,True,verdict mismatch
+27_unsupported_deny_cannot_discharge_unsafe,flip-summary-safe,True,safe mismatch
+27_unsupported_deny_cannot_discharge_unsafe,add-fake-allow-profile,True,policy profile mismatch
+27_unsupported_deny_cannot_discharge_unsafe,drop-blocking-kinds,True,blocking_kinds mismatch
+27_unsupported_deny_cannot_discharge_unsafe,replace-witnesses,True,witnesses mismatch
+27_unsupported_deny_cannot_discharge_unsafe,remove-embedded-case,True,missing embedded case
+27_unsupported_deny_cannot_discharge_unsafe,drop-component-list,True,certificate component manifest mismatch
+28_safe_deny_removes_bad_audience,flip-verdict,True,verdict mismatch
+28_safe_deny_removes_bad_audience,flip-summary-safe,True,safe mismatch
+28_safe_deny_removes_bad_audience,add-fake-allow-profile,True,policy profile mismatch
+28_safe_deny_removes_bad_audience,remove-embedded-case,True,missing embedded case
+28_safe_deny_removes_bad_audience,drop-component-list,True,certificate component manifest mismatch
+29_foreign_provider_claim_key_ignored,flip-verdict,True,verdict mismatch
+29_foreign_provider_claim_key_ignored,flip-summary-safe,True,safe mismatch
+29_foreign_provider_claim_key_ignored,add-fake-allow-profile,True,policy profile mismatch
+29_foreign_provider_claim_key_ignored,drop-blocking-kinds,True,blocking_kinds mismatch
+29_foreign_provider_claim_key_ignored,replace-witnesses,True,witnesses mismatch
+29_foreign_provider_claim_key_ignored,remove-embedded-case,True,missing embedded case
+29_foreign_provider_claim_key_ignored,drop-component-list,True,certificate component manifest mismatch
+30_safe_equals_literal_question_subject,flip-verdict,True,verdict mismatch
+30_safe_equals_literal_question_subject,flip-summary-safe,True,safe mismatch
+30_safe_equals_literal_question_subject,add-fake-allow-profile,True,policy profile mismatch
+30_safe_equals_literal_question_subject,remove-embedded-case,True,missing embedded case
+30_safe_equals_literal_question_subject,drop-component-list,True,certificate component manifest mismatch
+31_like_question_does_not_match_literal_intent,flip-verdict,True,verdict mismatch
+31_like_question_does_not_match_literal_intent,flip-summary-safe,True,safe mismatch
+31_like_question_does_not_match_literal_intent,add-fake-allow-profile,True,policy profile mismatch
+31_like_question_does_not_match_literal_intent,drop-blocking-kinds,True,blocking_kinds mismatch
+31_like_question_does_not_match_literal_intent,replace-witnesses,True,witnesses mismatch
+31_like_question_does_not_match_literal_intent,remove-embedded-case,True,missing embedded case
+31_like_question_does_not_match_literal_intent,drop-component-list,True,certificate component manifest mismatch
+32_foranyvalue_operator_outside_core,flip-verdict,True,verdict mismatch
+32_foranyvalue_operator_outside_core,flip-summary-safe,True,safe mismatch
+32_foranyvalue_operator_outside_core,add-fake-allow-profile,True,policy profile mismatch
+32_foranyvalue_operator_outside_core,drop-blocking-kinds,True,blocking_kinds mismatch
+32_foranyvalue_operator_outside_core,replace-witnesses,True,witnesses mismatch
+32_foranyvalue_operator_outside_core,remove-embedded-case,True,missing embedded case
+32_foranyvalue_operator_outside_core,drop-component-list,True,certificate component manifest mismatch
+33_selected_claim_default_environment_not_branch_definable,flip-verdict,True,verdict mismatch
+33_selected_claim_default_environment_not_branch_definable,flip-summary-safe,True,safe mismatch
+33_selected_claim_default_environment_not_branch_definable,add-fake-allow-profile,True,policy profile mismatch
+33_selected_claim_default_environment_not_branch_definable,drop-blocking-kinds,True,blocking_kinds mismatch
+33_selected_claim_default_environment_not_branch_definable,replace-witnesses,True,witnesses mismatch
+33_selected_claim_default_environment_not_branch_definable,remove-embedded-case,True,missing embedded case
+33_selected_claim_default_environment_not_branch_definable,drop-component-list,True,certificate component manifest mismatch
+34_selected_claim_ref_environment_repository_id_safe,flip-verdict,True,verdict mismatch
+34_selected_claim_ref_environment_repository_id_safe,flip-summary-safe,True,safe mismatch
+34_selected_claim_ref_environment_repository_id_safe,add-fake-allow-profile,True,policy profile mismatch
+34_selected_claim_ref_environment_repository_id_safe,remove-embedded-case,True,missing embedded case
+34_selected_claim_ref_environment_repository_id_safe,drop-component-list,True,certificate component manifest mismatch
+35_selected_claim_workflow_ref_safe,flip-verdict,True,verdict mismatch
+35_selected_claim_workflow_ref_safe,flip-summary-safe,True,safe mismatch
+35_selected_claim_workflow_ref_safe,add-fake-allow-profile,True,policy profile mismatch
+35_selected_claim_workflow_ref_safe,remove-embedded-case,True,missing embedded case
+35_selected_claim_workflow_ref_safe,drop-component-list,True,certificate component manifest mismatch
+36_selected_claim_custom_property_without_ref_unsafe,flip-verdict,True,verdict mismatch
+36_selected_claim_custom_property_without_ref_unsafe,flip-summary-safe,True,safe mismatch
+36_selected_claim_custom_property_without_ref_unsafe,add-fake-allow-profile,True,policy profile mismatch
+36_selected_claim_custom_property_without_ref_unsafe,drop-blocking-kinds,True,blocking_kinds mismatch
+36_selected_claim_custom_property_without_ref_unsafe,replace-witnesses,True,witnesses mismatch
+36_selected_claim_custom_property_without_ref_unsafe,remove-embedded-case,True,missing embedded case
+36_selected_claim_custom_property_without_ref_unsafe,drop-component-list,True,certificate component manifest mismatch
+37_action_wildcard_outside_core,flip-verdict,True,verdict mismatch
+37_action_wildcard_outside_core,flip-summary-safe,True,safe mismatch
+37_action_wildcard_outside_core,add-fake-allow-profile,True,policy profile mismatch
+37_action_wildcard_outside_core,drop-blocking-kinds,True,blocking_kinds mismatch
+37_action_wildcard_outside_core,replace-witnesses,True,witnesses mismatch
+37_action_wildcard_outside_core,remove-embedded-case,True,missing embedded case
+37_action_wildcard_outside_core,drop-component-list,True,certificate component manifest mismatch

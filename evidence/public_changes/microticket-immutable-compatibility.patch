@@ -1,0 +1,14 @@
+Repository: sdunster/microticket
+Commit: 79abbeceae16b22f22a78770d580e44058c9f559
+Files: infra/iam_oidc.tf; infra/variables.tf
+Commit message: Accept GitHub's immutable OIDC subject in the deploy role's trust policy
+
+Relevant source hunk (verbatim from the public commit):
+-          "token.actions.githubusercontent.com:sub" = "repo:${var.github_repo}:ref:refs/heads/prod"
++          "token.actions.githubusercontent.com:sub" = compact([
++            "repo:${var.github_repo}:ref:refs/heads/prod",
++            var.github_repo_immutable == "" ? "" : "repo:${var.github_repo_immutable}:ref:refs/heads/prod",
++          ])
+
+The commit message records the runtime token observed through CloudTrail:
+repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod

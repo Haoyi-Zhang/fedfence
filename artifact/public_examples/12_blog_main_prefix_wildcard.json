@@ -1,0 +1,37 @@
+{
+  "name": "blog_main_prefix_wildcard",
+  "public_source": "Public blog branch-prefix wildcard example",
+  "source_url": "https://040code.github.io/2022/12/02/oidc-part-1",
+  "expected_safe": false,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:040code/blog-oidc-part-1:ref:refs/heads/main*"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:040code/blog-oidc-part-1:ref:refs/heads/main"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+Repository: manyiu/vazue-playlang
+Commit: 8ebbad974724acace02bbb1d7462a7529235aabd
+Files: infra/cdk/lib/github-config.ts; infra/cdk/lib/github-config.test.ts; infra/cdk/README.md
+Commit message: Restrict GitHub OIDC deploy role trust to this repository.
+
+Relevant source hunk (verbatim from the public commit):
+-  return [`repo:${owner}/*:*`, `repo:${owner}@${ownerId}/*:*`];
++  return [
++    `repo:${owner}/${repo}:*`,
++    `repo:${owner}@${ownerId}/${repo}@${repoId}:*`,
++  ];

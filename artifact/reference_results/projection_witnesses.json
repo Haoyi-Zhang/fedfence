@@ -1,0 +1,88 @@
+{
+  "prod-env-main-or-release/default-subject-only": {
+    "claim": [
+      "repo:acme/api:environment:prod"
+    ],
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "feature",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  },
+  "prod-env-main-or-release/documented-subject-template": {
+    "claim": [
+      "acme/api",
+      "environment:prod"
+    ],
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "feature",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  },
+  "prod-env-main/default-subject-only": {
+    "claim": [
+      "repo:acme/api:environment:prod"
+    ],
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "release",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  },
+  "prod-env-main/documented-subject-template": {
+    "claim": [
+      "acme/api",
+      "environment:prod"
+    ],
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "release",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  }
+}

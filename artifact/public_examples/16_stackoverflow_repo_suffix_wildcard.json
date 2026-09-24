@@ -1,0 +1,37 @@
+{
+  "name": "stackoverflow_repo_suffix_wildcard",
+  "public_source": "StackOverflow troubleshooting trust-policy wildcard",
+  "source_url": "https://stackoverflow.com/questions/77969948/github-actions-with-aws-oidc-login-not-working",
+  "expected_safe": false,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:headincloud/hic-public-dns:*"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:headincloud/hic-public-dns:ref:refs/heads/main"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  }
+}

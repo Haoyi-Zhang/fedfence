@@ -1,0 +1,22 @@
+{
+  "unit_id": "REQUIRED-stable-id",
+  "source_kind": "public-repository",
+  "repository": "REQUIRED-owner/repo",
+  "commit": "REQUIRED-full-commit-SHA",
+  "path": "REQUIRED-file-and-role-location",
+  "source_sha256": null,
+  "extraction": "not-run",
+  "support": "not-run",
+  "oracle": {
+    "label": "unknown",
+    "provenance": "not-available",
+    "evidence_ref": null,
+    "annotator_1": null,
+    "annotator_2": null,
+    "initial_disagreement": null,
+    "owner_confirmation": null
+  },
+  "fedfence": "not-run",
+  "baseline_runs": [],
+  "notes": "Template only. Do not count as a collected unit."
+}

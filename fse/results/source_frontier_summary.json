@@ -1,0 +1,74 @@
+{
+  "audience_constraints": {
+    "exact": 16,
+    "inherited": 2,
+    "missing": 6
+  },
+  "interpretation": "query-defined source-normalization frontier sample; not prevalence, safety, or extractor accuracy",
+  "literal_or_constant_foldable": 7,
+  "missing_audience_condition_records": 6,
+  "primary_classes": {
+    "constant_foldable_hcl": 2,
+    "host_language_generation": 1,
+    "literal_source_policy": 5,
+    "requires_instantiation": 13,
+    "requires_module_evaluation": 2,
+    "unsupported_operator_or_instantiation": 1
+  },
+  "requires_instantiation_or_host_evaluation": 17,
+  "sample_size": 24,
+  "sampling_statement": "Query-defined convenience sample: pinned public GitHub code-search results containing the GitHub OIDC subject condition. It measures source-normalization frontiers, not prevalence or correctness.",
+  "schema": "fedfence-source-frontier-result-v1",
+  "top_features": [
+    [
+      "repo_wildcard",
+      7
+    ],
+    [
+      "for_expression",
+      4
+    ],
+    [
+      "dynamic_repository",
+      4
+    ],
+    [
+      "direct_literal",
+      3
+    ],
+    [
+      "formatlist",
+      2
+    ],
+    [
+      "legacy_and_immutable_subjects",
+      2
+    ],
+    [
+      "terraform_module_call",
+      2
+    ],
+    [
+      "dynamic_branches",
+      2
+    ],
+    [
+      "environments",
+      2
+    ],
+    [
+      "direct_literals",
+      2
+    ],
+    [
+      "dynamic_owner_repo",
+      2
+    ],
+    [
+      "caller_supplied_repository_patterns",
+      1
+    ]
+  ],
+  "unique_repositories": 24,
+  "unsupported_operator_records": 1
+}

@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 86,
+  "allow_subject_states": 35,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:acme/api:pull_request; aud=sts.amazonaws.com"
+    }
+  ],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "conjunctive_ref_broad",
+  "safe": false
+}

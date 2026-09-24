@@ -1,0 +1,267 @@
+{
+  "counts": {
+    "eligible": 22,
+    "outside-gate-profile": 11,
+    "separate-finite-event-backend": 4
+  },
+  "denominator": "37 existing curated cases, not a sample of deployments",
+  "meaning": "syntax profile eligibility only; no prevalence or accuracy estimate",
+  "rows": [
+    {
+      "case": "01_safe_exact_branch.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "02_repo_wildcard_all_events.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "03_org_wildcard_any_repo.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "04_pull_request_admitted.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "05_unprotected_environment.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "06_safe_protected_environment.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "07_missing_subject.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "08_audience_wildcard.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "09_multi_statement_broad.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "10_tag_wildcard_overgrant.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "11_safe_conjunctive_refinement.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "12_conjunctive_ref_broad.json",
+      "issues": [
+        {
+          "code": "unsupported-operator",
+          "detail": "ArnLike",
+          "location": "Statement[0].Condition.ArnLike"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "13_safe_dynamic_alphabet.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "14_non_github_oidc_principal.json",
+      "issues": [
+        {
+          "code": "unsupported-principal",
+          "detail": "exact GitHub OIDC provider ARN required",
+          "location": "Statement[0].Principal"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "15_wildcard_federated_principal.json",
+      "issues": [
+        {
+          "code": "unsupported-principal",
+          "detail": "single Federated principal required",
+          "location": "Statement[0].Principal"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "16_mixed_principal_outside_core.json",
+      "issues": [
+        {
+          "code": "unsupported-principal",
+          "detail": "single Federated principal required",
+          "location": "Statement[0].Principal"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "17_safe_effective_deny_narrows_finite_overgrant.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "18_unqualified_claim_keys_ineffective.json",
+      "issues": [
+        {
+          "code": "unsupported-claim",
+          "detail": "coordinate not consumed by the two-claim backend",
+          "location": "Statement[0].Condition.StringEquals.aud"
+        },
+        {
+          "code": "unsupported-claim",
+          "detail": "coordinate not consumed by the two-claim backend",
+          "location": "Statement[0].Condition.StringEquals.sub"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "19_substring_principal_rejected.json",
+      "issues": [
+        {
+          "code": "unsupported-principal",
+          "detail": "exact GitHub OIDC provider ARN required",
+          "location": "Statement[0].Principal"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "20_cross_repository_environment_governance.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "21_audience_issuer_intersection_safe.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "22_literal_star_audience_unsafe.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "23_literal_question_audience_unsafe.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "24_unsupported_allow_condition_erased_safe.json",
+      "issues": [
+        {
+          "code": "unsupported-claim",
+          "detail": "coordinate not consumed by the two-claim backend",
+          "location": "Statement[0].Condition.StringEquals.aws:PrincipalTag/release"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "25_branch_slash_safe.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "26_encoded_colon_environment_safe.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "27_unsupported_deny_cannot_discharge_unsafe.json",
+      "issues": [
+        {
+          "code": "unsupported-claim",
+          "detail": "coordinate not consumed by the two-claim backend",
+          "location": "Statement[1].Condition.StringEquals.sub"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "28_safe_deny_removes_bad_audience.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "29_foreign_provider_claim_key_ignored.json",
+      "issues": [
+        {
+          "code": "unsupported-claim",
+          "detail": "coordinate not consumed by the two-claim backend",
+          "location": "Statement[0].Condition.StringEquals.accounts.google.com:sub"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "30_safe_equals_literal_question_subject.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "31_like_question_does_not_match_literal_intent.json",
+      "issues": [],
+      "status": "eligible"
+    },
+    {
+      "case": "32_foranyvalue_operator_outside_core.json",
+      "issues": [
+        {
+          "code": "unsupported-operator",
+          "detail": "ForAnyValue:StringEquals",
+          "location": "Statement[0].Condition.ForAnyValue:StringEquals"
+        }
+      ],
+      "status": "outside-gate-profile"
+    },
+    {
+      "case": "33_selected_claim_default_environment_not_branch_definable.json",
+      "issues": [],
+      "status": "separate-finite-event-backend"
+    },
+    {
+      "case": "34_selected_claim_ref_environment_repository_id_safe.json",
+      "issues": [],
+      "status": "separate-finite-event-backend"
+    },
+    {
+      "case": "35_selected_claim_workflow_ref_safe.json",
+      "issues": [],
+      "status": "separate-finite-event-backend"
+    },
+    {
+      "case": "36_selected_claim_custom_property_without_ref_unsafe.json",
+      "issues": [],
+      "status": "separate-finite-event-backend"
+    },
+    {
+      "case": "37_action_wildcard_outside_core.json",
+      "issues": [
+        {
+          "code": "unsupported-action",
+          "detail": "singleton AssumeRoleWithWebIdentity required",
+          "location": "Statement[0].Action"
+        }
+      ],
+      "status": "outside-gate-profile"
+    }
+  ]
+}

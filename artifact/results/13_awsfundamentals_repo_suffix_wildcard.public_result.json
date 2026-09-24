@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:awsfundamentals-hq/awsf-infra:pull_request; aud=sts.amazonaws.com"
+    }
+  ],
+  "safe": false,
+  "source": "Public Pulumi trust-policy wildcard example",
+  "source_url": "https://awsfundamentals.com/blog/github-actions-to-aws"
+}

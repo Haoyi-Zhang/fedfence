@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "unprotected-environment",
+      "message": "Environment subject requires a repository-scoped protected-environment governance fact.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:your-org/your-repo:environment:production; governance=your-org/your-repo:production"
+    }
+  ],
+  "safe": false,
+  "source": "Public environment-specific trust example without governance premise",
+  "source_url": "https://oneuptime.com/blog/post/2026-01-25-github-actions-oidc-aws/view"
+}

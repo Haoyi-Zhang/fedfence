@@ -1,0 +1,8 @@
+Repository: ArriagadaInc/tpi-backend
+Commit: 8a67b6071b08fb363b664222a28d7250c29ed8cf
+File: deployment/iam/tpi-github-actions-dev-ecr-role-trust.json
+Commit message: fix: restrict GitHub OIDC release role to main
+
+Relevant source hunk (verbatim from the public commit):
+-          "token.actions.githubusercontent.com:sub": "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth"
++          "token.actions.githubusercontent.com:sub": "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/main"

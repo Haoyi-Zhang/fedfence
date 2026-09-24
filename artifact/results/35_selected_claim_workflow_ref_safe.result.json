@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 1,
+  "allow_subject_states": 4,
+  "findings": [],
+  "intended_subject_edges": 0,
+  "intended_subject_states": 1,
+  "name": "35_selected_claim_workflow_ref_safe",
+  "safe": true
+}

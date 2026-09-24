@@ -1,0 +1,35 @@
+{
+  "name": "environment_exact_without_governance",
+  "public_source": "GitHub environment troubleshooting issue",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials/issues/672",
+  "expected_safe": false,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:sample-org/sample-repo:environment:dev"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:sample-org/sample-repo:environment:dev"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  }
+}

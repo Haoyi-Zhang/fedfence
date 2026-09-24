@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "unprotected-environment",
+      "message": "Environment subject requires a repository-scoped protected-environment governance fact.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:sample-org/sample-repo:environment:dev; governance=sample-org/sample-repo:dev"
+    }
+  ],
+  "safe": false,
+  "source": "GitHub environment troubleshooting issue",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials/issues/672"
+}

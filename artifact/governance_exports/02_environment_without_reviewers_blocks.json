@@ -1,0 +1,16 @@
+{
+  "name": "environment_without_reviewers_blocks",
+  "owner": "acme",
+  "repository": "api",
+  "exports": {
+    "branches": [
+      {"name": "main", "protected": true, "required_reviews": 1, "required_status_checks": ["build"]}
+    ],
+    "environments": [
+      {"name": "prod", "reviewers": 0, "deployment_branches": ["main"], "prevent_self_review": false}
+    ]
+  },
+  "premises": [
+    {"kind": "protected_environment", "environment": "prod", "branch": "main", "expected": false}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 0,
+  "allow_subject_states": 0,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "wildcard-allow-federated-principal",
+      "message": "Federated principal is wildcarded and cannot be certified for one GitHub issuer.",
+      "severity": "high",
+      "statement": 0,
+      "witness": null
+    }
+  ],
+  "intended_subject_edges": 0,
+  "intended_subject_states": 0,
+  "name": "wildcard_federated_principal",
+  "safe": false
+}

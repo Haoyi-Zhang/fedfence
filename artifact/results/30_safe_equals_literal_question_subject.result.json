@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 47,
+  "allow_subject_states": 48,
+  "findings": [],
+  "intended_subject_edges": 48,
+  "intended_subject_states": 49,
+  "name": "safe_equals_literal_question_subject",
+  "safe": true
+}

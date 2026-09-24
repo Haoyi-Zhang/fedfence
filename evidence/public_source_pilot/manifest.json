@@ -1,0 +1,27 @@
+{
+  "unit_id": "public-module-pilot-001",
+  "source_kind": "public-repository",
+  "repository": "terraform-aws-modules/terraform-aws-iam",
+  "commit": "55514b7873c411040395e024a422684998da77c2",
+  "path": "modules/iam-role/main.tf",
+  "access_date": "2026-09-23",
+  "snapshot_kind": "verbatim_excerpt",
+  "excerpt_sha256": "ae9dd25a79ebfec2d9d839502b784a11bb8b2bf494d2e5336dd48546758073c8",
+  "full_source_sha256": null,
+  "extraction": "unresolved-source",
+  "support": "not-assessed-after-instantiation",
+  "fedfence": "unknown",
+  "oracle": {
+    "label": "unknown",
+    "provenance": "not-available",
+    "evidence_ref": null
+  },
+  "owner_confirmed": false,
+  "sampling": "purposive-one-module-boundary-observation",
+  "observed_features": [
+    "dynamic statement",
+    "HCL variable interpolation",
+    "multiple actions",
+    "ForAllValues:StringEquals"
+  ]
+}

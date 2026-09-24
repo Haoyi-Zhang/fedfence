@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:username/myrepo1:pull_request; aud=sts.amazonaws.com"
+    }
+  ],
+  "safe": false,
+  "source": "StackOverflow multiple-repository OIDC pattern",
+  "source_url": "https://stackoverflow.com/questions/78031234/aws-oidc-policy-for-multiple-repositories"
+}

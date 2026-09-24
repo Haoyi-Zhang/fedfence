@@ -1,0 +1,121 @@
+{
+  "case": {
+    "expected_safe": false,
+    "name": "foreign_provider_claim_key_ignored",
+    "policy": {
+      "Statement": [
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringEquals": {
+              "accounts.google.com:sub": "repo:acme/api:ref:refs/heads/main",
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+            }
+          },
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          }
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "repository_governance": {
+      "protected_environments": []
+    },
+    "spec": {
+      "allowed_audiences": [
+        "sts.amazonaws.com"
+      ],
+      "allowed_subjects": [
+        "repo:acme/api:ref:refs/heads/main"
+      ]
+    }
+  },
+  "certificate_components": [
+    "PrincipalCert",
+    "ClaimKeyCert",
+    "ConditionErasureCert",
+    "IssuerProjectionCert",
+    "EffectiveAllowMinusDenyCert",
+    "GovernanceCert",
+    "UnsupportedBoundaryCert",
+    "ReplayWitnessCert",
+    "SelectedClaimProjectionCert"
+  ],
+  "judgment": "effective-claim-product-admission",
+  "kind": "fedfence-effective-case-certificate",
+  "name": "foreign_provider_claim_key_ignored",
+  "policy_profile": {
+    "allows": [
+      {
+        "allow_overapprox_core": true,
+        "aud_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "deny_exact_core": false,
+        "effect": "Allow",
+        "exact_github_principal": true,
+        "index": 0,
+        "malformed_principal": false,
+        "mixed_principal": false,
+        "principal_federated": [
+          "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        ],
+        "principal_wildcard": false,
+        "raw_condition_keys": [
+          "accounts.google.com:sub",
+          "token.actions.githubusercontent.com:aud"
+        ],
+        "selected_claim_groups": {},
+        "sub_groups": [],
+        "unsupported_claim_keys": [
+          "accounts.google.com:sub"
+        ],
+        "unsupported_conditions": [],
+        "unsupported_principal": false,
+        "unsupported_statement_fields": []
+      }
+    ],
+    "denies": []
+  },
+  "replay_summary": {
+    "all_kinds": [
+      "unsupported-allow-claim-key",
+      "subject-overgrant"
+    ],
+    "blocking_kinds": [
+      "subject-overgrant"
+    ],
+    "findings": [
+      {
+        "blocking": false,
+        "kind": "unsupported-allow-claim-key",
+        "message": "Unsupported or unqualified Allow claim keys are erased as monotone restrictions.",
+        "severity": "medium",
+        "statement": 0,
+        "witness": ""
+      },
+      {
+        "blocking": true,
+        "kind": "subject-overgrant",
+        "message": "Effective policy admits an issuer subject outside intent.",
+        "severity": "high",
+        "statement": 0,
+        "witness": "sub=repo:./.:pull_request; aud=sts.amazonaws.com"
+      }
+    ],
+    "safe": false,
+    "witnesses": [
+      "",
+      "sub=repo:./.:pull_request; aud=sts.amazonaws.com"
+    ]
+  },
+  "verdict": "unsafe",
+  "version": 5
+}

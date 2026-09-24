@@ -1,0 +1,266 @@
+{
+  "agreements": 37,
+  "meaning": "re-execution of pre-existing curated labels only; not independent field ground truth",
+  "rows": [
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "01_safe_exact_branch.json",
+      "elapsed_seconds": 0.002952184999912788,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "02_repo_wildcard_all_events.json",
+      "elapsed_seconds": 0.005976577999945221,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "03_org_wildcard_any_repo.json",
+      "elapsed_seconds": 0.0074694559998533805,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "04_pull_request_admitted.json",
+      "elapsed_seconds": 0.003747776999944108,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "05_unprotected_environment.json",
+      "elapsed_seconds": 0.0026601380000101926,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "06_safe_protected_environment.json",
+      "elapsed_seconds": 0.002483001999962653,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "07_missing_subject.json",
+      "elapsed_seconds": 0.006149156999981642,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "08_audience_wildcard.json",
+      "elapsed_seconds": 0.0042380620000130875,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "09_multi_statement_broad.json",
+      "elapsed_seconds": 0.0061571290000301815,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "10_tag_wildcard_overgrant.json",
+      "elapsed_seconds": 0.004008387999874685,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "11_safe_conjunctive_refinement.json",
+      "elapsed_seconds": 0.004803240000001097,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "12_conjunctive_ref_broad.json",
+      "elapsed_seconds": 0.006074364999903992,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "13_safe_dynamic_alphabet.json",
+      "elapsed_seconds": 0.002867609000077209,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "14_non_github_oidc_principal.json",
+      "elapsed_seconds": 0.0006837050000285672,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "15_wildcard_federated_principal.json",
+      "elapsed_seconds": 0.0008795780001946696,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "16_mixed_principal_outside_core.json",
+      "elapsed_seconds": 0.0007322670001030929,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "17_safe_effective_deny_narrows_finite_overgrant.json",
+      "elapsed_seconds": 0.0045114420001937106,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "18_unqualified_claim_keys_ineffective.json",
+      "elapsed_seconds": 0.006849586000043928,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "19_substring_principal_rejected.json",
+      "elapsed_seconds": 0.0007786270000451623,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "20_cross_repository_environment_governance.json",
+      "elapsed_seconds": 0.0025093809999816585,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "21_audience_issuer_intersection_safe.json",
+      "elapsed_seconds": 0.004343320000089079,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "22_literal_star_audience_unsafe.json",
+      "elapsed_seconds": 0.003928407999865158,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "23_literal_question_audience_unsafe.json",
+      "elapsed_seconds": 0.003305335000050036,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "24_unsupported_allow_condition_erased_safe.json",
+      "elapsed_seconds": 0.0027638820001811837,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "25_branch_slash_safe.json",
+      "elapsed_seconds": 0.0031622899998637877,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "26_encoded_colon_environment_safe.json",
+      "elapsed_seconds": 0.006162717000051998,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "27_unsupported_deny_cannot_discharge_unsafe.json",
+      "elapsed_seconds": 0.004700134999893635,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "28_safe_deny_removes_bad_audience.json",
+      "elapsed_seconds": 0.006157560000019657,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "29_foreign_provider_claim_key_ignored.json",
+      "elapsed_seconds": 0.007051079000120808,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "30_safe_equals_literal_question_subject.json",
+      "elapsed_seconds": 0.003941037000004144,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "31_like_question_does_not_match_literal_intent.json",
+      "elapsed_seconds": 0.005438861999891742,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "32_foranyvalue_operator_outside_core.json",
+      "elapsed_seconds": 0.006741774999909467,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "33_selected_claim_default_environment_not_branch_definable.json",
+      "elapsed_seconds": 0.0022169730000314303,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "34_selected_claim_ref_environment_repository_id_safe.json",
+      "elapsed_seconds": 4.6039000153541565e-05,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": true,
+      "agrees": true,
+      "case": "35_selected_claim_workflow_ref_safe.json",
+      "elapsed_seconds": 3.50120001257892e-05,
+      "expected_safe": true
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "36_selected_claim_custom_property_without_ref_unsafe.json",
+      "elapsed_seconds": 5.408100014392403e-05,
+      "expected_safe": false
+    },
+    {
+      "actual_safe": false,
+      "agrees": true,
+      "case": "37_action_wildcard_outside_core.json",
+      "elapsed_seconds": 0.0008034439999846654,
+      "expected_safe": false
+    }
+  ],
+  "total": 37
+}

@@ -1,0 +1,42 @@
+{
+  "expected_safe": true,
+  "name": "github_docs_environment_with_governance_safe",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:octo-org/octo-repo:environment:prod"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "official GitHub docs",
+  "repository_governance": {
+    "protected_environments": [
+      {
+        "environment": "prod",
+        "owner": "octo-org",
+        "repository": "octo-repo"
+      }
+    ]
+  },
+  "source_note": "Docs recommend protection rules for environments; the normalized case supplies that premise.",
+  "source_url": "https://docs.github.com/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:octo-org/octo-repo:environment:prod"
+    ]
+  }
+}

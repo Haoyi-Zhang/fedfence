@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 0,
+  "allow_subject_states": 0,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "mixed-allow-principal",
+      "message": "Statement mixes GitHub with another principal family or more than one federated provider.",
+      "severity": "high",
+      "statement": 0,
+      "witness": null
+    }
+  ],
+  "intended_subject_edges": 0,
+  "intended_subject_states": 0,
+  "name": "mixed_principal_outside_core",
+  "safe": false
+}

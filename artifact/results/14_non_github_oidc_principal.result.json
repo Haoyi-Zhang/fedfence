@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 0,
+  "allow_subject_states": 0,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "non-github-allow-oidc-principal",
+      "message": "Statement does not name exactly the GitHub Actions OIDC provider as its federated principal.",
+      "severity": "high",
+      "statement": 0,
+      "witness": null
+    }
+  ],
+  "intended_subject_edges": 0,
+  "intended_subject_states": 0,
+  "name": "non_github_oidc_principal",
+  "safe": false
+}

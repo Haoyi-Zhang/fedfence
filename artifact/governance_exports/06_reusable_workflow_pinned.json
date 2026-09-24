@@ -1,0 +1,14 @@
+{
+  "name": "reusable_workflow_pinned",
+  "owner": "acme",
+  "repository": "api",
+  "exports": {
+    "reusable_workflows": [
+      {"workflow_ref": "acme/deploy/.github/workflows/release.yml@refs/heads/main", "allowed_callers": ["acme/api"], "pinned_ref": true}
+    ]
+  },
+  "premises": [
+    {"kind": "pinned_reusable_workflow", "workflow_ref": "acme/deploy/.github/workflows/release.yml@refs/heads/main", "caller": "acme/api", "expected": true},
+    {"kind": "pinned_reusable_workflow", "workflow_ref": "acme/deploy/.github/workflows/release.yml@refs/heads/dev", "caller": "acme/api", "expected": false}
+  ]
+}

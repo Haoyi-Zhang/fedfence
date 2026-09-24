@@ -1,0 +1,7 @@
+law,n,correct,unsafe,transported,median_ms,p95_ms
+audience-narrowing,128,128,0,127,3.107,3.107
+env-governance-removal,128,128,128,127,2.92,2.92
+env-governance-repair,128,128,0,127,2.907,2.907
+intent-widening,128,128,0,127,3.089,3.089
+policy-broadening,128,128,128,127,5.541,5.541
+witness-cut-narrowing,128,128,0,127,3.076,3.076

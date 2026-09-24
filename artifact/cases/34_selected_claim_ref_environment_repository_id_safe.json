@@ -1,0 +1,91 @@
+{
+  "description": "Selected provider claims ref, repository_id, and environment prove the branch-sensitive intent.",
+  "expected_safe": true,
+  "name": "34_selected_claim_ref_environment_repository_id_safe",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:environment": "prod",
+            "token.actions.githubusercontent.com:ref": "refs/heads/main",
+            "token.actions.githubusercontent.com:repository_id": "R_100"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "states": [
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/api/.github/workflows/deploy.yml@refs/heads/main",
+        "ref": "refs/heads/main",
+        "repository": "acme/api",
+        "repository_custom_properties.tier": "prod",
+        "repository_id": "R_100",
+        "repository_visibility": "private",
+        "sub": "repo:acme/api:environment:prod"
+      },
+      "id": "main-prod",
+      "intended": true,
+      "mintable": true
+    },
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/api/.github/workflows/deploy.yml@refs/heads/dev",
+        "ref": "refs/heads/dev",
+        "repository": "acme/api",
+        "repository_custom_properties.tier": "prod",
+        "repository_id": "R_100",
+        "repository_visibility": "private",
+        "sub": "repo:acme/api:environment:prod"
+      },
+      "id": "dev-prod",
+      "intended": false,
+      "mintable": true
+    },
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "staging",
+        "job_workflow_ref": "acme/api/.github/workflows/deploy.yml@refs/heads/main",
+        "ref": "refs/heads/main",
+        "repository": "acme/api",
+        "repository_custom_properties.tier": "dev",
+        "repository_id": "R_100",
+        "repository_visibility": "private",
+        "sub": "repo:acme/api:environment:staging"
+      },
+      "id": "main-staging",
+      "intended": false,
+      "mintable": true
+    },
+    {
+      "claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "evil/api/.github/workflows/deploy.yml@refs/heads/main",
+        "ref": "refs/heads/main",
+        "repository": "evil/api",
+        "repository_custom_properties.tier": "prod",
+        "repository_id": "R_999",
+        "repository_visibility": "public",
+        "sub": "repo:evil/api:environment:prod"
+      },
+      "id": "fork-main-prod",
+      "intended": false,
+      "mintable": true
+    }
+  ]
+}

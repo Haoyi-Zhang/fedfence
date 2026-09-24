@@ -1,0 +1,5 @@
+analyzer,tp_unsafe,tn_safe,false_alarm,miss,unsafe_recall,unsafe_precision,safe_acceptance
+FedFence,2112,1248,0,0,1.0,1.0,1.0
+Presence,192,1152,96,1920,0.0909,0.6667,0.9231
+Wildcard,1536,864,384,576,0.7273,0.8,0.6923
+ExactEnv,1536,864,384,576,0.7273,0.8,0.6923

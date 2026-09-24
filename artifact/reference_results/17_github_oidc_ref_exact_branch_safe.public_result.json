@@ -1,0 +1,6 @@
+{
+  "findings": [],
+  "safe": true,
+  "source": "GitHub OIDC reference branch subject form",
+  "source_url": "https://docs.github.com/actions/reference/openid-connect-reference"
+}

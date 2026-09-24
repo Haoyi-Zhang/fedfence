@@ -1,0 +1,41 @@
+{
+  "name": "github_oidc_ref_environment_with_governance_safe",
+  "public_source": "GitHub OIDC reference environment subject form",
+  "source_url": "https://docs.github.com/actions/reference/openid-connect-reference",
+  "expected_safe": true,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:octo-org/octo-repo:environment:prod"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": [
+      {
+        "owner": "octo-org",
+        "repository": "octo-repo",
+        "environment": "prod"
+      }
+    ]
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:octo-org/octo-repo:environment:prod"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "case": {
+    "expected_safe": false,
+    "name": "audience_wildcard",
+    "policy": {
+      "Statement": [
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringLike": {
+              "token.actions.githubusercontent.com:aud": "*",
+              "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main"
+            }
+          },
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          }
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "repository_governance": {
+      "protected_branches": [
+        "main"
+      ],
+      "protected_environments": []
+    },
+    "spec": {
+      "allowed_audiences": [
+        "sts.amazonaws.com"
+      ],
+      "allowed_subjects": [
+        "repo:acme/api:ref:refs/heads/main"
+      ]
+    }
+  },
+  "certificate_components": [
+    "PrincipalCert",
+    "ClaimKeyCert",
+    "ConditionErasureCert",
+    "IssuerProjectionCert",
+    "EffectiveAllowMinusDenyCert",
+    "GovernanceCert",
+    "UnsupportedBoundaryCert",
+    "ReplayWitnessCert",
+    "SelectedClaimProjectionCert"
+  ],
+  "judgment": "effective-claim-product-admission",
+  "kind": "fedfence-effective-case-certificate",
+  "name": "audience_wildcard",
+  "policy_profile": {
+    "allows": [
+      {
+        "allow_overapprox_core": true,
+        "aud_groups": [
+          {
+            "op": "like",
+            "values": [
+              "*"
+            ]
+          }
+        ],
+        "deny_exact_core": true,
+        "effect": "Allow",
+        "exact_github_principal": true,
+        "index": 0,
+        "malformed_principal": false,
+        "mixed_principal": false,
+        "principal_federated": [
+          "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        ],
+        "principal_wildcard": false,
+        "raw_condition_keys": [
+          "token.actions.githubusercontent.com:aud",
+          "token.actions.githubusercontent.com:sub"
+        ],
+        "selected_claim_groups": {},
+        "sub_groups": [
+          {
+            "op": "like",
+            "values": [
+              "repo:acme/api:ref:refs/heads/main"
+            ]
+          }
+        ],
+        "unsupported_claim_keys": [],
+        "unsupported_conditions": [],
+        "unsupported_principal": false,
+        "unsupported_statement_fields": []
+      }
+    ],
+    "denies": []
+  },
+  "replay_summary": {
+    "all_kinds": [
+      "audience-overgrant"
+    ],
+    "blocking_kinds": [
+      "audience-overgrant"
+    ],
+    "findings": [
+      {
+        "blocking": true,
+        "kind": "audience-overgrant",
+        "message": "Effective policy admits an issuer audience outside intent.",
+        "severity": "medium",
+        "statement": 0,
+        "witness": "sub=repo:acme/api:ref:refs/heads/main; aud=."
+      }
+    ],
+    "safe": false,
+    "witnesses": [
+      "sub=repo:acme/api:ref:refs/heads/main; aud=."
+    ]
+  },
+  "verdict": "unsafe",
+  "version": 5
+}

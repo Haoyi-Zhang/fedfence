@@ -1,0 +1,27 @@
+Repository: Deploy-On-Friday2-0/sports-store-infrastructure
+Commit: 9eeb7ff43b2a304e170e0d533b9b127b5a80b345
+File: iam.tf
+Commit message: fix: restrict GitHub OIDC trust and stage EKS 1.31 upgrade (#29)
+
+Relevant source hunk (verbatim from the public commit):
+-          StringLike = {
+-            # Match both classic and new 2026 immutable ID subject formats
+-            "token.actions.githubusercontent.com:sub" = "repo:Deploy-On-Friday2-0*/sports-store-*:*"
++          StringEquals = {
++            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
++            "token.actions.githubusercontent.com:sub" = [
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main"
++            ]
+           }
+
+-          StringLike = {
+-            "token.actions.githubusercontent.com:sub" = "repo:Deploy-On-Friday2-0*/sports-store-frontend*:*"
++          StringEquals = {
++            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
++            "token.actions.githubusercontent.com:sub" = "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main"
+           }

@@ -1,0 +1,39 @@
+{
+  "description": "Immutable IDs do not make a repository wildcard branch-safe; pull_request/tag/environment events remain outside a main-branch intent.",
+  "expected_safe": false,
+  "name": "immutable_subject_wildcard_unsafe",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:acme@100/api@200:*"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "GitHub Docs OpenID Connect reference, accessed Jun. 12, 2026",
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "source_basis": "GitHub OIDC reference: immutable subject claims preserve the context suffix after owner/repo IDs.",
+  "source_url": "https://docs.github.com/en/actions/reference/security/oidc",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:acme@100/api@200:ref:refs/heads/main"
+    ]
+  }
+}

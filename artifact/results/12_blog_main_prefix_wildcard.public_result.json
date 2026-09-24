@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:040code/blog-oidc-part-1:ref:refs/heads/main-; aud=sts.amazonaws.com"
+    }
+  ],
+  "safe": false,
+  "source": "Public blog branch-prefix wildcard example",
+  "source_url": "https://040code.github.io/2022/12/02/oidc-part-1"
+}

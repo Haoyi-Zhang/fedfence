@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 55,
+  "allow_subject_states": 30,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:acme/api:ref:refs/tags/.; aud=sts.amazonaws.com"
+    }
+  ],
+  "intended_subject_edges": 57,
+  "intended_subject_states": 32,
+  "name": "tag_wildcard_overgrant",
+  "safe": false
+}

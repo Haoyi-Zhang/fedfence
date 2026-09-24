@@ -1,0 +1,36 @@
+{
+  "cited_entries": 32,
+  "external_validation_complete": false,
+  "failures": [],
+  "interpretation": "complete submission candidate and internally consistent artifact; not representative field validation, owner-confirmed accuracy, or a human usability study",
+  "local_audit_passed": true,
+  "mojibake_probe": {
+    "脳": 0,
+    "鈥": 0,
+    "鈭": 0,
+    "�": 0
+  },
+  "package_sanity": {
+    "json_files_parsed": 40,
+    "python_compile": true,
+    "yaml_parse": true
+  },
+  "pdf_pages": 12,
+  "pdf_sha256": "048428903698c03d17804a660a8164cbf3302fb2d51d26f656afdf89a3198b84",
+  "pdf_visual_qa": {
+    "issues": [],
+    "pages_inspected": 12,
+    "renderers": [
+      "pdfium",
+      "pdftoppm"
+    ]
+  },
+  "public_changes": 9,
+  "reference_entries": 32,
+  "runtime_maintenance_commits": 12,
+  "schema": "fedfence-final-audit-v1",
+  "source_frontier_repositories": 24,
+  "submission_package_complete": true,
+  "unit_tests": 79,
+  "unused_reference_keys": []
+}

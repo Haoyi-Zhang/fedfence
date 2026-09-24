@@ -1,0 +1,35 @@
+{
+  "name": "github_oidc_ref_tag_subject_not_release_branch",
+  "public_source": "GitHub OIDC reference tag subject form",
+  "source_url": "https://docs.github.com/actions/reference/openid-connect-reference",
+  "expected_safe": false,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:octo-org/octo-repo:ref:refs/tags/v1"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:octo-org/octo-repo:ref:refs/heads/main"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 40,
+  "allow_subject_states": 41,
+  "findings": [],
+  "intended_subject_edges": 41,
+  "intended_subject_states": 42,
+  "name": "branch_slash_safe",
+  "safe": true
+}

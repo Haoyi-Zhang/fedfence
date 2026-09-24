@@ -1,0 +1,83 @@
+{
+  "components": [
+    {
+      "component": "core_checker",
+      "files": 13,
+      "json_objects": 0,
+      "logical_loc": 2433,
+      "physical_loc": 2887
+    },
+    {
+      "component": "reproduction_harness",
+      "files": 35,
+      "json_objects": 0,
+      "logical_loc": 3273,
+      "physical_loc": 3754
+    },
+    {
+      "component": "registered_cases",
+      "files": 37,
+      "json_objects": 37,
+      "logical_loc": 0,
+      "physical_loc": 0
+    },
+    {
+      "component": "optional_hardening_cases",
+      "files": 3,
+      "json_objects": 3,
+      "logical_loc": 0,
+      "physical_loc": 0
+    },
+    {
+      "component": "public_examples",
+      "files": 20,
+      "json_objects": 20,
+      "logical_loc": 0,
+      "physical_loc": 0
+    },
+    {
+      "component": "external_evidence",
+      "files": 8,
+      "json_objects": 8,
+      "logical_loc": 0,
+      "physical_loc": 0
+    },
+    {
+      "component": "provider_drift_cases",
+      "files": 4,
+      "json_objects": 4,
+      "logical_loc": 0,
+      "physical_loc": 0
+    },
+    {
+      "component": "governance_exports",
+      "files": 6,
+      "json_objects": 6,
+      "logical_loc": 0,
+      "physical_loc": 0
+    },
+    {
+      "component": "deployment_manifest",
+      "files": 1,
+      "json_objects": 1,
+      "logical_loc": 0,
+      "physical_loc": 0
+    }
+  ],
+  "manifest_checks": {
+    "certificate_replay_separated_from_analyzer": true,
+    "deployment_manifest_present": true,
+    "governance_export_fixtures_at_least_6": true,
+    "hardening_cases_separate": true,
+    "provider_drift_cases_at_least_4": true,
+    "public_examples_exactly_20": true,
+    "registered_cases_exactly_37": true
+  },
+  "passed": true,
+  "totals": {
+    "json_objects": 79,
+    "logical_loc": 5706,
+    "physical_loc": 6641,
+    "python_files": 48
+  }
+}

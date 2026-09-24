@@ -1,0 +1,49 @@
+{
+  "cache_used_for_verdict": false,
+  "changed_fields": [
+    "contract",
+    "implementation",
+    "governance",
+    "issuer",
+    "policy",
+    "workflow"
+  ],
+  "deployment_authorized": false,
+  "exit_code": 2,
+  "findings": [
+    {
+      "code": "unsupported-operator",
+      "detail": "StringEqualsIfExists",
+      "location": "Statement[0].Condition.StringEqualsIfExists"
+    }
+  ],
+  "fragment": {
+    "issues": [
+      {
+        "code": "unsupported-operator",
+        "detail": "StringEqualsIfExists",
+        "location": "Statement[0].Condition.StringEqualsIfExists"
+      }
+    ],
+    "profile": "aws-github-scalar-sub-aud-v1",
+    "statements": 1,
+    "supported": false
+  },
+  "input_hashes": {
+    "contract": "7aa8d0bdc42d889a257858c17a3548a9821030f88669a6c5de687db292cc0434",
+    "governance": "881e7959c0450cee7e84b1a8e22e88a1193df40efd17108a1f57cda236b1a41d",
+    "implementation": "6c9c2cff7610e835124e98b06dee796bb341572958022cbf41d08d71db038f44",
+    "issuer": "4195979b8936924faadf0970a7ed3bde68d362e0f570598e5a65ea1ccf1b2604",
+    "policy": "35c5be383c9507652953db5c11bd1d81721e3dfaecdf1ee870eec9694603bf75",
+    "workflow": "37fce064d26a3b05c168ca7a1425cec5d309bb6b5b90abca467334bb71e00650"
+  },
+  "packet_sha256": "6c086036a8855d3b161f2ee07c76982be0fa4c5ef767998758a7fcb55735e4fd",
+  "replay_ok": false,
+  "reviewer_identity_verified": false,
+  "runtime_provider_behavior_verified": false,
+  "schema": "fedfence-gate-result-v1",
+  "scope": "relative to supplied snapshots and reviewed specification; not live-cloud safety",
+  "source_authenticity_verified": false,
+  "verdict": "unknown",
+  "workflow_reachability_checked": false
+}

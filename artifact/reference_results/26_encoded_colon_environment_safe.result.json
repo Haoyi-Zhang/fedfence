@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 42,
+  "allow_subject_states": 43,
+  "findings": [],
+  "intended_subject_edges": 43,
+  "intended_subject_states": 44,
+  "name": "encoded_colon_environment_safe",
+  "safe": true
+}

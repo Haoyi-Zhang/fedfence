@@ -1,0 +1,32 @@
+{
+  "schema": "fedfence-public-change-screening-v1",
+  "collected_at_utc": "2026-09-23T20:00:00Z",
+  "search_queries": [
+    "restrict GitHub OIDC trust policy",
+    "restrict GitHub OIDC trust",
+    "GitHub OIDC immutable subject trust policy"
+  ],
+  "inclusion_rule": "public commit with a source-visible AWS/GitHub OIDC trust-policy delta and a developer-stated review intention that can be normalized without executing repository code",
+  "sampling_claim": "purposive change pilot; not representative, exhaustive, or a prevalence sample",
+  "included": [
+    {"id": "artur-main-branch", "repository": "artur-duart/togglemaster-devops-fiap", "commit": "b09186ba3cbb56337e0b695318754d0d8453421c"},
+    {"id": "pmcg-master-branch", "repository": "P-mcg01/muyu-invoice-infrastructure", "commit": "bb96ae77561bfab07471a0629f165db4a2515535"},
+    {"id": "arriagada-main-branch", "repository": "ArriagadaInc/tpi-backend", "commit": "8a67b6071b08fb363b664222a28d7250c29ed8cf"},
+    {"id": "shadow-release-branches", "repository": "shadow-architect-dev/aws-landing-zone", "commit": "f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1"},
+    {"id": "amr-org-scope", "repository": "amr-elzoghby/Internal-Developer-Platform", "commit": "d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5"},
+    {"id": "manyiu-repository-scope", "repository": "manyiu/vazue-playlang", "commit": "8ebbad974724acace02bbb1d7462a7529235aabd"},
+    {"id": "michele-environment-cut", "repository": "micheleformenti/aws-two-tier-architecture", "commit": "5d7339a716eb1e64623a95e756298f6057030285"},
+    {"id": "sports-store-immutable-main", "repository": "Deploy-On-Friday2-0/sports-store-infrastructure", "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345"},
+    {"id": "microticket-immutable-compatibility", "repository": "sdunster/microticket", "commit": "79abbeceae16b22f22a78770d580e44058c9f559"}
+  ],
+  "excluded": [
+    {"repository": "yhodaf-maker/sports-store-infrastructure", "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345", "reason": "duplicate fork carrying the same commit SHA"},
+    {"repository": "LokeshGoswami2003/AI-Product-Finder", "commit": "2f2b622e004c5c85388f53cecfa4178c7a77905f", "reason": "environment migration duplicates an included shape and lacks an exported governance snapshot"},
+    {"repository": "CaringalML/AI-App-Tester", "commit": "27f1fee204d34141e25d88558bc8c05b4e4dc3bd", "reason": "branch-to-environment migration lacks the governance export needed for a positive branch-sensitive judgment"},
+    {"repository": "CaringalML/AI-App-Tester", "commit": "e63627f3991bff260dce5a23b12a4996d4c714a2", "reason": "second commit in the same migration chain; held out to avoid counting one repair sequence twice"},
+    {"repository": "deec84/Total-solutions-enterprises", "commit": "903b0ca7e1697dc338c183806aba1778c9d67018", "reason": "large multi-topic hardening commit prevents an isolated trust-policy before/after unit"},
+    {"repository": "germanramirez-datatent/data-platform-infra", "commit": "5401e483cabeedda835d185c977cee9a9631407d", "reason": "adds a new OIDC role without a comparable pre-change trust policy"},
+    {"repository": "muralidhargurram39/terraform-aws-production-platform", "commit": "68bb3e7a06fd090cb93b16c8c63a60a88235d9c0", "reason": "multi-step feature commit does not isolate one reviewable trust transition"},
+    {"repository": "Odiph/claude-medarbek", "commit": "731a4ad262c30547c11ea3793e59444fd50a54b3", "reason": "npm trusted publishing rather than AWS role trust"}
+  ]
+}

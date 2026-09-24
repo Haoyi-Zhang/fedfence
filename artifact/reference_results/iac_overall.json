@@ -1,0 +1,18 @@
+{
+  "fedfence_correct": 3360,
+  "formats": 3,
+  "hardening_templates": 5,
+  "median_ms": 3.8,
+  "p95_ms": 7.634,
+  "per_template_format": 32,
+  "profile": "registered",
+  "registered_templates": 35,
+  "representatives": 105,
+  "safe_roles": 1248,
+  "templates": 35,
+  "total_analysis_ms": 14392.288,
+  "total_roles": 3360,
+  "transport_mode": true,
+  "transported_roles": 3255,
+  "unsafe_roles": 2112
+}

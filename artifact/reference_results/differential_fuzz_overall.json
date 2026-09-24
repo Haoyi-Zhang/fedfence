@@ -1,0 +1,11 @@
+{
+  "alphabet": "ab:$",
+  "bounded_words": 1365,
+  "checks": 2000,
+  "correct": 2000,
+  "elapsed_ms": 1480.434,
+  "max_word_length": 5,
+  "pair_checks": 1200,
+  "seed": 20270603,
+  "triple_checks": 800
+}

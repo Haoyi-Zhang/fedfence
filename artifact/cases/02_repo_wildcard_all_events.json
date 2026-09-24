@@ -1,0 +1,38 @@
+{
+  "name": "repo_wildcard_all_events",
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:*"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_branches": [
+      "main"
+    ],
+    "protected_environments": []
+  },
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:acme/api:ref:refs/heads/main"
+    ]
+  },
+  "expected_safe": false
+}

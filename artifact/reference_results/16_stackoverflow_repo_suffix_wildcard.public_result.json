@@ -1,0 +1,15 @@
+{
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:headincloud/hic-public-dns:pull_request; aud=sts.amazonaws.com"
+    }
+  ],
+  "safe": false,
+  "source": "StackOverflow troubleshooting trust-policy wildcard",
+  "source_url": "https://stackoverflow.com/questions/77969948/github-actions-with-aws-oidc-login-not-working"
+}

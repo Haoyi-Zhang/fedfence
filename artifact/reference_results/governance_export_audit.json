@@ -1,0 +1,8 @@
+{
+  "failures": [],
+  "fixtures": 6,
+  "mode": "exported-snapshot governance audit; no live account access",
+  "passed": true,
+  "premises": 10,
+  "verified": 10
+}

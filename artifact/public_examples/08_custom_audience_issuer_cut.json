@@ -1,0 +1,38 @@
+{
+  "name": "custom_audience_issuer_cut",
+  "public_source": "public custom audience troubleshooting",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials/issues/318",
+  "expected_safe": true,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "https://github.com/my-org",
+            "token.actions.githubusercontent.com:sub": "repo:org-name/project:ref:refs/heads/main"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:org-name/project:ref:refs/heads/main"
+    ],
+    "allowed_audiences": [
+      "https://github.com/my-org"
+    ],
+    "issuer_audiences": [
+      "https://github.com/my-org"
+    ]
+  }
+}

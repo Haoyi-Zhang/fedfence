@@ -1,0 +1,12 @@
+{
+  "correct": 56,
+  "formats": [
+    "terraform-hcl",
+    "cloudformation-yaml"
+  ],
+  "passed": true,
+  "per_template_format": 4,
+  "purpose": "optional parser-frontier corpus for Terraform HCL and CloudFormation YAML review packets",
+  "rows": 56,
+  "templates": 7
+}

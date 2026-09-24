@@ -1,0 +1,33 @@
+{
+  "name": "like_question_does_not_match_literal_intent",
+  "expected_safe": false,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringLike": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/release?candidate"
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:acme/api:ref:refs/heads/release?candidate"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  }
+}

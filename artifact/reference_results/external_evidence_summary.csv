@@ -1,0 +1,7 @@
+group,category,examples,unsafe,analyzed,correct
+optional-public-issue-challenge,official-provider,2,1,2,2
+optional-public-issue-challenge,public-repository-or-discussion,6,4,6,6
+registered-public-examples,official-provider,6,3,0,0
+registered-public-examples,public-article,4,3,0,0
+registered-public-examples,public-repository-or-discussion,8,6,0,0
+registered-public-examples,public-troubleshooting,2,2,0,0

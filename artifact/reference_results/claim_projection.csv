@@ -1,0 +1,8 @@
+case,expected_safe,fedfence_safe,correct,states,admitted,intended_admitted,findings
+default_environment_subject_is_not_branch_definable,False,False,True,4,2,1,event-overgrant
+refined_ref_environment_repository_safe,True,True,True,4,1,1,
+repository_name_without_id_overgrant,False,False,True,4,2,1,event-overgrant
+repository_id_ref_environment_safe,True,True,True,4,1,1,
+workflow_ref_cuts_unapproved_branch_workflow,True,True,True,4,1,1,
+custom_property_without_ref_not_branch_safe,False,False,True,4,3,1,event-overgrant;event-overgrant
+custom_property_plus_ref_safe,True,True,True,4,1,1,

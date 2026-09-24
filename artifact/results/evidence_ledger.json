@@ -1,0 +1,168 @@
+{
+  "abstract_hash": "ffb368fcbcf0fab2977ff24baa06ab31493b10c4b57627c8182627cda046d3ca",
+  "expected": {
+    "adversarial_instances": 2240,
+    "certificate_tamper_rejected": 234,
+    "certificate_tamper_trials": 234,
+    "curated_cases": 37,
+    "differential_fuzz_checks": 2000,
+    "iac_roles": 3360,
+    "metamorphic_checks": 768,
+    "projection_law_checks": 204288,
+    "public_examples": 20,
+    "selected_claim_cases": 7,
+    "semantic_grid_obligations": 4480
+  },
+  "failures": [],
+  "observed": {
+    "adversarial_instances": 2240,
+    "certificate_tamper_rejected": 234,
+    "certificate_tamper_trials": 234,
+    "curated_cases": 37,
+    "differential_fuzz_checks": 2000,
+    "iac_roles": 3360,
+    "metamorphic_checks": 768,
+    "projection_law_checks": 204288,
+    "public_examples": 20,
+    "selected_claim_cases": 7,
+    "semantic_grid_obligations": 4480
+  },
+  "optional": {
+    "baseline_suite": {
+      "baselines": 7,
+      "best_baseline_correct": 61,
+      "fedfence_correct": 65,
+      "imports_fedfence_analyzer": false,
+      "passed": true,
+      "rows": 65
+    },
+    "code_metrics": {
+      "json_objects": 79,
+      "logical_loc": 5706,
+      "physical_loc": 6641,
+      "python_files": 48
+    },
+    "deployment_manifest": {
+      "active_network_access": false,
+      "cloud_credentials_required": false,
+      "correct": 8,
+      "expected_labeled_rows": 8,
+      "failures": [],
+      "manifest": "deployment_manifest/example_manifest.json",
+      "passed": true,
+      "rows": 8,
+      "safe": 5,
+      "schema": "fedfence-role-review-manifest-v1",
+      "unsafe_or_outside_core": 3,
+      "uses_same_proof_path_as_registered_cases": true
+    },
+    "governance_export_audit": {
+      "failures": [],
+      "fixtures": 6,
+      "mode": "exported-snapshot governance audit; no live account access",
+      "passed": true,
+      "premises": 10,
+      "verified": 10
+    },
+    "hardening_case_files": 3,
+    "hardening_case_results": 3,
+    "iac_frontier": {
+      "correct": 56,
+      "formats": [
+        "terraform-hcl",
+        "cloudformation-yaml"
+      ],
+      "passed": true,
+      "per_template_format": 4,
+      "purpose": "optional parser-frontier corpus for Terraform HCL and CloudFormation YAML review packets",
+      "rows": 56,
+      "templates": 7
+    },
+    "iac_profile": "registered",
+    "label_audit": {
+      "agreements": 65,
+      "optional_public_issue_rows": 8,
+      "passed": true,
+      "public_rows": 20,
+      "purpose": "standalone finite-domain audit of expected labels; not the analyzer or certificate verifier",
+      "registered_rows": 37,
+      "rows": 65,
+      "uses_fedfence_imports": false
+    },
+    "max_narrowing_sanity": {
+      "checked_candidate_narrowings": 248832,
+      "checked_triples": 32768,
+      "failures": [],
+      "formula": "P_star = P \u2229 (I \u222a (U \\ G))",
+      "passed": true,
+      "universe_size": 5,
+      "wrong_formula": "P \u2229 (I \u222a G)",
+      "wrong_formula_counterexample": {
+        "G": [],
+        "I": [],
+        "P": [
+          "u0"
+        ],
+        "correct_star": [
+          "u0"
+        ],
+        "safe_Q": [
+          "u0"
+        ],
+        "wrong_formula": []
+      },
+      "wrong_formula_counterexample_found": true
+    },
+    "optional_public_issue_challenge": 8,
+    "provider_drift_cases": {
+      "cases": 4,
+      "correct": 4,
+      "passed": true,
+      "purpose": "source-grounded GitHub OIDC semantic drift fixtures: immutable subject claims, repository_id, and job_workflow_ref"
+    },
+    "registered_case_files": 37,
+    "replay_oracle_groups": {
+      "optional-hardening": {
+        "expected_rows": 3,
+        "matches_expected": 3,
+        "rows": 3,
+        "verified": 3
+      },
+      "optional-public-issue": {
+        "expected_rows": 8,
+        "matches_expected": 8,
+        "rows": 8,
+        "verified": 8
+      },
+      "provider-drift": {
+        "expected_rows": 4,
+        "matches_expected": 4,
+        "rows": 4,
+        "verified": 4
+      },
+      "registered": {
+        "expected_rows": 37,
+        "matches_expected": 37,
+        "rows": 37,
+        "verified": 37
+      },
+      "registered-public": {
+        "expected_rows": 20,
+        "matches_expected": 20,
+        "rows": 20,
+        "verified": 20
+      }
+    },
+    "replay_oracle_rows": 72,
+    "semantic_grid_profile": "registered"
+  },
+  "passed": true,
+  "pdf": {
+    "has_truetype": false,
+    "has_type3": false,
+    "page_size": "612 x 792 pts (letter)",
+    "pages": 18
+  },
+  "profile": "paper",
+  "title_hash": "a4617e06687cecf91bfc7853e16b982444e09c44886802d0c716470440b43425"
+}

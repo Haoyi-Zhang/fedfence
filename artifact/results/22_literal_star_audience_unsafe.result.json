@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 34,
+  "allow_subject_states": 35,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "audience-overgrant",
+      "message": "Effective policy admits an issuer-mintable audience outside intent.",
+      "severity": "medium",
+      "statement": 0,
+      "witness": "sub=repo:acme/api:ref:refs/heads/main; aud=*"
+    }
+  ],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "literal_star_audience_unsafe",
+  "safe": false
+}

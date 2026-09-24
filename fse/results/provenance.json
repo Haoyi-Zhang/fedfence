@@ -1,0 +1,26 @@
+{
+  "baseline_all_original_file_bytes_preserved": true,
+  "baseline_pdf_sha256": "17d0a780e0b0092f8a9ca9817fac37b99eed677f01c6225fddf346964111c90e",
+  "composite_action_sha256": "ab4392ddd09abbb34d8d3fcc12a591348c94d3dcfafa99d43c94c6510135cef3",
+  "evidence_boundaries": {
+    "human_study_participants": 0,
+    "independent_labels": false,
+    "live_cloud_runs_by_fedfence": 0,
+    "owner_confirmed_findings": 0,
+    "public_post_fix_action_runs_observed": 2,
+    "representative_sample": false,
+    "required_tokens_are_complete_availability_specification": false,
+    "vendor_common_corpus_runs": 0
+  },
+  "manuscript_source_sha256": "06f4d964dce72e859c9b386cfcdaf2c354b547e354db7fdd1d6609555cd57f82",
+  "manuscript_title": "FedFence: Specification-Guided Review of CI/CD Trust Changes",
+  "original_core_unchanged": true,
+  "public_change_corpus_sha256": "62ca73f38894bfd3e9d0d2733b3293d1a3f47793cbaa01308dcde02ad604b15c",
+  "public_change_screening_sha256": "47e776027eefd45a42c5a5a6132db2d7ad53e2bc4be788830f1784c6979aaf94",
+  "recorded_at_utc": "2026-09-24T06:13:26.070375+00:00",
+  "review_packet_schema_sha256": "91c2c89dfa36488a0cc6aa395ad683743166f72b8a1889ee7d78835ae8757390",
+  "runtime_compatibility_corpus_sha256": "1717aea5fb3f6a1a5251be9104bc5bb283737bd20c6d8d333c053323f8722dd2",
+  "schema": "fedfence-final-provenance-v1",
+  "source_frontier_sample_sha256": "16d88db8118ba67177b558616da9dfaae7534ee26bfec11b60f6ad98aebdc94e",
+  "source_zip_sha256": "4da4252e74347fafae2d0ffb20ab199bfb8b4ebfc6c93b8313cc1f7dc1e46d16"
+}

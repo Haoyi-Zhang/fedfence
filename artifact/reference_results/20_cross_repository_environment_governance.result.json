@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 31,
+  "allow_subject_states": 32,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "unprotected-environment",
+      "message": "Environment subject requires a repository-scoped protected-environment governance fact.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:acme/api:environment:prod; governance=acme/api:prod"
+    }
+  ],
+  "intended_subject_edges": 32,
+  "intended_subject_states": 33,
+  "name": "cross_repository_environment_governance",
+  "safe": false
+}

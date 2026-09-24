@@ -1,0 +1,14 @@
+{
+  "name": "branch_missing_reviews_blocks",
+  "owner": "acme",
+  "repository": "api",
+  "exports": {
+    "branches": [
+      {"name": "release/v1", "protected": true, "required_reviews": 0, "required_status_checks": ["build"]}
+    ],
+    "environments": []
+  },
+  "premises": [
+    {"kind": "protected_branch", "branch": "release/v1", "expected": false}
+  ]
+}

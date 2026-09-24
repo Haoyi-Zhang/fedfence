@@ -1,0 +1,11 @@
+Repository: micheleformenti/aws-two-tier-architecture
+Commit: 5d7339a716eb1e64623a95e756298f6057030285
+Files: infra/modules/two-tier-app/github-oidc.tf; .github/workflows/ci-cd.yml
+Commit message: Harden GitHub Actions OIDC trust policy (#3)
+
+Relevant source hunk (verbatim from the public commit):
+-        StringLike = {
+-          "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.github_repo}:*"
++        StringEquals = {
++          "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
++          "token.actions.githubusercontent.com:sub" = "repo:${var.github_org}/${var.github_repo}:environment:${var.env}"

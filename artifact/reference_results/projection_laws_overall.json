@@ -1,0 +1,8 @@
+{
+  "failures": 0,
+  "galois_checks": 202752,
+  "kernel_saturation_checks": 1536,
+  "passed": true,
+  "projections": 6,
+  "states": 8
+}

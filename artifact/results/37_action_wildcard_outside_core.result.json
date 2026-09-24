@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 0,
+  "allow_subject_states": 0,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "unsupported-allow-statement-field",
+      "message": "Allow statement uses IAM fields outside the proof-carrying core: ['Action'].",
+      "severity": "medium",
+      "statement": 0,
+      "witness": null
+    }
+  ],
+  "intended_subject_edges": 0,
+  "intended_subject_states": 0,
+  "name": "action_wildcard_outside_core",
+  "safe": false
+}

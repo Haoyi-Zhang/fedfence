@@ -1,0 +1,6 @@
+{
+  "cases": 4,
+  "correct": 4,
+  "passed": true,
+  "purpose": "source-grounded GitHub OIDC semantic drift fixtures: immutable subject claims, repository_id, and job_workflow_ref"
+}

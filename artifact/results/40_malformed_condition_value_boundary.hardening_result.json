@@ -1,0 +1,34 @@
+{
+  "allow_subject_edges": 34,
+  "allow_subject_states": 35,
+  "findings": [
+    {
+      "blocking": false,
+      "kind": "unsupported-allow-condition",
+      "message": "Allow statement contains unsupported condition operators.  For Allow, FedFence erases them as monotone restrictions and proves the over-approximation.",
+      "severity": "medium",
+      "statement": 0,
+      "witness": null
+    },
+    {
+      "blocking": false,
+      "kind": "missing-aud",
+      "message": "Allow statement has no provider-qualified audience condition; safety is decided on issuer audiences.",
+      "severity": "medium",
+      "statement": 0,
+      "witness": null
+    },
+    {
+      "blocking": true,
+      "kind": "audience-overgrant",
+      "message": "Effective policy admits an issuer-mintable audience outside intent.",
+      "severity": "medium",
+      "statement": 0,
+      "witness": "sub=repo:acme/api:ref:refs/heads/main; aud=."
+    }
+  ],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "malformed_condition_value_boundary",
+  "safe": false
+}

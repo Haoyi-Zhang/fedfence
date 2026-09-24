@@ -1,0 +1,14 @@
+{
+  "active_network_access": false,
+  "cloud_credentials_required": false,
+  "correct": 8,
+  "expected_labeled_rows": 8,
+  "failures": [],
+  "manifest": "deployment_manifest/example_manifest.json",
+  "passed": true,
+  "rows": 8,
+  "safe": 5,
+  "schema": "fedfence-role-review-manifest-v1",
+  "unsafe_or_outside_core": 3,
+  "uses_same_proof_path_as_registered_cases": true
+}

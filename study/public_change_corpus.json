@@ -1,0 +1,628 @@
+{
+  "changes": [
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringEquals",
+        "subjects": [
+          "repo:artur-duart/togglemaster-devops-fiap:ref:refs/heads/main"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:artur-duart/togglemaster-devops-fiap:*"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "commit": "b09186ba3cbb56337e0b695318754d0d8453421c",
+      "commit_message": "security(infra): restrict GitHub OIDC trust to main branch",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infra/github-oidc.tf"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "artur-main-branch",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "subject_globs": [],
+        "subject_literals": [
+          "repo:artur-duart/togglemaster-devops-fiap:ref:refs/heads/main"
+        ]
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "artur-duart/togglemaster-devops-fiap",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "test     = \"StringEquals\"",
+          "repo:artur-duart/togglemaster-devops-fiap:ref:refs/heads/main"
+        ],
+        "removed": [
+          "test     = \"StringLike\"",
+          "repo:artur-duart/togglemaster-devops-fiap:*"
+        ]
+      },
+      "source_sha256": "5f4c35a4aa0558218ba6ec6348387b7d5db45a501e827243df0f331868254a54",
+      "source_snapshot": "evidence/public_changes/artur-main-branch.patch",
+      "url": "https://github.com/artur-duart/togglemaster-devops-fiap/commit/b09186ba3cbb56337e0b695318754d0d8453421c"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/master"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/*"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "commit": "bb96ae77561bfab07471a0629f165db4a2515535",
+      "commit_message": "fix(ecr): restrict GitHub OIDC trust policy to master branch",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "data.tf"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "pmcg-master-branch",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "subject_globs": [],
+        "subject_literals": [
+          "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/master"
+        ]
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "P-mcg01/muyu-invoice-infrastructure",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/master"
+        ],
+        "removed": [
+          "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/*"
+        ]
+      },
+      "source_sha256": "044d141581af7f3255afaf2f7dd867b68f79fc639fd7e3ccd335462bd59ad7fc",
+      "source_snapshot": "evidence/public_changes/pmcg-master-branch.patch",
+      "url": "https://github.com/P-mcg01/muyu-invoice-infrastructure/commit/bb96ae77561bfab07471a0629f165db4a2515535"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringEquals",
+        "subjects": [
+          "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/main"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringEquals",
+        "subjects": [
+          "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "commit": "8a67b6071b08fb363b664222a28d7250c29ed8cf",
+      "commit_message": "fix: restrict GitHub OIDC release role to main",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "deployment/iam/tpi-github-actions-dev-ecr-role-trust.json",
+        "tests/unit/test_github_oidc_trust.py"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "arriagada-main-branch",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "subject_globs": [],
+        "subject_literals": [
+          "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/main"
+        ]
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "new regression test",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "ArriagadaInc/tpi-backend",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/main"
+        ],
+        "removed": [
+          "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth"
+        ]
+      },
+      "source_sha256": "3f3d17bb11d66c0cc6085061fb8b3611e6b1c814bbc045623ed8445fc5b076fa",
+      "source_snapshot": "evidence/public_changes/arriagada-main-branch.patch",
+      "url": "https://github.com/ArriagadaInc/tpi-backend/commit/8a67b6071b08fb363b664222a28d7250c29ed8cf"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:shadow-architect-dev/aws-landing-zone:ref:refs/heads/main",
+          "repo:shadow-architect-dev/aws-landing-zone:ref:refs/heads/develop",
+          "repo:shadow-architect-dev/aws-landing-zone:ref:refs/heads/release/*"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:shadow-architect-dev/aws-landing-zone:*"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "commit": "f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1",
+      "commit_message": "feat: restrict GitHub OIDC trust policy to specific branches",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "terraform/modules/shared_services/main.tf"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "shadow-release-branches",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "subject_globs": [
+          "repo:shadow-architect-dev/aws-landing-zone:ref:refs/heads/release/*"
+        ],
+        "subject_literals": [
+          "repo:shadow-architect-dev/aws-landing-zone:ref:refs/heads/main",
+          "repo:shadow-architect-dev/aws-landing-zone:ref:refs/heads/develop"
+        ]
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "shadow-architect-dev/aws-landing-zone",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "repo:${var.github_repo}:ref:refs/heads/main",
+          "repo:${var.github_repo}:ref:refs/heads/develop",
+          "repo:${var.github_repo}:ref:refs/heads/release/*"
+        ],
+        "removed": [
+          "repo:${var.github_repo}:*"
+        ]
+      },
+      "source_sha256": "fd075249ca7f6c3813b3050ac2a6bdb03453b6589d7e0dec7a5c3084b9f74e6c",
+      "source_snapshot": "evidence/public_changes/shadow-release-branches.patch",
+      "url": "https://github.com/shadow-architect-dev/aws-landing-zone/commit/f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:amr-elzoghby/*:*"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:amr-elzoghby/*:*",
+          "repo:*:*"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "commit": "d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5",
+      "commit_message": "fix(security): restrict GitHub OIDC trust to org repos only",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infrastructure/terraform/modules/eks/github-oidc.tf"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "amr-org-scope",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "subject_globs": [
+          "repo:amr-elzoghby/*:*"
+        ],
+        "subject_literals": []
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "amr-elzoghby/Internal-Developer-Platform",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "repo:amr-elzoghby/*:*"
+        ],
+        "removed": [
+          "repo:*:*"
+        ]
+      },
+      "source_sha256": "bbca8d07e9881bb38dd9504376f5e217cbd520c8661d89b18a3cc1279b78ceb7",
+      "source_snapshot": "evidence/public_changes/amr-org-scope.patch",
+      "url": "https://github.com/amr-elzoghby/Internal-Developer-Platform/commit/d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:manyiu/vazue-playlang:*",
+          "repo:manyiu@11912398/vazue-playlang@1335729930:*"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:manyiu/*:*",
+          "repo:manyiu@11912398/*:*"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "commit": "8ebbad974724acace02bbb1d7462a7529235aabd",
+      "commit_message": "Restrict GitHub OIDC deploy role trust to this repository.",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infra/cdk/lib/github-config.ts",
+        "infra/cdk/lib/github-oidc-stack.ts",
+        "infra/cdk/lib/github-config.test.ts"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "manyiu-repository-scope",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "subject_globs": [
+          "repo:manyiu/vazue-playlang:*",
+          "repo:manyiu@11912398/vazue-playlang@1335729930:*"
+        ],
+        "subject_literals": []
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "README change",
+          "new regression tests",
+          "CDK diff"
+        ]
+      },
+      "repository": "manyiu/vazue-playlang",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "repo:${owner}/${repo}:*",
+          "repo:${owner}@${ownerId}/${repo}@${repoId}:*"
+        ],
+        "removed": [
+          "repo:${owner}/*:*",
+          "repo:${owner}@${ownerId}/*:*"
+        ]
+      },
+      "source_sha256": "d287826ba008f0a0055391705f45f78a7a8ca21fec76f31d41c3ed24f47b253d",
+      "source_snapshot": "evidence/public_changes/manyiu-repository-scope.patch",
+      "url": "https://github.com/manyiu/vazue-playlang/commit/8ebbad974724acace02bbb1d7462a7529235aabd"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringEquals",
+        "subjects": [
+          "repo:micheleformenti/aws-two-tier-architecture:environment:dev"
+        ]
+      },
+      "before": {
+        "audience": null,
+        "operator": "StringLike",
+        "subjects": [
+          "repo:micheleformenti/aws-two-tier-architecture:*"
+        ]
+      },
+      "change_kind": "cross-plane-hardening",
+      "commit": "5d7339a716eb1e64623a95e756298f6057030285",
+      "commit_message": "Harden GitHub Actions OIDC trust policy: restrict roles to matching environments and the AWS STS audience",
+      "expected": {
+        "after": "unknown",
+        "before": "fail"
+      },
+      "files": [
+        "infra/modules/two-tier-app/github-oidc.tf",
+        ".github/workflows/ci-cd.yml",
+        "README.md"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "michele-environment-cut",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "subject_globs": [],
+        "subject_literals": [
+          "repo:micheleformenti/aws-two-tier-architecture:environment:dev"
+        ]
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff",
+          "workflow diff",
+          "README change"
+        ]
+      },
+      "repository": "micheleformenti/aws-two-tier-architecture",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "token.actions.githubusercontent.com:aud",
+          "repo:${var.github_org}/${var.github_repo}:environment:${var.env}"
+        ],
+        "removed": [
+          "repo:${var.github_org}/${var.github_repo}:*"
+        ]
+      },
+      "source_sha256": "9dec13023b33cfe2b86ae842bb20bc85a8ed51cd403f3bf9d5bc14967691d2b3",
+      "source_snapshot": "evidence/public_changes/michele-environment-cut.patch",
+      "url": "https://github.com/micheleformenti/aws-two-tier-architecture/commit/5d7339a716eb1e64623a95e756298f6057030285"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringEquals",
+        "subjects": [
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringLike",
+        "subjects": [
+          "repo:Deploy-On-Friday2-0*/sports-store-*:*"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "commit_message": "fix: restrict GitHub OIDC trust and stage EKS 1.31 upgrade (#29)",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "iam.tf"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "sports-store-immutable-main",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "issuer_subjects": [
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:pull_request"
+        ],
+        "subject_globs": [],
+        "subject_literals": [
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main"
+        ]
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff",
+          "new trust-boundary tests"
+        ]
+      },
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "required_tokens": [],
+      "source_assertions": {
+        "added": [
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main"
+        ],
+        "removed": [
+          "repo:Deploy-On-Friday2-0*/sports-store-*:*"
+        ]
+      },
+      "source_sha256": "18e914e77008cf42d065ea18ea504cd7365d4c882617200e48805586cd64e327",
+      "source_snapshot": "evidence/public_changes/sports-store-immutable-main.patch",
+      "url": "https://github.com/Deploy-On-Friday2-0/sports-store-infrastructure/commit/9eeb7ff43b2a304e170e0d533b9b127b5a80b345"
+    },
+    {
+      "after": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringEquals",
+        "subjects": [
+          "repo:sdunster/microticket:ref:refs/heads/prod",
+          "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+        ]
+      },
+      "before": {
+        "audience": "sts.amazonaws.com",
+        "operator": "StringEquals",
+        "subjects": [
+          "repo:sdunster/microticket:ref:refs/heads/prod"
+        ]
+      },
+      "change_kind": "compatibility-repair",
+      "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+      "commit_message": "Accept GitHub's immutable OIDC subject in the deploy role's trust policy",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infra/iam_oidc.tf",
+        "infra/variables.tf"
+      ],
+      "governance": {
+        "protected_environments": []
+      },
+      "id": "microticket-immutable-compatibility",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "issuer_subjects": [
+          "repo:sdunster/microticket:ref:refs/heads/prod",
+          "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+        ],
+        "subject_globs": [],
+        "subject_literals": [
+          "repo:sdunster/microticket:ref:refs/heads/prod",
+          "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+        ]
+      },
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "runtime_observation_described": true,
+        "source_fields": [
+          "commit message",
+          "CloudTrail-observed subject stated in commit",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "sdunster/microticket",
+      "required_tokens": [
+        {
+          "aud": "sts.amazonaws.com",
+          "reason": "the deployment token observed by the developer must remain assumable",
+          "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+        }
+      ],
+      "source_assertions": {
+        "added": [
+          "var.github_repo_immutable == \"\" ? \"\" : \"repo:${var.github_repo_immutable}:ref:refs/heads/prod\"",
+          "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+        ],
+        "removed": [
+          "\"token.actions.githubusercontent.com:sub\" = \"repo:${var.github_repo}:ref:refs/heads/prod\""
+        ]
+      },
+      "source_sha256": "8dbf73fc27baa3edce0ddb51a05eb43f367d98c6cf7ac03b8638b19c14b93b7f",
+      "source_snapshot": "evidence/public_changes/microticket-immutable-compatibility.patch",
+      "url": "https://github.com/sdunster/microticket/commit/79abbeceae16b22f22a78770d580e44058c9f559"
+    }
+  ],
+  "schema": "fedfence-public-change-corpus-v2",
+  "selection": {
+    "candidates_screened": 17,
+    "changes_included": 9,
+    "kind": "purposive-public-oidc-change-pilot",
+    "sampling_claim": "purposive pilot; not representative and not exhaustive",
+    "screening_manifest": "study/public_change_screening.json",
+    "screening_sha256": "47e776027eefd45a42c5a5a6132db2d7ad53e2bc4be788830f1784c6979aaf94"
+  }
+}

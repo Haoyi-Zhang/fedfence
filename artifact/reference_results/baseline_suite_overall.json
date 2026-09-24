@@ -1,0 +1,8 @@
+{
+  "baselines": 7,
+  "best_baseline_correct": 61,
+  "fedfence_correct": 65,
+  "imports_fedfence_analyzer": false,
+  "passed": true,
+  "rows": 65
+}

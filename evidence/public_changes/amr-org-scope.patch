@@ -1,0 +1,12 @@
+Repository: amr-elzoghby/Internal-Developer-Platform
+Commit: d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5
+File: infrastructure/terraform/modules/eks/github-oidc.tf
+Commit message: fix(security): restrict GitHub OIDC trust to org repos only
+
+Relevant source hunk (verbatim from the public commit):
+-              "repo:amr-elzoghby/*:*",
+-              "repo:Amr-Elzoghby/*:*",
+-              "repo:amr-Elzoghby/*:*",
+-              "repo:AMR-ELZOGHBY/*:*",
+-              "repo:*:*"
++              "repo:amr-elzoghby/*:*"

@@ -1,0 +1,36 @@
+{
+  "evidence_markers": {
+    "commit_message": 12,
+    "deploy_green_stated": 1,
+    "diff": 12,
+    "live_aws_update_stated": 1,
+    "live_role_update_stated": 3,
+    "live_workflow_success_stated": 1,
+    "manual_deployment_stated": 1,
+    "public_actions_success": 2,
+    "tests_added": 1
+  },
+  "hardening_without_reported_outage": 1,
+  "interpretation": "purposive source-backed maintenance corpus; commit claims are not independent root-cause adjudication or prevalence evidence",
+  "public_actions_success_runs": 2,
+  "public_success_run_ids": [
+    "35338805553",
+    "35682479269"
+  ],
+  "records": 12,
+  "repair_strategies": {
+    "dual_exact_legacy_and_immutable": 2,
+    "dual_legacy_and_numeric_id_wildcard": 1,
+    "exact_immutable_allowlist": 1,
+    "exact_immutable_only": 2,
+    "exact_immutable_subjects": 1,
+    "wildcard_numeric_ids": 1,
+    "wildcard_numeric_ids_exact_names": 2,
+    "wildcard_numeric_ids_plus_exact_repository_environment_claims": 1,
+    "wildcard_numeric_ids_plus_exact_repository_ref_claims": 1
+  },
+  "runtime_breakage_or_denial_reports": 11,
+  "schema": "fedfence-runtime-compatibility-result-v1",
+  "selection_statement": "Purposive public commits whose messages or diffs explicitly describe GitHub OIDC trust breakage or hardening involving immutable owner/repository-ID subjects. This corpus is evidence of recurring maintenance shapes, not prevalence or independently verified root cause.",
+  "unique_repositories": 12
+}

@@ -1,0 +1,78 @@
+{
+  "prod-env-main-or-release/default-subject": {
+    "claim": "repo:acme/api:environment:prod",
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "feature",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  },
+  "prod-env-main-or-release/subject-plus-repo-class": {
+    "claim": "('repo:acme/api:environment:prod', 'production')",
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "feature",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  },
+  "prod-env-main/default-subject": {
+    "claim": "repo:acme/api:environment:prod",
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "release",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  },
+  "prod-env-main/subject-plus-repo-class": {
+    "claim": "('repo:acme/api:environment:prod', 'production')",
+    "negative_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "release",
+      "repo": "api",
+      "repo_class": "production"
+    },
+    "positive_state": {
+      "environment": "prod",
+      "event": "environment",
+      "org": "acme",
+      "ref": "main",
+      "repo": "api",
+      "repo_class": "production"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "blocking": false,
+      "kind": "unsupported-allow-claim-key",
+      "message": "Allow statement contains unqualified or unsupported claim keys.  For Allow, FedFence erases them and proves the over-approximation.",
+      "severity": "high",
+      "statement": 0,
+      "witness": null
+    },
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:SriniFreelanceProjects/GitHubActions_AWS_TF_AssumeRole:pull_request; aud=sts.amazonaws.com"
+    }
+  ],
+  "safe": false,
+  "source": "aws-actions configure-aws-credentials issue 721",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials/issues/721"
+}

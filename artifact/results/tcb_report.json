@@ -1,0 +1,15 @@
+{
+  "certificate_replay_imports_analyzer": false,
+  "certificate_replay_required_functions": [
+    "_effective_summary_without_analyzer",
+    "_verify_effective_case_certificate",
+    "verify_atomic_certificate",
+    "verify_certificate"
+  ],
+  "certificate_replay_required_functions_present": true,
+  "failures": [],
+  "modules": 9,
+  "note": "SLOC is a reviewer-facing TCB map, not a claim that every line is equally trusted.",
+  "passed": true,
+  "total_sloc": 2265
+}

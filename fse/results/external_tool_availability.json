@@ -1,0 +1,41 @@
+{
+  "actual_comparative_benchmark_runs": 0,
+  "note": "version discovery is not a benchmark; tool absence does not count as a missed vulnerability",
+  "tools": [
+    {
+      "benchmark_status": "not_run",
+      "executable": null,
+      "tool": "checkov",
+      "version": null,
+      "version_status": "unavailable"
+    },
+    {
+      "benchmark_status": "not_run",
+      "executable": null,
+      "tool": "tfsec",
+      "version": null,
+      "version_status": "unavailable"
+    },
+    {
+      "benchmark_status": "not_run",
+      "executable": null,
+      "tool": "trivy",
+      "version": null,
+      "version_status": "unavailable"
+    },
+    {
+      "benchmark_status": "not_run",
+      "executable": null,
+      "tool": "opa",
+      "version": null,
+      "version_status": "unavailable"
+    },
+    {
+      "benchmark_status": "not_run",
+      "executable": null,
+      "tool": "aws",
+      "version": null,
+      "version_status": "unavailable"
+    }
+  ]
+}

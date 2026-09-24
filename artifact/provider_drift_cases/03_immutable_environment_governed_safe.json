@@ -1,0 +1,43 @@
+{
+  "description": "Immutable environment subject is safe only with matching repository-scoped environment governance evidence.",
+  "expected_safe": true,
+  "name": "immutable_environment_governed_safe",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:acme@100/api@200:environment:prod"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "GitHub Docs OpenID Connect reference, accessed Jun. 12, 2026",
+  "repository_governance": {
+    "protected_environments": [
+      {
+        "environment": "prod",
+        "owner": "acme@100",
+        "repository": "api@200"
+      }
+    ]
+  },
+  "source_basis": "GitHub OIDC reference: immutable repo segment plus default environment context.",
+  "source_url": "https://docs.github.com/en/actions/reference/security/oidc",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:acme@100/api@200:environment:prod"
+    ]
+  }
+}

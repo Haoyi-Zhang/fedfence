@@ -1,0 +1,10 @@
+{
+  "baseline_rows": 4,
+  "correct": 2240,
+  "families": 35,
+  "median_ms": 3.36,
+  "p95_ms": 7.786,
+  "per_family": 64,
+  "total_cases": 2240,
+  "unsafe_cases": 1664
+}

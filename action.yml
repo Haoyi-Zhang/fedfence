@@ -1,0 +1,42 @@
+name: FedFence trust review
+description: Review a complete CI/CD trust packet and emit GitHub annotations plus a JSON receipt.
+inputs:
+  packet:
+    description: Packet path relative to the caller workspace.
+    required: true
+  previous:
+    description: Optional prior result path used only for change-dependency reporting.
+    required: false
+    default: ""
+  timeout:
+    description: Analysis timeout in seconds.
+    required: false
+    default: "15"
+outputs:
+  verdict:
+    description: pass, fail, or unknown
+    value: ${{ steps.gate.outputs.verdict }}
+  result-json:
+    description: Absolute path to the raw result JSON
+    value: ${{ steps.gate.outputs.result_json }}
+runs:
+  using: composite
+  steps:
+    - id: gate
+      shell: bash
+      env:
+        FEDFENCE_PACKET: ${{ inputs.packet }}
+        FEDFENCE_PREVIOUS: ${{ inputs.previous }}
+        FEDFENCE_TIMEOUT: ${{ inputs.timeout }}
+      run: |
+        set +e
+        RESULT_JSON="${RUNNER_TEMP}/fedfence-result-${GITHUB_RUN_ID:-local}-${GITHUB_RUN_ATTEMPT:-1}.json"
+        CMD=(python3 -m fse_workflow.cli review "${GITHUB_WORKSPACE}/${FEDFENCE_PACKET}" --format github --result-json "${RESULT_JSON}" --timeout "${FEDFENCE_TIMEOUT}")
+        if [[ -n "${FEDFENCE_PREVIOUS}" ]]; then
+          CMD+=(--previous "${GITHUB_WORKSPACE}/${FEDFENCE_PREVIOUS}")
+        fi
+        (cd "${GITHUB_ACTION_PATH}" && PYTHONPATH="${GITHUB_ACTION_PATH}" "${CMD[@]}")
+        STATUS=$?
+        VERDICT="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["verdict"])' "${RESULT_JSON}")"
+        printf 'verdict=%s\nresult_json=%s\n' "${VERDICT}" "${RESULT_JSON}" >> "${GITHUB_OUTPUT}"
+        exit "${STATUS}"

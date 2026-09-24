@@ -1,0 +1,38 @@
+{
+  "expected_safe": false,
+  "name": "condition_key_typo",
+  "policy": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.GitHubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:SriniFreelanceProjects/GitHubActions_AWS_TF_AssumeRole:*"
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  },
+  "public_source": "aws-actions configure-aws-credentials issue 721",
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials/issues/721",
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:SriniFreelanceProjects/GitHubActions_AWS_TF_AssumeRole:ref:refs/heads/main"
+    ]
+  }
+}

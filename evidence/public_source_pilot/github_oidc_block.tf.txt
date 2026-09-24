@@ -1,0 +1,27 @@
+  # GitHub OIDC
+  dynamic "statement" {
+    for_each = var.enable_github_oidc ? [1] : []
+
+    content {
+      sid = "GithubOidcAuth"
+      actions = [
+        "sts:TagSession",
+        "sts:AssumeRoleWithWebIdentity",
+      ]
+
+      principals {
+        type        = "Federated"
+        identifiers = ["arn:${local.partition}:iam::${local.account_id}:oidc-provider/${var.github_provider}"]
+      }
+
+      condition {
+        test     = "ForAllValues:StringEquals"
+        variable = "${var.github_provider}:iss"
+        values   = ["https://${var.github_provider}"]
+      }
+
+      condition {
+        test     = "ForAllValues:StringEquals"
+        variable = "${var.github_provider}:aud"
+        values   = coalescelist(var.oidc_audiences, ["sts.amazonaws.com"])
+      }

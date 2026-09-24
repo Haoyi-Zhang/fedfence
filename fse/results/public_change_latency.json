@@ -1,0 +1,89 @@
+{
+  "all_changes": {
+    "max_ms": 992.4651,
+    "median_ms": 946.0769,
+    "min_ms": 934.2572,
+    "p95_ms": 986.2235
+  },
+  "claim_boundary": "local execution-cost check only; not production tail latency or end-to-end CI time",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "recorded_at_utc": "2026-09-24T05:56:23.690834+00:00",
+  "repeats": 7,
+  "rows": [
+    {
+      "id": "artur-main-branch",
+      "max_ms": 56.3661,
+      "median_ms": 53.8925,
+      "min_ms": 52.4827,
+      "p95_ms": 56.1983,
+      "repeats": 7
+    },
+    {
+      "id": "pmcg-master-branch",
+      "max_ms": 56.6403,
+      "median_ms": 53.6598,
+      "min_ms": 53.2122,
+      "p95_ms": 56.3156,
+      "repeats": 7
+    },
+    {
+      "id": "arriagada-main-branch",
+      "max_ms": 92.6342,
+      "median_ms": 91.2426,
+      "min_ms": 89.5918,
+      "p95_ms": 92.3607,
+      "repeats": 7
+    },
+    {
+      "id": "shadow-release-branches",
+      "max_ms": 67.8878,
+      "median_ms": 66.1173,
+      "min_ms": 65.1659,
+      "p95_ms": 67.6311,
+      "repeats": 7
+    },
+    {
+      "id": "amr-org-scope",
+      "max_ms": 64.3053,
+      "median_ms": 62.8574,
+      "min_ms": 61.4864,
+      "p95_ms": 64.2656,
+      "repeats": 7
+    },
+    {
+      "id": "manyiu-repository-scope",
+      "max_ms": 140.8964,
+      "median_ms": 121.7622,
+      "min_ms": 117.7614,
+      "p95_ms": 136.4313,
+      "repeats": 7
+    },
+    {
+      "id": "michele-environment-cut",
+      "max_ms": 62.889,
+      "median_ms": 60.0106,
+      "min_ms": 58.1998,
+      "p95_ms": 62.8436,
+      "repeats": 7
+    },
+    {
+      "id": "sports-store-immutable-main",
+      "max_ms": 421.7777,
+      "median_ms": 382.5988,
+      "min_ms": 371.0248,
+      "p95_ms": 414.2228,
+      "repeats": 7
+    },
+    {
+      "id": "microticket-immutable-compatibility",
+      "max_ms": 121.7046,
+      "median_ms": 77.0699,
+      "min_ms": 75.6753,
+      "p95_ms": 108.8183,
+      "repeats": 7
+    }
+  ],
+  "schema": "fedfence-public-change-latency-v2",
+  "scope": "normalized public-change packets; analyzer plus certificate replay; source collection and IaC evaluation excluded"
+}

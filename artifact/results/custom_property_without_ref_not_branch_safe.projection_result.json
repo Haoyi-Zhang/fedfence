@@ -1,0 +1,45 @@
+{
+  "admitted": 3,
+  "finding_kinds": [
+    "event-overgrant",
+    "event-overgrant"
+  ],
+  "findings": [
+    {
+      "kind": "event-overgrant",
+      "message": "A mintable workflow event satisfies the effective trust predicate but is outside intent.",
+      "state": "dev-prod",
+      "witness_claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "acme/api/.github/workflows/deploy.yml@refs/heads/dev",
+        "ref": "refs/heads/dev",
+        "repository": "acme/api",
+        "repository_custom_properties.tier": "prod",
+        "repository_id": "R_100",
+        "repository_visibility": "private",
+        "sub": "repo:acme/api:environment:prod"
+      }
+    },
+    {
+      "kind": "event-overgrant",
+      "message": "A mintable workflow event satisfies the effective trust predicate but is outside intent.",
+      "state": "fork-main-prod",
+      "witness_claims": {
+        "aud": "sts.amazonaws.com",
+        "environment": "prod",
+        "job_workflow_ref": "evil/api/.github/workflows/deploy.yml@refs/heads/main",
+        "ref": "refs/heads/main",
+        "repository": "evil/api",
+        "repository_custom_properties.tier": "prod",
+        "repository_id": "R_999",
+        "repository_visibility": "public",
+        "sub": "repo:evil/api:environment:prod"
+      }
+    }
+  ],
+  "intended_admitted": 1,
+  "name": "custom_property_without_ref_not_branch_safe",
+  "safe": false,
+  "states": 4
+}

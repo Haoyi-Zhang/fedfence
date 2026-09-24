@@ -1,0 +1,40 @@
+{
+  "name": "environment_all_branches_blocks",
+  "owner": "acme",
+  "repository": "api",
+  "exports": {
+    "branches": [
+      {
+        "name": "main",
+        "protected": true,
+        "required_reviews": 2,
+        "required_status_checks": [
+          "build"
+        ]
+      }
+    ],
+    "environments": [
+      {
+        "name": "prod",
+        "reviewers": 2,
+        "deployment_branches": [
+          "*"
+        ],
+        "prevent_self_review": true
+      }
+    ]
+  },
+  "premises": [
+    {
+      "kind": "protected_environment",
+      "environment": "prod",
+      "branch": "main",
+      "expected": false
+    },
+    {
+      "kind": "protected_branch",
+      "branch": "main",
+      "expected": true
+    }
+  ]
+}

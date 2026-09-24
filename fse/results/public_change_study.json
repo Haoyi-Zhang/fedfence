@@ -1,0 +1,1072 @@
+{
+  "changes": [
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "f9b23d678a113f9598d0accaf67095ba16ec1ded2dfd5bf5171839c27ccfa12e",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "abc4e46058578041b050077b11ef64e806294b9536e3d634b2a03fcf539b2036",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "466ce7b187c3057f0f43c2d586b1d1d489e729cf0d618f6f6f30d03ca49a8bc8",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:artur-duart/togglemaster-devops-fiap:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "42f71e00360628e67f44733b82a2863b7cf973ffb9f6a03fd9e8f0982ec6294e",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:artur-duart/togglemaster-devops-fiap:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "b09186ba3cbb56337e0b695318754d0d8453421c",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infra/github-oidc.tf"
+      ],
+      "id": "artur-main-branch",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "artur-duart/togglemaster-devops-fiap",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "test     = \"StringEquals\"",
+          "repo:artur-duart/togglemaster-devops-fiap:ref:refs/heads/main"
+        ],
+        "removed": [
+          "test     = \"StringLike\"",
+          "repo:artur-duart/togglemaster-devops-fiap:*"
+        ]
+      },
+      "source_sha256": "5f4c35a4aa0558218ba6ec6348387b7d5db45a501e827243df0f331868254a54",
+      "source_snapshot": "evidence/public_changes/artur-main-branch.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/artur-duart/togglemaster-devops-fiap/commit/b09186ba3cbb56337e0b695318754d0d8453421c"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "4ecbde71f19913a52e298249235935d61d3338fc0eac4f603189fd152f2efcc4",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "564dec0259c99c22899416ec01581fee1ae6d36e404b4a3f42a20443efdd3bf6",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "1ea9ed65cecd20f9f2128712fce25d45ca6028da55759ccd8c0d52db2f9a58d7",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/-; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "ae718b4ce41068cf29a8aa44eea279d57851058ac94931d3c4a69ffea23bc58c",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/-; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "bb96ae77561bfab07471a0629f165db4a2515535",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "data.tf"
+      ],
+      "id": "pmcg-master-branch",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "P-mcg01/muyu-invoice-infrastructure",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/master"
+        ],
+        "removed": [
+          "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/*"
+        ]
+      },
+      "source_sha256": "044d141581af7f3255afaf2f7dd867b68f79fc639fd7e3ccd335462bd59ad7fc",
+      "source_snapshot": "evidence/public_changes/pmcg-master-branch.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/P-mcg01/muyu-invoice-infrastructure/commit/bb96ae77561bfab07471a0629f165db4a2515535"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "3d04e679702a5d7e335b450337f6a05851949d92883b701d958ae7861a942434",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "96c5a72ec745f55fb548b3dc48a379561c23052d9e0e8341092b7b6938eb6eca",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "8be4cc70b8ab1fae738afb32f53f4fb2fc9283264ecc29603f943126be10d88c",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "2336c36a2bd2b4e1d17c2d5ec4cc79cf46429fbfe3324b71f4fc8f035930655d",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "8a67b6071b08fb363b664222a28d7250c29ed8cf",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "deployment/iam/tpi-github-actions-dev-ecr-role-trust.json",
+        "tests/unit/test_github_oidc_trust.py"
+      ],
+      "id": "arriagada-main-branch",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "new regression test",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "ArriagadaInc/tpi-backend",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/main"
+        ],
+        "removed": [
+          "repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth"
+        ]
+      },
+      "source_sha256": "3f3d17bb11d66c0cc6085061fb8b3611e6b1c814bbc045623ed8445fc5b076fa",
+      "source_snapshot": "evidence/public_changes/arriagada-main-branch.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/ArriagadaInc/tpi-backend/commit/8a67b6071b08fb363b664222a28d7250c29ed8cf"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "5056976d78cac0e53597b883b8df26f8ac87c2e81d9a14aadfefb2a2b467e77e",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "6645577c52b20f8e959d6fada35f5b7a50bc036adf452a4c2e7fd77f385c35e1",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "8948d74865e6387aa4ff73cca2ef4945796019dc14e1ac10e9d7ecfb96994758",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:shadow-architect-dev/aws-landing-zone:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "31ae931e445ab09a04a45facab1003e7398d019a925340ab18ac22f93a55520c",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:shadow-architect-dev/aws-landing-zone:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "terraform/modules/shared_services/main.tf"
+      ],
+      "id": "shadow-release-branches",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "shadow-architect-dev/aws-landing-zone",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "repo:${var.github_repo}:ref:refs/heads/main",
+          "repo:${var.github_repo}:ref:refs/heads/develop",
+          "repo:${var.github_repo}:ref:refs/heads/release/*"
+        ],
+        "removed": [
+          "repo:${var.github_repo}:*"
+        ]
+      },
+      "source_sha256": "fd075249ca7f6c3813b3050ac2a6bdb03453b6589d7e0dec7a5c3084b9f74e6c",
+      "source_snapshot": "evidence/public_changes/shadow-release-branches.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/shadow-architect-dev/aws-landing-zone/commit/f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "202c7f29b4cdeac5aa6b7816de99ab7c3ba5bd8a0c613c2a0be9ac99086483e8",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "0ac081d769ef5cb2d9c61ab3e35dce4e2d9c1f1225183e63128023b89d4719f9",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "e3839811155d8446a50da998d91995efaf75795881bd2beec4d1b9f3255980eb",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:-/-:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "efeafa3b7d99149821100cd9fdb12fd7c2fb4d3f9a7c8f0169a9e9433a3c2f68",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:-/-:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infrastructure/terraform/modules/eks/github-oidc.tf"
+      ],
+      "id": "amr-org-scope",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "amr-elzoghby/Internal-Developer-Platform",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "repo:amr-elzoghby/*:*"
+        ],
+        "removed": [
+          "repo:*:*"
+        ]
+      },
+      "source_sha256": "bbca8d07e9881bb38dd9504376f5e217cbd520c8661d89b18a3cc1279b78ceb7",
+      "source_snapshot": "evidence/public_changes/amr-org-scope.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/amr-elzoghby/Internal-Developer-Platform/commit/d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "0080c4a408e131c84add0232219635fc86d661f86ffc0cd7b980765c58b3cd6e",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "18e49acf3576900d101fb9b7b871a69d7059c4774dab37a42a4e87c254cd7464",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "5d52ce72678734af36d6b4666caed73de64668a2850a71af16bab26fb743448c",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:manyiu/%:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "ee2bd1f43c07fec9593e5844752fac788b998b206189d5bd06c8c85f5d8b4998",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:manyiu/%:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "8ebbad974724acace02bbb1d7462a7529235aabd",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infra/cdk/lib/github-config.ts",
+        "infra/cdk/lib/github-oidc-stack.ts",
+        "infra/cdk/lib/github-config.test.ts"
+      ],
+      "id": "manyiu-repository-scope",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "README change",
+          "new regression tests",
+          "CDK diff"
+        ]
+      },
+      "repository": "manyiu/vazue-playlang",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "repo:${owner}/${repo}:*",
+          "repo:${owner}@${ownerId}/${repo}@${repoId}:*"
+        ],
+        "removed": [
+          "repo:${owner}/*:*",
+          "repo:${owner}@${ownerId}/*:*"
+        ]
+      },
+      "source_sha256": "d287826ba008f0a0055391705f45f78a7a8ca21fec76f31d41c3ed24f47b253d",
+      "source_snapshot": "evidence/public_changes/manyiu-repository-scope.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/manyiu/vazue-playlang/commit/8ebbad974724acace02bbb1d7462a7529235aabd"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "f3907edff3e701339c757efcb87650d2a60c2e250803edf211bf15935af0f939",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "unprotected-environment",
+            "message": "Environment subject requires a repository-scoped protected-environment governance fact.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:micheleformenti/aws-two-tier-architecture:environment:dev; governance=micheleformenti/aws-two-tier-architecture:dev"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "509e716f801b8d227dd002ece86025dca89fe25ececb3c4f2c3c5bb8cefceee1",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "unknown",
+        "witnesses": [
+          "sub=repo:micheleformenti/aws-two-tier-architecture:environment:dev; governance=micheleformenti/aws-two-tier-architecture:dev"
+        ]
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "fail",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "159c76bded20cffe115503ff3a2664f3a42434426f6c9612faf5fb4614bbbd4c",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": false,
+            "kind": "missing-aud",
+            "message": "Allow statement has no provider-qualified audience condition; safety is decided on issuer audiences.",
+            "severity": "medium",
+            "statement": 0,
+            "witness": null
+          },
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=-"
+          },
+          {
+            "blocking": true,
+            "kind": "audience-overgrant",
+            "message": "Effective policy admits an issuer-mintable audience outside intent.",
+            "severity": "medium",
+            "statement": 0,
+            "witness": "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=-"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "4005c36482db436f2861350750a8040f52def3c912b37aba75af05a34bb98f47",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=-",
+          "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=-"
+        ]
+      },
+      "change_kind": "cross-plane-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "5d7339a716eb1e64623a95e756298f6057030285",
+      "expected": {
+        "after": "unknown",
+        "before": "fail"
+      },
+      "files": [
+        "infra/modules/two-tier-app/github-oidc.tf",
+        ".github/workflows/ci-cd.yml",
+        "README.md"
+      ],
+      "id": "michele-environment-cut",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff",
+          "workflow diff",
+          "README change"
+        ]
+      },
+      "repository": "micheleformenti/aws-two-tier-architecture",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "token.actions.githubusercontent.com:aud",
+          "repo:${var.github_org}/${var.github_repo}:environment:${var.env}"
+        ],
+        "removed": [
+          "repo:${var.github_org}/${var.github_repo}:*"
+        ]
+      },
+      "source_sha256": "9dec13023b33cfe2b86ae842bb20bc85a8ed51cd403f3bf9d5bc14967691d2b3",
+      "source_snapshot": "evidence/public_changes/michele-environment-cut.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->unknown",
+      "url": "https://github.com/micheleformenti/aws-two-tier-architecture/commit/5d7339a716eb1e64623a95e756298f6057030285"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "a75a41ccfb5e367cde339b00fbcfbac3ca9a17b81f0d09ee2a6f2863809518b0",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "9c5000e37e74b6ec451a3b0de492a1a8a993185b571df82c2ef4363d40694d02",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "f0c3c0ba194d519651622e094ed6e96f4fc84e91b5c8bf658b78595992f7960c",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "ff674a8db25a2501f7e9f25b941e155205386c47c65448e1059bb7a2ccf4e0b6",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "security-hardening",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "iam.tf"
+      ],
+      "id": "sports-store-immutable-main",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "source_fields": [
+          "commit message",
+          "trust-policy diff",
+          "new trust-boundary tests"
+        ]
+      },
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "required_tokens": [],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+          "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main"
+        ],
+        "removed": [
+          "repo:Deploy-On-Friday2-0*/sports-store-*:*"
+        ]
+      },
+      "source_sha256": "18e914e77008cf42d065ea18ea504cd7365d4c882617200e48805586cd64e327",
+      "source_snapshot": "evidence/public_changes/sports-store-immutable-main.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/Deploy-On-Friday2-0/sports-store-infrastructure/commit/9eeb7ff43b2a304e170e0d533b9b127b5a80b345"
+    },
+    {
+      "after": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "78ac98248dce6e4c912b43c5f779e43edfd24126e4ffb9c68541b04a81bf95fe",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "b66c71df49dbc7fefe3ad6c5a0e27b1a10fdcad55d5c5013fe2d3fd7deea1006",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [
+            {
+              "aud": "sts.amazonaws.com",
+              "index": 0,
+              "inside_intent": true,
+              "issuer_mintable": true,
+              "policy_admitted": true,
+              "reason": "the deployment token observed by the developer must remain assumable",
+              "satisfied": true,
+              "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+            }
+          ],
+          "invalid": [],
+          "missing": [],
+          "required": 1,
+          "satisfied": 1
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "before": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "8e96d4bc334c99dc907ba705664e3da6843c3499406c3d8807b27a693bb27bc4",
+        "certificate_verdict": "safe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "required-token-not-admitted",
+            "message": "the deployment token observed by the developer must remain assumable",
+            "severity": "high",
+            "statement": null,
+            "witness": "sub=repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "33d4e088e9d0a76fe059142e43e173ad7953582e48e32645c7b2fb75d3d6e901",
+        "replay_notes": [
+          "independent effective-admission replay verifies"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": false,
+          "checks": [
+            {
+              "aud": "sts.amazonaws.com",
+              "index": 0,
+              "inside_intent": true,
+              "issuer_mintable": true,
+              "policy_admitted": false,
+              "reason": "the deployment token observed by the developer must remain assumable",
+              "satisfied": false,
+              "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+            }
+          ],
+          "invalid": [],
+          "missing": [
+            {
+              "aud": "sts.amazonaws.com",
+              "index": 0,
+              "inside_intent": true,
+              "issuer_mintable": true,
+              "policy_admitted": false,
+              "reason": "the deployment token observed by the developer must remain assumable",
+              "satisfied": false,
+              "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+            }
+          ],
+          "required": 1,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod; aud=sts.amazonaws.com"
+        ]
+      },
+      "change_kind": "compatibility-repair",
+      "claim_boundary": "source-backed change alignment, not prevalence, independent accuracy, or owner-confirmed vulnerability",
+      "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+      "expected": {
+        "after": "pass",
+        "before": "fail"
+      },
+      "files": [
+        "infra/iam_oidc.tf",
+        "infra/variables.tf"
+      ],
+      "id": "microticket-immutable-compatibility",
+      "intent_evidence": {
+        "independently_adjudicated": false,
+        "owner_confirmed": false,
+        "provenance": "developer-stated-public-commit",
+        "runtime_observation_described": true,
+        "source_fields": [
+          "commit message",
+          "CloudTrail-observed subject stated in commit",
+          "trust-policy diff"
+        ]
+      },
+      "repository": "sdunster/microticket",
+      "required_tokens": [
+        {
+          "aud": "sts.amazonaws.com",
+          "reason": "the deployment token observed by the developer must remain assumable",
+          "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+        }
+      ],
+      "source_alignment": true,
+      "source_assertions": {
+        "added": [
+          "var.github_repo_immutable == \"\" ? \"\" : \"repo:${var.github_repo_immutable}:ref:refs/heads/prod\"",
+          "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod"
+        ],
+        "removed": [
+          "\"token.actions.githubusercontent.com:sub\" = \"repo:${var.github_repo}:ref:refs/heads/prod\""
+        ]
+      },
+      "source_sha256": "8dbf73fc27baa3edce0ddb51a05eb43f367d98c6cf7ac03b8638b19c14b93b7f",
+      "source_snapshot": "evidence/public_changes/microticket-immutable-compatibility.patch",
+      "source_snapshot_verified": true,
+      "transition": "fail->pass",
+      "url": "https://github.com/sdunster/microticket/commit/79abbeceae16b22f22a78770d580e44058c9f559"
+    }
+  ],
+  "schema": "fedfence-public-change-results-v2",
+  "selection": {
+    "candidates_screened": 17,
+    "changes_included": 9,
+    "kind": "purposive-public-oidc-change-pilot",
+    "sampling_claim": "purposive pilot; not representative and not exhaustive",
+    "screening_manifest": "study/public_change_screening.json",
+    "screening_sha256": "47e776027eefd45a42c5a5a6132db2d7ad53e2bc4be788830f1784c6979aaf94"
+  },
+  "summary": {
+    "accuracy_claim": false,
+    "baseline_alignment": {
+      "exact_ref_only": {
+        "aligned": 12,
+        "total": 17
+      },
+      "presence": {
+        "aligned": 9,
+        "total": 17
+      },
+      "wildcard_ban": {
+        "aligned": 12,
+        "total": 17
+      }
+    },
+    "change_kinds": {
+      "compatibility-repair": 1,
+      "cross-plane-hardening": 1,
+      "security-hardening": 7
+    },
+    "distinct_repositories": 9,
+    "fedfence_phase_alignment": {
+      "aligned": 18,
+      "total": 18
+    },
+    "independently_adjudicated": 0,
+    "interpretation": "alignment with explicit developer-stated hardening intent on a purposive public-change sample",
+    "owner_confirmed": 0,
+    "prevalence_claim": false,
+    "public_commits": 9,
+    "required_tokens": {
+      "declared": 1,
+      "satisfied_after": 1
+    },
+    "source_aligned": 9,
+    "source_snapshots_verified": 9,
+    "transition_counts": {
+      "fail->pass": 8,
+      "fail->unknown": 1
+    }
+  }
+}

@@ -1,0 +1,11 @@
+Repository: artur-duart/togglemaster-devops-fiap
+Commit: b09186ba3cbb56337e0b695318754d0d8453421c
+File: infra/github-oidc.tf
+Commit message: security(infra): restrict GitHub OIDC trust to main branch
+
+Relevant source hunk (verbatim from the public commit):
+-      test     = "StringLike"
++      test     = "StringEquals"
+       variable = "token.actions.githubusercontent.com:sub"
+-      values   = ["repo:artur-duart/togglemaster-devops-fiap:*"] # 🆕 confirme o dono/nome do repo
++      values   = ["repo:artur-duart/togglemaster-devops-fiap:ref:refs/heads/main"]

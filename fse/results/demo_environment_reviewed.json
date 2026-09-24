@@ -1,0 +1,157 @@
+{
+  "backend_analysis": {
+    "allow_subject_edges": 31,
+    "allow_subject_states": 32,
+    "findings": [],
+    "intended_subject_edges": 32,
+    "intended_subject_states": 33,
+    "name": "deploy-production",
+    "safe": true
+  },
+  "cache_used_for_verdict": false,
+  "certificate": {
+    "case": {
+      "name": "deploy-production",
+      "policy": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+              "StringEquals": {
+                "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                "token.actions.githubusercontent.com:sub": "repo:acme/api:environment:prod"
+              }
+            },
+            "Effect": "Allow",
+            "Principal": {
+              "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+            }
+          }
+        ],
+        "Version": "2012-10-17"
+      },
+      "repository_governance": {
+        "protected_environments": [
+          "acme/api:prod"
+        ]
+      },
+      "spec": {
+        "allowed_audiences": [
+          "sts.amazonaws.com"
+        ],
+        "allowed_subjects": [
+          "repo:acme/api:environment:prod"
+        ]
+      }
+    },
+    "certificate_components": [
+      "PrincipalCert",
+      "ClaimKeyCert",
+      "ConditionErasureCert",
+      "IssuerProjectionCert",
+      "EffectiveAllowMinusDenyCert",
+      "GovernanceCert",
+      "UnsupportedBoundaryCert",
+      "ReplayWitnessCert",
+      "SelectedClaimProjectionCert"
+    ],
+    "judgment": "effective-claim-product-admission",
+    "kind": "fedfence-effective-case-certificate",
+    "name": "deploy-production",
+    "policy_profile": {
+      "allows": [
+        {
+          "allow_overapprox_core": true,
+          "aud_groups": [
+            {
+              "op": "equals",
+              "values": [
+                "sts.amazonaws.com"
+              ]
+            }
+          ],
+          "deny_exact_core": true,
+          "effect": "Allow",
+          "exact_github_principal": true,
+          "index": 0,
+          "malformed_principal": false,
+          "mixed_principal": false,
+          "principal_federated": [
+            "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          ],
+          "principal_wildcard": false,
+          "raw_condition_keys": [
+            "token.actions.githubusercontent.com:aud",
+            "token.actions.githubusercontent.com:sub"
+          ],
+          "selected_claim_groups": {},
+          "sub_groups": [
+            {
+              "op": "equals",
+              "values": [
+                "repo:acme/api:environment:prod"
+              ]
+            }
+          ],
+          "unsupported_claim_keys": [],
+          "unsupported_conditions": [],
+          "unsupported_principal": false,
+          "unsupported_statement_fields": []
+        }
+      ],
+      "denies": []
+    },
+    "replay_summary": {
+      "all_kinds": [],
+      "blocking_kinds": [],
+      "findings": [],
+      "safe": true,
+      "witnesses": []
+    },
+    "verdict": "safe",
+    "version": 5
+  },
+  "certificate_sha256": "fadf6b4a7d4e9d927e2638a8099e21f0125f7fb37bfed300389e31a82d98ecba",
+  "changed_fields": [
+    "contract",
+    "implementation",
+    "governance",
+    "issuer",
+    "policy",
+    "workflow"
+  ],
+  "deployment_authorized": false,
+  "exit_code": 0,
+  "findings": [],
+  "fragment": {
+    "issues": [],
+    "profile": "aws-github-scalar-sub-aud-v1",
+    "statements": 1,
+    "supported": true
+  },
+  "input_hashes": {
+    "contract": "82ceb13739b38604c4bafbd350daddeb1f6866f5faedb21b32f644b508d531c3",
+    "governance": "56972da0c5cde56ab2ecb7bac7d4dcc2b65da80a534b38362983b70ae075743d",
+    "implementation": "6c9c2cff7610e835124e98b06dee796bb341572958022cbf41d08d71db038f44",
+    "issuer": "4195979b8936924faadf0970a7ed3bde68d362e0f570598e5a65ea1ccf1b2604",
+    "policy": "c61429fe00f88517144d86dfeab26e437783dfd3b5f96eb783a28e592d2e08eb",
+    "workflow": "37fce064d26a3b05c168ca7a1425cec5d309bb6b5b90abca467334bb71e00650"
+  },
+  "packet_sha256": "063827e295a6183932559dbf3bad211073976872e4884eaddd44bb55f66a9975",
+  "replay_ok": true,
+  "required_token_checks": {
+    "all_satisfied": true,
+    "checks": [],
+    "invalid": [],
+    "missing": [],
+    "required": 0,
+    "satisfied": 0
+  },
+  "reviewer_identity_verified": false,
+  "runtime_provider_behavior_verified": false,
+  "schema": "fedfence-gate-result-v1",
+  "scope": "relative to supplied snapshots and reviewed specification; not live-cloud safety",
+  "source_authenticity_verified": false,
+  "verdict": "pass",
+  "workflow_reachability_checked": false
+}

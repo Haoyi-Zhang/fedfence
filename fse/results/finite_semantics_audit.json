@@ -1,0 +1,31 @@
+{
+  "checked_models": 65536,
+  "claim": "must-safe observation containment iff supplied-state safety; saturated case recovers existential image",
+  "evidence_type": "bounded exhaustive consistency audit; not mechanization or provider equivalence",
+  "incorrect_existential_lifting_counterexample": {
+    "admitted": [
+      0,
+      1
+    ],
+    "allow": [
+      0
+    ],
+    "deny": [],
+    "intended": [
+      0
+    ],
+    "mintable": [
+      0,
+      1
+    ],
+    "projection": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "observation_values": 2,
+  "passed": true,
+  "universe_states": 4
+}

@@ -1,0 +1,48 @@
+{
+  "case": {
+    "expected_safe": false,
+    "name": "tag_wildcard_overgrant",
+    "policy": {
+      "Statement": [
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringEquals": {
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+            },
+            "StringLike": {
+              "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/tags/v*"
+            }
+          },
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          }
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "repository_governance": {
+      "protected_branches": [
+        "main"
+      ],
+      "protected_environments": []
+    },
+    "spec": {
+      "allowed_audiences": [
+        "sts.amazonaws.com"
+      ],
+      "allowed_subject_globs": [
+        "repo:acme/api:ref:refs/tags/v*"
+      ]
+    }
+  },
+  "repair": {
+    "audience_count": 1,
+    "environment_governance_added": [],
+    "environment_governance_required": [],
+    "kind": "intent-exact-repair",
+    "policy_language": "finite intent basis",
+    "subject_count": 0
+  }
+}

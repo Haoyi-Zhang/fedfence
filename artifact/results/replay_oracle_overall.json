@@ -1,0 +1,45 @@
+{
+  "claim": "replay-safe labels are recomputed from the certificate verifier rather than read from expected_safe fields",
+  "expected_labeled_rows": 72,
+  "groups": {
+    "optional-hardening": {
+      "expected_rows": 3,
+      "matches_expected": 3,
+      "rows": 3,
+      "verified": 3
+    },
+    "optional-public-issue": {
+      "expected_rows": 8,
+      "matches_expected": 8,
+      "rows": 8,
+      "verified": 8
+    },
+    "provider-drift": {
+      "expected_rows": 4,
+      "matches_expected": 4,
+      "rows": 4,
+      "verified": 4
+    },
+    "registered": {
+      "expected_rows": 37,
+      "matches_expected": 37,
+      "rows": 37,
+      "verified": 37
+    },
+    "registered-public": {
+      "expected_rows": 20,
+      "matches_expected": 20,
+      "rows": 20,
+      "verified": 20
+    }
+  },
+  "imports_high_level_analyzer": false,
+  "matches_expected_labels": 72,
+  "rows": 72,
+  "shared_tcb": [
+    "policy parser",
+    "GitHub issuer constructors",
+    "generic NFA primitives"
+  ],
+  "verified": 72
+}

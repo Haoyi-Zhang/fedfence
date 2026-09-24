@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 34,
+  "allow_subject_states": 35,
+  "findings": [],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "audience_issuer_intersection_safe",
+  "safe": true
+}

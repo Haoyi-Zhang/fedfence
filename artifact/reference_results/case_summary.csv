@@ -1,0 +1,38 @@
+case,expected_safe,safe,correct,num_findings,finding_kinds,first_witness,allow_subject_states,intended_subject_states
+safe_exact_branch,True,True,True,0,,,35,36
+repo_wildcard_all_events,False,False,True,1,subject-overgrant,sub=repo:acme/api:pull_request; aud=sts.amazonaws.com,16,36
+org_wildcard_any_repo,False,False,True,1,subject-overgrant,sub=repo:acme/.:ref:refs/heads/main; aud=sts.amazonaws.com,32,36
+pull_request_admitted,False,False,True,1,subject-overgrant,sub=repo:acme/api:pull_request; aud=sts.amazonaws.com,28,36
+unprotected_environment,False,False,True,1,unprotected-environment,sub=repo:acme/api:environment:prod; governance=acme/api:prod,32,33
+safe_protected_environment,True,True,True,0,,,32,33
+missing_subject,False,False,True,2,missing-sub;subject-overgrant,sub=repo:./.:pull_request; aud=sts.amazonaws.com,116,36
+audience_wildcard,False,False,True,1,audience-overgrant,sub=repo:acme/api:ref:refs/heads/main; aud=.,35,36
+multi_statement_broad,False,False,True,1,subject-overgrant,sub=repo:acme/api:ref:refs/heads/.; aud=sts.amazonaws.com,66,72
+tag_wildcard_overgrant,False,False,True,1,subject-overgrant,sub=repo:acme/api:ref:refs/tags/.; aud=sts.amazonaws.com,30,32
+safe_conjunctive_refinement,True,True,True,0,,,34,36
+conjunctive_ref_broad,False,False,True,1,subject-overgrant,sub=repo:acme/api:pull_request; aud=sts.amazonaws.com,35,36
+safe_dynamic_alphabet,True,True,True,0,,,43,44
+non_github_oidc_principal,False,False,True,1,non-github-allow-oidc-principal,,0,0
+wildcard_federated_principal,False,False,True,1,wildcard-allow-federated-principal,,0,0
+mixed_principal_outside_core,False,False,True,1,mixed-allow-principal,,0,0
+safe_effective_deny_narrows_finite_overgrant,True,True,True,0,,,68,36
+unqualified_claim_keys_ineffective,False,False,True,5,unsupported-allow-claim-key;missing-sub;missing-aud;subject-overgrant;audience-overgrant,sub=repo:./.:pull_request; aud=.,116,36
+substring_principal_rejected,False,False,True,1,non-github-allow-oidc-principal,,0,0
+cross_repository_environment_governance,False,False,True,1,unprotected-environment,sub=repo:acme/api:environment:prod; governance=acme/api:prod,32,33
+audience_issuer_intersection_safe,True,True,True,0,,,35,36
+literal_star_audience_unsafe,False,False,True,1,audience-overgrant,sub=repo:acme/api:ref:refs/heads/main; aud=*,35,36
+literal_question_audience_unsafe,False,False,True,1,audience-overgrant,sub=repo:acme/api:ref:refs/heads/main; aud=?,35,36
+unsupported_allow_condition_erased_safe,True,True,True,1,unsupported-allow-claim-key,,35,36
+branch_slash_safe,True,True,True,0,,,41,42
+encoded_colon_environment_safe,True,True,True,0,,,43,44
+unsupported_deny_cannot_discharge_unsafe,False,False,True,1,subject-overgrant,sub=repo:acme/api:ref:refs/heads/dev; aud=sts.amazonaws.com,68,36
+safe_deny_removes_bad_audience,True,True,True,0,,,70,72
+foreign_provider_claim_key_ignored,False,False,True,3,unsupported-allow-claim-key;missing-sub;subject-overgrant,sub=repo:./.:pull_request; aud=sts.amazonaws.com,116,36
+safe_equals_literal_question_subject,True,True,True,0,,,48,49
+like_question_does_not_match_literal_intent,False,False,True,1,subject-overgrant,sub=repo:acme/api:ref:refs/heads/release.candidate; aud=sts.amazonaws.com,48,49
+foranyvalue_operator_outside_core,False,False,True,5,unsupported-allow-condition;missing-sub;missing-aud;subject-overgrant;audience-overgrant,sub=repo:./.:pull_request; aud=.,116,36
+33_selected_claim_default_environment_not_branch_definable,False,False,True,1,event-overgrant,"{""aud"": ""sts.amazonaws.com"", ""environment"": ""prod"", ""job_workflow_ref"": ""acme/api/.github/workflows/deploy.yml@refs/heads/dev"", ""ref"": ""refs/heads/dev"", ""repository"": ""acme/api"", ""repository_custom_properties.tier"": ""prod"", ""repository_id"": ""R_100"", ""repository_visibility"": ""private"", ""sub"": ""repo:acme/api:environment:prod""}",4,1
+34_selected_claim_ref_environment_repository_id_safe,True,True,True,0,,,4,1
+35_selected_claim_workflow_ref_safe,True,True,True,0,,,4,1
+36_selected_claim_custom_property_without_ref_unsafe,False,False,True,2,event-overgrant;event-overgrant,"{""aud"": ""sts.amazonaws.com"", ""environment"": ""prod"", ""job_workflow_ref"": ""acme/api/.github/workflows/deploy.yml@refs/heads/dev"", ""ref"": ""refs/heads/dev"", ""repository"": ""acme/api"", ""repository_custom_properties.tier"": ""prod"", ""repository_id"": ""R_100"", ""repository_visibility"": ""private"", ""sub"": ""repo:acme/api:environment:prod""}",4,1
+action_wildcard_outside_core,False,False,True,1,unsupported-allow-statement-field,,0,0

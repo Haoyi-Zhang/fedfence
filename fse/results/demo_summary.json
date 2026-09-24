@@ -1,0 +1,54 @@
+{
+  "all_expected": true,
+  "evidence_type": "synthetic walkthroughs",
+  "rows": [
+    {
+      "actual": "pass",
+      "example": "before",
+      "expected": "pass",
+      "passed": true
+    },
+    {
+      "actual": "fail",
+      "example": "after_wildcard",
+      "expected": "fail",
+      "passed": true
+    },
+    {
+      "actual": "unknown",
+      "example": "after_stale",
+      "expected": "unknown",
+      "passed": true
+    },
+    {
+      "actual": "unknown",
+      "example": "after_unsupported",
+      "expected": "unknown",
+      "passed": true
+    },
+    {
+      "actual": "unknown",
+      "example": "environment_missing",
+      "expected": "unknown",
+      "passed": true
+    },
+    {
+      "actual": "pass",
+      "example": "environment_reviewed",
+      "expected": "pass",
+      "passed": true
+    },
+    {
+      "actual": "pass",
+      "example": "availability_before",
+      "expected": "pass",
+      "passed": true
+    },
+    {
+      "actual": "fail",
+      "example": "availability_after",
+      "expected": "fail",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+predicate,min_cardinality,bases
+release-branch,2,repo+context;repository_id+context;context+repo_class
+prod-environment,2,repo+environment;repo+context;repository_id+environment;repository_id+context;environment+repo_class;context+repo_class
+prod-env-main,3,repo+ref+environment;repo+ref+context;repository_id+ref+environment;repository_id+ref+context;ref+environment+repo_class;ref+context+repo_class
+prod-env-main-or-release,3,repo+ref+environment;repo+ref+context;repository_id+ref+environment;repository_id+ref+context;ref+environment+repo_class;ref+context+repo_class
+repository-api-only,1,repo;repository_id;repo_class
+production-tier,1,repo;repository_id;repo_class
+deployable-prod-environment,2,repo+environment;repo+context;repository_id+environment;repository_id+context;environment+repo_class;context+repo_class
+not-pull-request,1,event;ref;context

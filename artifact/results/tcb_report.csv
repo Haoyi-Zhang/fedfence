@@ -1,0 +1,10 @@
+module,sloc,functions,imports
+fedfence/regular.py,380,31,__future__;collections;dataclasses;typing
+fedfence/github.py,169,11,.regular;__future__;dataclasses;json;re;typing
+fedfence/policy.py,238,20,__future__;dataclasses;fnmatch;re;typing
+fedfence/spec.py,48,7,.regular;__future__;typing
+fedfence/projection.py,147,24,__future__;dataclasses;itertools;typing
+fedfence/certificate.py,577,32,.event;.github;.policy;.regular;.spec;__future__;collections;typing
+fedfence/analyzer.py,355,16,.event;.github;.policy;.regular;.spec;__future__;collections;dataclasses;functools;json;pathlib;typing;yaml
+fedfence/iac.py,223,14,__future__;dataclasses;json;pathlib;re;typing;yaml
+fedfence/event.py,128,10,.policy;__future__;dataclasses;fnmatch;typing

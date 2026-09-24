@@ -1,0 +1,433 @@
+{
+  "schema": "fedfence-public-source-frontier-v1",
+  "collected_at": "2026-09-23T00:00:00Z",
+  "sampling_statement": "Query-defined convenience sample: pinned public GitHub code-search results containing the GitHub OIDC subject condition. It measures source-normalization frontiers, not prevalence or correctness.",
+  "query_result_order_preserved": false,
+  "records": [
+    {
+      "repository": "ministryofjustice/modernisation-platform-github-oidc-provider",
+      "path": "iam.tf",
+      "commit": "a8cdf0cb5c7f26359248951cb4da7c6187effa7f",
+      "blob_sha": "112bedeb122624d81726b30082682e7c78ab466a",
+      "source_url": "https://github.com/ministryofjustice/modernisation-platform-github-oidc-provider/blob/a8cdf0cb5c7f26359248951cb4da7c6187effa7f/iam.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "formatlist",
+        "caller_supplied_repository_patterns"
+      ],
+      "excerpt": "values = formatlist(\"repo:%s\", var.github_repositories)",
+      "excerpt_sha256": "bf0bc3f4065caf3f2e7b925d6eae0b4a251319d700282685620c02a209eea128",
+      "classification_reason": "The effective subjects depend on caller values and may already include suffixes."
+    },
+    {
+      "repository": "ministryofjustice/modernisation-platform-github-oidc-role",
+      "path": "main.tf",
+      "commit": "90fc3ed6de986a590314e8c6a17a4cf9caa0077c",
+      "blob_sha": "56b0508d573c1866135e883781aa6b4867d89ab9",
+      "source_url": "https://github.com/ministryofjustice/modernisation-platform-github-oidc-role/blob/90fc3ed6de986a590314e8c6a17a4cf9caa0077c/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "formatlist",
+        "caller_supplied_subject_claim"
+      ],
+      "excerpt": "values = formatlist(\"repo:%s:%s\", var.github_repositories, var.subject_claim)",
+      "excerpt_sha256": "105f81155c5eed60562a8c542f285bb65ee13ca833537ed2a3e2dd055bd3a40b",
+      "classification_reason": "The module composes repository and subject-claim inputs at instantiation."
+    },
+    {
+      "repository": "babbel/terraform-aws-iam-role-for-github-repository",
+      "path": "main.tf",
+      "commit": "fb03d12160c20ab256b1ecd43eed10920a5894dc",
+      "blob_sha": "05f4ec78316f9eecc60678c5d44da3b0b8791a73",
+      "source_url": "https://github.com/babbel/terraform-aws-iam-role-for-github-repository/blob/fb03d12160c20ab256b1ecd43eed10920a5894dc/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "dynamic_contexts",
+        "legacy_and_immutable_subjects",
+        "nested_for_expressions"
+      ],
+      "excerpt": "for repository in local.repositories : [ for c in local.contexts : \"repo:${repository}:${c}\" ]",
+      "excerpt_sha256": "15566d10f9c05e939a79ae33e67c42cf058d8d172d87c3e18ae424c007074d9a",
+      "classification_reason": "A concrete trust language exists only after owner/repository IDs and context values are supplied."
+    },
+    {
+      "repository": "SPHTech-Platform/terraform-aws-lambda-github-actions",
+      "path": "github_action.tf",
+      "commit": "5c5c17fcdcaeddc3421d80d81fc8b7916ca7c6d5",
+      "blob_sha": "59cfc288a2ee52e1c60967f67b13b1eef7eaddcc",
+      "source_url": "https://github.com/SPHTech-Platform/terraform-aws-lambda-github-actions/blob/5c5c17fcdcaeddc3421d80d81fc8b7916ca7c6d5/github_action.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_module_evaluation",
+      "audience_constraint": "inherited",
+      "features": [
+        "terraform_module_call",
+        "dynamic_branches",
+        "dynamic_tags",
+        "environments"
+      ],
+      "excerpt": "module \"lambda_gha\" { ... conditions = ... concat([for branch ...], [for tag ...]) }",
+      "excerpt_sha256": "528dfbb8f06090173f60abb75fc095b54c00980cc2b8e4ec84dcc1a8cb7d6f53",
+      "classification_reason": "The file delegates trust generation to a versioned module and caller-provided lists."
+    },
+    {
+      "repository": "terraform-module/terraform-aws-github-oidc-provider",
+      "path": "main.tf",
+      "commit": "6b3ce26d4c6ed5d8a3fe5fe286755eecbdcf6eb0",
+      "blob_sha": "f92dc5dea495668ba4ebeca9804ccc8bf3fd8d89",
+      "source_url": "https://github.com/terraform-module/terraform-aws-github-oidc-provider/blob/6b3ce26d4c6ed5d8a3fe5fe286755eecbdcf6eb0/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "missing",
+      "features": [
+        "for_expression",
+        "implicit_repo_wildcard"
+      ],
+      "excerpt": "\"repo:%{if length(regexall(\":+\", repo)) > 0}${repo}%{else}${repo}:*%{endif}\"",
+      "excerpt_sha256": "83b30b3dfe208518e90a4543eda4daf47fa18a0c334dcf9397da9e21bafc9df9",
+      "classification_reason": "Caller values determine whether a suffix is supplied; no aud condition appears in the trust document."
+    },
+    {
+      "repository": "yardbirdsax/terraform-aws-github-action-federation-role",
+      "path": "main.tf",
+      "commit": "0458dd532ea6d8d5d11fc938f3dcc3a9a78c1199",
+      "blob_sha": "e552e5d56835bf3f7ead2beae51a016ccdc596fe",
+      "source_url": "https://github.com/yardbirdsax/terraform-aws-github-action-federation-role/blob/0458dd532ea6d8d5d11fc938f3dcc3a9a78c1199/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "missing",
+      "features": [
+        "for_expression",
+        "dynamic_branch_set"
+      ],
+      "excerpt": "for b in var.github_branch_names: \"repo:${local.repository_slug}:${b == \"*\" ? \"*\" : \"ref:refs/heads/${b}\"}\"",
+      "excerpt_sha256": "ea5216bb1dba29ca46e34b2e51f2b425a037a72b3bc49bded260b3401b34cd00",
+      "classification_reason": "Repository and branch values are caller-controlled and no aud condition is present."
+    },
+    {
+      "repository": "TykTechnologies/tyk-ci",
+      "path": "base/github.tf",
+      "commit": "1f33dd5f7db8acbfd0f570150bd4d6fa710b723e",
+      "blob_sha": "d2c3a9043fe9c7b7c5ea1c2b3e9bf8b43cd115f9",
+      "source_url": "https://github.com/TykTechnologies/tyk-ci/blob/1f33dd5f7db8acbfd0f570150bd4d6fa710b723e/base/github.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "literal_source_policy",
+      "audience_constraint": "exact",
+      "features": [
+        "organization_wildcards",
+        "direct_literals"
+      ],
+      "excerpt": "values = [\"repo:TykTechnologies/*\", \"repo:tyklabs/*\"]",
+      "excerpt_sha256": "50e1b9a44040b7c645883a8284f7abbdb2cf5ff57f33ca7bba66c8ac67f60f55",
+      "classification_reason": "The relevant trust values and audience are literal in the pinned source."
+    },
+    {
+      "repository": "SPHTech-Platform/terraform-github-actions-serverless",
+      "path": "main.tf",
+      "commit": "d0cde0c8537f6be757ab4f121de52d7e14ae4beb",
+      "blob_sha": "005429adc7375c5c67406b88cb1bd4955e86c815",
+      "source_url": "https://github.com/SPHTech-Platform/terraform-github-actions-serverless/blob/d0cde0c8537f6be757ab4f121de52d7e14ae4beb/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_module_evaluation",
+      "audience_constraint": "inherited",
+      "features": [
+        "terraform_module_call",
+        "dynamic_branches",
+        "environments"
+      ],
+      "excerpt": "module \"github_actions_repo\" { default_conditions = [\"allow_environment\", \"allow_main\"] ... }",
+      "excerpt_sha256": "0d967116c4a3d7bce152e93b1a0c0aad79c24d13b8987ec6ed3460add08661a9",
+      "classification_reason": "The final trust document depends on a module implementation, defaults, and caller values."
+    },
+    {
+      "repository": "suzuki-shunsuke/terraform-aws-tfaction",
+      "path": "locals.tf",
+      "commit": "cba12e30762f72b4a638f3497645ad5ef18bce48",
+      "blob_sha": "37681df1434ea632d097cfb499c6c560604312f2",
+      "source_url": "https://github.com/suzuki-shunsuke/terraform-aws-tfaction/blob/cba12e30762f72b4a638f3497645ad5ef18bce48/locals.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "dynamic_repository",
+        "dynamic_main_branch",
+        "separate_pr_role"
+      ],
+      "excerpt": "values = [\"repo:${var.repo}:ref:refs/heads/${var.main_branch}\"]",
+      "excerpt_sha256": "66b78dffe113c9f4b79428c852ce362631c6824358f8eca4e6979ecbb6e97795",
+      "classification_reason": "The intended source shape is visible but concrete identities require caller values."
+    },
+    {
+      "repository": "DanteLore/SmolbeanPlanet3D",
+      "path": "terraform/main.tf",
+      "commit": "50987d8a272501fab53168297fa1e5b4f4b498ad",
+      "blob_sha": "8a18315384621c1dc70a4898490ef60f3db3dfdd",
+      "source_url": "https://github.com/DanteLore/SmolbeanPlanet3D/blob/50987d8a272501fab53168297fa1e5b4f4b498ad/terraform/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "constant_foldable_hcl",
+      "audience_constraint": "exact",
+      "features": [
+        "literal_defaults",
+        "for_expression",
+        "branch_and_tag_patterns"
+      ],
+      "excerpt": "allowed_refs default = [\"refs/heads/release\", \"refs/tags/*\"]; allowed_subs = [for ref in var.allowed_refs : \"repo:${var.github_owner}/${var.github_repo}:ref:${ref}\"]",
+      "excerpt_sha256": "70050df60acac6819ba212a14c0fbdb341831a3ffeed5f39f8b87db4e9a5e85d",
+      "classification_reason": "All defaults are pinned literals, but a general source extractor must evaluate HCL expressions."
+    },
+    {
+      "repository": "3sidedcube/infrastructure",
+      "path": "web/main.tf",
+      "commit": "84a0c4e4bc14dd42dd417ee61792936b06a03e93",
+      "blob_sha": "76fe19efdc6bbb350d3da7aea6c778db875bf16d",
+      "source_url": "https://github.com/3sidedcube/infrastructure/blob/84a0c4e4bc14dd42dd417ee61792936b06a03e93/web/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "dynamic_repository",
+        "repo_wildcard"
+      ],
+      "excerpt": "values = [\"repo:${var.repo_name}:*\"]",
+      "excerpt_sha256": "8c8b3f63ebc3665212da49d90801a20579f998cf40749ec4728ff077f823731c",
+      "classification_reason": "A concrete repository name is required to normalize the subject."
+    },
+    {
+      "repository": "mergecrew/mergecrew",
+      "path": "infra/aws/oidc.tf",
+      "commit": "7d1e58f1e513cd47997c44b969fd921aae2ef00d",
+      "blob_sha": "6a9308f2e650f9c67b881f57cef49cb8cd3b3970",
+      "source_url": "https://github.com/mergecrew/mergecrew/blob/7d1e58f1e513cd47997c44b969fd921aae2ef00d/infra/aws/oidc.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "dynamic_repository",
+        "repo_wildcard",
+        "conditional_resource"
+      ],
+      "excerpt": "values = [\"repo:${var.github_repo}:*\"]",
+      "excerpt_sha256": "6a6822c6519e0913663e17b8862bbf519bda2685f5821ed2308219edd6ed6003",
+      "classification_reason": "The role and subject exist only when a caller input enables OIDC."
+    },
+    {
+      "repository": "takanabe/github-actions-oidc-test",
+      "path": "main.tf",
+      "commit": "9558de0eb22634797121f8c3635cc688c7c04081",
+      "blob_sha": "81e4a61f1aa9af53fb59d9f693ec55beb17fb94a",
+      "source_url": "https://github.com/takanabe/github-actions-oidc-test/blob/9558de0eb22634797121f8c3635cc688c7c04081/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "literal_source_policy",
+      "audience_constraint": "missing",
+      "features": [
+        "direct_literal",
+        "repo_wildcard",
+        "custom_provider_audience"
+      ],
+      "excerpt": "values = [\"repo:takanabe/github-actions-oidc-test:*\"]",
+      "excerpt_sha256": "51933fb6dcf843a7239c5814a740f8caae03efed3d25a3ec62d5a1168dc5d703",
+      "classification_reason": "The subject is literal, but the trust document omits aud and the provider uses a non-STS audience."
+    },
+    {
+      "repository": "nsbno/terraform-aws-github-oidc",
+      "path": "main.tf",
+      "commit": "fc8a39ab4438db1b6bb7407fddc6e65017858196",
+      "blob_sha": "33200b923fee9b77ae70028e79dd62fe7520938b",
+      "source_url": "https://github.com/nsbno/terraform-aws-github-oidc/blob/fc8a39ab4438db1b6bb7407fddc6e65017858196/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "missing",
+      "features": [
+        "legacy_and_immutable_subjects",
+        "dynamic_environment",
+        "dynamic_repository_set"
+      ],
+      "excerpt": "allowed_git_repos = ... legacy environment forms plus immutable owner/repo-ID forms",
+      "excerpt_sha256": "6e287b16bad4d2c6ca6a45e6c484aa310b8ac6914553d578e2c614d5bfe1f652",
+      "classification_reason": "Concrete identities depend on organization, IDs, environment, and optional repository lists; no aud condition appears."
+    },
+    {
+      "repository": "sc932/scottclarkio",
+      "path": "terraform/iam.tf",
+      "commit": "6399a15542efaafd8617b114da52f9c0a650ba03",
+      "blob_sha": "0b0673aa6ea8a8fadc25bd8476559f033f3f67f8",
+      "source_url": "https://github.com/sc932/scottclarkio/blob/6399a15542efaafd8617b114da52f9c0a650ba03/terraform/iam.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "dynamic_repository",
+        "exact_main"
+      ],
+      "excerpt": "values = [\"repo:${var.github_repo}:ref:refs/heads/main\"]",
+      "excerpt_sha256": "9743a69f248e27e7a7a61750d5cc1a05c21d3d88d61c8c7d654871c317acee0a",
+      "classification_reason": "Only one repository variable prevents direct normalization."
+    },
+    {
+      "repository": "Protect-Democracy/openomb",
+      "path": "tofu/iam.tf",
+      "commit": "cf1146d8f4237ce7b5b1ec60c2ef7b6b44501460",
+      "blob_sha": "unknown-from-truncated-response",
+      "source_url": "https://github.com/Protect-Democracy/openomb/blob/cf1146d8f4237ce7b5b1ec60c2ef7b6b44501460/tofu/iam.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "missing",
+      "features": [
+        "dynamic_owner_repo",
+        "repo_wildcard",
+        "mixed_web_identity_and_service_statements"
+      ],
+      "excerpt": "values = [\"repo:${var.organization}/${var.repo_name}:*\"]; separate statement trusts ecs-tasks.amazonaws.com",
+      "excerpt_sha256": "5accf663be4f727ac7426f681afaffc38be8974bfb7f5157ce15e3cabf6ace8f",
+      "classification_reason": "The policy combines a GitHub web-identity statement and a service-principal statement and depends on variables."
+    },
+    {
+      "repository": "rackerlabs/oidc-aws-github-module",
+      "path": "main.tf",
+      "commit": "9d390ee1a7e20efd44b83f2bcb0157f834eedc26",
+      "blob_sha": "7ae77eab1485b1db1d10bff09734ebd4062c059c",
+      "source_url": "https://github.com/rackerlabs/oidc-aws-github-module/blob/9d390ee1a7e20efd44b83f2bcb0157f834eedc26/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "caller_supplied_subject_patterns"
+      ],
+      "excerpt": "values = var.allowed_repos",
+      "excerpt_sha256": "192c14114bc6beba801355a37b3c64a32dbd16501b58516cc27c82ee11d1c7ea",
+      "classification_reason": "The entire subject allow-list is a caller input."
+    },
+    {
+      "repository": "TechHoldingLLC/terraform-aws-github-oidc",
+      "path": "iam.tf",
+      "commit": "947dccac0faee195be3038782a667b6fb9a8dd90",
+      "blob_sha": "22b039c33cd03d3f8059cfc607533b4d2b4f136e",
+      "source_url": "https://github.com/TechHoldingLLC/terraform-aws-github-oidc/blob/947dccac0faee195be3038782a667b6fb9a8dd90/iam.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "requires_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "dynamic_blocks",
+        "environment_map",
+        "branch_map",
+        "pull_request_added_with_branch"
+      ],
+      "excerpt": "values are flattened from var.env_repo_config and var.branch_repo_config",
+      "excerpt_sha256": "577bb376ad131b6ff937a9f640a4bb61bd38bfae985c3cd5b604e3c8dcacf9e5",
+      "classification_reason": "A concrete relation exists only after two maps and dynamic blocks are evaluated."
+    },
+    {
+      "repository": "RoboJackets/business-process-manual-preview-terraform",
+      "path": "iam.tf",
+      "commit": "f92cbf33ccd1258770b8b305d82e622447adee33",
+      "blob_sha": "7ef14d4a39d320e117824666c7db0809a1f29691",
+      "source_url": "https://github.com/RoboJackets/business-process-manual-preview-terraform/blob/f92cbf33ccd1258770b8b305d82e622447adee33/iam.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "literal_source_policy",
+      "audience_constraint": "exact",
+      "features": [
+        "direct_literal",
+        "repo_wildcard"
+      ],
+      "excerpt": "values = [\"repo:RoboJackets/business-process-manual:*\"]",
+      "excerpt_sha256": "0767bdf01301cd80f6d85e2b51fe827d424442ac3de4fdcb694501d08fb52922",
+      "classification_reason": "The trust principal, audience, and subject are literal in the pinned source."
+    },
+    {
+      "repository": "infoshareacademy/devops-workshop-08.05.24",
+      "path": "cicd/main.tf",
+      "commit": "bc76012c8da6b4e6e9edca8dea003af273745a3b",
+      "blob_sha": "6bf717c8bcea2df67d6edc48efedfc10a82cb314",
+      "source_url": "https://github.com/infoshareacademy/devops-workshop-08.05.24/blob/bc76012c8da6b4e6e9edca8dea003af273745a3b/cicd/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "literal_source_policy",
+      "audience_constraint": "exact",
+      "features": [
+        "direct_literal",
+        "repo_wildcard",
+        "administrator_permissions"
+      ],
+      "excerpt": "values = [\"repo:infoshareacademy/devops-workshop-08.05.24:*\"]",
+      "excerpt_sha256": "aedbfb204b629fffeac6ac765775c644fa8b03712095c6a34efe0920d9c2b2cd",
+      "classification_reason": "The trust values are literal; downstream permissions are broad but outside this admission study."
+    },
+    {
+      "repository": "cloudnativedaysjp/terraform",
+      "path": "website/oidc.tf",
+      "commit": "3c1c5629738498d16f4df5b36e2a7e6f2c061dca",
+      "blob_sha": "a0364a13a2488bc4299d99fd6f52fc5caae32006",
+      "source_url": "https://github.com/cloudnativedaysjp/terraform/blob/3c1c5629738498d16f4df5b36e2a7e6f2c061dca/website/oidc.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "constant_foldable_hcl",
+      "audience_constraint": "missing",
+      "features": [
+        "literal_locals",
+        "for_expression",
+        "repo_wildcard"
+      ],
+      "excerpt": "for repo in [\"website\"] : \"repo:cloudnativedaysjp/${repo}:*\"",
+      "excerpt_sha256": "28f76dbb698acb2fb6e2bb4a539271234c11467ce3841ece4f81a867303fac17",
+      "classification_reason": "The values are source-constant but require HCL evaluation; no aud condition appears."
+    },
+    {
+      "repository": "rajsandhu/group-2-Backend",
+      "path": "role.tf",
+      "commit": "c5d00c4dd8cabe592415ef8d40745001c969232a",
+      "blob_sha": "7507820f66def002ed2b48aeecafe4d93a30aab7",
+      "source_url": "https://github.com/rajsandhu/group-2-Backend/blob/c5d00c4dd8cabe592415ef8d40745001c969232a/role.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "literal_source_policy",
+      "audience_constraint": "exact",
+      "features": [
+        "direct_literals",
+        "five_repositories",
+        "unusual_double_suffix_wildcards"
+      ],
+      "excerpt": "values include \"repo:rajsandhu/group-2-Backend:*:*\" and four peer repositories",
+      "excerpt_sha256": "974c0312faac41084434e1b4633bde9875cc1e97f58a7e0b421908e7be961e23",
+      "classification_reason": "The complete subject list and audience are literal, although the subject shape is unusual."
+    },
+    {
+      "repository": "init4tech/signet-infra-components",
+      "path": "pkg/aws/iam.go",
+      "commit": "ed022635f7d5d3a599cb54f9b3b37a1750f45ca1",
+      "blob_sha": "299466c36d2b07a2eccd074f69033e3fddd92563",
+      "source_url": "https://github.com/init4tech/signet-infra-components/blob/ed022635f7d5d3a599cb54f9b3b37a1750f45ca1/pkg/aws/iam.go",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "host_language_generation",
+      "audience_constraint": "exact",
+      "features": [
+        "pulumi_go",
+        "fmt_sprintf",
+        "dynamic_owner_repo"
+      ],
+      "excerpt": "fmt.Sprintf(\"repo:%s/%s:*\", githubOrganization, githubRepository)",
+      "excerpt_sha256": "52b9ad5d5b1aa06133bdf6046dfe590fe77c48b6d75d6b171003e58f7e5e7a57",
+      "classification_reason": "The policy is generated in Go/Pulumi rather than materialized as Terraform/CloudFormation JSON."
+    },
+    {
+      "repository": "adhocteam/terraform-github-oidc-role",
+      "path": "main.tf",
+      "commit": "4aaa0b8ba70a80ad0823b0f1e897839b8d441e7b",
+      "blob_sha": "834ed214bcd5b4a866d9901302fe0f03f76a9d48",
+      "source_url": "https://github.com/adhocteam/terraform-github-oidc-role/blob/4aaa0b8ba70a80ad0823b0f1e897839b8d441e7b/main.tf",
+      "query": "\"variable = \\\"token.actions.githubusercontent.com:sub\\\"\" or equivalent GitHub-code-search result",
+      "primary_frontier_class": "unsupported_operator_or_instantiation",
+      "audience_constraint": "exact",
+      "features": [
+        "ForAnyValue:StringLike",
+        "dynamic_condition",
+        "caller_supplied_identifiers",
+        "dynamic_branch_serialization"
+      ],
+      "excerpt": "custom identifiers use ForAnyValue:StringLike; default subject comes from repository_access_type and branch",
+      "excerpt_sha256": "bee4f695e25c14928d9fb698cd0ce2a1d021691963632c4f0ba514deeef52ba1",
+      "classification_reason": "The strict proof profile has no set-operator semantics, and both paths require caller values."
+    }
+  ]
+}

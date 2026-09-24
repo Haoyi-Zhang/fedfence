@@ -1,0 +1,11 @@
+{
+  "categories": 6,
+  "claim": "source-grounded optional challenge set; not a prevalence scan or live-cloud validation",
+  "network_access": false,
+  "official_provider_examples": 8,
+  "optional_correct": 8,
+  "optional_public_issue_challenge": 8,
+  "optional_unsafe": 5,
+  "public_repository_or_discussion_examples": 14,
+  "registered_public_examples": 20
+}

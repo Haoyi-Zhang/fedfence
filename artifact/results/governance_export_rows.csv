@@ -1,0 +1,11 @@
+fixture,premise_index,kind,expected,observed,ok
+branch_and_environment_protected,0,protected_branch,True,True,True
+branch_and_environment_protected,1,protected_environment,True,True,True
+environment_without_reviewers_blocks,0,protected_environment,False,False,True
+environment_all_branches_blocks,0,protected_environment,False,False,True
+environment_all_branches_blocks,1,protected_branch,True,True,True
+branch_missing_reviews_blocks,0,protected_branch,False,False,True
+tag_release_protected,0,protected_tag,True,True,True
+tag_release_protected,1,protected_tag,False,False,True
+reusable_workflow_pinned,0,pinned_reusable_workflow,True,True,True
+reusable_workflow_pinned,1,pinned_reusable_workflow,False,False,True

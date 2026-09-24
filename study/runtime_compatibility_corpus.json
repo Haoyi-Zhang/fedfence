@@ -1,0 +1,197 @@
+{
+  "schema": "fedfence-runtime-compatibility-corpus-v1",
+  "collected_at": "2026-09-23T00:00:00Z",
+  "selection_statement": "Purposive public commits whose messages or diffs explicitly describe GitHub OIDC trust breakage or hardening involving immutable owner/repository-ID subjects. This corpus is evidence of recurring maintenance shapes, not prevalence or independently verified root cause.",
+  "records": [
+    {
+      "repository": "sdunster/microticket",
+      "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+      "date": "2026-09-18",
+      "context": "ref:refs/heads/prod",
+      "observation": "CloudTrail recorded immutable owner/repository IDs after the first deploy failed",
+      "repair": "dual_exact_legacy_and_immutable",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "public_actions_success"
+      ],
+      "public_success_run": "35338805553",
+      "source_url": "https://github.com/sdunster/microticket/commit/79abbeceae16b22f22a78770d580e44058c9f559",
+      "record_sha256": "50ce1f17bb306f80b8d4a9691764c70bc44b602e020ee375610b4f060d7a3e17"
+    },
+    {
+      "repository": "CaringalML/AI-App-Tester",
+      "commit": "e63627f3991bff260dce5a23b12a4996d4c714a2",
+      "date": "2026-09-22",
+      "context": "environment:production",
+      "observation": "temporary workflow step decoded a real immutable-ID subject after the plain environment subject failed",
+      "repair": "wildcard_numeric_ids_exact_names",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "public_actions_success"
+      ],
+      "public_success_run": "35682479269",
+      "source_url": "https://github.com/CaringalML/AI-App-Tester/commit/e63627f3991bff260dce5a23b12a4996d4c714a2",
+      "record_sha256": "649455bd1e0f77fc35abc33ecd649d97b8a6dfb868f2ffcae3858db39ce1ce1c"
+    },
+    {
+      "repository": "OASI-CL/proyectos-backend",
+      "commit": "924b99f4925baded2987f1db78bd04f55988ac59",
+      "date": "2026-09-22",
+      "context": "environment:dev",
+      "observation": "CloudTrail recorded immutable owner/repository IDs after a real deploy failed",
+      "repair": "dual_legacy_and_numeric_id_wildcard",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "manual_deployment_stated"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/OASI-CL/proyectos-backend/commit/924b99f4925baded2987f1db78bd04f55988ac59",
+      "record_sha256": "5c9749feb8cd416a8f6a555e23e544def77e1c1eb533c21a7286d13b2620eb11"
+    },
+    {
+      "repository": "Abdulaziz-algharbi/order-pools-infrastructure",
+      "commit": "7076165b461538aefcfa69ad0fe6780ecaa8970e",
+      "date": "2026-09-22",
+      "context": "environment:dev",
+      "observation": "temporary workflow step decoded a real token; all three roles had rejected STS exchange",
+      "repair": "wildcard_numeric_ids_plus_exact_repository_environment_claims",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "live_workflow_success_stated"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/Abdulaziz-algharbi/order-pools-infrastructure/commit/7076165b461538aefcfa69ad0fe6780ecaa8970e",
+      "record_sha256": "d55dced286e80744406958afd58250b3acb49e0c072cad70d11a1646a734e13d"
+    },
+    {
+      "repository": "esscott1/AE-RV-Solutions",
+      "commit": "d6307f8989ee8ae23fed60d3aa958f90d24ed195",
+      "date": "2026-09-22",
+      "context": "environment:production",
+      "observation": "CloudTrail recorded immutable-ID subject on first failed exchange",
+      "repair": "wildcard_numeric_ids",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "live_role_update_stated"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/esscott1/AE-RV-Solutions/commit/d6307f8989ee8ae23fed60d3aa958f90d24ed195",
+      "record_sha256": "6d205aefa1e6a0774cb3dc58dcb18045d0b4de77b49c067e2bb9d8aba9400cd1"
+    },
+    {
+      "repository": "tylerschloesser/dst-server-manager",
+      "commit": "0c91bfa44ed47c239e26f73baeb6190f58ea96c4",
+      "date": "2026-09-21",
+      "context": "ref:refs/heads/main",
+      "observation": "CloudTrail AccessDenied event and repository OIDC setting exposed the exact immutable subject",
+      "repair": "exact_immutable_only",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "live_role_update_stated"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/tylerschloesser/dst-server-manager/commit/0c91bfa44ed47c239e26f73baeb6190f58ea96c4",
+      "record_sha256": "e32ba0189bc084a7daee7712e73c9e9faf9f1c4d59e829e62a7c8db47abfa5f9"
+    },
+    {
+      "repository": "linyanqing/BroadbandServiceTriageAIAgent",
+      "commit": "480bd726a8cb4f8c9923ad60e8cb8bc2529e1a73",
+      "date": "2026-09-14",
+      "context": "ref:refs/heads/main",
+      "observation": "CloudTrail recorded immutable subject on first real deployment attempt",
+      "repair": "wildcard_numeric_ids_exact_names",
+      "evidence": [
+        "commit_message",
+        "diff"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/linyanqing/BroadbandServiceTriageAIAgent/commit/480bd726a8cb4f8c9923ad60e8cb8bc2529e1a73",
+      "record_sha256": "c7eaaea43903edcc55e47b827e3cbe5a0c41a03a44da2ae03efcebbf1ab459db"
+    },
+    {
+      "repository": "danish09/danishsiddiqui09.co.uk",
+      "commit": "c0171630a98c61ee66ccadbae9661c3ec15b31e2",
+      "date": "2026-09-12",
+      "context": "main and environment:aws-diff",
+      "observation": "temporary workflow step decoded a real token after repeated failures",
+      "repair": "exact_immutable_subjects",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "live_aws_update_stated"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/danish09/danishsiddiqui09.co.uk/commit/c0171630a98c61ee66ccadbae9661c3ec15b31e2",
+      "record_sha256": "56f73c3ac1da5cec72250f58d3783918aaa5ee62f71218d846fd4ff805a5dc21"
+    },
+    {
+      "repository": "MAmmaadTehseen/jarvis",
+      "commit": "bf3d27bf7ace32e5356dacb3d8f71e5080a00ab0",
+      "date": "2026-09-09",
+      "context": "ref:refs/heads/main",
+      "observation": "CloudTrail recorded immutable subject after the first deploy failed",
+      "repair": "dual_exact_legacy_and_immutable",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "deploy_green_stated"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/MAmmaadTehseen/jarvis/commit/bf3d27bf7ace32e5356dacb3d8f71e5080a00ab0",
+      "record_sha256": "4cd28739601b3151c7523ca24b45e91c7d6ac9f7a55bb75a19cb75771014accd"
+    },
+    {
+      "repository": "SasangaME/linkforge",
+      "commit": "f1830fec29d6372f6850b451da3851324e86227d",
+      "date": "2026-08-29",
+      "context": "pull_request and ref:refs/heads/main",
+      "observation": "new repository emitted only immutable subjects and both roles denied the exchange",
+      "repair": "exact_immutable_only",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "live_role_update_stated"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/SasangaME/linkforge/commit/f1830fec29d6372f6850b451da3851324e86227d",
+      "record_sha256": "30625036305103aaafa7422f110599d2dbdc47e8355aeaedc2ad1a82816733f8"
+    },
+    {
+      "repository": "victoralcadi/vicdf_webpage",
+      "commit": "621a42a9c8d34230b5b1bb839398a0918c661a1e",
+      "date": "2026-08-28",
+      "context": "ref:refs/heads/main",
+      "observation": "temporary workflow diagnostic decoded the ID-qualified subject after every deploy failed",
+      "repair": "wildcard_numeric_ids_plus_exact_repository_ref_claims",
+      "evidence": [
+        "commit_message",
+        "diff"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/victoralcadi/vicdf_webpage/commit/621a42a9c8d34230b5b1bb839398a0918c661a1e",
+      "record_sha256": "43346dd213f92d36c11e7ee9068adc90f1c59e225221a56fe15037023476ddc1"
+    },
+    {
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "date": "2026-08-31",
+      "context": "ref:refs/heads/main",
+      "observation": "hardening commit replaced broad immutable-name wildcards with six exact immutable subjects",
+      "repair": "exact_immutable_allowlist",
+      "evidence": [
+        "commit_message",
+        "diff",
+        "tests_added"
+      ],
+      "public_success_run": null,
+      "source_url": "https://github.com/Deploy-On-Friday2-0/sports-store-infrastructure/commit/9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "record_sha256": "6127c8f56455a011f20034dd7f785229853d71c70a38aaecae364676cbee9d2a"
+    }
+  ]
+}

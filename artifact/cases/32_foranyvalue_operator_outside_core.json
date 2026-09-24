@@ -1,0 +1,33 @@
+{
+  "name": "foranyvalue_operator_outside_core",
+  "expected_safe": false,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "ForAnyValue:StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main"
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:acme/api:ref:refs/heads/main"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  }
+}

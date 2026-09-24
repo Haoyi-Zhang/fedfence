@@ -1,0 +1,68 @@
+{
+  "name": "safe_deny_removes_bad_audience",
+  "expected_safe": true,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main"
+          },
+          "StringLike": {
+            "token.actions.githubusercontent.com:aud": "*"
+          }
+        }
+      },
+      {
+        "Effect": "Deny",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main",
+            "token.actions.githubusercontent.com:aud": "evil-service"
+          }
+        }
+      },
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main",
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  },
+  "spec": {
+    "issuer_subjects": [
+      "repo:acme/api:ref:refs/heads/main"
+    ],
+    "issuer_audiences": [
+      "sts.amazonaws.com",
+      "evil-service"
+    ],
+    "allowed_subjects": [
+      "repo:acme/api:ref:refs/heads/main"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  }
+}

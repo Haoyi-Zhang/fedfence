@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 2,
+  "allow_subject_states": 4,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "event-overgrant",
+      "message": "A mintable workflow event satisfies the effective trust predicate but is outside intent.",
+      "severity": "high",
+      "statement": null,
+      "witness": "{\"aud\": \"sts.amazonaws.com\", \"environment\": \"prod\", \"job_workflow_ref\": \"acme/api/.github/workflows/deploy.yml@refs/heads/dev\", \"ref\": \"refs/heads/dev\", \"repository\": \"acme/api\", \"repository_custom_properties.tier\": \"prod\", \"repository_id\": \"R_100\", \"repository_visibility\": \"private\", \"sub\": \"repo:acme/api:environment:prod\"}"
+    }
+  ],
+  "intended_subject_edges": 1,
+  "intended_subject_states": 1,
+  "name": "33_selected_claim_default_environment_not_branch_definable",
+  "safe": false
+}

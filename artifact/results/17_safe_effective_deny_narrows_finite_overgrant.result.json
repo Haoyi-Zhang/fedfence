@@ -1,0 +1,9 @@
+{
+  "allow_subject_edges": 67,
+  "allow_subject_states": 68,
+  "findings": [],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "safe_effective_deny_narrows_finite_overgrant",
+  "safe": true
+}

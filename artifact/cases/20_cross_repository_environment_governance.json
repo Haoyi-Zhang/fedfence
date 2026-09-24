@@ -1,0 +1,39 @@
+{
+  "name": "cross_repository_environment_governance",
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:environment:prod"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": [
+      {
+        "owner": "acme",
+        "repository": "web",
+        "environment": "prod"
+      }
+    ]
+  },
+  "spec": {
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:acme/api:environment:prod"
+    ]
+  },
+  "expected_safe": false
+}

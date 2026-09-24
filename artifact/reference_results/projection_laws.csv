@@ -1,0 +1,7 @@
+projection,states,observations,equivalence_classes,galois_checks,kernel_saturation_checks,all_passed
+default_subject,8,4,4,4096,256,True
+repository_name,8,2,2,1024,256,True
+repository_id,8,2,2,1024,256,True
+repo_ref_environment,8,8,8,65536,256,True
+workflow_ref,8,8,8,65536,256,True
+custom_full,8,8,8,65536,256,True

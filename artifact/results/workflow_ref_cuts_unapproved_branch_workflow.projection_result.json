@@ -1,0 +1,9 @@
+{
+  "admitted": 1,
+  "finding_kinds": [],
+  "findings": [],
+  "intended_admitted": 1,
+  "name": "workflow_ref_cuts_unapproved_branch_workflow",
+  "safe": true,
+  "states": 4
+}

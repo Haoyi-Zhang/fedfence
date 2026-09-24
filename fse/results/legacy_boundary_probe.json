@@ -1,0 +1,16 @@
+{
+  "concrete_model_tuple": {
+    "aud": "sts.amazonaws.com",
+    "job_workflow_ref": "acme/api/.github/workflows/unreviewed.yml@refs/heads/dev",
+    "sub": "repo:acme/api:ref:refs/heads/dev"
+  },
+  "finding": "selected-claim Deny condition is accepted by parser but ignored by two-claim regular backend",
+  "fix": "reject before dispatch to this backend; selected-claim end-to-end adapter remains future work",
+  "fse_gate_verdict": "unknown",
+  "legacy_regular_backend_safe": true,
+  "new_finding_codes": [
+    "unsupported-claim"
+  ],
+  "passed": true,
+  "scope": "synthetic implementation boundary regression; not a live-cloud exploit or corpus finding"
+}

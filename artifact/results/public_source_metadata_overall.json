@@ -1,0 +1,18 @@
+{
+  "examples": 32,
+  "hash_algorithm": "sha256-normalized-json",
+  "hosts": [
+    "040code.github.io",
+    "awsfundamentals.com",
+    "docs.aws.amazon.com",
+    "docs.github.com",
+    "gist.github.com",
+    "github.com",
+    "oneuptime.com",
+    "stackoverflow.com"
+  ],
+  "metadata_valid": true,
+  "optional_public_issue_examples": 8,
+  "provider_drift_examples": 4,
+  "registered_public_examples": 20
+}

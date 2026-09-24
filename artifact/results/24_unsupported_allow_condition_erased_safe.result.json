@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 34,
+  "allow_subject_states": 35,
+  "findings": [
+    {
+      "blocking": false,
+      "kind": "unsupported-allow-claim-key",
+      "message": "Allow statement contains unqualified or unsupported claim keys.  For Allow, FedFence erases them and proves the over-approximation.",
+      "severity": "high",
+      "statement": 0,
+      "witness": null
+    }
+  ],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "unsupported_allow_condition_erased_safe",
+  "safe": true
+}

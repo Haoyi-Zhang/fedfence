@@ -1,0 +1,17 @@
+predicate,basis,size
+release-branch,default_sub,1
+prod-environment,default_sub,1
+prod-env-main,default_sub+ref,2
+prod-env-main-or-release,default_sub+ref,2
+repository-api-only,default_sub,1
+repository-api-only,repo,1
+repository-api-only,repository_id,1
+repository-api-only,repo_class,1
+production-tier,default_sub,1
+production-tier,repo,1
+production-tier,repository_id,1
+production-tier,repo_class,1
+deployable-prod-environment,default_sub,1
+not-pull-request,default_sub,1
+not-pull-request,ref,1
+not-pull-request,event,1

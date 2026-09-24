@@ -1,0 +1,6 @@
+{
+  "findings": [],
+  "safe": true,
+  "source": "AWS/GitHub guidance branch-scoped pattern",
+  "source_url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-reference-policy-checks.html"
+}

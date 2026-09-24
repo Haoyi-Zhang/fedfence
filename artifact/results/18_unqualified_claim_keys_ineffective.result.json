@@ -1,0 +1,50 @@
+{
+  "allow_subject_edges": 638,
+  "allow_subject_states": 116,
+  "findings": [
+    {
+      "blocking": false,
+      "kind": "unsupported-allow-claim-key",
+      "message": "Allow statement contains unqualified or unsupported claim keys.  For Allow, FedFence erases them and proves the over-approximation.",
+      "severity": "high",
+      "statement": 0,
+      "witness": null
+    },
+    {
+      "blocking": false,
+      "kind": "missing-sub",
+      "message": "Allow statement has no provider-qualified GitHub subject condition; it is not a positive proof by itself, and safety is decided on the issuer over-approximation.",
+      "severity": "high",
+      "statement": 0,
+      "witness": null
+    },
+    {
+      "blocking": false,
+      "kind": "missing-aud",
+      "message": "Allow statement has no provider-qualified audience condition; safety is decided on issuer audiences.",
+      "severity": "medium",
+      "statement": 0,
+      "witness": null
+    },
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:./.:pull_request; aud=."
+    },
+    {
+      "blocking": true,
+      "kind": "audience-overgrant",
+      "message": "Effective policy admits an issuer-mintable audience outside intent.",
+      "severity": "medium",
+      "statement": 0,
+      "witness": "sub=repo:./.:pull_request; aud=."
+    }
+  ],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "unqualified_claim_keys_ineffective",
+  "safe": false
+}

@@ -1,0 +1,36 @@
+{
+  "name": "audience_issuer_intersection_safe",
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringLike": {
+            "token.actions.githubusercontent.com:aud": "*",
+            "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": []
+  },
+  "spec": {
+    "issuer_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ],
+    "allowed_subjects": [
+      "repo:acme/api:ref:refs/heads/main"
+    ]
+  },
+  "expected_safe": true
+}

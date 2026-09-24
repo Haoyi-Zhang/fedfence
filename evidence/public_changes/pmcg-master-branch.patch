@@ -1,0 +1,8 @@
+Repository: P-mcg01/muyu-invoice-infrastructure
+Commit: bb96ae77561bfab07471a0629f165db4a2515535
+File: data.tf
+Commit message: fix(ecr): restrict GitHub OIDC trust policy to master branch
+
+Relevant source hunk (verbatim from the public commit):
+-        "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/*"
++        "repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/master"

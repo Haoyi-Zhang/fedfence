@@ -1,0 +1,41 @@
+{
+  "name": "environment_exact_with_governance",
+  "public_source": "GitHub environment subject guidance",
+  "source_url": "https://github.com/aws-actions/configure-aws-credentials",
+  "expected_safe": true,
+  "policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": "repo:example-org/service:environment:prod"
+          }
+        }
+      }
+    ]
+  },
+  "repository_governance": {
+    "protected_environments": [
+      {
+        "owner": "example-org",
+        "repository": "service",
+        "environment": "prod"
+      }
+    ]
+  },
+  "spec": {
+    "allowed_subjects": [
+      "repo:example-org/service:environment:prod"
+    ],
+    "allowed_audiences": [
+      "sts.amazonaws.com"
+    ]
+  }
+}

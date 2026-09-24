@@ -1,0 +1,18 @@
+{
+  "allow_subject_edges": 67,
+  "allow_subject_states": 68,
+  "findings": [
+    {
+      "blocking": true,
+      "kind": "subject-overgrant",
+      "message": "Effective policy admits an issuer-mintable subject outside intent.",
+      "severity": "high",
+      "statement": 0,
+      "witness": "sub=repo:acme/api:ref:refs/heads/dev; aud=sts.amazonaws.com"
+    }
+  ],
+  "intended_subject_edges": 35,
+  "intended_subject_states": 36,
+  "name": "unsupported_deny_cannot_discharge_unsafe",
+  "safe": false
+}

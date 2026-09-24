@@ -1,0 +1,118 @@
+{
+  "case": {
+    "expected_safe": true,
+    "name": "unsupported_allow_condition_erased_safe",
+    "policy": {
+      "Statement": [
+        {
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Condition": {
+            "StringEquals": {
+              "aws:PrincipalTag/release": "approved",
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+              "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/main"
+            }
+          },
+          "Effect": "Allow",
+          "Principal": {
+            "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          }
+        }
+      ],
+      "Version": "2012-10-17"
+    },
+    "repository_governance": {
+      "protected_environments": []
+    },
+    "spec": {
+      "allowed_audiences": [
+        "sts.amazonaws.com"
+      ],
+      "allowed_subjects": [
+        "repo:acme/api:ref:refs/heads/main"
+      ]
+    }
+  },
+  "certificate_components": [
+    "PrincipalCert",
+    "ClaimKeyCert",
+    "ConditionErasureCert",
+    "IssuerProjectionCert",
+    "EffectiveAllowMinusDenyCert",
+    "GovernanceCert",
+    "UnsupportedBoundaryCert",
+    "ReplayWitnessCert",
+    "SelectedClaimProjectionCert"
+  ],
+  "judgment": "effective-claim-product-admission",
+  "kind": "fedfence-effective-case-certificate",
+  "name": "unsupported_allow_condition_erased_safe",
+  "policy_profile": {
+    "allows": [
+      {
+        "allow_overapprox_core": true,
+        "aud_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "deny_exact_core": false,
+        "effect": "Allow",
+        "exact_github_principal": true,
+        "index": 0,
+        "malformed_principal": false,
+        "mixed_principal": false,
+        "principal_federated": [
+          "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        ],
+        "principal_wildcard": false,
+        "raw_condition_keys": [
+          "aws:PrincipalTag/release",
+          "token.actions.githubusercontent.com:aud",
+          "token.actions.githubusercontent.com:sub"
+        ],
+        "selected_claim_groups": {},
+        "sub_groups": [
+          {
+            "op": "equals",
+            "values": [
+              "repo:acme/api:ref:refs/heads/main"
+            ]
+          }
+        ],
+        "unsupported_claim_keys": [
+          "aws:PrincipalTag/release"
+        ],
+        "unsupported_conditions": [],
+        "unsupported_principal": false,
+        "unsupported_statement_fields": []
+      }
+    ],
+    "denies": []
+  },
+  "replay_summary": {
+    "all_kinds": [
+      "unsupported-allow-claim-key"
+    ],
+    "blocking_kinds": [],
+    "findings": [
+      {
+        "blocking": false,
+        "kind": "unsupported-allow-claim-key",
+        "message": "Unsupported or unqualified Allow claim keys are erased as monotone restrictions.",
+        "severity": "medium",
+        "statement": 0,
+        "witness": ""
+      }
+    ],
+    "safe": true,
+    "witnesses": [
+      ""
+    ]
+  },
+  "verdict": "safe",
+  "version": 5
+}
