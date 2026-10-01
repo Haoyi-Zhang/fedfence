@@ -1,0 +1,192 @@
+{
+  "denominators": {
+    "commits": 9,
+    "evaluated_configurations": 21,
+    "roles": 10
+  },
+  "interpretation": "source-backed purposive study, not prevalence or field accuracy",
+  "records": [
+    {
+      "commit": "b09186ba3cbb56337e0b695318754d0d8453421c",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "source-stated"
+        },
+        {
+          "name": "after",
+          "result": "source-stated"
+        }
+      ],
+      "recovered_from": "study/public_change_screening.json",
+      "repository": "artur-duart/togglemaster-devops-fiap",
+      "role": "reported-role"
+    },
+    {
+      "commit": "bb96ae77561bfab07471a0629f165db4a2515535",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "source-stated"
+        },
+        {
+          "name": "after",
+          "result": "source-stated"
+        }
+      ],
+      "recovered_from": "study/public_change_screening.json",
+      "repository": "P-mcg01/muyu-invoice-infrastructure",
+      "role": "reported-role"
+    },
+    {
+      "commit": "8a67b6071b08fb363b664222a28d7250c29ed8cf",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "source-stated"
+        },
+        {
+          "name": "after",
+          "result": "source-stated"
+        }
+      ],
+      "recovered_from": "study/public_change_screening.json",
+      "repository": "ArriagadaInc/tpi-backend",
+      "role": "reported-role"
+    },
+    {
+      "commit": "f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "source-stated"
+        },
+        {
+          "name": "after",
+          "result": "source-stated"
+        }
+      ],
+      "recovered_from": "study/public_change_screening.json",
+      "repository": "shadow-architect-dev/aws-landing-zone",
+      "role": "reported-role"
+    },
+    {
+      "commit": "d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "source-stated"
+        },
+        {
+          "name": "after",
+          "result": "source-stated"
+        }
+      ],
+      "recovered_from": "study/public_change_screening.json",
+      "repository": "amr-elzoghby/Internal-Developer-Platform",
+      "role": "reported-role"
+    },
+    {
+      "commit": "8ebbad974724acace02bbb1d7462a7529235aabd",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "source-stated"
+        },
+        {
+          "name": "after",
+          "result": "source-stated"
+        }
+      ],
+      "recovered_from": "study/public_change_screening.json",
+      "repository": "manyiu/vazue-playlang",
+      "role": "reported-role"
+    },
+    {
+      "commit": "5d7339a716eb1e64623a95e756298f6057030285",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "source-stated"
+        },
+        {
+          "name": "after",
+          "result": "source-stated"
+        }
+      ],
+      "recovered_from": "study/public_change_screening.json",
+      "repository": "micheleformenti/aws-two-tier-architecture",
+      "role": "reported-role"
+    },
+    {
+      "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "fail"
+        },
+        {
+          "name": "after",
+          "result": "pass"
+        }
+      ],
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "role": "github_actions_ecr",
+      "source_evidence": {
+        "path": "source_evidence/sports_store_relevant_hunks.patch",
+        "source_form": "complete relevant hunks extracted from the commit diff",
+        "verbatim_whole_commit": false
+      }
+    },
+    {
+      "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "configurations": [
+        {
+          "name": "before",
+          "result": "fail"
+        },
+        {
+          "name": "after",
+          "result": "pass"
+        }
+      ],
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "role": "github_actions_frontend",
+      "source_evidence": {
+        "path": "source_evidence/sports_store_relevant_hunks.patch",
+        "source_form": "complete relevant hunks extracted from the commit diff",
+        "verbatim_whole_commit": false
+      }
+    },
+    {
+      "assignment_evidence": "unavailable; the observed token is not proof that the Terraform variable was assigned",
+      "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+      "configurations": [
+        {
+          "conditional_on": null,
+          "name": "before",
+          "result": "fail"
+        },
+        {
+          "conditional_on": null,
+          "name": "after-default-empty",
+          "result": "fail"
+        },
+        {
+          "conditional_on": "the variable being assigned from the reported observed token",
+          "name": "after-observed-binding",
+          "result": "pass"
+        }
+      ],
+      "repository": "sdunster/microticket",
+      "role": "github_deploy"
+    }
+  ],
+  "recovery": {
+    "complete": true,
+    "expected_unaffected_records": 7,
+    "source_object": "study/public_change_screening.json",
+    "unaffected_records_recovered": 7
+  },
+  "schema": "fedfence.public-change-study.v2"
+}

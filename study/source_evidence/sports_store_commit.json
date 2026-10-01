@@ -1,0 +1,12 @@
+{
+  "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+  "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+  "commit_url": "https://github.com/Deploy-On-Friday2-0/sports-store-infrastructure/commit/9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+  "affected_file": "iam.tf",
+  "stored_patch": "sports_store_relevant_hunks.patch",
+  "stored_patch_scope": "the two complete relevant role hunks, not the whole commit diff",
+  "roles": [
+    "github_actions_ecr",
+    "github_actions_frontend"
+  ]
+}

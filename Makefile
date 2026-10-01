@@ -1,6 +1,6 @@
 PYTHON ?= python3
 export PYTHONDONTWRITEBYTECODE=1
-.PHONY: tests demo public-changes benchmark source-frontier runtime-corpus reproduce paper audit clean
+.PHONY: tests demo public-changes benchmark source-frontier runtime-corpus reproduce paper audit manifest-only check-entrypoints clean
 
 tests:
 	$(PYTHON) scripts/run_fse_tests.py
@@ -21,14 +21,20 @@ runtime-corpus:
 	$(PYTHON) scripts/run_runtime_compatibility_study.py
 
 reproduce:
-	$(PYTHON) scripts/reproduce_final.py
+	$(PYTHON) scripts/reproduce.py
 
 paper:
-	$(MAKE) -C paper
+	$(MAKE) -C .. paper
 
 audit:
-	$(PYTHON) scripts/audit_final.py
+	$(PYTHON) scripts/audit_consistency.py
+
+manifest-only:
+	$(PYTHON) scripts/manifest_only.py
+
+check-entrypoints:
+	$(PYTHON) scripts/manifest_only.py --check-only
 
 clean:
-	$(MAKE) -C paper clean
+	$(MAKE) -C ../paper clean
 	find fse_workflow tests scripts -type d -name __pycache__ -prune -exec rm -rf {} +

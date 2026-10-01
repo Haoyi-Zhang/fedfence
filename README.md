@@ -1,5 +1,16 @@
 # FedFence - FSE 2027 submission candidate
 
+## Current package entry points
+
+The current package has sibling `../paper/` and `artifact/` directories. Use
+the package-root README for the current commands. From this artifact directory,
+`make reproduce` calls `scripts/reproduce.py`, `make paper` delegates to the
+package root, and `make manifest-only` inventories the current files without
+running experiments. `make check-entrypoints` is read-only. The inherited
+`scripts/reproduce_final.py`, `scripts/audit_final.py`, and the older layout
+descriptions below are not the current package entry points. Historical
+completion statements below are not results of the local entry-point repair.
+
 **Package status:** the manuscript, artifact, studies, tests, reproducibility
 manifest, and PDF preflight are complete for author review. The package is
 internally reproducible; it does **not** claim representative field accuracy,
@@ -38,7 +49,7 @@ ground truth.
 
 ## Package map
 
-- `paper/`: anonymous ACM `acmsmall,screen,review,anonymous` manuscript.
+- `../paper/`: anonymous ACM `acmsmall,screen,review,anonymous` manuscript.
 - `action.yml`: composite GitHub Action.
 - `schemas/`: review-packet schema.
 - `fse_workflow/`: pass/fail/unknown change-review implementation.
@@ -95,19 +106,20 @@ make paper
 make audit
 ```
 
-For a split execution whose result files have already been produced:
+To inventory the supplied current result files without rerunning them:
 
 ```bash
-python3 scripts/reproduce_final.py --manifest-only
+python3 scripts/manifest_only.py
 ```
 
-Important outputs:
+Current entry-point outputs:
 
-- `fse/results/final_reproduction_manifest.json`
-- `fse/results/final_audit.json`
-- `paper/FedFence_FSE_final_submission_candidate.pdf`
-- `FINAL_AUDIT_REPORT.md`
-- `SHA256SUMS` (generated for the final packaged tree)
+- `results/reproduction.json` (only after an actual reproduction run)
+- `results/manifest.json` (an inventory, not a scientific pass certificate)
+- `../paper/FedFence.pdf` and `../FedFence.pdf` (after a paper build)
+
+The supplied legacy reports and checksum lists describe their original snapshots;
+the entry-point repair does not claim to have rerun those campaigns.
 
 ## Supported and unsupported claims
 

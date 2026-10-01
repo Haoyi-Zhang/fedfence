@@ -1,0 +1,288 @@
+{
+  "schema": "fedfence.public-study-corrections.v1",
+  "sports_store": {
+    "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+    "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+    "evidence": {
+      "path": "source_evidence/sports_store_relevant_hunks.patch",
+      "source_form": "complete relevant hunks extracted from the commit diff",
+      "verbatim_whole_commit": false
+    },
+    "roles": [
+      {
+        "role": "github_actions_ecr",
+        "before_allow": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0*/sports-store-*:*",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "after_allow": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "explicit_issuer": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "intent": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "required": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ]
+      },
+      {
+        "role": "github_actions_frontend",
+        "before_allow": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0*/sports-store-frontend*:*",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "after_allow": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "explicit_issuer": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "intent": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "required": [
+          {
+            "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "aud": "sts.amazonaws.com"
+          }
+        ]
+      }
+    ],
+    "cross_role_counterexamples": [
+      {
+        "role": "github_actions_ecr",
+        "must_reject": {
+          "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+          "aud": "sts.amazonaws.com"
+        }
+      },
+      {
+        "role": "github_actions_frontend",
+        "must_reject": {
+          "sub": "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+          "aud": "sts.amazonaws.com"
+        }
+      }
+    ]
+  },
+  "microticket": {
+    "repository": "sdunster/microticket",
+    "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+    "role": "github_deploy",
+    "observed_token": {
+      "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+      "aud": "sts.amazonaws.com"
+    },
+    "binding_source": "commit message reports a CloudTrail-observed token; no plan, variable assignment, or owner confirmation is claimed",
+    "configurations": [
+      {
+        "name": "before",
+        "github_repo_immutable": "absent",
+        "allow": [
+          {
+            "sub": "repo:sdunster/microticket:ref:refs/heads/prod",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "expected": "fail"
+      },
+      {
+        "name": "after-default-empty",
+        "github_repo_immutable": "",
+        "allow": [
+          {
+            "sub": "repo:sdunster/microticket:ref:refs/heads/prod",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "expected": "fail"
+      },
+      {
+        "name": "after-observed-binding",
+        "github_repo_immutable": "sdunster@964295/microticket@1375658353",
+        "allow": [
+          {
+            "sub": "repo:sdunster/microticket:ref:refs/heads/prod",
+            "aud": "sts.amazonaws.com"
+          },
+          {
+            "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+            "aud": "sts.amazonaws.com"
+          }
+        ],
+        "expected": "pass",
+        "conditional_on": "the variable being assigned from the reported observed token"
+      }
+    ],
+    "explicit_issuer": [
+      {
+        "sub": "repo:sdunster/microticket:ref:refs/heads/prod",
+        "aud": "sts.amazonaws.com"
+      },
+      {
+        "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+        "aud": "sts.amazonaws.com"
+      }
+    ],
+    "intent": [
+      {
+        "sub": "repo:sdunster/microticket:ref:refs/heads/prod",
+        "aud": "sts.amazonaws.com"
+      },
+      {
+        "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+        "aud": "sts.amazonaws.com"
+      }
+    ],
+    "required": [
+      {
+        "sub": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+        "aud": "sts.amazonaws.com"
+      }
+    ],
+    "actions_success_metadata_is_assignment_proof": false
+  },
+  "denominator_definition": {
+    "commits": 9,
+    "roles_after_sports_store_split": 10,
+    "ordinary_before_after_role_phases": 20,
+    "additional_microticket_empty_branch": 1,
+    "evaluated_configurations": 21
+  }
+}

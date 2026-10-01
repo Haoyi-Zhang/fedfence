@@ -1,0 +1,52 @@
+{
+  "schema": "fedfence.current-package-inventory.v1",
+  "mode": "inventory-only",
+  "manuscript": {
+    "source": "paper/main.tex",
+    "bibliography": "paper/references.bib",
+    "pdf": "FedFence.pdf",
+    "pdf_bytes": 518915
+  },
+  "current_scripts_parsed": [
+    "reproduce.py",
+    "build_public_study_result.py",
+    "run_repair_audit.py",
+    "audit_source_frontier.py",
+    "audit_basis_witness.py",
+    "run_timing.py",
+    "audit_consistency.py",
+    "manifest_only.py"
+  ],
+  "result_files": [
+    {
+      "path": "artifact\\results\\public_change_study.json",
+      "bytes": 5306
+    },
+    {
+      "path": "artifact\\results\\repair_audit.json",
+      "bytes": 1302
+    },
+    {
+      "path": "artifact\\results\\source_frontier_audit.json",
+      "bytes": 15833
+    }
+  ],
+  "unavailable_evidence": {
+    "schema": "fedfence.unavailable-evidence.v1",
+    "basis": "The supplied root README explicitly identifies these historical materials as absent; the local entry-point repair does not reconstruct them.",
+    "unavailable": [
+      {
+        "path": "baseline/",
+        "description": "Historical baseline data absent from the supplied source."
+      },
+      {
+        "path": "logs/legacy_self_check.log",
+        "description": "Historical self-check log absent from the supplied source."
+      }
+    ],
+    "reconstructed": false,
+    "historical_tests_rerun_by_entrypoint_repair": false
+  },
+  "experiments_executed_by_this_command": false,
+  "scientific_results_verified_by_this_command": false
+}

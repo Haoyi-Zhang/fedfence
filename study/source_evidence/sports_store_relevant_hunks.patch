@@ -1,0 +1,29 @@
+@@ -186,10 +186,14 @@ resource "aws_iam_role" "github_actions_ecr" {
+         Condition = {
+           StringEquals = {
+             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+-          }
+-          StringLike = {
+-            # Match both classic and new 2026 immutable ID subject formats
+-            "token.actions.githubusercontent.com:sub" = "repo:Deploy-On-Friday2-0*/sports-store-*:*"
++            "token.actions.githubusercontent.com:sub" = [
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
++              "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main"
++            ]
+           }
+         }
+@@ -255,10 +259,7 @@ resource "aws_iam_role" "github_actions_frontend" {
+         Condition = {
+           StringEquals = {
+             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+-          }
+-          StringLike = {
+-            # Match both classic and new 2026 immutable ID subject formats for frontend
+-            "token.actions.githubusercontent.com:sub" = "repo:Deploy-On-Friday2-0*/sports-store-frontend*:*"
++            "token.actions.githubusercontent.com:sub" = "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main"
+           }
+         }

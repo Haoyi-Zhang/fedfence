@@ -1,0 +1,132 @@
+{
+  "schema": "fedfence.study-entrypoints.v1",
+  "production_cli_scope": "single-repository literal contract with the legacy-default issuer adapter",
+  "records": [
+    {
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/corrections.json"
+    },
+    {
+      "repository": "sdunster/microticket",
+      "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/corrections.json"
+    },
+    {
+      "repository": "REQUIRED-owner/repo",
+      "commit": "REQUIRED-full-commit-SHA",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/annotation_template.json"
+    },
+    {
+      "repository": "CaringalML/AI-App-Tester",
+      "commit": "e63627f3991bff260dce5a23b12a4996d4c714a2",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/runtime_compatibility_corpus.json"
+    },
+    {
+      "repository": "OASI-CL/proyectos-backend",
+      "commit": "924b99f4925baded2987f1db78bd04f55988ac59",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/runtime_compatibility_corpus.json"
+    },
+    {
+      "repository": "Abdulaziz-algharbi/order-pools-infrastructure",
+      "commit": "7076165b461538aefcfa69ad0fe6780ecaa8970e",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/runtime_compatibility_corpus.json"
+    },
+    {
+      "repository": "esscott1/AE-RV-Solutions",
+      "commit": "d6307f8989ee8ae23fed60d3aa958f90d24ed195",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/runtime_compatibility_corpus.json"
+    },
+    {
+      "repository": "tylerschloesser/dst-server-manager",
+      "commit": "0c91bfa44ed47c239e26f73baeb6190f58ea96c4",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/runtime_compatibility_corpus.json"
+    },
+    {
+      "repository": "linyanqing/BroadbandServiceTriageAIAgent",
+      "commit": "480bd726a8cb4f8c9923ad60e8cb8bc2529e1a73",
+      "entry_point": "study-only-normalized-backend",
+      "strict_cli_exercised": false,
+      "unchecked_conditions": [
+        "contract authorship/approval",
+        "snapshot freshness",
+        "workflow reachability",
+        "live provider state",
+        "governance freshness"
+      ],
+      "source_record": "study/runtime_compatibility_corpus.json"
+    }
+  ]
+}

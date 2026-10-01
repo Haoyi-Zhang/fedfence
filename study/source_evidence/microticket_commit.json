@@ -1,0 +1,8 @@
+{
+  "repository": "sdunster/microticket",
+  "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+  "commit_url": "https://github.com/sdunster/microticket/commit/79abbeceae16b22f22a78770d580e44058c9f559",
+  "binding": "github_repo_immutable defaults to the empty string; immutable admission is conditional on assignment",
+  "observed_subject": "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+  "success_run_proves_assignment": false
+}
