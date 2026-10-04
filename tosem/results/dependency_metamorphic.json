@@ -1,0 +1,46 @@
+{
+  "checked": 6,
+  "interpretation": "workflow content invalidates dependencies but is not executed or semantically interpreted",
+  "passed": true,
+  "rows": [
+    {
+      "changed_fields": [],
+      "name": "unchanged-fresh-packet",
+      "verdict": "pass"
+    },
+    {
+      "changed_fields": [
+        "workflow"
+      ],
+      "name": "workflow-byte-change",
+      "verdict": "pass"
+    },
+    {
+      "changed_fields": [
+        "issuer"
+      ],
+      "name": "issuer-source-metadata-change",
+      "verdict": "pass"
+    },
+    {
+      "changed_fields": [
+        "policy"
+      ],
+      "name": "subject-widening",
+      "verdict": "fail"
+    },
+    {
+      "changed_fields": [],
+      "name": "stale-governance",
+      "verdict": "unknown"
+    },
+    {
+      "changed_fields": [
+        "contract"
+      ],
+      "name": "reviewed-intent-expansion",
+      "verdict": "pass"
+    }
+  ],
+  "schema": "fedfence-tosem-dependency-metamorphic-v1"
+}

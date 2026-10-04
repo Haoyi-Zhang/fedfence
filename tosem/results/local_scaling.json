@@ -1,0 +1,167 @@
+{
+  "csv_sha256": "f287dc7d430b317a43c777cb8645239e12178f93e3d8302c62399aff6153ed57",
+  "environment": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]"
+  },
+  "passed": true,
+  "recorded_runs": 54,
+  "repetitions": 3,
+  "schema": "fedfence-local-scaling-v1",
+  "scope": "Single local interpreter/process environment, subprocess startup included; descriptive medians and observed ranges, not confidence intervals or tool comparisons.",
+  "sizes": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32
+  ],
+  "summary": [
+    {
+      "max_seconds": 0.6206513580000319,
+      "median_seconds": 0.5936235030001171,
+      "min_seconds": 0.5756350409999413,
+      "repetitions": 3,
+      "required_tokens": 1,
+      "task": "review-pass"
+    },
+    {
+      "max_seconds": 0.5967964530000245,
+      "median_seconds": 0.5884653109999363,
+      "min_seconds": 0.5563903140000548,
+      "repetitions": 3,
+      "required_tokens": 1,
+      "task": "review-positive-loss"
+    },
+    {
+      "max_seconds": 0.6138881070000934,
+      "median_seconds": 0.5850938319999841,
+      "min_seconds": 0.571689220000053,
+      "repetitions": 3,
+      "required_tokens": 1,
+      "task": "receipt-replay"
+    },
+    {
+      "max_seconds": 0.6563359589999891,
+      "median_seconds": 0.6063120989999788,
+      "min_seconds": 0.5636251140001605,
+      "repetitions": 3,
+      "required_tokens": 2,
+      "task": "review-pass"
+    },
+    {
+      "max_seconds": 0.630927310000061,
+      "median_seconds": 0.6283354270001382,
+      "min_seconds": 0.5796409360000325,
+      "repetitions": 3,
+      "required_tokens": 2,
+      "task": "review-positive-loss"
+    },
+    {
+      "max_seconds": 0.602783355000156,
+      "median_seconds": 0.5953722500000822,
+      "min_seconds": 0.5881503839998459,
+      "repetitions": 3,
+      "required_tokens": 2,
+      "task": "receipt-replay"
+    },
+    {
+      "max_seconds": 0.661137372000212,
+      "median_seconds": 0.6131569699998636,
+      "min_seconds": 0.5733021489998009,
+      "repetitions": 3,
+      "required_tokens": 4,
+      "task": "review-pass"
+    },
+    {
+      "max_seconds": 0.7723891470000126,
+      "median_seconds": 0.6218864400000257,
+      "min_seconds": 0.6050096890000987,
+      "repetitions": 3,
+      "required_tokens": 4,
+      "task": "review-positive-loss"
+    },
+    {
+      "max_seconds": 0.6278071170002022,
+      "median_seconds": 0.6184994259999712,
+      "min_seconds": 0.6027814839999337,
+      "repetitions": 3,
+      "required_tokens": 4,
+      "task": "receipt-replay"
+    },
+    {
+      "max_seconds": 0.8116417230000934,
+      "median_seconds": 0.6394861779999701,
+      "min_seconds": 0.6268868850002036,
+      "repetitions": 3,
+      "required_tokens": 8,
+      "task": "review-pass"
+    },
+    {
+      "max_seconds": 0.6811487130000842,
+      "median_seconds": 0.6313125130000117,
+      "min_seconds": 0.6268133730000045,
+      "repetitions": 3,
+      "required_tokens": 8,
+      "task": "review-positive-loss"
+    },
+    {
+      "max_seconds": 0.718714466999927,
+      "median_seconds": 0.6466060730001573,
+      "min_seconds": 0.6120927419999589,
+      "repetitions": 3,
+      "required_tokens": 8,
+      "task": "receipt-replay"
+    },
+    {
+      "max_seconds": 0.6496142989999498,
+      "median_seconds": 0.6334679030001098,
+      "min_seconds": 0.6219125979998807,
+      "repetitions": 3,
+      "required_tokens": 16,
+      "task": "review-pass"
+    },
+    {
+      "max_seconds": 0.7332675969998945,
+      "median_seconds": 0.6502875490000406,
+      "min_seconds": 0.617336307999949,
+      "repetitions": 3,
+      "required_tokens": 16,
+      "task": "review-positive-loss"
+    },
+    {
+      "max_seconds": 0.6510643740000432,
+      "median_seconds": 0.6305466589999469,
+      "min_seconds": 0.6230552649999481,
+      "repetitions": 3,
+      "required_tokens": 16,
+      "task": "receipt-replay"
+    },
+    {
+      "max_seconds": 0.7573608640000202,
+      "median_seconds": 0.7384971179999411,
+      "min_seconds": 0.7363920189998225,
+      "repetitions": 3,
+      "required_tokens": 32,
+      "task": "review-pass"
+    },
+    {
+      "max_seconds": 0.7025212109999757,
+      "median_seconds": 0.6978125910000017,
+      "min_seconds": 0.6713196840000819,
+      "repetitions": 3,
+      "required_tokens": 32,
+      "task": "review-positive-loss"
+    },
+    {
+      "max_seconds": 0.753191347999973,
+      "median_seconds": 0.7290165959998376,
+      "min_seconds": 0.6619849090000116,
+      "repetitions": 3,
+      "required_tokens": 32,
+      "task": "receipt-replay"
+    }
+  ],
+  "warmup_runs": 18
+}

@@ -11,79 +11,115 @@ from collections import deque, defaultdict
 from dataclasses import dataclass, field
 from typing import Dict, FrozenSet, Iterable, Optional, Sequence, Set, Tuple
 
-# Normalized character universe for GitHub OIDC subjects and cloud trust strings.
-# The base set covers common identifier, URI, and service-name characters.
-# Analyses extend this base with every literal character that appears in the
-# issuer, policy, or intent patterns, so containment search cannot miss a
-# witness merely because a policy used an uncommon but normalized character.
+# The language domain is Python ``str`` code points, U+0000..U+10FFFF.
+# This is an abstract string model, not a provider identifier-validity claim.
+# Raw NFA constructors operate over their explicit, finite alphabet; callers
+# proving an open-domain judgment MUST first build a complete finite support.
+CHARACTER_DOMAIN = "python-str-codepoints-v1"
+CODEPOINT_LIMIT = 0x110000
+# Readable *preferences* for the OTHER representative, never the entire domain.
 DEFAULT_ALPHABET = tuple(sorted(set(
     "abcdefghijklmnopqrstuvwxyz"
     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     "0123456789"
     "-_.:/@%+=,~"
 )))
-# Preferred fresh representatives used by the finite-support reduction.  These
-# characters are valid identifier/ref characters in the normalized model and are
-# chosen before the rest of DEFAULT_ALPHABET so generated witnesses remain
-# readable rather than using punctuation unless punctuation is forced by input.
 FRESH_REPRESENTATIVES = tuple("zq0_9y")
 GLOB_META = {"*", "?"}
 EPS = None  # epsilon-transition marker
 
 
-def alphabet_from_patterns(*pattern_sets: Iterable[object],
-                           base: Sequence[str] = DEFAULT_ALPHABET) -> Tuple[str, ...]:
-    """Return a finite support alphabet for typed equality/glob patterns.
+def pattern_literals(*pattern_sets: object) -> Set[str]:
+    """Collect actual singleton tests, retaining equality's literal ``*``/``?``.
 
-    The support theorem is operator-aware.  In a glob/``StringLike`` pattern,
-    ``*`` and ``?`` are metacharacters and therefore do not have to be enumerated
-    as literal transitions.  In an equality/``StringEquals`` value, however,
-    they are ordinary characters and must be present in the search alphabet.
-    Inputs may be plain glob strings, mappings of the form ``{"op": ..., ...}``,
-    or tuples ``("equals"|"like", values)``.  One provider-valid fresh
-    representative is added for the equivalence class of all normalized
-    characters that do not occur literally in the instance.
+    Strings are globs by default. Typed groups may be tuples or mappings with
+    equals/literal or like/glob operators. Containers, including tuples and
+    generators, are traversed rather than converted to their Python repr.
+    Other predicates (e.g. constructor delimiters) must be supplied as literals.
     """
+    from collections.abc import Iterable as IterableABC, Mapping
     literals: Set[str] = set()
+    def visit(value: object, *, glob_mode: bool = True) -> None:
+        if value is None:
+            return
+        if isinstance(value, str):
+            literals.update(ch for ch in value if not glob_mode or ch not in GLOB_META)
+        elif isinstance(value, Mapping):
+            op = str(value.get("op", "like")).lower()
+            if op not in {"equals", "literal", "like", "glob"}:
+                raise ValueError("unsupported finite-support group operator")
+            visit(value.get("values", []), glob_mode=op in {"like", "glob"})
+        elif (isinstance(value, tuple) and len(value) == 2
+              and isinstance(value[0], str)
+              and value[0].lower() in {"equals", "literal", "like", "glob"}):
+            visit(value[1], glob_mode=value[0].lower() in {"like", "glob"})
+        elif isinstance(value, IterableABC) and not isinstance(value, (bytes, bytearray)):
+            for item in value:
+                visit(item, glob_mode=glob_mode)
+        else:
+            raise ValueError("finite-support inputs must contain string patterns")
+    for patterns in pattern_sets:
+        visit(patterns)
+    return literals
 
-    def add_text(s: object, *, glob_mode: bool) -> None:
-        for ch in str(s):
-            if glob_mode and ch in GLOB_META:
-                continue
-            literals.add(ch)
 
-    def visit(x: object, *, default_glob: bool = True) -> None:
-        if x is None:
-            return
-        if isinstance(x, dict):
-            op = str(x.get("op", "like")).lower()
-            vals = x.get("values", [])
-            visit(vals, default_glob=(op != "equals"))
-            return
-        if isinstance(x, tuple) and len(x) == 2 and str(x[0]).lower() in {"equals", "like", "literal", "glob"}:
-            op = str(x[0]).lower()
-            visit(x[1], default_glob=(op not in {"equals", "literal"}))
-            return
-        if isinstance(x, (list, set, frozenset)):
-            for y in x:
-                visit(y, default_glob=default_glob)
-            return
-        add_text(x, glob_mode=default_glob)
+def fresh_character(literals: Set[str], base: Sequence[str] = DEFAULT_ALPHABET) -> Optional[str]:
+    """Choose one member of the entire domain outside ``literals``, if any.
 
-    for ps in pattern_sets:
-        visit(ps)
-    normalized = set(base) | literals
-    fresh = None
-    for ch in list(FRESH_REPRESENTATIVES) + list(base):
-        if ch in normalized and ch not in literals and ch not in GLOB_META:
-            fresh = ch
-            break
-    chars = set(literals)
-    if fresh is not None:
-        chars.add(fresh)
-    else:
-        chars |= normalized
-    return tuple(sorted(chars))
+    Exhausting preferences is NOT exhaustion of the domain. The disjoint ranges
+    below cover every Python code point exactly once, prioritizing printable
+    non-surrogates. None is sound only when all CODEPOINT_LIMIT singletons occur.
+    """
+    preferences = tuple(base)
+    if any(not isinstance(ch, str) or len(ch) != 1 for ch in preferences):
+        raise ValueError("alphabet preferences must be single code points")
+    for ch in FRESH_REPRESENTATIVES + preferences:
+        if ch not in literals and ch not in GLOB_META:
+            return ch
+    for lo, hi in ((0x21, 0xD800), (0xE000, CODEPOINT_LIMIT), (0, 0x21), (0xD800, 0xE000)):
+        for cp in range(lo, hi):
+            ch = chr(cp)
+            if ch not in literals:
+                return ch
+    return None
+
+
+def alphabet_from_patterns(*pattern_sets: object,
+                           base: Sequence[str] = DEFAULT_ALPHABET) -> Tuple[str, ...]:
+    """A complete support: every literal singleton and one OTHER representative.
+
+    ``base`` is a preference list, not a closed character universe. Wildcards
+    range over CHARACTER_DOMAIN. Equality literals, constructor boundaries and
+    a nonempty remainder must all survive the quotient. Low-level NFAs accept
+    representative words, not arbitrary out-of-support concrete strings.
+    """
+    literals = pattern_literals(*pattern_sets)
+    fresh = fresh_character(literals, base)
+    return tuple(sorted(literals | ({fresh} if fresh is not None else set())))
+
+
+def validate_support(alphabet: Sequence[str], *pattern_sets: object) -> Tuple[bool, str]:
+    """Check coverage, without calling the representative-selection algorithm.
+
+    The cardinality argument for a remainder is independent of candidate pools:
+    if fewer than CODEPOINT_LIMIT literal singletons exist, OTHER is nonempty.
+    This validates a finite-support obligation, not the whole analyzer.
+    """
+    if isinstance(alphabet, (bytes, bytearray)):
+        return False, "alphabet must contain code points"
+    chars = tuple(alphabet)
+    if any(not isinstance(ch, str) or len(ch) != 1 for ch in chars):
+        return False, "alphabet entries must be single code points"
+    support = set(chars)
+    if len(support) != len(chars):
+        return False, "duplicate alphabet entries"
+    literals = pattern_literals(*pattern_sets)
+    if not literals.issubset(support):
+        return False, "alphabet omits a literal or constructor boundary"
+    if len(literals) < CODEPOINT_LIMIT and not (support - literals):
+        return False, "alphabet omits the nonempty OTHER character class"
+    return True, "complete code-point support"
+
 
 @dataclass
 class NFA:

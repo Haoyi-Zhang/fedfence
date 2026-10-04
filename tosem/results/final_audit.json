@@ -1,0 +1,300 @@
+{
+  "checks": [
+    {
+      "detail": {
+        "recorded": 194,
+        "test_methods_in_source": 194
+      },
+      "name": "unit-test-discovery-and-record",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "all-ten-reproduction-steps",
+      "passed": true
+    },
+    {
+      "detail": "496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7",
+      "name": "current-implementation-matches-records",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "offline-recorded-scope",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "character-domain-current-implementation",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "full-codepoint-predicate-signatures",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "quotient-matcher-concrete-oracle",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "quotient-constructor-boundaries",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "domain-full-review-controls",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "independent-support-rejection-challenges",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "core-self-check",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "projection-domain",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "two-sided-domain-and-partition",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "two-sided-summary-matches-raw-result",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "strict-differential-rows",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "strict-summary-matches-raw-result",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "relational-audit",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "dependency-transformations",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "seeded-fault-controls-and-detection",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "public-noninterchangeable-denominators",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "public-claim-boundaries",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "source-excerpts-not-extraction",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "maintenance-recorded-not-reproduced",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "study-summary-provenance",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "repaired-issuer-and-branch-audit",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "new-boundary-results-match-current-code",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "matcher-domain-and-three-way-agreement",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "issuer-refinement-domain-and-agreement",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "bounded-glob-complete-packets",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "bounded-glob-packet-digests",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "local-cost-runs-and-source-digest",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "local-cost-statistics-recomputed",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "plot-provenance-is-measured-data",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "plot-points-and-whiskers-match-measurements",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "generated-macros-exact",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "generated-macro-source-values",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "unique-active-latex-labels",
+      "passed": true
+    },
+    {
+      "detail": {
+        "cited_keys": 63,
+        "entries": 63,
+        "undefined": [],
+        "unused": []
+      },
+      "name": "all-reference-keys-unique-and-used",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "reference-ledger-keys-and-categories",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "figure-accessibility-descriptions",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "table-count",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "official-journal-review-template",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "supplied-author-order",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "current-reproduction-entry-point",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "pdf-exists",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "tool-pdfinfo",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "tool-pdftotext",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "tool-pdffonts",
+      "passed": true
+    },
+    {
+      "detail": {
+        "note": "45 is the fast-impact text threshold, not an asserted universal TOSEM limit",
+        "references_start_page": 38,
+        "total_pages": 41
+      },
+      "name": "page-count-within-conservative-fast-impact-text-bound",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "pdf-text-present",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "all-pdf-fonts-embedded",
+      "passed": true
+    },
+    {
+      "detail": {
+        "actual_class": "2024/12/28 v2.12 Typesetting articles for the Association for Computing Machinery",
+        "compiled_with_current_release": false
+      },
+      "name": "recorded-build-binds-delivered-pdf",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "latex-no-overfull-or-undefined",
+      "passed": true
+    }
+  ],
+  "implementation_sha256": "496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7",
+  "limitations": [
+    "Not an acceptance prediction or universal correctness proof.",
+    "Local source digests do not authenticate remote sources or reviewer identities.",
+    "No live cloud account, independent user study, or population benchmark."
+  ],
+  "paper": {
+    "figures": 9,
+    "pages": 41,
+    "references": 63,
+    "references_start_page": 38,
+    "sha256": "a1ef2a4181127b7de117827ad3b9c25d6c878180c478a9314f577667faab6641",
+    "tables": 13
+  },
+  "passed": true,
+  "schema": "fedfence-tosem-final-consistency-audit-v1"
+}

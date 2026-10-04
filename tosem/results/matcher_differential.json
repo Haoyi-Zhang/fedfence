@@ -1,0 +1,211 @@
+{
+  "checked": 242580,
+  "elapsed_seconds": 1.918390756000008,
+  "implementations": [
+    "recursive split oracle",
+    "positive prefix DP",
+    "retained core NFA"
+  ],
+  "matching_pairs": 12249,
+  "nonmatching_pairs": 230331,
+  "passed": true,
+  "pattern_alphabet": [
+    "a",
+    "b",
+    "*",
+    "?",
+    "[",
+    "]"
+  ],
+  "pattern_max_length": 4,
+  "patterns": 1555,
+  "result_stream_sha256": "090945c0d3554e64ce90d4e3b1d4fb1e733e5273da11e9b5524cec0cb47401c3",
+  "sample_rows": [
+    [
+      "",
+      "",
+      true,
+      true,
+      true
+    ],
+    [
+      "a??",
+      "][",
+      false,
+      false,
+      false
+    ],
+    [
+      "**b",
+      "a]a",
+      false,
+      false,
+      false
+    ],
+    [
+      "[a]",
+      "b[]",
+      false,
+      false,
+      false
+    ],
+    [
+      "]]?",
+      "[[b",
+      false,
+      false,
+      false
+    ],
+    [
+      "ab[b",
+      "]b\n",
+      false,
+      false,
+      false
+    ],
+    [
+      "a?*]",
+      "\nb[",
+      false,
+      false,
+      false
+    ],
+    [
+      "a]b[",
+      "\n",
+      false,
+      false,
+      false
+    ],
+    [
+      "bba*",
+      "\n[",
+      false,
+      false,
+      false
+    ],
+    [
+      "b*]a",
+      "a\na",
+      false,
+      false,
+      false
+    ],
+    [
+      "b[?[",
+      "b]]",
+      false,
+      false,
+      false
+    ],
+    [
+      "*a**",
+      "[]b",
+      false,
+      false,
+      false
+    ],
+    [
+      "**ba",
+      "][\n",
+      false,
+      false,
+      false
+    ],
+    [
+      "*?][",
+      "\n[[",
+      false,
+      false,
+      false
+    ],
+    [
+      "*][?",
+      "a\n",
+      false,
+      false,
+      false
+    ],
+    [
+      "?b?b",
+      "aa[",
+      false,
+      false,
+      false
+    ],
+    [
+      "??b]",
+      "baa",
+      false,
+      false,
+      false
+    ],
+    [
+      "?]a?",
+      "b\n]",
+      false,
+      false,
+      false
+    ],
+    [
+      "[a]b",
+      "[\nb",
+      false,
+      false,
+      false
+    ],
+    [
+      "[*?]",
+      "]]\n",
+      false,
+      false,
+      false
+    ],
+    [
+      "[[*?",
+      "\n][",
+      false,
+      false,
+      false
+    ],
+    [
+      "]ab*",
+      "b\n",
+      false,
+      false,
+      false
+    ],
+    [
+      "]*aa",
+      "ab[",
+      false,
+      false,
+      false
+    ],
+    [
+      "]?[[",
+      "bba",
+      false,
+      false,
+      false
+    ],
+    [
+      "]]?*",
+      "[a]",
+      false,
+      false,
+      false
+    ]
+  ],
+  "schema": "fedfence-bounded-matcher-audit-v1",
+  "scope": "Exhaustive for declared finite alphabets/lengths only; not all-string equivalence.",
+  "value_alphabet": [
+    "a",
+    "b",
+    "[",
+    "]",
+    "\n"
+  ],
+  "value_max_length": 3,
+  "values": 156
+}

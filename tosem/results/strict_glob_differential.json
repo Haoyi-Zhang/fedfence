@@ -1,0 +1,68 @@
+{
+  "audience_patterns": [
+    "*",
+    "sts.amazonaws.com",
+    "?ault",
+    "[sv]*"
+  ],
+  "checked": 192,
+  "complete_policy_bound": "Each Allow intersects finite StringEquals subject/audience bounds; no other Allow exists.",
+  "csv_sha256": "92ed29c1d473ea79a4fcf285f11baddd37a49cdb48d80f016072623e8931915b",
+  "deny_modes": 3,
+  "elapsed_seconds": 120.07504166399985,
+  "independent_oracle": "Recursive glob matching and direct tuple set Allow-minus-Deny.",
+  "intent": [
+    [
+      "repo:acme/api:ref:refs/heads/main",
+      "sts.amazonaws.com"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/release",
+      "sts.amazonaws.com"
+    ]
+  ],
+  "passed": true,
+  "required_settings": 2,
+  "schema": "fedfence-strict-bounded-glob-v1",
+  "scope": "Benign generated fixtures; no real account, provider equivalence, or population inference.",
+  "subject_patterns": [
+    "*",
+    "repo:acme/api:ref:refs/heads/main",
+    "repo:acme/api:ref:refs/heads/m*",
+    "repo:acme/api:ref:refs/heads/?ain",
+    "repo:acme/api:ref:refs/heads/[md]ain",
+    "",
+    "repo:acme/api:ref:refs/heads/**",
+    "repo:acme/api:ref:refs/heads/releas?"
+  ],
+  "universe": [
+    [
+      "repo:acme/api:ref:refs/heads/main",
+      "sts.amazonaws.com"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/main",
+      "vault"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/dev",
+      "sts.amazonaws.com"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/dev",
+      "vault"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/release",
+      "sts.amazonaws.com"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/release",
+      "vault"
+    ]
+  ],
+  "verdicts": {
+    "fail": 128,
+    "pass": 64
+  }
+}

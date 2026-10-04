@@ -1,4 +1,6 @@
-# The new FSE workflow, tests and local reproduction use Python 3.10+ standard library only.
-# No third-party package is required for the demonstrated JSON review path.
-# Legacy YAML extraction dependencies are separately listed in artifact/requirements.txt.
-# Paper build needs LaTeX/acmart and BibTeX; audit additionally needs pdfinfo/pdftotext/pdffonts.
+# Historical filename retained for compatibility.
+# The current TOSEM JSON review path, tests and offline evidence drivers use
+# Python 3.10+ standard library only. No pip packages are required for them.
+# Optional legacy YAML extraction dependencies: artifact/requirements.txt.
+# Paper build: TeX/acmart, TikZ, algorithms, latexmk and BibTeX.
+# Final PDF audit: Poppler pdfinfo, pdftotext and pdffonts.

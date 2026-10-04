@@ -1,4 +1,4 @@
-"""Isolated invocation of the unchanged, frozen FedFence analyzer and replay path."""
+"""Isolated invocation of the retained, character-domain-corrected FedFence analyzer and replay path."""
 from __future__ import annotations
 import json
 import sys

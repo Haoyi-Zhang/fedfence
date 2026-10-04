@@ -1,0 +1,1781 @@
+--- a/README.md
++++ b/README.md
+@@ -1,10 +1,10 @@
+ # FedFence：ACM TOSEM 稿件与可复现实验包
+ 
+-本包在上传的 FedFence 原项目上修订，未另建替代系统。请先阅读 `paper/FedFence_TOSEM.pdf` 和 `artifact/docs/FINAL_REPORT_ZH.md`。
++本包在上传的 FedFence 原项目上继续修订，修复字符支持集遗漏及证书域覆盖检查，未另建替代系统。请先阅读 `paper/FedFence_TOSEM.pdf` 和 `artifact/docs/FINAL_REPORT_ZH.md`。
+ 
+ | 目录 | 内容 |
+ |---|---|
+-| `paper/` | TOSEM 单栏审稿稿件、LaTeX 源码、62 条引用、9 幅可编辑矢量图、12 张表、投稿说明及文献核查台账。 |
++| `paper/` | TOSEM 单栏审稿稿件、LaTeX 源码、63 条引用、9 幅可编辑矢量图、13 张表、投稿说明及文献核查台账。 |
+ | `artifact/` | 原分析核心、修订后的原审查入口、完整双向重放凭据、测试、静态数据、复现驱动、日志、结果与审计文档。 |
+ 
+ ## 一条当前入口
+@@ -16,7 +16,7 @@
+ make reproduce
+ ```
+ 
+-仅重跑离线实验而不编译论文：`make evidence`。仅运行 146 项回归测试：`make tests`。详见 `artifact/README.md`。**论文在 artifact 的同级 `../paper/`，不使用历史失效目录。**
++仅重跑离线实验而不编译论文：`make evidence`。仅运行 194 项回归测试：`make tests`。详见 `artifact/README.md`。**论文在 artifact 的同级 `../paper/`，不使用历史失效目录。**
+ 
+ 本次验证未操作真实云账号，未执行公众仓库工作流，未向维护者发送消息，也没有投稿或代作者确认任何声明。`pass` 是对受支持、时效有效且内部一致的已提供模型给出的结论，不是云端部署授权。
+ 
+@@ -27,3 +27,9 @@
+ ## 文件完整性
+ 
+ 从解压后的根目录执行 `sha256sum -c artifact/docs/PACKAGE_SHA256SUMS`，可检查交付时各文件的摘要。清单不包含自身，也不是签名；重跑实验后结果和时间记录会变化，应在重跑前检查。清洁目录重建结果见 `artifact/docs/CLEAN_REBUILD.md`。
++
++## 本轮字符域修复
++
++`DEFAULT_ALPHABET` 不再充当完整字符域。支持集保留全部字面单例、构造器分隔符类别，以及实际码点域非空余集的一个代表；偏好池耗尽后仍继续搜索全域。分析和重放开始前检查覆盖，原子证书也不能自行缩小 alphabet。原子／有效案例证书版本分别为 3／6；旧证书与旧实现收据需要重新生成。详见 `artifact/docs/CHARACTER_DOMAIN_FIX.md`。
++
++完整复现含十个步骤；只执行新审计可运行 `cd artifact && make character-domain`。3,342,336 的计数单位是基础字符判别比较，不是三百多万个策略或云端部署。
+--- a/artifact/Makefile
++++ b/artifact/Makefile
+@@ -1,9 +1,12 @@
+ PYTHON ?= python3
+ export PYTHONDONTWRITEBYTECODE=1
+-.PHONY: tests evidence reproduce paper audit tables studies public-changes source-frontier runtime-corpus clean
++.PHONY: character-domain tests evidence reproduce paper audit tables studies public-changes source-frontier runtime-corpus clean
+ 
+ tests:
+ 	$(PYTHON) scripts/run_fse_tests.py
++
++character-domain:
++	$(PYTHON) scripts/run_character_domain_audit.py
+ 
+ evidence:
+ 	$(PYTHON) scripts/reproduce_tosem.py
+--- a/artifact/README.md
++++ b/artifact/README.md
+@@ -8,7 +8,7 @@
+ 
+ ```sh
+ cd artifact
+-make evidence       # all nine offline evidence steps; regenerate paper tables
++make evidence       # all ten offline evidence steps; regenerate paper tables
+ make paper          # compile ../paper/FedFence_TOSEM.pdf
+ make audit          # verify evidence/manuscript consistency
+ # Or execute all three stages:
+@@ -17,7 +17,7 @@
+ 
+ For just the ordinary regression suite, run `make tests`. For the corrected source-backed, source-frontier and maintenance studies, run `make studies`. Outputs are written to `tosem/results/`, with logs in `logs/`; quantitative LaTeX macros and tables are regenerated in `../paper/generated/`. Re-running overwrites generated results and timings. It does not change the supplied public-source fixtures.
+ 
+-**Requirements:** the demonstrated JSON path and all nine evidence steps use Python 3.10+ and its standard library. The delivered run used Python 3.13.5 on Linux. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
++**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The delivered run used Python 3.13.5 on Linux. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
+ 
+ The preserved legacy YAML extractor has separate optional dependencies in `artifact/requirements.txt`; it is **not** exercised by the current JSON reproduction path. No cloud credentials, cloud account, paid API, external analyzer, repository checkout, network fetch or source program execution is required by the current reproduction command. Historical fetch scripts are not called by it.
+ 
+@@ -64,11 +64,13 @@
+ 
+ | Layer | Actual unit and result | Authoritative output |
+ |---|---|---|
+-| Regression suite | 146 tests, 0 failures, 0 errors, 0 skips; baseline was 94 | `tosem/results/unit_tests.json` |
++| Regression suite | 194 tests, 0 failures, 0 errors, 0 skips; baseline was 94 | `tosem/results/unit_tests.json` |
+ | Core self-check | 3,945 bounded/symbolic comparisons | `tosem/results/core_self_check.json` |
+ | Observation projection | 65,536 four-state/two-observation models | `tosem/results/finite_semantics_audit.json` |
+ | Two-sided finite decision | 65,536 decisions over three atoms; 256 full certificate replay samples | `tosem/results/two_sided_exhaustive.json` |
+ | Strict literal differential | 56 actual gate configurations; all agree with the direct tuple-set oracle | `tosem/results/strict_literal_differential.csv` |
++| Character support | 3,342,336 code-point predicate comparisons across three saturated supports; 57,498 concrete/quotient matcher pairs; 60 constructor checks | `tosem/results/character_domain_audit.json` |
++| Domain integration and rejection | Four regular cases, three strict packets covering pass/fail/unknown, and two local rejection challenges | `tosem/results/character_domain_audit.json` |
+ | Prefix matcher differential | 242,580 exhaustive bounded pairs; recursive oracle, DP matcher and preserved NFA agree | `tosem/results/matcher_differential.json` |
+ | Issuer refinement bridge | 2,304 scalar/NFA membership checks, including audience refinements | `tosem/results/issuer_membership_differential.json` |
+ | Strict bounded-glob differential | 192 complete packets: 64 pass / 128 fail, all expected | `tosem/results/strict_glob_differential.csv` |
+@@ -85,7 +87,7 @@
+ ## Layout and provenance
+ 
+ - `fse_workflow/`: existing review wrapper, shared three-valued rule, study adapters and the new full-review receipt support.
+-- `artifact/fedfence/`: preserved original regular-language analysis core; this inner `artifact` name is a historical path, not another FedFence system.
++- `artifact/fedfence/`: retained regular-language analysis core, with the character-domain correction applied; this inner `artifact` name is a historical path, not another FedFence system.
+ - `tests/`, `scripts/`, `examples/`, `schemas/`: current regression tests, evidence drivers and benign fixtures.
+ - `study/`: supplied source manifests, frozen patch/excerpt records and recorded corrections.
+ - `tosem/results/`: authoritative current results. `docs/CLAIM_EVIDENCE_MAP.md` maps them to manuscript claims.
+@@ -95,9 +97,9 @@
+ 
+ See `docs/CHANGELOG_TOSEM.md`, `docs/AUDIT_REPORT.md`, and `docs/FINAL_REPORT_ZH.md`. The final archive hash manifest detects accidental file changes; like review digests, it is not an authenticated signature. No submission to a journal, source publication, cloud action, maintainer contact, or author approval was performed by these scripts.
+ 
+-## Second revision: boundaries and independent-directory rebuild
++## Current revision: character-domain correction and independent-directory rebuild
+ 
+-The current suite has 146 tests: 94 in the original uploaded implementation, 18 from the first TOSEM revision, and 34 new boundary checks. Scalar empty strings and their single-element-list forms agree; explicit malformed clocks no longer become the current clock. The regular-language positive path now intersects issuer subject refinements with the original typed grammar and also honors audience refinements. These are changes to the existing wrapper, not a new core.
++The current suite has 194 tests: 94 in the original uploaded implementation, 18 from the first TOSEM revision, 34 in the second boundary revision, and 48 for character support and certificate coverage. Scalar empty strings and their single-element-list forms agree; explicit malformed clocks no longer become the current clock. The regular-language positive path now intersects issuer subject refinements with the original typed grammar and also honors audience refinements. The earlier changes were in the wrapper. The current correction changes four original core files in place; it does not introduce a replacement system.
+ 
+ Positive wildcard checks use an exact two-row dynamic program with a 2,000,000-cell per-match cap and a shared monotonic review deadline. Exhaustion is `unknown`, not negative membership. Literal equality is a separate fast path. The checks do not promise hard preemption of JSON parsing, allocation, or arbitrary host execution.
+ 
+@@ -110,3 +112,11 @@
+ The script deletes generated results, logs, paper tables/plot data, the PDF and TeX intermediates in the copy, then calls its current `make reproduce`. Selected deterministic semantic outputs must agree; new timing samples and PDF byte hashes need not. See `docs/CLEAN_REBUILD.md` for the actual recorded execution.
+ 
+ `make template-current` is a separate opt-in networked bootstrap for the pinned official acmart v2.20 files. It is not part of offline reproduction, was blocked by external access in this environment, and is not represented as a completed latest-template build.
++
++## Character-domain contract and legacy evidence
++
++The regular and scalar string model is `python-str-codepoints-v1`: all Python string code points U+0000 through U+10FFFF, without normalization. This is not a live-provider validity claim. The strict UTF-8 packet transport can reject values (e.g. unpaired surrogates) that direct library tests exercise. `DEFAULT_ALPHABET` is only a preference pool for selecting an OTHER representative. All literal singletons and constructor exclusions must be represented; exhausting preferences never exhausts the semantic domain. Raw NFA constructors still have an explicit finite alphabet, so concrete out-of-support words require projection or a support built with their literal characters.
++
++Atomic certificates are version 3; effective-case certificates are version 6. Both bind the character-domain identifier. Legacy certificates must be regenerated; do not relabel or reuse their invariants. Full receipts also change because the implementation digest changes. Read `docs/CHARACTER_DOMAIN_FIX.md` for the exact coverage obligation and evidence limits.
++
++Run only the new audit using `make character-domain`. The full `make reproduce` now has ten evidence steps and includes it automatically. The verification checks are local; no cloud account, credentials, public workflow execution, or external security scanner is used.
+--- a/artifact/artifact/fedfence/analyzer.py
++++ b/artifact/artifact/fedfence/analyzer.py
+@@ -19,13 +19,13 @@
+ except Exception:  # pragma: no cover
+     yaml = None
+ 
+-from .github import github_default_subject_nfa, issuer_subject_nfa, governance_key, parse_github_subject, governance_set
++from .github import github_default_subject_nfa, issuer_subject_nfa, github_alphabet_from_patterns, GITHUB_SUPPORT_LITERALS, governance_key, parse_github_subject, governance_set
+ from .policy import StatementConstraints, allow_statements_for_web_identity, deny_statements_for_web_identity
+ from .spec import subject_intent_parts, audience_intent_parts, intent_nfa, intent_alphabet_inputs
+ from .regular import (
+     DEFAULT_ALPHABET,
+     NFA,
+-    alphabet_from_patterns,
++    validate_support,
+     contains_witness,
+     empty,
+     intersect,
+@@ -319,7 +319,10 @@
+     for st in list(stmts) + list(deny_stmts):
+         alphabet_inputs.extend(st.typed_groups_for("sub"))
+         alphabet_inputs.extend(st.typed_groups_for("aud"))
+-    alphabet = alphabet_from_patterns(alphabet_inputs)
++    alphabet = github_alphabet_from_patterns(alphabet_inputs)
++    covered, reason = validate_support(alphabet, ("equals", GITHUB_SUPPORT_LITERALS), alphabet_inputs)
++    if not covered:
++        raise ValueError("incomplete analysis character support: " + reason)
+ 
+     issuer_sub_nfa = issuer_subject_nfa(list(issuer_sub_spec or []), alphabet)
+     issuer_aud_nfa = union_globs(issuer_aud, alphabet)
+--- a/artifact/artifact/fedfence/certificate.py
++++ b/artifact/artifact/fedfence/certificate.py
+@@ -11,9 +11,9 @@
+ from collections import deque
+ from typing import Any, Dict, FrozenSet, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
+ 
+-from .regular import DEFAULT_ALPHABET, NFA, alphabet_from_patterns, union_globs, union_literals, intersection_globs, intersection_typed_groups, contains_witness, intersect, union, empty
++from .regular import CHARACTER_DOMAIN, DEFAULT_ALPHABET, NFA, alphabet_from_patterns, validate_support, union_globs, union_literals, intersection_globs, intersection_typed_groups, contains_witness, intersect, union, empty
+ from .spec import subject_intent_parts, audience_intent_parts, intent_nfa, intent_alphabet_inputs, subject_intent_display, audience_intent_display
+-from .github import github_default_subject_nfa as default_github_subject_nfa, issuer_subject_nfa, parse_github_subject, governance_set, governance_key
++from .github import github_default_subject_nfa as default_github_subject_nfa, issuer_subject_nfa, github_alphabet_from_patterns, GITHUB_SUPPORT_LITERALS, parse_github_subject, governance_set, governance_key
+ 
+ State = FrozenSet[int]
+ Triple = Tuple[State, State, State]
+@@ -21,14 +21,19 @@
+ 
+ 
+ def _canonical_group(g: Any) -> Tuple[str, List[str]]:
+-    """Decode old list groups and new operator-tagged groups."""
++    """Decode supported legacy groups and explicit equality/glob groups."""
+     if isinstance(g, Mapping):
+-        op = str(g.get("op", "like"))
+-        vals = [str(v) for v in g.get("values", [])]
+-        return ("equals" if op == "equals" else "like", vals)
+-    if isinstance(g, tuple) and len(g) == 2 and str(g[0]) in {"equals", "like"}:
+-        return (str(g[0]), [str(v) for v in g[1]])
+-    return ("like", [str(v) for v in g])
++        op, raw = g.get("op", "like"), g.get("values", [])
++    elif isinstance(g, tuple) and len(g) == 2 and isinstance(g[0], str):
++        op, raw = g
++    else:
++        op, raw = "like", g
++    if not isinstance(op, str) or op.lower() not in {"equals", "literal", "like", "glob"}:
++        raise ValueError("unsupported condition group operator")
++    vals = [raw] if isinstance(raw, str) else list(raw)
++    if any(not isinstance(v, str) for v in vals):
++        raise ValueError("condition group values must be strings")
++    return ("equals" if op.lower() in {"equals", "literal"} else "like", vals)
+ 
+ 
+ def _encode_group(g: Any) -> Dict[str, Any]:
+@@ -45,6 +50,12 @@
+ 
+ def _cert_alphabet(*parts: Any) -> Tuple[str, ...]:
+     return alphabet_from_patterns(parts)
++
++
++def _require_support(alphabet: Sequence[str], *parts: Any) -> None:
++    covered, reason = validate_support(alphabet, *parts)
++    if not covered:
++        raise ValueError("incomplete certificate character support: " + reason)
+ 
+ 
+ def _enc_state(s: State) -> List[int]:
+@@ -130,11 +141,16 @@
+                        intent_patterns: Sequence[str],
+                        alphabet: Sequence[str] = DEFAULT_ALPHABET) -> Dict[str, Any]:
+     """Build a certificate for L(G) cap L(P) subseteq L(I)."""
+-    alph = alphabet_from_patterns(issuer_patterns, policy_patterns, intent_patterns, alphabet)
++    # These parameters are sequences of globs, not tagged group tuples.
++    issuer_patterns, policy_patterns, intent_patterns = (list(issuer_patterns),
++        list(policy_patterns), list(intent_patterns))
++    alph = alphabet_from_patterns(issuer_patterns, policy_patterns, intent_patterns, base=alphabet)
++    _require_support(alph, issuer_patterns, policy_patterns, intent_patterns)
+     ng, np, ni = union_globs(issuer_patterns, alph), union_globs(policy_patterns, alph), union_globs(intent_patterns, alph)
+     w = _triple_witness(ng, np, ni, alph)
+     cert: Dict[str, Any] = {
+-        "version": 1,
++        "version": 3,
++        "character_domain": CHARACTER_DOMAIN,
+         "kind": "fedfence-atomic-certificate",
+         "name": name,
+         "judgment": "issuer-policy-intent",
+@@ -160,11 +176,14 @@
+                      intent_patterns: Sequence[str],
+                      alphabet: Sequence[str] = DEFAULT_ALPHABET) -> Dict[str, Any]:
+     """Build a certificate for L(A) subseteq L(B)."""
+-    alph = alphabet_from_patterns(allow_patterns, intent_patterns, alphabet)
++    allow_patterns, intent_patterns = list(allow_patterns), list(intent_patterns)
++    alph = alphabet_from_patterns(allow_patterns, intent_patterns, base=alphabet)
++    _require_support(alph, allow_patterns, intent_patterns)
+     na, nb = union_globs(allow_patterns, alph), union_globs(intent_patterns, alph)
+     w = contains_witness(na, nb, alph)
+     cert: Dict[str, Any] = {
+-        "version": 1,
++        "version": 3,
++        "character_domain": CHARACTER_DOMAIN,
+         "kind": "fedfence-atomic-certificate",
+         "name": name,
+         "judgment": "language-containment",
+@@ -192,13 +211,23 @@
+                              alphabet: Sequence[str] = DEFAULT_ALPHABET,
+                              issuer_kind: str = "patterns") -> Dict[str, Any]:
+     """Build a certificate for L(G) cap (cap_i union policy_groups_i) subseteq L(I)."""
+-    alph = alphabet_from_patterns(issuer_patterns, policy_groups, intent_patterns, alphabet)
++    if issuer_kind not in {"patterns", "github-default"}:
++        raise ValueError("unsupported issuer kind")
++    issuer_patterns, intent_patterns = list(issuer_patterns), list(intent_patterns)
++    policy_groups = [_canonical_group(g) for g in policy_groups]
++    builder = github_alphabet_from_patterns if issuer_kind == "github-default" else alphabet_from_patterns
++    alph = builder(issuer_patterns, policy_groups, intent_patterns, base=alphabet)
++    parts = [issuer_patterns, policy_groups, intent_patterns]
++    if issuer_kind == "github-default":
++        parts.append(("equals", GITHUB_SUPPORT_LITERALS))
++    _require_support(alph, *parts)
+     ng = default_github_subject_nfa(alph) if issuer_kind == "github-default" else union_globs(issuer_patterns, alph)
+     np = _nfa_from_groups(policy_groups, alph)
+     ni = union_globs(intent_patterns, alph)
+     w = _triple_witness(ng, np, ni, alph)
+     cert: Dict[str, Any] = {
+-        "version": 2,
++        "version": 3,
++        "character_domain": CHARACTER_DOMAIN,
+         "kind": "fedfence-atomic-certificate",
+         "name": name,
+         "judgment": "issuer-policy-intent",
+@@ -225,12 +254,16 @@
+                            intent_patterns: Sequence[str],
+                            alphabet: Sequence[str] = DEFAULT_ALPHABET) -> Dict[str, Any]:
+     """Build a certificate for a conjunctive/disjunctive claim predicate subseteq intent."""
+-    alph = alphabet_from_patterns(allow_groups, intent_patterns, alphabet)
++    intent_patterns = list(intent_patterns)
++    allow_groups = [_canonical_group(g) for g in allow_groups]
++    alph = alphabet_from_patterns(allow_groups, intent_patterns, base=alphabet)
++    _require_support(alph, allow_groups, intent_patterns)
+     na = _nfa_from_groups(allow_groups, alph)
+     nb = union_globs(intent_patterns, alph)
+     w = contains_witness(na, nb, alph)
+     cert: Dict[str, Any] = {
+-        "version": 2,
++        "version": 3,
++        "character_domain": CHARACTER_DOMAIN,
+         "kind": "fedfence-atomic-certificate",
+         "name": name,
+         "judgment": "language-containment",
+@@ -251,11 +284,44 @@
+ 
+ 
+ def verify_atomic_certificate(cert: Mapping[str, Any]) -> Tuple[bool, str]:
+-    alph = tuple(str(cert.get("alphabet", "")))
+-    if not alph:
+-        return False, "empty alphabet in certificate"
+-    verdict = str(cert.get("verdict"))
+-    judgment = str(cert.get("judgment"))
++    """Reject malformed/legacy domains and verify coverage before any invariant."""
++    try:
++        return _verify_atomic_certificate_checked(cert)
++    except (TypeError, ValueError, KeyError, OverflowError, RecursionError) as exc:
++        return False, "malformed atomic certificate: " + str(exc)
++
++
++def _verify_atomic_certificate_checked(cert: Mapping[str, Any]) -> Tuple[bool, str]:
++    if not isinstance(cert, Mapping):
++        return False, "certificate must be an object"
++    if (cert.get("kind") != "fedfence-atomic-certificate" or cert.get("version") != 3
++            or cert.get("character_domain") != CHARACTER_DOMAIN):
++        return False, "unsupported or legacy certificate character domain; regenerate"
++    raw_alphabet = cert.get("alphabet")
++    if not isinstance(raw_alphabet, str):
++        return False, "alphabet must be a string of representative code points"
++    alph = tuple(raw_alphabet)
++    verdict, judgment = cert.get("verdict"), cert.get("judgment")
++    if verdict not in {"safe", "unsafe"}:
++        return False, "unsupported certificate verdict"
++    if judgment == "issuer-policy-intent":
++        issuer_kind = cert.get("issuer_kind", "patterns")
++        if issuer_kind not in {"patterns", "github-default"}:
++            return False, "unsupported issuer kind"
++        groups = ([_canonical_group(g) for g in cert["policy_groups"]]
++                  if "policy_groups" in cert else cert.get("policy_patterns", []))
++        parts = [cert.get("issuer_patterns", []), groups, cert.get("intent_patterns", [])]
++        if issuer_kind == "github-default":
++            parts.append(("equals", GITHUB_SUPPORT_LITERALS))
++    elif judgment == "language-containment":
++        groups = ([_canonical_group(g) for g in cert["allow_groups"]]
++                  if "allow_groups" in cert else cert.get("allow_patterns", []))
++        parts = [groups, cert.get("intent_patterns", [])]
++    else:
++        return False, "unsupported certificate judgment"
++    covered, reason = validate_support(alph, *parts)
++    if not covered:
++        return False, reason
+     if judgment == "issuer-policy-intent":
+         ng = default_github_subject_nfa(alph) if cert.get("issuer_kind") == "github-default" else union_globs(cert.get("issuer_patterns", []), alph)
+         if "policy_groups" in cert:
+@@ -359,7 +425,7 @@
+             notes.append(f"s{prod.get('statement')}:{key}:{note}")
+     return ok_all, notes
+ 
+-# --- Case-level proof-carrying audit objects (version 5) --------------------
++# --- Case-level proof-carrying audit objects (version 6) --------------------
+ 
+ ANY_GITHUB_SUBJECT = [
+     "repo:?*/?*:ref:refs/heads/?*",
+@@ -509,7 +575,7 @@
+ 
+ 
+ def _effective_summary_without_analyzer(case: Mapping[str, Any]) -> Dict[str, Any]:
+-    """Independently replay the effective trust judgment without importing analyzer.
++    """Recompute the effective trust judgment without importing analyzer.
+ 
+     The checker and the certificate verifier deliberately share only the parser,
+     GitHub constructor semantics, and generic NFA primitives.  They do not call
+@@ -536,7 +602,10 @@
+     alph_inputs: List[Any] = [ANY_GITHUB_SUBJECT, issuer_sub_spec, issuer_aud_patterns] + intent_alphabet_inputs(spec)
+     for st in list(allows) + list(denies):
+         alph_inputs.extend(st.typed_groups_for("sub")); alph_inputs.extend(st.typed_groups_for("aud"))
+-    alphabet = alphabet_from_patterns(alph_inputs)
++    alphabet = github_alphabet_from_patterns(alph_inputs)
++    covered, reason = validate_support(alphabet, ("equals", GITHUB_SUPPORT_LITERALS), alph_inputs)
++    if not covered:
++        raise ValueError("incomplete replay character support: " + reason)
+     issuer_sub = issuer_subject_nfa(issuer_sub_spec, alphabet)
+     issuer_aud = union_globs(issuer_aud_patterns, alphabet)
+     intent_sub = intent_nfa(sub_lits, sub_globs, alphabet) if (sub_lits or sub_globs) else None
+@@ -607,7 +676,8 @@
+ def certificate_for_case(case: Mapping[str, Any]) -> Dict[str, Any]:  # type: ignore[override]
+     summary = _effective_summary_without_analyzer(case)
+     return {
+-        "version": 5,
++        "version": 6,
++        "character_domain": CHARACTER_DOMAIN,
+         "kind": "fedfence-effective-case-certificate",
+         "name": str(case.get("name", "unnamed")),
+         "judgment": "effective-claim-product-admission",
+@@ -624,6 +694,8 @@
+ 
+ 
+ def _verify_effective_case_certificate(cert: Mapping[str, Any]) -> Tuple[bool, List[str]]:
++    if cert.get("version") != 6 or cert.get("character_domain") != CHARACTER_DOMAIN:
++        return False, ["unsupported or legacy certificate character domain; regenerate"]
+     case = cert.get("case")
+     if not isinstance(case, Mapping):
+         return False, ["missing embedded case"]
+@@ -652,5 +724,5 @@
+         if f.get("kind") == "event-overgrant" and not f.get("witness"):
+             ok = False; notes.append("missing event witness")
+     if ok:
+-        notes.insert(0, "independent effective-admission replay verifies")
++        notes.insert(0, "effective-admission recomputation verifies (shared trusted primitives)")
+     return ok, notes
+--- a/artifact/artifact/fedfence/github.py
++++ b/artifact/artifact/fedfence/github.py
+@@ -13,10 +13,22 @@
+ from dataclasses import dataclass
+ from typing import Iterable, Optional, Sequence, Set, Tuple
+ 
+-from .regular import NFA, EPS, union, literal, intersect, union_globs, DEFAULT_ALPHABET
+-
+-ORG_REPO_COMPONENT_RE = re.compile(r"^[^/:]+$")
+-COLON_FREE_COMPONENT_RE = re.compile(r"^[^:]+$")
++from .regular import NFA, EPS, union, literal, intersect, union_globs, DEFAULT_ALPHABET, alphabet_from_patterns
++
++# All singleton literals and finite exclusions used by the constructor NFAs.
++# Including these boundaries makes every remaining code point indistinguishable
++# to *both* the constructor predicates and the equality/glob predicates.
++GITHUB_SUPPORT_LITERALS = (
++    "repo:", "/", ":ref:refs/heads/", ":ref:refs/tags/",
++    ":pull_request", ":environment:", "*?",
++)
++ORG_REPO_COMPONENT_RE = re.compile(r"[^/:*?]+")
++COLON_FREE_COMPONENT_RE = re.compile(r"[^:*?]+")
++
++
++def github_alphabet_from_patterns(*patterns: object, base: Sequence[str] = DEFAULT_ALPHABET) -> Tuple[str, ...]:
++    """Complete support for the modeled typed constructor plus string patterns."""
++    return alphabet_from_patterns(("equals", GITHUB_SUPPORT_LITERALS), *patterns, base=base)
+ 
+ @dataclass(frozen=True)
+ class SubjectAtom:
+@@ -36,27 +48,29 @@
+ 
+ 
+ def parse_github_subject(subject: str) -> Optional[SubjectAtom]:
+-    """Parse a default GitHub OIDC subject, returning None if malformed."""
++    """Parse the modeled default constructor; this is not live-provider validation."""
++    if not isinstance(subject, str):
++        return None
+     if not subject.startswith("repo:"):
+         return None
+     body = subject[len("repo:"):]
+     if "/" not in body:
+         return None
+     owner, rest = body.split("/", 1)
+-    if not ORG_REPO_COMPONENT_RE.match(owner):
++    if not ORG_REPO_COMPONENT_RE.fullmatch(owner):
+         return None
+     for marker, kind in ((":ref:refs/heads/", "branch"), (":ref:refs/tags/", "tag"), (":environment:", "environment")):
+         if marker in rest:
+             repo, value = rest.split(marker, 1)
+             if not repo or not value:
+                 return None
+-            if not ORG_REPO_COMPONENT_RE.match(repo) or not COLON_FREE_COMPONENT_RE.match(value):
++            if not ORG_REPO_COMPONENT_RE.fullmatch(repo) or not COLON_FREE_COMPONENT_RE.fullmatch(value):
+                 return None
+             return SubjectAtom(owner, repo, kind, value)
+     suffix = ":pull_request"
+     if rest.endswith(suffix):
+         repo = rest[:-len(suffix)]
+-        if repo and ORG_REPO_COMPONENT_RE.match(repo):
++        if repo and ORG_REPO_COMPONENT_RE.fullmatch(repo):
+             return SubjectAtom(owner, repo, "pull_request", "")
+     return None
+ 
+@@ -119,8 +133,9 @@
+ def github_default_subject_nfa(alphabet: Sequence[str] = DEFAULT_ALPHABET) -> NFA:
+     """NFA for the default GitHub Actions subject constructors.
+ 
+-    owner and repository components exclude slash and colon; branch/tag and
+-    environment components exclude raw colon but allow slash.  This is the
++    Owner/repository components exclude slash, colon, star and question mark;
++    branch/tag/environment components exclude colon, star and question mark,
++    but allow slash. All other Python code points remain in the abstract model.  This is the
+     typed issuer language used for default GitHub OIDC subjects.
+     """
+     alph = tuple(alphabet)
+--- a/artifact/artifact/fedfence/regular.py
++++ b/artifact/artifact/fedfence/regular.py
+@@ -11,79 +11,115 @@
+ from dataclasses import dataclass, field
+ from typing import Dict, FrozenSet, Iterable, Optional, Sequence, Set, Tuple
+ 
+-# Normalized character universe for GitHub OIDC subjects and cloud trust strings.
+-# The base set covers common identifier, URI, and service-name characters.
+-# Analyses extend this base with every literal character that appears in the
+-# issuer, policy, or intent patterns, so containment search cannot miss a
+-# witness merely because a policy used an uncommon but normalized character.
++# The language domain is Python ``str`` code points, U+0000..U+10FFFF.
++# This is an abstract string model, not a provider identifier-validity claim.
++# Raw NFA constructors operate over their explicit, finite alphabet; callers
++# proving an open-domain judgment MUST first build a complete finite support.
++CHARACTER_DOMAIN = "python-str-codepoints-v1"
++CODEPOINT_LIMIT = 0x110000
++# Readable *preferences* for the OTHER representative, never the entire domain.
+ DEFAULT_ALPHABET = tuple(sorted(set(
+     "abcdefghijklmnopqrstuvwxyz"
+     "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+     "0123456789"
+     "-_.:/@%+=,~"
+ )))
+-# Preferred fresh representatives used by the finite-support reduction.  These
+-# characters are valid identifier/ref characters in the normalized model and are
+-# chosen before the rest of DEFAULT_ALPHABET so generated witnesses remain
+-# readable rather than using punctuation unless punctuation is forced by input.
+ FRESH_REPRESENTATIVES = tuple("zq0_9y")
+ GLOB_META = {"*", "?"}
+ EPS = None  # epsilon-transition marker
+ 
+ 
+-def alphabet_from_patterns(*pattern_sets: Iterable[object],
++def pattern_literals(*pattern_sets: object) -> Set[str]:
++    """Collect actual singleton tests, retaining equality's literal ``*``/``?``.
++
++    Strings are globs by default. Typed groups may be tuples or mappings with
++    equals/literal or like/glob operators. Containers, including tuples and
++    generators, are traversed rather than converted to their Python repr.
++    Other predicates (e.g. constructor delimiters) must be supplied as literals.
++    """
++    from collections.abc import Iterable as IterableABC, Mapping
++    literals: Set[str] = set()
++    def visit(value: object, *, glob_mode: bool = True) -> None:
++        if value is None:
++            return
++        if isinstance(value, str):
++            literals.update(ch for ch in value if not glob_mode or ch not in GLOB_META)
++        elif isinstance(value, Mapping):
++            op = str(value.get("op", "like")).lower()
++            if op not in {"equals", "literal", "like", "glob"}:
++                raise ValueError("unsupported finite-support group operator")
++            visit(value.get("values", []), glob_mode=op in {"like", "glob"})
++        elif (isinstance(value, tuple) and len(value) == 2
++              and isinstance(value[0], str)
++              and value[0].lower() in {"equals", "literal", "like", "glob"}):
++            visit(value[1], glob_mode=value[0].lower() in {"like", "glob"})
++        elif isinstance(value, IterableABC) and not isinstance(value, (bytes, bytearray)):
++            for item in value:
++                visit(item, glob_mode=glob_mode)
++        else:
++            raise ValueError("finite-support inputs must contain string patterns")
++    for patterns in pattern_sets:
++        visit(patterns)
++    return literals
++
++
++def fresh_character(literals: Set[str], base: Sequence[str] = DEFAULT_ALPHABET) -> Optional[str]:
++    """Choose one member of the entire domain outside ``literals``, if any.
++
++    Exhausting preferences is NOT exhaustion of the domain. The disjoint ranges
++    below cover every Python code point exactly once, prioritizing printable
++    non-surrogates. None is sound only when all CODEPOINT_LIMIT singletons occur.
++    """
++    preferences = tuple(base)
++    if any(not isinstance(ch, str) or len(ch) != 1 for ch in preferences):
++        raise ValueError("alphabet preferences must be single code points")
++    for ch in FRESH_REPRESENTATIVES + preferences:
++        if ch not in literals and ch not in GLOB_META:
++            return ch
++    for lo, hi in ((0x21, 0xD800), (0xE000, CODEPOINT_LIMIT), (0, 0x21), (0xD800, 0xE000)):
++        for cp in range(lo, hi):
++            ch = chr(cp)
++            if ch not in literals:
++                return ch
++    return None
++
++
++def alphabet_from_patterns(*pattern_sets: object,
+                            base: Sequence[str] = DEFAULT_ALPHABET) -> Tuple[str, ...]:
+-    """Return a finite support alphabet for typed equality/glob patterns.
+-
+-    The support theorem is operator-aware.  In a glob/``StringLike`` pattern,
+-    ``*`` and ``?`` are metacharacters and therefore do not have to be enumerated
+-    as literal transitions.  In an equality/``StringEquals`` value, however,
+-    they are ordinary characters and must be present in the search alphabet.
+-    Inputs may be plain glob strings, mappings of the form ``{"op": ..., ...}``,
+-    or tuples ``("equals"|"like", values)``.  One provider-valid fresh
+-    representative is added for the equivalence class of all normalized
+-    characters that do not occur literally in the instance.
+-    """
+-    literals: Set[str] = set()
+-
+-    def add_text(s: object, *, glob_mode: bool) -> None:
+-        for ch in str(s):
+-            if glob_mode and ch in GLOB_META:
+-                continue
+-            literals.add(ch)
+-
+-    def visit(x: object, *, default_glob: bool = True) -> None:
+-        if x is None:
+-            return
+-        if isinstance(x, dict):
+-            op = str(x.get("op", "like")).lower()
+-            vals = x.get("values", [])
+-            visit(vals, default_glob=(op != "equals"))
+-            return
+-        if isinstance(x, tuple) and len(x) == 2 and str(x[0]).lower() in {"equals", "like", "literal", "glob"}:
+-            op = str(x[0]).lower()
+-            visit(x[1], default_glob=(op not in {"equals", "literal"}))
+-            return
+-        if isinstance(x, (list, set, frozenset)):
+-            for y in x:
+-                visit(y, default_glob=default_glob)
+-            return
+-        add_text(x, glob_mode=default_glob)
+-
+-    for ps in pattern_sets:
+-        visit(ps)
+-    normalized = set(base) | literals
+-    fresh = None
+-    for ch in list(FRESH_REPRESENTATIVES) + list(base):
+-        if ch in normalized and ch not in literals and ch not in GLOB_META:
+-            fresh = ch
+-            break
+-    chars = set(literals)
+-    if fresh is not None:
+-        chars.add(fresh)
+-    else:
+-        chars |= normalized
+-    return tuple(sorted(chars))
++    """A complete support: every literal singleton and one OTHER representative.
++
++    ``base`` is a preference list, not a closed character universe. Wildcards
++    range over CHARACTER_DOMAIN. Equality literals, constructor boundaries and
++    a nonempty remainder must all survive the quotient. Low-level NFAs accept
++    representative words, not arbitrary out-of-support concrete strings.
++    """
++    literals = pattern_literals(*pattern_sets)
++    fresh = fresh_character(literals, base)
++    return tuple(sorted(literals | ({fresh} if fresh is not None else set())))
++
++
++def validate_support(alphabet: Sequence[str], *pattern_sets: object) -> Tuple[bool, str]:
++    """Check coverage, without calling the representative-selection algorithm.
++
++    The cardinality argument for a remainder is independent of candidate pools:
++    if fewer than CODEPOINT_LIMIT literal singletons exist, OTHER is nonempty.
++    This validates a finite-support obligation, not the whole analyzer.
++    """
++    if isinstance(alphabet, (bytes, bytearray)):
++        return False, "alphabet must contain code points"
++    chars = tuple(alphabet)
++    if any(not isinstance(ch, str) or len(ch) != 1 for ch in chars):
++        return False, "alphabet entries must be single code points"
++    support = set(chars)
++    if len(support) != len(chars):
++        return False, "duplicate alphabet entries"
++    literals = pattern_literals(*pattern_sets)
++    if not literals.issubset(support):
++        return False, "alphabet omits a literal or constructor boundary"
++    if len(literals) < CODEPOINT_LIMIT and not (support - literals):
++        return False, "alphabet omits the nonempty OTHER character class"
++    return True, "complete code-point support"
++
+ 
+ @dataclass
+ class NFA:
+--- a/artifact/artifact/scripts/verify_witnesses.py
++++ b/artifact/artifact/scripts/verify_witnesses.py
+@@ -5,7 +5,7 @@
+ ROOT = Path(__file__).resolve().parents[1]
+ sys.path.insert(0, str(ROOT))
+ from fedfence.analyzer import analyze_case, ANY_GITHUB_AUDIENCE, ANY_GITHUB_SUBJECT  # noqa: E402
+-from fedfence.github import issuer_subject_nfa  # noqa: E402
++from fedfence.github import issuer_subject_nfa, github_alphabet_from_patterns  # noqa: E402
+ from fedfence.policy import allow_statements_for_web_identity, deny_statements_for_web_identity  # noqa: E402
+ from fedfence.regular import alphabet_from_patterns, intersection_typed_groups, union_globs  # noqa: E402
+ from fedfence.spec import subject_intent_parts, audience_intent_parts, intent_nfa, intent_alphabet_inputs  # noqa: E402
+@@ -53,7 +53,7 @@
+     alph_inputs = [ANY_GITHUB_SUBJECT, issuer_patterns, issuer_aud_patterns] + intent_alphabet_inputs(spec)
+     for st in stms + denys:
+         alph_inputs.extend(st.typed_groups_for("sub")); alph_inputs.extend(st.typed_groups_for("aud"))
+-    alphabet = alphabet_from_patterns(alph_inputs)
++    alphabet = github_alphabet_from_patterns(alph_inputs)
+     issuer_sub = issuer_subject_nfa(list(issuer_patterns), alphabet)
+     issuer_aud = union_globs(issuer_aud_patterns, alphabet)
+     intended_sub = intent_nfa(sub_lits, sub_globs, alphabet)
+--- a/artifact/docs/CHANGELOG_TOSEM.md
++++ b/artifact/docs/CHANGELOG_TOSEM.md
+@@ -9,7 +9,7 @@
+ 3. **Finite explicit-issuer adapter.** Finite models retain whole identity tuples, materialize one-shot iterables once, reject coordinate coercion, preserve invalid findings and compare the complete replayed decision rather than a status label alone. Its explicit finite scope remains visible.
+ 4. **Complete review receipts.** The new `receipt.py` attaches to the existing gate. It binds the packet and its two-sided semantic result, checks the envelope digest, reruns current code using caller-time freshness, and compares the complete semantic view, including dependency implementation digest and positive obligations. A receipt is not authenticated and is not a cache. CLI reads a packet once for both review and receipt construction.
+ 5. **Corrected public study.** The existing correction records are actually applied: sports-store roles are distinct, and microticket's empty/default and observed-binding branches are separate. Repair checks now compare semantic membership instead of accidentally comparing unlike Python containers.
+-6. **Reproduction repair.** The Makefile, final compatibility wrappers and TOSEM driver use `../paper/`, not historical paper paths. Nine local evidence steps produce the current authoritative results. Generated numbers are tied to JSON outputs.
++6. **Reproduction repair.** The Makefile, final compatibility wrappers and TOSEM driver use `../paper/`, not historical paper paths. The second revision used nine local evidence steps produce the current authoritative results. Generated numbers are tied to JSON outputs.
+ 7. **Honest trust boundary.** Source authenticity, reviewer identity verification, workflow reachability, runtime verification and deployment authorization are not asserted. The review record binds supplied approval metadata and content, not a cryptographic identity.
+ 
+ ## Validation added or rerun
+@@ -20,7 +20,7 @@
+ 
+ ## Paper changes
+ 
+-The original conference text is replaced by a complete journal manuscript, not by renamed conference metadata alone. It develops the state/observation model, two-sided obligations, realizability and relational proofs, strict fragment, freshness and dependency semantics, replay distinctions, implementation boundary, multi-layer evaluation, corrected cases, related work and validity analysis. The paper has 62 used references, nine editable vector figures and twelve tables. Review-format length is 39 total pages, without manually inflated fonts, spacing or margins.
++The original conference text is replaced by a complete journal manuscript, not by renamed conference metadata alone. It develops the state/observation model, two-sided obligations, realizability and relational proofs, strict fragment, freshness and dependency semantics, replay distinctions, implementation boundary, multi-layer evaluation, corrected cases, related work and validity analysis. At the second-revision checkpoint the paper had 62 used references, nine editable vector figures and twelve tables. That checkpoint had 39 total review-format pages, without manually inflated fonts, spacing or margins.
+ 
+ The original manuscript and superseded audit notes remain clearly marked under `tosem/history/` as provenance. A source-level inventory and unified diff against the uploaded original are supplied as `SOURCE_CHANGE_INVENTORY.json` and `implementation_changes.patch`; generated outputs and historical copies are excluded from the implementation patch.
+ 
+@@ -31,3 +31,9 @@
+ New executable checks cover 242,580 matcher pairs, 2,304 issuer memberships, 192 equality-bounded wildcard packets, and 54 local timing runs. The paper adds exactness/composition/freshness arguments and two vector figures. The build audits plot values, all bibliography ledger keys, unique labels, actual template identity and PDF hash. Assertions must be enabled during reproduction.
+ 
+ The current official template source identities were verified and an opt-in installer supplied. Download failure remains explicitly recorded; a v2.20 or TAPS validation is not fabricated.
++
++## Character-domain correction (current, 2026-10-04)
++
++Four core modules are now changed in place: `regular.py`, `github.py`, `analyzer.py`, and `certificate.py`. The previous statement that all 13 core files were byte-identical is historical, not true of this release. The implementation keeps the original automata representation and search algorithms while correcting support construction, typed boundary collection, parser/scalar alignment, certificate coverage and domain versioning.
++
++The ordinary regression count is 194 (146 prior + 48 new). A tenth evidence step performs three complete code-point predicate sweeps, bounded concrete/quotient differential matching, constructor boundary checks, complete review controls, and two rejection-sensitivity challenges. The paper adds the precise domain, support-preservation argument, one table and one official Python reference (63 references, 13 tables in total). Current page counts and verification status come from the generated audit and release metadata. No new cloud or population claims are added.
+--- /dev/null
++++ b/artifact/docs/CHARACTER_DOMAIN_FIX.md
+@@ -0,0 +1,43 @@
++# Character support correction — 2026-10-04
++
++## Defect and affected boundary
++
++The previous `regular.alphabet_from_patterns` chose a nonliteral representative from a fixed preferred pool. When that pool was fully literal, its fallback added the same pool rather than a member of the still-nonempty remainder of the actual string domain. Universal containment could then search a strict subdomain. The effective replayer used the same construction, so agreement did not rule out this omission. `tosem/history/character_domain_previous_observation.json` records a direct local observation of the previous source from the uploaded archive, with archive/source hashes: 75 literal singleton characters, 75 support characters, no OTHER representative.
++
++The atomic invariant verifier had a related boundary: it read the alphabet supplied by the certificate without first requiring complete support. Closing an invariant under an incomplete set of transitions does not prove closure under the intended domain.
++
++## Domain, partition and exactness
++
++The model is explicitly `python-str-codepoints-v1`: U+0000 through U+10FFFF, including code points representable in Python strings even when they are not valid standalone UTF-8 text. The scalar matcher performs exact code-point matching; no Unicode normalization, grapheme segmentation or byte matching is implied. The strict packet serializer retains its UTF-8 requirement. A direct-library surrogate test is not a provider-token claim or authorization to admit such a value into a packet.
++
++Let S contain all actual equality literals, all non-metacharacter glob literals, every fixed constructor literal and every member of the constructor exclusion sets. The current constructor predicates exclude `/:*?` in owner/repository components and `:*?` in branch/tag/environment suffixes. For nonempty Gamma minus S, choose one r in that remainder and use A = S union {r}; only when S is the entire domain may the residual class be absent. The preferred pool changes the representative's presentation, not the domain.
++
++Projection fixes S pointwise and maps every remaining character to r. Each singleton test, finite exclusion and unrestricted consuming transition has the same result before and after projection. Epsilon transitions do not consume input. Induction over automaton runs proves language-membership preservation; Boolean combinations and the two-coordinate effective Allow-minus-Deny relation preserve it as well. Hence a concrete violation has a representative violation, and a representative violation is a concrete value in the declared abstract domain. The manuscript gives the proof and its predicate assumptions. New character predicates, ranges, encodings or normalization rules require a new partition argument.
++
++Raw NFA construction remains deliberately finite-alphabet. `glob('*', A).accepts(x)` does not implicitly project an out-of-support concrete word. Use the scalar checker, or construct complete support and explicitly project. This distinction prevents a search alphabet from being mistaken for the concrete character domain.
++
++## Changes in the existing implementation
++
++`regular.py` now traverses actual string containers (including tuples/generators) rather than their Python representations, preserves typed equality metacharacters, treats `base` as representative preferences, searches the full domain after pool exhaustion and validates complete support with a cardinality-based residual check. No second regex engine or replacement automata implementation is introduced.
++
++`github.py` supplies the literal/exclusion boundaries needed by the partition. Its scalar parser now uses the same star/question-mark exclusions and whole-component matching as the existing typed NFA and positive checker. These exclusions are the implemented abstract grammar, not a newly claimed complete provider naming rule.
++
++`analyzer.py` and effective certificate recomputation both add constructor boundaries and explicitly validate support before starting search. An insufficient support raises an error; the existing strict backend error boundary returns `unknown` rather than a positive verdict.
++
++`certificate.py` validates atomic alphabet coverage before witness/invariant checks, binds the domain and rejects unknown/legacy domain versions. Atomic certificates are version 3; effective-case certificates are version 6. Full receipts bind the changed implementation and certificate digests. Old certificates/receipts must be regenerated, not relabeled. The supported pass/fail/unknown decision rule and invalid-first precedence are unchanged.
++
++`conformance.py` documents the same full code-point domain while retaining its separately implemented scalar matcher. Its domain is not narrowed to make it agree with a deficient search support. The component witness script also uses constructor-aware support.
++
++## Executed evidence and limits
++
++The current ordinary suite has 194 methods: the prior 146 and 48 new checks. New checks cover saturation of the full preferred pool, all ASCII values and the whole basic multilingual plane; an additional listed representative; equality `*`/`?`; container traversal and plain pattern tuples whose first value spells an operator; constructor positions; missing/duplicate certificate symbols; wrong/legacy domains; actual review controls; receipt invalidation; and stale/invalid inputs.
++
++`make character-domain` runs a separate audit. Its three full-code-point sweeps yield 3,342,336 **primitive signature comparisons**, not that many policies or deployments. The concrete/quotient matcher comparison contains 57,498 equality/glob pairs over declared bounds, without adding the concrete word to the search support. Sixty further checks insert twelve characters at five typed-constructor positions. Four regular-language cases include closed positive controls, and three strict packets exercise fail, pass and stale unknown with full receipt replay.
++
++Two local rejection challenges have passing controls: suppressing the residual selector must be caught by coverage; bypassing certificate coverage must defeat the incomplete-support rejection test. These are selected sensitivity checks, not a mutation-adequacy score. The production coverage checker and the new recursive/scalar test oracles do not call the fresh-character selector when deciding their expected coverage or membership results. Parser/NFA/runtime assumptions remain shared, so this is not an independent whole-system proof.
++
++All inputs are local synthetic strings or the previously supplied static project materials. No actual cloud account, credential, public workflow, live token request, third-party exploitation, or user/product benchmark is involved. Current detailed results are in `tosem/results/character_domain_audit.json`; all ten evidence steps are part of `make reproduce`.
++
++## Plain pattern sequences and tagged groups
++
++The four atomic certificate builders normalize their plain glob sequence parameters to lists before collecting predicates. Otherwise a valid two-element pattern tuple beginning with `like`, `equals`, `literal` or `glob` could be mistaken for a tagged group by the generic support collector. Tagged policy groups remain explicit and operator-aware. All four builders check support coverage before claiming either safe or unsafe. The new tests compare list/tuple forms and inject a missing-representative failure to verify each generator refuses an incomplete support.
+--- a/artifact/docs/CLAIM_EVIDENCE_MAP.md
++++ b/artifact/docs/CLAIM_EVIDENCE_MAP.md
+@@ -8,7 +8,7 @@
+ | Must-safe observation characterization | Mathematical propositions in paper §4; `scripts/run_finite_audit.py`, `tosem/results/finite_semantics_audit.json` | Written set-theoretic proof plus bounded counterexample search. Not a proof-assistant mechanization or a provider implementation proof. |
+ | Two-sided realizability, intent/governance/observation relations | Paper section on relational changes; `scripts/run_relational_audit.py`, `tosem/results/relational_audit.json` | Abstract predicates can exist without being expressible in the supported AWS fragment. Required mintability must be rechecked after governance restriction. |
+ | Allow-minus-Deny is a tuple relation | `fse_workflow/conformance.py`, `fragment.py`; `scripts/run_tosem_validation.py` | Positive scalar checks and 56 literal strict-gate cases are not universal semantic equivalence to cloud IAM. |
+-| 146 regression tests | `scripts/run_fse_tests.py`; `tosem/results/unit_tests.json`; `logs/unit-tests.log` | Local synthetic assertions. Baseline 94 is separately recorded in `tosem/history/original_94_tests.log`; original paper's 79 was stale. |
++| 194 regression tests | `scripts/run_fse_tests.py`; `tosem/results/unit_tests.json`; `logs/unit-tests.log` | Local synthetic assertions. Baseline 94 is separately recorded in `tosem/history/original_94_tests.log`; original paper's 79 was stale. |
+ | 3,945 core checks | `artifact/scripts/self_check.py`; `logs/core-self-check.log` | Bounded word enumeration over a small alphabet plus symbolic named examples. |
+ | 65,536 finite decisions; 256 finite full replays | `tosem/results/two_sided_exhaustive.json`, `two_sided_samples.json` | Three atoms, five relation subsets, two invalidity settings. Distribution is generated design, not real-world prevalence. |
+ | 56 strict differential cases | `tosem/results/strict_literal_differential.csv` | Seven nonempty literal Allow subsets × eight Deny subsets; separately written finite expected result. Shared Python runtime, no cloud reference implementation. |
+@@ -25,7 +25,11 @@
+ | Microticket default-empty and observed-binding distinction | Same repaired case records; three configuration rows | Empty branch remains fail. Observed-binding pass is conditional; actual variable assignment and deployment success not established. |
+ | 24 source excerpts | `tosem/results/source_frontier.json` | All excerpt hashes checked; zero complete source files available, zero full-source extractions executed. Inherited annotations are not extractor accuracy. |
+ | 12 maintenance metadata records | `tosem/results/maintenance_metadata.json` | Eleven annotated breakage reports, two recorded run IDs, zero live reproductions or independent root-cause adjudications. |
+-| Reproducible current entry point | `Makefile`, `scripts/reproduce_tosem.py`, `tosem/results/reproduction.json` | Nine actual local evidence steps followed by generated tables, paper build and consistency audit. |
++| Reproducible current entry point | `Makefile`, `scripts/reproduce_tosem.py`, `tosem/results/reproduction.json` | Ten actual local evidence steps followed by generated tables, paper build and consistency audit. |
++| Complete character support | Manuscript Proposition `prop:character-support`; `artifact/fedfence/regular.py`; `docs/CHARACTER_DOMAIN_FIX.md` | Conditional on all primitive predicates being represented; not a proof of all implementation code or provider semantics. |
++| 3,342,336 primitive comparisons | `scripts/run_character_domain_audit.py`; `tosem/results/character_domain_audit.json` | Three full-code-point predicate sweeps, not whole-string or policy enumeration. |
++| 57,498 concrete/quotient comparisons; 60 constructor insertions | Same audit result | Explicit bounded pattern/word alphabets and five constructor positions; concrete words are not added to support. |
++| Coverage failures cannot certify a result | 48 added unit tests; atomic versions 3/effective version 6; two rejection challenges | Shared parser/NFA assumptions remain; independent residual check does not create an independent whole-system checker. |
+ 
+ ## Explicitly unsupported claims
+ 
+--- a/artifact/docs/SCHEMA_AND_REPLAY.md
++++ b/artifact/docs/SCHEMA_AND_REPLAY.md
+@@ -15,3 +15,9 @@
+ Only `now=None` chooses the current UTC clock. Explicit false-like values such as an empty string or Boolean are malformed inputs. For four snapshot times `s_i` and maximum age `tau`, the accepted caller-time interval is `[max(s_i), min(s_i+tau)]`, inclusive when nonempty. Expiration is checked again at replay.
+ 
+ The positive matcher reports named budget exhaustion, which propagates as `unknown`; it is not treated as evidence that a required identity is missing. Regular-language issuer refinements narrow the typed subject constructor and audience language. The distinct finite study adapter does not change strict-profile eligibility.
++
++## Character-domain migration
++
++The current atomic certificate format is version 3 and the effective-case format is version 6, with `character_domain: python-str-codepoints-v1`. Legacy formats lack the corrected character-domain obligation and are rejected for regeneration, not silently accepted. A producer cannot remove a literal singleton, constructor boundary, or the nonempty OTHER class from an atomic certificate's alphabet. The verifier checks support coverage before checking transitions; the residual obligation uses the domain cardinality, not the selector used by the producer.
++
++The complete receipt schema remains v1 because its envelope is unchanged. Its implementation hash and embedded certificate hash change, so old full receipts do not replay as current positive evidence. Re-run the original packet at the caller's actual check time; a stale packet remains unknown. Recomputing an envelope digest or changing a version field does not regenerate a correct certificate.
+--- a/artifact/fse_workflow/backend.py
++++ b/artifact/fse_workflow/backend.py
+@@ -1,4 +1,4 @@
+-"""Isolated invocation of the unchanged, frozen FedFence analyzer and replay path."""
++"""Isolated invocation of the retained, character-domain-corrected FedFence analyzer and replay path."""
+ from __future__ import annotations
+ import json
+ import sys
+--- a/artifact/fse_workflow/conformance.py
++++ b/artifact/fse_workflow/conformance.py
+@@ -49,6 +49,10 @@
+     are literal. A star can match the empty string. Work is O(len(pattern) *
+     len(actual)); auxiliary storage is O(len(actual)). A deterministic 2,000,000
+     cell limit and the optional monotonic deadline make exhaustion explicit.
++    Matching is code-point based over all Python str values, with no Unicode
++    normalization or fixed ASCII pool. The symbolic path must use complete
++    support for this same domain. This scalar oracle deliberately does not call
++    its alphabet constructor. A code point is not a grapheme or a UTF-8 byte.
+     """
+     _check_deadline(deadline)
+     if not isinstance(pattern, str) or not isinstance(actual, str):
+@@ -141,7 +145,10 @@
+ 
+     In the regular-language study interface, issuer_subjects narrows the default
+     constructor language; it does not replace that language with arbitrary
+-    strings. Absent/empty refinement lists keep the inherited defaults. Custom
++    strings. The regex uses the exact finite exclusions also used by the typed
++    NFA (/:*? for owner/repository, :*? for suffixes); no ASCII-only restriction
++    is implied. This is an abstract issuer grammar, not live GitHub validation.
++    Absent/empty refinement lists keep the inherited defaults. Custom
+     finite issuer relations remain the separate normalized study adapter.
+     """
+     _check_deadline(deadline)
+--- a/artifact/fse_workflow/gate.py
++++ b/artifact/fse_workflow/gate.py
+@@ -64,7 +64,7 @@
+         if not support["supported"]:
+             result["findings"] = support["issues"]
+             return result
+-        # Exact profile validation precedes the unchanged legacy engine.
++        # Exact profile validation precedes the retained corrected engine.
+         case = {"name": contract["target_role"], "policy": policy, "spec": spec,
+                 "repository_governance": governance}
+         worker = ROOT / "fse_workflow" / "backend.py"
+--- a/artifact/scripts/audit_tosem.py
++++ b/artifact/scripts/audit_tosem.py
+@@ -41,8 +41,8 @@
+           {'recorded': unit['tests_run'], 'test_methods_in_source': discovered})
+     repro = load('reproduction.json')
+     expected_steps = {'unit-tests', 'core-self-check', 'projection-audit', 'relational-audit',
+-                      'two-sided-validation', 'final-boundaries', 'seeded-faults', 'repair-audit', 'source-studies'}
+-    check('all-nine-reproduction-steps', repro['passed'] and
++                      'two-sided-validation', 'character-domain', 'final-boundaries', 'seeded-faults', 'repair-audit', 'source-studies'}
++    check('all-ten-reproduction-steps', repro['passed'] and
+           {r['name'] for r in repro['steps']} == expected_steps and
+           all(r['exit_code'] == 0 and (ROOT / r['log']).is_file() for r in repro['steps']))
+     validation = load('validation_summary.json')
+@@ -52,6 +52,33 @@
+     check('offline-recorded-scope', all(x is False for x in (
+           repro['network_access'], repro['cloud_accounts_used'], validation['network_access'],
+           validation['cloud_accounts_used'])))
++    domain = load('character_domain_audit.json')
++    check('character-domain-current-implementation', domain['passed'] and
++          domain['implementation_sha256'] == implementation and
++          domain['character_domain'] == 'python-str-codepoints-v1' and
++          domain['network_access'] is False and domain['cloud_accounts_used'] is False)
++    partition = domain['partition']
++    check('full-codepoint-predicate-signatures', partition['passed'] and
++          partition['partitions'] == len(partition['rows']) == 3 and
++          partition['codepoints_per_partition'] == 0x110000 and
++          partition['primitive_signature_comparisons'] == 3*0x110000 and all(
++              r['passed'] and r['checked_codepoints'] == 0x110000 and
++              r['support_size'] == r['literal_classes'] + 1 for r in partition['rows']))
++    dm = domain['matcher']
++    check('quotient-matcher-concrete-oracle', dm['passed'] and
++          dm['checked'] == dm['operators']*dm['patterns']*dm['words'] == 57498 and
++          dm['matching'] + dm['nonmatching'] == dm['checked'])
++    dc = domain['constructor']
++    check('quotient-constructor-boundaries', dc['passed'] and
++          dc['checked'] == dc['positions']*dc['characters'] == 60)
++    di = domain['integration']
++    check('domain-full-review-controls', di['passed'] and di['regular_cases'] == 4 and
++          di['strict_packets'] == 3 and all(r['expected_safe'] == r['actual_safe'] and r['replay_ok']
++          for r in di['rows']) and all(r['expected'] == r['verdict'] and r['receipt_replay_ok']
++          for r in di['strict_rows']) and {r['verdict'] for r in di['strict_rows']} == {'pass','fail','unknown'})
++    dr = domain['rejection']
++    check('independent-support-rejection-challenges', dr['passed'] and dr['challenges'] == 2 and
++          all(r['control_passed'] and r['detected'] for r in dr['rows']))
+     core = load('core_self_check.json')
+     check('core-self-check', core['passed'] and core['comparisons'] == 3945)
+     projection = load('finite_semantics_audit.json')
+@@ -184,7 +211,7 @@
+     refs = re.findall(r'@\w+\{([^,]+),', (PAPER / 'references.bib').read_text())
+     cited = set(k.strip() for group in re.findall(r'\\cite\w*(?:\[[^\]]*\])?\{([^}]+)\}', text)
+                 for k in group.split(','))
+-    check('all-reference-keys-unique-and-used', len(refs) == len(set(refs)) == 62
++    check('all-reference-keys-unique-and-used', len(refs) == len(set(refs)) == 63
+           and cited == set(refs), {'entries': len(refs), 'cited_keys': len(cited),
+                                   'unused': sorted(set(refs)-cited), 'undefined': sorted(cited-set(refs))})
+     ledger = json.loads((PAPER/'docs/REFERENCE_AUDIT.json').read_text())
+@@ -196,7 +223,7 @@
+     figures = text.count('\\begin{figure}')
+     tables = text.count('\\begin{table}')
+     check('figure-accessibility-descriptions', figures == text.count('\\Description{') == 9)
+-    check('table-count', tables == 12)
++    check('table-count', tables == 13)
+     check('official-journal-review-template', '\\documentclass[manuscript,screen,review]{acmart}' in main
+           and '\\acmJournal{TOSEM}' in main and 'sigconf' not in main and 'anonymous' not in main)
+     check('supplied-author-order', re.findall(r'\\author\{([^}]+)\}', main) == [
+--- /dev/null
++++ b/artifact/scripts/character_domain_fixtures.py
+@@ -0,0 +1,63 @@
++"""Self-contained benign string-review fixtures; no tokens, credentials or cloud calls."""
++from __future__ import annotations
++import copy
++from pathlib import Path
++import sys
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / 'artifact'))
++from fedfence.regular import DEFAULT_ALPHABET
++from fse_workflow.contract import contract_digest
++from fse_workflow.fragment import PREFIX
++from scripts.make_workflow_examples import packet, rehash
++
++SUB = 'repo:acme/api:ref:refs/heads/main'
++AUD = 'sts.amazonaws.com'
++BRANCH = 'repo:acme/api:ref:refs/heads/'
++NOW = '2026-09-23T01:00:00Z'
++
++
++def exhausted_case(coordinate='aud', *, closed=False, extra_literal=''):
++    base = packet()
++    policy = copy.deepcopy(base['snapshots']['policy']['body'])
++    st = policy['Statement'][0]
++    spec = {'allowed_subjects': [SUB], 'allowed_audiences': [AUD]}
++    if coordinate == 'aud':
++        pool = sorted(set(DEFAULT_ALPHABET) | {'*', '?'} | set(extra_literal))
++        spec['allowed_audiences'] = pool
++        spec['issuer_audiences'] = ['?']
++        values, pattern = pool, '?'
++    elif coordinate == 'sub':
++        pool = sorted(set(DEFAULT_ALPHABET) | set(extra_literal))
++        values = [BRANCH + ch for ch in pool if ch not in ':*?']
++        spec['allowed_subjects'] = values
++        spec['issuer_subjects'] = [BRANCH + '?']
++        pattern = BRANCH + '?'
++    else:
++        raise ValueError(coordinate)
++    st['Condition']['StringEquals'].pop(PREFIX + coordinate)
++    op = 'StringEquals' if closed else 'StringLike'
++    st['Condition'].setdefault(op, {})[PREFIX + coordinate] = values if closed else pattern
++    return {'name': 'benign-character-domain-' + coordinate, 'policy': policy, 'spec': spec}
++
++
++def exhausted_packet(*, closed=False):
++    """Exercise the existing strict contract without widening its name profile."""
++    p = packet()
++    names = sorted(ch for ch in DEFAULT_ALPHABET if ch.isascii() and
++                   (ch.isalnum() or ch in '-_./'))
++    p['contract']['intent']['audiences'] = names
++    p['contract']['required_tokens'] = [{'sub': SUB, 'aud': 'a', 'reason': 'benign positive control'}]
++    p['contract']['review']['approved_digest'] = contract_digest(p['contract'])
++    st = p['snapshots']['policy']['body']['Statement'][0]
++    st['Condition']['StringEquals'].pop(PREFIX + 'aud')
++    if closed:
++        st['Condition']['StringEquals'][PREFIX + 'aud'] = names
++    else:
++        st['Condition']['StringLike'] = {PREFIX + 'aud': '?'}
++    denied = sorted((set(DEFAULT_ALPHABET) | {'*','?'}) - set(names))
++    deny = copy.deepcopy(st)
++    deny['Effect'] = 'Deny'
++    deny['Condition'] = {'StringEquals': {PREFIX + 'sub': SUB, PREFIX + 'aud': denied}}
++    p['snapshots']['policy']['body']['Statement'].append(deny)
++    rehash(p, 'policy')
++    return p
+--- a/artifact/scripts/check_clean_rebuild.py
++++ b/artifact/scripts/check_clean_rebuild.py
+@@ -25,11 +25,11 @@
+     'dependency_metamorphic.json', 'seeded_faults.json', 'repair_audit.json',
+     'public_study.json', 'source_frontier.json', 'maintenance_metadata.json',
+     'matcher_differential.json', 'issuer_membership_differential.json',
+-    'strict_glob_differential.json',
++    'strict_glob_differential.json', 'character_domain_audit.json',
+ ]
+ 
+ def hash_object(value: object) -> str:
+-    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()).hexdigest()
++    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode()).hexdigest()
+ 
+ 
+ def stable(value: object) -> object:
+--- a/artifact/scripts/generate_tosem_tables.py
++++ b/artifact/scripts/generate_tosem_tables.py
+@@ -14,6 +14,11 @@
+ macros={'TestCount':u['tests_run'],'FiniteCount':f['checked'],'FinitePass':f['verdicts']['pass'],'FiniteFail':f['verdicts']['fail'],'FiniteUnknown':f['verdicts']['unknown'],'FiniteReplay':f['replay_samples'],'StrictCount':s['checked'],'StrictPass':s['verdicts']['pass'],'StrictFail':s['verdicts']['fail'],'ProjectionCount':proj['checked_models'],'PublicCommits':p['summary']['commits'],'PublicRoles':p['summary']['role_contracts'],'PublicConfigurations':p['summary']['evaluations'],'PublicPass':p['summary']['verdicts']['pass'],'PublicFail':p['summary']['verdicts']['fail'],'PublicUnknown':p['summary']['verdicts']['unknown'],'SourceCount':fr['summary']['records'],'SourceFull':fr['summary']['full_source_files'],'SourceExtractions':fr['summary']['executed_extractions'],'MaintenanceCount':m['summary']['records'],'ReportedBreakages':m['summary']['reports_annotated_breakage'],'RecordedSuccesses':m['summary']['records_with_success_run_id']}
+ matcher=load('matcher_differential.json');issuer=load('issuer_membership_differential.json');gs=load('strict_glob_differential.json');scaling=load('local_scaling.json')
+ macros.update(MatcherCount=matcher['checked'],IssuerCount=issuer['checked'],GlobStrictCount=gs['checked'],GlobStrictPass=gs['verdicts'].get('pass',0),GlobStrictFail=gs['verdicts'].get('fail',0),ScalingRuns=scaling['recorded_runs'])
++domain=load('character_domain_audit.json')
++macros.update(DomainPredicateChecks=domain['partition']['primitive_signature_comparisons'],
++              DomainPartitions=domain['partition']['partitions'],
++              DomainMatcherCount=domain['matcher']['checked'],
++              DomainConstructorCount=domain['constructor']['checked'])
+ core=RES/'core_self_check.json'
+ if core.exists():macros['CoreComparisons']=load('core_self_check.json')['comparisons']
+ (OUT/'results.tex').write_text('% Automatically generated; do not edit counts by hand.\n'+''.join('\\newcommand{\\'+k+'}{'+f'{v:,}'+'}\n' for k,v in macros.items()))
+--- a/artifact/scripts/reproduce_tosem.py
++++ b/artifact/scripts/reproduce_tosem.py
+@@ -18,6 +18,7 @@
+               ('projection-audit',[sys.executable,'scripts/run_finite_audit.py']),
+               ('relational-audit',[sys.executable,'scripts/run_relational_audit.py']),
+               ('two-sided-validation',[sys.executable,'scripts/run_tosem_validation.py']),
++              ('character-domain',[sys.executable,'scripts/run_character_domain_audit.py']),
+               ('final-boundaries',[sys.executable,'scripts/run_final_validation.py']),
+               ('seeded-faults',[sys.executable,'scripts/run_seeded_faults.py']),
+               ('repair-audit',[sys.executable,'scripts/run_repair_audit.py']),
+--- /dev/null
++++ b/artifact/scripts/run_character_domain_audit.py
+@@ -0,0 +1,218 @@
++#!/usr/bin/env python3
++"""Offline character-partition audit and benign integration checks.
++
++The full-code-point sweep checks primitive predicate signatures, NOT every
++string, policy, or cloud issuer. Independent recursive/scalar oracles never call
++alphabet_from_patterns. All inputs are constructed locally.
++"""
++from __future__ import annotations
++import copy
++import hashlib
++import itertools
++import json
++from functools import lru_cache
++from pathlib import Path
++import sys
++from unittest.mock import patch
++ROOT = Path(__file__).resolve().parents[1]
++sys.path[:0] = [str(ROOT), str(ROOT/'artifact')]
++from fedfence.regular import (CHARACTER_DOMAIN,CODEPOINT_LIMIT,DEFAULT_ALPHABET,
++    alphabet_from_patterns,validate_support,glob,literal)
++from fedfence.github import github_alphabet_from_patterns,issuer_subject_nfa
++from fedfence.analyzer import analyze_case
++from fedfence.certificate import certificate_for_case,verify_certificate,pair_certificate
++from fse_workflow.conformance import _glob_matches,issuer_accepts,effective_policy_accepts,intent_accepts
++from fse_workflow.gate import implementation_digest,review
++from fse_workflow.io import save_json,digest
++from fse_workflow.receipt import make_receipt,replay_receipt
++from scripts.character_domain_fixtures import SUB,AUD,BRANCH,NOW,exhausted_case,exhausted_packet
++OUT = ROOT/'tosem/results'
++# Deliberately spelled out independently of the production collector/helper.
++CONSTRUCTOR_SINGLETONS = set('repo:/ref:refs/heads/tags/pull_request:environment:*?')
++
++
++def require(ok, detail):
++    if not ok:
++        raise AssertionError(detail)
++
++
++def recursive_match(pattern,word):
++    @lru_cache(None)
++    def run(i,j):
++        if i==len(pattern):return j==len(word)
++        if pattern[i]=='*':return any(run(i+1,k) for k in range(j,len(word)+1))
++        return j<len(word) and (pattern[i]=='?' or pattern[i]==word[j]) and run(i+1,j+1)
++    return run(0,0)
++
++
++def words(alphabet,bound):
++    return [''.join(t) for n in range(bound+1) for t in itertools.product(alphabet,repeat=n)]
++
++
++def partition_sweeps():
++    rows=[]
++    for name,pool in [('preference-pool',set(DEFAULT_ALPHABET)),
++                      ('ascii',set(map(chr,range(128)))),
++                      ('bmp',set(map(chr,range(0x10000))))]:
++        # No test word is added to the support. The remainder is truly needed.
++        literals=pool|CONSTRUCTOR_SINGLETONS
++        support=github_alphabet_from_patterns(('equals',[''.join(sorted(pool))]))
++        others=set(support)-literals
++        require(literals.issubset(support) and len(others)==1,(name,'coverage'))
++        representative=next(iter(others))
++        require(validate_support(support,('equals',[''.join(literals)]))[0],name)
++        stream=hashlib.sha256()
++        for cp in range(CODEPOINT_LIMIT):
++            char=chr(cp)
++            projected=char if char in literals else representative
++            # Singleton equality, owner/repository predicate, suffix predicate.
++            actual=(char if char in literals else None,char not in '/:*?',char not in ':*?')
++            reduced=(projected if projected in literals else None,
++                     projected not in '/:*?',projected not in ':*?')
++            require(actual==reduced,(name,cp,ord(projected)))
++            stream.update(bytes((char in literals,actual[1],actual[2])))
++        rows.append(dict(pool=name,pool_size=len(pool),literal_classes=len(literals),
++            support_size=len(support),other_representative_codepoint=ord(representative),
++            checked_codepoints=CODEPOINT_LIMIT,result_stream_sha256=stream.hexdigest(),passed=True))
++    return dict(passed=True,partitions=len(rows),codepoints_per_partition=CODEPOINT_LIMIT,
++                primitive_signature_comparisons=sum(r['checked_codepoints'] for r in rows),rows=rows,
++                scope='Complete code-point enumeration of singleton and constructor predicate signatures for three declared supports; not enumeration of strings or policies.')
++
++
++def quotient_matcher():
++    pats=words(('a','*','?','[','é','𐀀'),3)
++    vals=words(('a','é','雪','𐀀','\U0010ffff','*','?','[','\n','\ud800'),2)
++    pool=set(DEFAULT_ALPHABET)
++    stream=hashlib.sha256();count=matches=0; sample=[]
++    for op in ('equals','like'):
++        for p in pats:
++            literals=pool|set(p if op=='equals' else p.replace('*','').replace('?',''))
++            support=alphabet_from_patterns((op,[p]),('equals',sorted(pool)))
++            reps=set(support)-literals
++            require(len(reps)==1,'missing residual class')
++            other=next(iter(reps))
++            nfa=literal(p,support) if op=='equals' else glob(p,support)
++            for w in vals:
++                expected=p==w if op=='equals' else recursive_match(p,w)
++                scalar=p==w if op=='equals' else _glob_matches(p,w)
++                projected=''.join(ch if ch in literals else other for ch in w)
++                symbolic=nfa.accepts(projected)
++                require(expected==scalar==symbolic,(op,repr(p),repr(w),expected,scalar,symbolic))
++                row=[op,p,w,projected,expected]
++                stream.update((json.dumps(row,ensure_ascii=True,separators=(',',':'))+'\n').encode())
++                if count%5003==0: sample.append(row)
++                matches+=int(expected);count+=1
++    return dict(passed=True,checked=count,operators=2,patterns=len(pats),words=len(vals),
++        matching=matches,nonmatching=count-matches,result_stream_sha256=stream.hexdigest(),
++        sample_rows=sample,pattern_alphabet=['a','*','?','[','é','𐀀'],pattern_max_length=3,
++        word_alphabet=['a','é','雪','𐀀','\U0010ffff','*','?','[','\n','\ud800'],word_max_length=2,
++        support_padding='all preferred characters as equality literals; concrete words are NOT added',
++        scope='Bounded strings; recursive concrete oracle and scalar matcher vs representative-word NFA, including literal metacharacters and supplementary code points.')
++
++
++def constructor_bridge():
++    chars=['!','*','?',':','/','é','雪','𐀀','\U0010ffff','\n','\x00','\ud800']
++    templates=['repo:{}/api:pull_request','repo:acme/{}:pull_request',BRANCH+'{}',
++               'repo:acme/api:ref:refs/tags/{}','repo:acme/api:environment:{}']
++    # Shared syntax is included; inserted characters are not included as literals.
++    base_literals=CONSTRUCTOR_SINGLETONS|set(SUB+AUD)
++    support=github_alphabet_from_patterns(('equals',[SUB,AUD]))
++    other=next(iter(set(support)-base_literals))
++    nfa=issuer_subject_nfa([],support);count=0; stream=hashlib.sha256()
++    for template,char in itertools.product(templates,chars):
++        subject=template.format(char)
++        concrete=issuer_accepts({},dict(sub=subject,aud=AUD))
++        projected=''.join(c if c in base_literals else other for c in subject)
++        symbolic=nfa.accepts(projected)
++        require(concrete==symbolic,repr(subject))
++        stream.update(json.dumps([subject,concrete,symbolic],ensure_ascii=True).encode());count+=1
++    return dict(passed=True,checked=count,positions=len(templates),characters=len(chars),
++                result_stream_sha256=stream.hexdigest(),scope='Scalar typed-constructor membership vs quotient NFA at five insertion positions; abstract model only.')
++
++
++def integrations():
++    rows=[]
++    for coord in ('sub','aud'):
++        for closed in (False,True):
++            case=exhausted_case(coord,closed=closed)
++            result=analyze_case(case);cert=certificate_for_case(case)
++            require(result.safe==closed and verify_certificate(cert)[0],(coord,closed))
++            direct=None
++            if not closed:
++                # This oracle witness is chosen without inspecting the NFA result.
++                for ch in ('!','雪','𐀀'):
++                    token=dict(sub=BRANCH+ch if coord=='sub' else SUB,
++                               aud=ch if coord=='aud' else AUD)
++                    if (issuer_accepts(case['spec'],token) and
++                            effective_policy_accepts(case['policy'],token) and
++                            not intent_accepts(case['spec'],token)):
++                        direct=token;break
++                require(direct is not None,'no independent concrete obligation')
++            rows.append(dict(coordinate=coord,closed_control=closed,expected_safe=closed,
++                             actual_safe=result.safe,replay_ok=True,independent_concrete_violation=direct))
++    gate_rows=[]
++    for closed,stamp,expected in [(False,NOW,'fail'),(True,NOW,'pass'),
++                                   (False,'2026-09-25T01:00:00Z','unknown')]:
++        p=exhausted_packet(closed=closed);got=review(p,now=stamp)
++        require(got['verdict']==expected,(closed,stamp,got))
++        replay=replay_receipt(make_receipt(p,got),now=stamp)
++        require(replay['receipt_replay_ok'] and replay['verdict']==expected,'full receipt')
++        gate_rows.append(dict(closed_control=closed,clock=stamp,expected=expected,
++                             verdict=got['verdict'],receipt_replay_ok=True))
++    return dict(passed=True,regular_cases=len(rows),strict_packets=len(gate_rows),
++                rows=rows,strict_rows=gate_rows,scope='Locally constructed positive/negative/stale review inputs; no provider-issued token or deployment.')
++
++
++def independent_rejection_challenges():
++    literals=set(DEFAULT_ALPHABET)
++    control=alphabet_from_patterns(('equals',sorted(literals)))
++    require(validate_support(control,('equals',sorted(literals)))[0],'selector control')
++    with patch('fedfence.regular.fresh_character',return_value=None):
++        omitted=alphabet_from_patterns(('equals',sorted(literals)))
++    selector_detected=not validate_support(omitted,('equals',sorted(literals)))[0]
++    cert=pair_certificate('benign same-language control',['a*'],['a*'])
++    require(verify_certificate(cert)[0],'certificate control')
++    incomplete=copy.deepcopy(cert);incomplete['alphabet']='a'
++    verifier_rejects=not verify_certificate(incomplete)[0]
++    with patch('fedfence.certificate.validate_support',return_value=(True,'injected bypass')):
++        bypass_survives=verify_certificate(incomplete)[0]
++    require(selector_detected and verifier_rejects and bypass_survives,'rejection sensitivity')
++    return dict(passed=True,challenges=2,rows=[
++        dict(fault='omit required residual class',control_passed=True,detected=selector_detected,
++             detector='independent support cardinality check'),
++        dict(fault='bypass certificate support check',control_passed=True,detected=verifier_rejects and bypass_survives,
++             detector='incomplete-domain certificate rejection obligation')],
++        scope='Two hand-selected benign local fault injections, not mutation-adequacy or bug-rate evidence.')
++
++
++def safe_json(path,value):
++    # Unpaired surrogates are legal Python-str test values, not UTF-8 packet input.
++    # Escape them in audit JSON instead of changing the strict packet serializer.
++    path.parent.mkdir(exist_ok=True,parents=True)
++    path.write_text(json.dumps(value,ensure_ascii=True,sort_keys=True,indent=2)+'\n',encoding='utf-8')
++
++
++def main():
++    result=dict(schema='fedfence-character-domain-audit-v1',passed=True,
++                character_domain=CHARACTER_DOMAIN,implementation_sha256=implementation_digest(),
++                network_access=False,cloud_accounts_used=False,
++                partition=partition_sweeps(),matcher=quotient_matcher(),
++                constructor=constructor_bridge(),integration=integrations(),
++                rejection=independent_rejection_challenges())
++    safe_json(OUT/'character_domain_audit.json',result)
++    # A small generated table; all figures still have their prior raw sources.
++    rows=[]
++    for r in result['partition']['rows']:
++        label={'preference-pool':'Preferred pool','ascii':'ASCII','bmp':'Basic multilingual plane'}[r['pool']]
++        rows.append(f"{label} & {r['literal_classes']:,} & {r['support_size']:,} & U+{r['other_representative_codepoint']:04X} \\\\")
++    table = (r"\begin{tabularx}{\linewidth}{@{}Xrrl@{}}" + "\n" +
++             r"\toprule" + "\n" +
++             r"Saturated input & Singletons $|S|$ & Support $|A|$ & Residual representative \\" + "\n" +
++             r"\midrule" + "\n" + '\n'.join(rows) + "\n" +
++             r"\bottomrule" + "\n" + r"\end{tabularx}" + "\n")
++    (ROOT.parent/'paper/generated/character_domain_rows.tex').write_text(table)
++    print(json.dumps(dict(passed=True,codepoint_predicate_comparisons=result['partition']['primitive_signature_comparisons'],
++        quotient_matcher_comparisons=result['matcher']['checked'],constructor_comparisons=result['constructor']['checked'],
++        regular_cases=result['integration']['regular_cases'],strict_packets=result['integration']['strict_packets'])))
++    return 0
++if __name__=='__main__':raise SystemExit(main())
+--- a/artifact/scripts/run_final_validation.py
++++ b/artifact/scripts/run_final_validation.py
+@@ -53,7 +53,7 @@
+         value_alphabet=['a','b','[',']','\n'],value_max_length=3,
+         patterns=len(patterns),values=len(values),checked=count,matching_pairs=matches,
+         nonmatching_pairs=count-matches,
+-        implementations=['recursive split oracle','positive prefix DP','preserved core NFA'],
++        implementations=['recursive split oracle','positive prefix DP','retained core NFA'],
+         result_stream_sha256=stream.hexdigest(),sample_rows=examples,
+         elapsed_seconds=time.perf_counter()-start,
+         scope='Exhaustive for declared finite alphabets/lengths only; not all-string equivalence.')
+@@ -85,7 +85,7 @@
+         subjects=subjects,audiences=audiences,subject_refinements=subject_options,
+         audience_refinements=audience_options,accepted=accepted,rejected=count-accepted,
+         result_stream_sha256=stream.hexdigest(),
+-        scope='Bounded agreement with the preserved typed constructor/refinement NFAs, not live issuer behavior.')
++        scope='Bounded agreement with the retained typed constructor/refinement NFAs, not live issuer behavior.')
+     save_json(OUT/'issuer_membership_differential.json',result);return result
+ 
+ def literal_statement(proto:dict,effect:str,subjects:list[str],audiences:list[str])->dict:
+--- /dev/null
++++ b/artifact/tests/test_character_domain.py
+@@ -0,0 +1,317 @@
++"""Regression obligations for complete character support in the supplied model.
++
++All inputs are synthetic strings. No real issuer, workflow, credential, or cloud
++account is involved. Direct predicates/recursion do not call support selection.
++"""
++from __future__ import annotations
++import copy
++import itertools
++from pathlib import Path
++import sys
++import unittest
++from unittest.mock import patch
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / 'artifact'))
++from fedfence.regular import (CHARACTER_DOMAIN, CODEPOINT_LIMIT, DEFAULT_ALPHABET,
++    alphabet_from_patterns, pattern_literals, fresh_character, validate_support,
++    glob, union_literals, contains_witness)
++from fedfence.github import (GITHUB_SUPPORT_LITERALS, github_alphabet_from_patterns,
++    issuer_subject_nfa, parse_github_subject)
++from fedfence.analyzer import analyze_case
++from fedfence.certificate import (pair_certificate, pair_group_certificate,
++    triple_certificate, triple_group_certificate, certificate_for_case, verify_certificate)
++from fse_workflow.conformance import (_glob_matches, issuer_accepts,
++    effective_policy_accepts, intent_accepts)
++from fse_workflow.gate import review
++from fse_workflow.receipt import make_receipt, replay_receipt
++from fse_workflow.io import digest
++from scripts.character_domain_fixtures import (SUB, AUD, BRANCH, NOW,
++    exhausted_case, exhausted_packet)
++
++
++class SupportDomainTests(unittest.TestCase):
++    def test_entire_preference_pool_exhaustion_retains_other(self):
++        literals=set(DEFAULT_ALPHABET)|{'*','?'}
++        alph=alphabet_from_patterns(('equals',sorted(literals)),['?'])
++        self.assertTrue(literals < set(alph))
++        self.assertTrue(validate_support(alph,('equals',sorted(literals)))[0])
++
++    def test_empty_preference_pool_does_not_shrink_domain(self):
++        alph=alphabet_from_patterns(['?'],base=())
++        self.assertTrue(alph)
++        self.assertTrue(glob('?',alph).accepts(alph[0]))
++
++    def test_all_ascii_literals_leave_a_non_ascii_representative(self):
++        literals=''.join(map(chr,range(128)))
++        alph=alphabet_from_patterns(('equals',[literals]))
++        self.assertEqual(129,len(alph))
++        self.assertTrue(any(ord(ch)>=128 for ch in alph))
++
++    def test_all_bmp_literals_leave_a_supplementary_representative(self):
++        literals=''.join(map(chr,range(0x10000)))
++        alph=alphabet_from_patterns(('equals',[literals]))
++        self.assertEqual(0x10001,len(alph))
++        self.assertTrue(any(ord(ch)>=0x10000 for ch in alph))
++
++    def test_no_other_only_when_whole_domain_is_exhausted(self):
++        # A membership oracle for the complete finite code-point domain.
++        class EntireDomain:
++            def __contains__(self,ch): return isinstance(ch,str) and len(ch)==1
++        self.assertIsNone(fresh_character(EntireDomain(),base=()))
++
++    def test_a_fixed_extra_sentinel_can_also_become_literal(self):
++        literals=set(DEFAULT_ALPHABET)|set('!*?')
++        alph=alphabet_from_patterns(('equals',sorted(literals)))
++        self.assertTrue(set(alph)-literals)
++        self.assertNotIn('!',set(alph)-literals)
++
++    def test_equality_metacharacters_are_literal_singletons(self):
++        self.assertEqual({'*','?'},pattern_literals(('equals',['*?'])))
++        self.assertEqual(set(),pattern_literals(('like',['*?'])))
++
++    def test_tuples_are_not_converted_to_python_repr(self):
++        self.assertEqual({'\n','é','𐀀'},pattern_literals(('\n','é','𐀀')))
++        self.assertNotIn('\\',pattern_literals(('\n','é','𐀀')))
++
++    def test_generator_values_preserve_exact_unicode_literals(self):
++        values=(v for v in ['é','\ud800','\U0010ffff','*'])
++        self.assertEqual(set('é\ud800\U0010ffff*'),pattern_literals(('equals',values)))
++
++    def test_mapping_literal_alias_matches_tuple(self):
++        self.assertEqual(pattern_literals(('literal',['*?'])),
++                         pattern_literals({'op':'literal','values':['*?']}))
++
++    def test_unknown_support_operator_is_not_silently_glob(self):
++        with self.assertRaises(ValueError):
++            alphabet_from_patterns({'op':'unknown','values':['?']})
++
++    def test_invalid_base_characters_are_rejected(self):
++        for base in (['ab'],[None],[1],['']):
++            with self.subTest(base=base),self.assertRaises(ValueError):
++                alphabet_from_patterns(['?'],base=base)
++
++    def test_support_validator_does_not_trust_fresh_selector(self):
++        literals=set(DEFAULT_ALPHABET)
++        with patch('fedfence.regular.fresh_character',return_value=None):
++            alph=alphabet_from_patterns(('equals',sorted(literals)))
++        ok,note=validate_support(alph,('equals',sorted(literals)))
++        self.assertFalse(ok);self.assertIn('OTHER',note)
++
++    def test_missing_singleton_is_rejected_before_remainder(self):
++        self.assertFalse(validate_support(('a','z'),('equals',['a?']))[0])
++
++    def test_duplicate_and_noncharacter_support_are_rejected(self):
++        for alph in (('a','a'),('ab',),('',),(None,)):
++            self.assertFalse(validate_support(alph,['a'])[0])
++
++    def test_finite_nfa_api_requires_representative_words(self):
++        alph=alphabet_from_patterns(['?'])
++        self.assertFalse(glob('?',alph).accepts('雪'))
++        self.assertTrue(glob('?',alph).accepts(alph[0]))
++        # The scalar path uses the concrete domain, never the finite support.
++        self.assertTrue(_glob_matches('?','雪'))
++
++    def test_containment_retains_a_word_outside_every_listed_character(self):
++        pool=list(DEFAULT_ALPHABET)+['*','?']
++        alph=alphabet_from_patterns(('equals',pool),['?'])
++        word=contains_witness(glob('?',alph),union_literals(pool,alph),alph)
++        self.assertIsNotNone(word);self.assertNotIn(word,pool)
++        self.assertTrue(_glob_matches('?',word))
++
++    def test_raw_glob_is_codepoint_not_byte_or_grapheme(self):
++        self.assertTrue(_glob_matches('?','𐀀'))
++        self.assertTrue(_glob_matches('?','\ud800'))
++        self.assertFalse(_glob_matches('?','e\u0301'))
++        self.assertFalse(_glob_matches('é','e\u0301'))
++
++
++class ConstructorDomainTests(unittest.TestCase):
++    def test_constructor_support_includes_excluded_metacharacters(self):
++        alph=github_alphabet_from_patterns(['*'])
++        self.assertTrue(set(':/*?').issubset(alph))
++        self.assertTrue(validate_support(alph,('equals',GITHUB_SUPPORT_LITERALS),['*'])[0])
++
++    def test_parser_and_scalar_reject_literal_constructor_metacharacters(self):
++        for char in '*?:':
++            for subject in (BRANCH+char,'repo:'+char+'/api:pull_request',
++                            'repo:acme/'+char+':pull_request'):
++                self.assertIsNone(parse_github_subject(subject))
++                self.assertFalse(issuer_accepts({},dict(sub=subject,aud=AUD)))
++
++    def test_uncommon_components_match_scalar_and_symbolic(self):
++        for ch in ['é','雪','𐀀','\n','\x00','\ud800','\U0010ffff','\\','[']:
++            for subject in (BRANCH+ch,'repo:'+ch+'/api:pull_request'):
++                alph=github_alphabet_from_patterns(('equals',[subject,AUD]))
++                self.assertTrue(issuer_subject_nfa([],alph).accepts(subject))
++                self.assertTrue(issuer_accepts({},dict(sub=subject,aud=AUD)))
++                self.assertIsNotNone(parse_github_subject(subject))
++
++    def test_slash_depends_on_constructor_position(self):
++        self.assertIsNotNone(parse_github_subject(BRANCH+'/'))
++        self.assertIsNone(parse_github_subject('repo:ac/me/api:pull_request'))
++
++    def test_parser_fullmatch_does_not_accept_valid_prefix_only(self):
++        for subject in (BRANCH+'x:\n','repo:acme/api:pull_request\n'):
++            self.assertIsNone(parse_github_subject(subject))
++
++
++class CertificateDomainTests(unittest.TestCase):
++    def test_all_four_atomic_builders_bind_domain(self):
++        certs=[pair_certificate('p',['a*'],['a*']),
++               pair_group_certificate('pg',[('equals',['a'])],['a']),
++               triple_certificate('t',['?'],['a'],['a']),
++               triple_group_certificate('tg',['?'],[('equals',['a'])],['a'])]
++        for cert in certs:
++            self.assertEqual(3,cert['version'])
++            self.assertEqual(CHARACTER_DOMAIN,cert['character_domain'])
++            self.assertTrue(verify_certificate(cert)[0])
++
++    def test_plain_pattern_tuple_is_not_a_typed_group(self):
++        for spelling in ('like', 'equals', 'literal', 'glob'):
++            cert=pair_certificate('tuple',[spelling,'x'],['x'])
++            tuple_cert=pair_certificate('tuple',(spelling,'x'),['x'])
++            self.assertEqual('unsafe',tuple_cert['verdict'])
++            self.assertEqual(cert,tuple_cert)
++            self.assertTrue(verify_certificate(tuple_cert)[0])
++            triple=triple_certificate('tuple',(spelling,'x'),('*',),('x',))
++            self.assertEqual('unsafe',triple['verdict'])
++            self.assertTrue(verify_certificate(triple)[0])
++
++    def test_plain_intent_tuple_and_generation_guards(self):
++        certs=[pair_certificate('p',['like'],('like','x')),
++               triple_certificate('t',('like','x'),['like'],('like','x')),
++               pair_group_certificate('pg',[('equals',['like'])],('like','x')),
++               triple_group_certificate('tg',('like','x'),[('equals',['like'])],('like','x'))]
++        for cert in certs:
++            self.assertEqual('safe',cert['verdict'])
++            self.assertTrue(verify_certificate(cert)[0])
++        builders=[lambda:pair_certificate('p',['a*'],['a*']),
++                  lambda:triple_certificate('t',['a*'],['a*'],['a*']),
++                  lambda:pair_group_certificate('pg',[('like',['a*'])],['a*']),
++                  lambda:triple_group_certificate('tg',['a*'],[('like',['a*'])],['a*'])]
++        with patch('fedfence.regular.fresh_character',return_value=None):
++            for build in builders:
++                with self.assertRaisesRegex(ValueError,'incomplete certificate character support'):
++                    build()
++
++    def test_custom_base_is_preference_not_synthetic_pattern(self):
++        cert=pair_certificate('hint',['a'],['a'],alphabet=('\n',))
++        self.assertNotIn('\\',cert['alphabet'])
++        self.assertTrue(verify_certificate(cert)[0])
++
++    def test_trimmed_other_class_is_refused_even_for_true_judgment(self):
++        cert=pair_certificate('same',['a*'],['a*'])
++        cert['alphabet']='a'
++        ok,note=verify_certificate(cert)
++        self.assertFalse(ok);self.assertIn('OTHER',note)
++
++    def test_missing_equality_literal_metacharacter_is_refused(self):
++        cert=pair_group_certificate('literal',[('equals',['*'])],['*'])
++        cert['alphabet']=cert['alphabet'].replace('*','')
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_missing_typed_boundary_is_refused(self):
++        cert=triple_group_certificate('typed',[],[('equals',[SUB])],[SUB],issuer_kind='github-default')
++        self.assertTrue(verify_certificate(cert)[0])
++        cert['alphabet']=cert['alphabet'].replace('?','')
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_alphabet_duplicates_are_refused(self):
++        cert=pair_certificate('same',['a'],['a']);cert['alphabet']+=cert['alphabet'][0]
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_legacy_atomic_certificate_requires_regeneration(self):
++        cert=pair_certificate('same',['a'],['a']);cert['version']=2
++        cert.pop('character_domain')
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_wrong_domain_is_refused(self):
++        cert=pair_certificate('same',['a'],['a']);cert['character_domain']='ascii'
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_invalid_verdict_is_not_interpreted_as_safe(self):
++        cert=pair_certificate('same',['a'],['a']);cert['verdict']='unknown'
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_unsupported_issuer_kind_is_refused(self):
++        cert=triple_certificate('same',['a'],['a'],['a']);cert['issuer_kind']='arbitrary'
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_malformed_alphabet_is_a_replay_failure(self):
++        cert=pair_certificate('same',['a'],['a']);cert['alphabet']=['a']
++        self.assertFalse(verify_certificate(cert)[0])
++
++    def test_typed_group_aliases_preserve_literal_question(self):
++        cert=pair_group_certificate('alias',[{'op':'literal','values':['?']}],['?'])
++        self.assertTrue(verify_certificate(cert)[0])
++        self.assertIn('?',cert['alphabet'])
++
++    def test_unknown_group_operator_is_not_coerced(self):
++        with self.assertRaises(ValueError):
++            pair_group_certificate('bad',[{'op':'bogus','values':['?']}],['?'])
++
++    def test_effective_certificate_domain_and_legacy_invalidation(self):
++        cert=certificate_for_case(exhausted_case(closed=True))
++        self.assertEqual(6,cert['version']);self.assertTrue(verify_certificate(cert)[0])
++        cert['version']=5;self.assertFalse(verify_certificate(cert)[0])
++
++
++class EndToEndDomainTests(unittest.TestCase):
++    def test_analyzer_refuses_support_without_residual_class(self):
++        with patch('fedfence.regular.fresh_character',return_value=None):
++            with self.assertRaisesRegex(ValueError,'incomplete analysis character support'):
++                analyze_case(exhausted_case())
++
++    def test_effective_replay_generation_refuses_incomplete_support(self):
++        with patch('fedfence.regular.fresh_character',return_value=None):
++            with self.assertRaisesRegex(ValueError,'incomplete replay character support'):
++                certificate_for_case(exhausted_case())
++
++    def test_both_coordinates_detect_unlisted_character_and_have_passing_control(self):
++        for coordinate in ('sub','aud'):
++            for closed in (False,True):
++                with self.subTest(coordinate=coordinate,closed=closed):
++                    case=exhausted_case(coordinate,closed=closed)
++                    result=analyze_case(case);cert=certificate_for_case(case)
++                    self.assertEqual(closed,result.safe)
++                    self.assertEqual('safe' if closed else 'unsafe',cert['verdict'])
++                    self.assertTrue(verify_certificate(cert)[0])
++                    if not closed:
++                        field=coordinate+'ject-overgrant' if coordinate=='sub' else 'audience-overgrant'
++                        self.assertTrue(any(f.kind==field for f in result.findings))
++
++    def test_expanding_listed_characters_does_not_exhaust_other(self):
++        for extras in ('!',''.join(chr(n) for n in range(128))):
++            case=exhausted_case('aud',extra_literal=extras)
++            self.assertFalse(analyze_case(case).safe)
++            self.assertEqual('unsafe',certificate_for_case(case)['verdict'])
++
++    def test_strict_gate_open_domain_is_fail_and_closed_control_passes(self):
++        for closed in (False,True):
++            result=review(exhausted_packet(closed=closed),now=NOW)
++            self.assertEqual('pass' if closed else 'fail',result['verdict'])
++            self.assertTrue(result['replay_ok'])
++            self.assertTrue(result['required_token_checks']['all_satisfied'])
++
++    def test_full_receipt_reruns_corrected_domain(self):
++        p=exhausted_packet();result=review(p,now=NOW)
++        replay=replay_receipt(make_receipt(p,result),now=NOW)
++        self.assertEqual('fail',replay['verdict']);self.assertTrue(replay['receipt_replay_ok'])
++
++    def test_changed_implementation_cannot_reuse_old_receipt(self):
++        p=exhausted_packet(closed=True);receipt=make_receipt(p,review(p,now=NOW))
++        receipt['decision']['input_hashes']['implementation']='0'*64
++        receipt['receipt_sha256']=digest({k:v for k,v in receipt.items() if k!='receipt_sha256'})
++        self.assertEqual('unknown',replay_receipt(receipt,now=NOW)['verdict'])
++
++    def test_stale_exhausted_packet_remains_unknown(self):
++        self.assertEqual('unknown',review(exhausted_packet(),now='2026-09-25T01:00:00Z')['verdict'])
++
++    def test_utf8_transport_rejects_unpaired_surrogate_without_positive_verdict(self):
++        p=exhausted_packet();p['snapshots']['policy']['body']['Id']='\ud800'
++        result=review(p,now=NOW)
++        self.assertEqual('unknown',result['verdict'])
++
++
++if __name__=='__main__':
++    unittest.main()
+--- a/paper/README.md
++++ b/paper/README.md
+@@ -21,7 +21,7 @@
+ 
+ Prerequisites are `latexmk`, a working BibTeX installation, and a TeX distribution with the packages listed in `main.tex`. The build in this environment used `acmart` v2.12 (2024-12-28), the unmodified installed class. The current CTAN listing identifies a newer release; submission notes distinguish tested build compatibility from the journal's instruction to use its latest template. No custom class, margin/font scaling, or length-padding commands are distributed. Production formatting and publisher-assigned rights metadata must be handled through ACM's normal process after an actual editorial decision.
+ 
+-The delivered version has 39 total review-format pages, 62 cited bibliography entries, 9 figures and 12 tables. The bibliography includes research publications, standards, tool documentation, and separately attributed frozen public-source records; these are not all peer-reviewed research papers. The first references appear on page 36. See `docs/REFERENCE_AUDIT.csv` for per-entry scope, and the authoritative machine-readable count in `../artifact/tosem/results/final_audit.json`.
++The delivered version has 41 total review-format pages, 63 cited bibliography entries, 9 figures and 13 tables. The bibliography includes research publications, standards, tool documentation, and separately attributed frozen public-source records; these are not all peer-reviewed research papers. The first references appear on page 38. See `docs/REFERENCE_AUDIT.csv` for per-entry scope, and the authoritative machine-readable count in `../artifact/tosem/results/final_audit.json`.
+ 
+ ## Authorship and status
+ 
+--- a/paper/docs/COVER_LETTER_DRAFT.md
++++ b/paper/docs/COVER_LETTER_DRAFT.md
+@@ -8,9 +8,9 @@
+ 
+ The manuscript studies the review of evolving CI/CD trust configurations against an explicit release contract. A policy change can reduce unintended admissions while excluding a required release identity; changing issuer or repository-governance assumptions can also invalidate a previously supported judgment. FedFence treats these as specification-conformance and regression-review obligations rather than classifying policy text alone.
+ 
+-The contribution is a two-sided review method with explicit pass, fail and unknown outcomes, a state/observation account of policy-only realizability, and full-review receipts that bind and recompute the supplied contract and snapshots. The implementation retains the original FedFence regular-language core and wrapper. It does not claim a new general IAM solver, a cryptographically authenticated evidence-capture service, or end-to-end deployment verification.
++The contribution is a two-sided review method with explicit pass, fail and unknown outcomes, a state/observation account of policy-only realizability, and full-review receipts that bind and recompute the supplied contract and snapshots. The implementation retains the original FedFence regular-language representation and wrapper, with an in-place correction to character-support construction and certificate coverage checks. It does not claim a new general IAM solver, a cryptographically authenticated evidence-capture service, or end-to-end deployment verification.
+ 
+-The evaluation combines mathematical arguments with executed offline checks: 146 regression tests, bounded projection and two-sided enumerations, 56 literal and 192 finitely bounded wildcard configurations through the strict gate, 242,580 matcher comparisons, 2,304 issuer-membership checks, selected dependency and defect-sensitivity tests, and 54 recorded local recomputation measurements. A source-backed study separately preserves nine commits, ten role contracts and twenty-one reconstructed configurations. Twenty-four frozen source excerpts are treated as excerpts, not as completed source extractions or a representative deployment population. No real cloud account, live workflow, external tool benchmark or user-productivity study was used.
++The evaluation combines mathematical arguments with executed offline checks: 194 regression tests, bounded projection and two-sided enumerations, 56 literal and 192 finitely bounded wildcard configurations through the strict gate, 242,580 matcher comparisons, 2,304 issuer-membership checks, three complete code-point primitive-predicate sweeps (3,342,336 comparisons), 57,498 bounded concrete/quotient matcher comparisons, 60 constructor-boundary checks, selected dependency and defect-sensitivity tests, and 54 recorded local recomputation measurements. A source-backed study separately preserves nine commits, ten role contracts and twenty-one reconstructed configurations. Twenty-four frozen source excerpts are treated as excerpts, not as completed source extractions or a representative deployment population. No real cloud account, live workflow, external tool benchmark or user-productivity study was used.
+ 
+ The manuscript and accompanying package include source code, explicit input domains, raw results, generated plot data, reference scope records, and the current reproduction entry point. The evidence supports implementation consistency under the declared model; it does not substitute test counts for universal correctness or infer deployment outcomes from public narratives.
+ 
+--- a/paper/docs/REFERENCE_AUDIT.csv
++++ b/paper/docs/REFERENCE_AUDIT.csv
+@@ -61,3 +61,4 @@
+ gang-eight,inproceedings,research-publication,Gang of Eight: A Defect Taxonomy for Infrastructure as Code Scripts,2020,10.1145/3377811.3380409,https://doi.org/10.1145/3377811.3380409,https://doi.org/10.1145/3377811.3380409,"Primary publisher, proceedings, author manuscript or author bibliography used to check bibliographic identity and cited topic.",Related-work positioning only; no external comparative tool execution; not a claim that every full text was re-reviewed.
+ rehearsal,inproceedings,research-publication,Rehearsal: A Configuration Verification Tool for Puppet,2016,10.1145/2908080.2908083,https://khoury.northeastern.edu/~arjunguha/main/papers/shambaugh-rehearsal.html,https://www.khoury.northeastern.edu/~arjunguha/main/papers/shambaugh-rehearsal.html,"Primary publisher, proceedings, author manuscript or author bibliography used to check bibliographic identity and cited topic.",Related-work positioning only; no external comparative tool execution; not a claim that every full text was re-reviewed.
+ aws-custom-checks,misc,official-tool-or-provider-documentation,Validate Policies with IAM Access Analyzer Custom Policy Checks,2026,,https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-custom-policy-checks.html,https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-custom-policy-checks.html,Official page accessed 2026-10-03; documented custom-check operation names and purposes verified.,Documentation-based obligation comparison only; no cloud service execution or superiority claim.
++python-unicode,misc,official-tool-or-provider-documentation,Unicode HOWTO,2026,,https://docs.python.org/3/howto/unicode.html,https://docs.python.org/3/howto/unicode.html,Official Python documentation read on 2026-10-04: str sequences and code-point range 0 through 0x10FFFF.,"Local Python string representation only; not cloud issuer validity, normalization, or provider enforcement."
+--- a/paper/docs/REFERENCE_AUDIT.json
++++ b/paper/docs/REFERENCE_AUDIT.json
+@@ -1,7 +1,7 @@
+ {
+-  "entries": 62,
++  "entries": 63,
+   "categories": {
+-    "official-tool-or-provider-documentation": 11,
++    "official-tool-or-provider-documentation": 12,
+     "research-publication": 22,
+     "frozen-public-source-record": 22,
+     "standard-or-specification": 7
+@@ -750,6 +750,18 @@
+       "primary_check_source": "https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-custom-policy-checks.html",
+       "check_scope": "Official page accessed 2026-10-03; documented custom-check operation names and purposes verified.",
+       "claim_limit": "Documentation-based obligation comparison only; no cloud service execution or superiority claim."
++    },
++    {
++      "key": "python-unicode",
++      "bibtex_type": "misc",
++      "category": "official-tool-or-provider-documentation",
++      "title": "Unicode HOWTO",
++      "year": "2026",
++      "doi": "",
++      "cited_source": "https://docs.python.org/3/howto/unicode.html",
++      "primary_check_source": "https://docs.python.org/3/howto/unicode.html",
++      "check_scope": "Official Python documentation read on 2026-10-04: str sequences and code-point range 0 through 0x10FFFF.",
++      "claim_limit": "Local Python string representation only; not cloud issuer validity, normalization, or provider enforcement."
+     }
+   ]
+ }
+--- a/paper/docs/REFERENCE_AUDIT.md
++++ b/paper/docs/REFERENCE_AUDIT.md
+@@ -1,9 +1,9 @@
+ # Bibliography scope audit
+ 
+-The bibliography contains **62 unique entries, all cited in the active manuscript**. The final consistency audit checks the equality of cited and defined key sets. No `\nocite{*}` is used to inflate the bibliography. The bibliography is not represented as 62 peer-reviewed research papers.
++The bibliography contains **63 unique entries, all cited in the active manuscript**. The final consistency audit checks the equality of cited and defined key sets. No `\nocite{*}` is used to inflate the bibliography. The bibliography is not represented as 63 peer-reviewed research papers.
+ 
+ - frozen-public-source-record: 22 entries.
+-- official-tool-or-provider-documentation: 11 entries.
++- official-tool-or-provider-documentation: 12 entries.
+ - research-publication: 22 entries.
+ - standard-or-specification: 7 entries.
+ 
+@@ -22,3 +22,7 @@
+ ## Remaining formatting warnings
+ 
+ The checked build has no unresolved citation keys or undefined references. Some ACM BibTeX optional metadata warnings remain where publisher address or pagination was not verified. The primary identifiers and existing article/page information are preserved; this ledger does not label optional-field completeness as remotely verified. Authors can augment those fields from the publisher's own exported record without changing the source identity or the cited claim.
++
++## Character-domain correction
++
++The added `python-unicode` entry cites the official Python Unicode HOWTO for the selected code-point model. It is documentation, not a new empirical study. The support-preservation proof and its implementation boundary are stated in the manuscript; the external source does not prove the program correct.
+--- a/paper/docs/TOSEM_SUBMISSION_NOTES.md
++++ b/paper/docs/TOSEM_SUBMISSION_NOTES.md
+@@ -1,6 +1,6 @@
+ # TOSEM submission and formatting notes
+ 
+-Checked on 3 October 2026. This is an author handoff, not confirmation that a submission has occurred or that a paper will be accepted.
++Venue sources were checked in the preceding revision on 3 October 2026; artifact counts below are updated for the 4 October character-domain correction. This is an author handoff, not confirmation that a submission has occurred or that a paper will be accepted.
+ 
+ ## Length: distinguish the track rule from a universal limit
+ 
+@@ -8,7 +8,7 @@
+ 
+ The general author-guidelines and track pages returned access errors when opened directly in this environment; official indexed excerpts and the published SIGSOFT editorial were accessible. Accordingly, this handoff does not assert that all ordinary research submissions have no upper bound, nor that this project qualifies as journal-first. The live submission form and the paper's actual prior-publication history control that choice.
+ 
+-The delivered manuscript is **39 total single-column review-format pages** (references start on page 36). Even counting the bibliography, it is below the 45-page text threshold. The additional six pages develop matching and composition arguments, joint snapshot freshness, issuer-bridge checks, bounded wildcard validation, and measured local recomputation costs. No blank pages or layout inflation were used.
++The delivered manuscript is **41 total single-column review-format pages** (references start on page 38). Even counting the bibliography, it is below the 45-page text threshold. The revised manuscript develops matching and composition arguments, joint snapshot freshness, issuer-bridge checks, bounded wildcard validation, measured local recomputation costs, and the complete character-support argument with its explicit validation boundaries. No blank pages or layout inflation were used.
+ 
+ Sources:
+ - ACM TOSEM, Fast-Impact Track Papers: https://dl.acm.org/journal/tosem/fastimpacttrackpapers
+--- a/paper/references.bib
++++ b/paper/references.bib
+@@ -266,3 +266,11 @@
+  year={2026},
+  url={https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-custom-policy-checks.html},
+  note={Accessed 2026-10-03. Documentation of check-no-new-access, check-access-not-granted, and check-no-public-access; no service execution in this study.}}
++
++@misc{python-unicode,
++  author = {{Python Software Foundation}},
++  title = {{Unicode HOWTO}},
++  year = {2026},
++  url = {https://docs.python.org/3/howto/unicode.html},
++  note = {Accessed October 4, 2026. Code-point representation and Python string semantics.}
++}
+--- a/paper/sections/06-analysis.tex
++++ b/paper/sections/06-analysis.tex
+@@ -32,6 +32,35 @@
+ This separation resembles a standard static-analysis distinction between an abstraction and the concrete semantics that it is intended to approximate~\cite{abstract-interpretation}. Here the implementation boundary is particularly important because the positive obligation needs an actual modeled membership answer for each required tuple. An over-approximation adequate for proving absence of over-admission can be inadequate for proving that a required identity is accepted. We do not claim a mechanized abstraction relation between the entire Python implementation and the cloud provider.
+ 
+ Automata operations can have unfavorable worst-case state growth. Product exploration and language difference are not constant-time operations, and there is no basis in the present experiments for asserting practical scaling across arbitrary policies. A monotonic analysis deadline is shared by the backend invocation and the subsequent positive checks; the remaining budget, rather than the original duration, is passed to the subprocess. Exceeding it yields insufficient evidence, not a declaration that the policy violates the contract. The finite literal-policy experiment records execution costs only for the tested inputs and includes process-launch and certificate-checking overhead.
++
++\subsection{Complete support for the modeled character domain}
++\label{sec:character-support}
++A finite search alphabet is sound only when it represents every character distinction made by the analyzed languages. The earlier implementation collected input literals and searched a fixed preferred pool for a fresh character. When every preferred character was already literal, its fallback retained that same pool. A character outside the pool could still match a wildcard, so the fallback omitted a nonempty semantic class. Analyzer/replayer agreement could not detect the common omission. The correction changes support construction in the retained core, rather than narrowing the scalar matcher to the deficient alphabet.
++
++We make the domain explicit: $\Gamma=\{\mathrm{chr}(k)\mid 0\leq k<\mathtt{0x110000}\}$, the Python string code-point domain~\cite{python-unicode}. The model does not normalize Unicode, match grapheme clusters, or interpret a code point as a UTF-8 byte. This is not a statement that a provider issues every modeled string. The strict packet transport separately requires UTF-8-encodable input; an isolated surrogate in a packet yields an invalid-input \Unknown{}. Direct-library tests may nevertheless exercise such Python strings to check the primitive domain without claiming they are valid provider tokens.
++
++Let $S$ contain every literal character in the issuer, policy and intent, together with every fixed constructor literal and the boundaries of its character predicates. In this implementation, the default owner/repository predicate excludes slash, colon, star and question mark; the suffix predicate excludes colon, star and question mark. These boundary characters are singleton classes even when a policy only uses star and question mark as operators. In \code{StringEquals} they are also ordinary literal characters. Define
++\begin{equation}
++A=S\cup\{r\}\quad\text{where }r\in\Gamma\setminus S,
++\qquad
++\pi(c)=\begin{cases}c,&c\in S,\\r,&c\notin S.\end{cases}
++\label{eq:complete-character-support}
++\end{equation}
++When $S=\Gamma$, set $A=S$ and $\pi$ to the identity. Extend $\pi$ to strings by applying it to each character. Preferred characters only influence the concrete choice of $r$; exhausting their pool does not remove the residual class. The revised selector continues over a disjoint enumeration of the complete code-point domain. It may omit a residual representative only when that domain is actually exhausted.
++
++\begin{proposition}[Support completeness for the implemented predicates]
++\label{prop:character-support}
++Suppose $S$ contains the literal singleton tests and every finite exclusion used by the constructor automata, and every other consuming transition is unrestricted. For each issuer, equality, or star/question-mark language $L$ built from these predicates, $x\in L$ if and only if $\pi(x)$ is accepted by its restriction to $A$. Consequently, support restriction preserves the emptiness and containment judgments used by the effective subject/audience analysis.
++\end{proposition}
++\begin{proof}
++For a singleton predicate $c=a$, the tested character $a$ belongs to $S$. A character outside $S$ cannot equal $a$, and neither can its representative. An excluded-character predicate has its complete exclusion set in $S$; all characters outside $S$, including $r$, therefore have identical membership. An unrestricted transition accepts both, and an epsilon transition consumes neither. Thus replacing an input character by its representative preserves every enabled transition. Induction on the length of a run establishes both directions of NFA membership; epsilon closure does not alter the argument.
++
++Union, intersection and complement-relative-to-$\Gamma^*$ preserve this equivalence, as does difference. Apply the same map separately to the subject and audience coordinates. Every concrete effective-admission violation therefore has a representative violation, while every representative violation is itself a concrete string pair in the declared domain. This proves the required emptiness and containment equivalences. The argument depends on the stated primitive predicates: adding a new character class or normalization rule requires refining the partition, not merely reusing this theorem.
++\end{proof}
++
++The low-level NFA API remains a finite-alphabet API. Its membership operation takes representative words; it does not silently reinterpret an arbitrary out-of-support character as a literal. Concrete membership is evaluated either by the scalar matcher or by explicitly constructing the support and applying $\pi$. The analyzer and effective replayer add the constructor boundaries before search and check coverage before interpreting a result. Failure to establish coverage is an error at the backend boundary and hence insufficient evidence at the strict gate, not a safety result.
++
++The atomic certificate verifier now checks the declared domain, every required singleton, and the nonempty residual class before checking witness or invariant transitions. The residual check uses the domain cardinality and the supplied singleton set; it does not call the fresh-character selector. Atomic certificates use version 3 and effective-case certificates use version 6. Earlier versions require regeneration. A full-review receipt additionally binds the changed implementation identity, so a historical receipt cannot retain a positive judgment merely because its producer and replayer previously shared the same incomplete support.
+ 
+ \subsection{Independent scalar evaluation of positive tuples}
+ For each required tuple, the scalar checker first asks whether it is mintable under the selected profile and intended by the contract. It then evaluates every supported statement against the tuple and takes the disjunction of matching Allows minus any matching Deny. The check records the three Boolean components separately, along with the tuple's reason. A record outside the issuer domain or intent is classified as invalid even if the policy happens to reject it.
+--- a/paper/sections/08-implementation.tex
++++ b/paper/sections/08-implementation.tex
+@@ -5,7 +5,7 @@
+ The main workflow requires Python 3.10 or later and uses the standard library. The documented reproduction path does not install external cloud tools or request credentials. LaTeX compilation is a separate local step using \code{acmart}, BibTeX, TikZ, and \code{latexmk}. Optional historical source-processing utilities are not prerequisites for the current results. The README and Makefile identify current entry points; older reports and submission-specific assumptions are retained only as explicitly superseded history.
+ 
+ \subsection{Correcting disagreements rather than preserving old counts}
+-The supplied manuscript reported 79 tests, while executing its current test discovery found 94 passing tests before this revision. The discrepancy was a reporting problem, not evidence of 15 newly created tests. The first integration revision added 18 tests. A subsequent boundary audit added 34 tests covering scalar representation, issuer refinements, budget exhaustion, malformed clocks, and replay, producing the current \TestCount{}-test suite. Table~\ref{tab:repairs} summarizes the semantic and integration changes that motivated the new checks.
++The supplied manuscript reported 79 tests, while executing its current test discovery found 94 passing tests before this revision. The discrepancy was a reporting problem, not evidence of 15 newly created tests. The first integration revision added 18 tests. A subsequent boundary audit added 34 tests covering scalar representation, issuer refinements, budget exhaustion, malformed clocks, and replay, producing 146 tests at that checkpoint. The character-domain correction adds 48 regression methods, producing the current \TestCount{}-test suite. Unlike the earlier integration-only changes, it updates support construction and certificate validation in the retained core. Table~\ref{tab:repairs} summarizes the semantic and integration changes that motivated the new checks.
+ 
+ \begin{table}[t]
+ \caption{Concrete consistency repairs in the retained implementation. These are audited changes, not a claim that every implementation defect has been eliminated.}
+@@ -19,6 +19,8 @@
+ Positive recognizer & Tuple shape and constructor assumptions needed consistent validation & Nonempty scalar coordinates and explicit grammar checks \\
+ Finite adapter & Iterables could be consumed; coercion and glob semantics could diverge & Materialize inputs once; reject coercion; preserve literal brackets \\
+ Study replay & A matching status could hide changed admitted tuples or findings & Compare the complete normalized result \\
++Character support & A saturated preferred pool omitted a nonempty character class & Whole-domain residual selection; singleton and constructor-boundary checks \\
++Atomic replay & A certificate-supplied alphabet could omit transitions & Domain/coverage validation before invariant checking \\
+ Strict replay & A safety certificate omitted the full positive review obligation & Full packet/result receipt with current-gate recomputation \\
+ Source study & Roles and a variable's empty/nonempty branches were merged & Separate contracts and configurations with explicit denominators \\
+ Reproduction & Old paper paths and hard-coded FSE limits disagreed with the package & Sibling paper target and current result-driven audit \\
+@@ -38,7 +40,7 @@
+ Clock and metadata checks are kept separate from policy truth. Explicit false-like clock inputs no longer request the current clock, governance source references must be strings, and optional policy identifiers have explicit types. Deep malformed objects or resource-representation errors are converted to an insufficient-input judgment at the gate boundary. These checks make failures interpretable; they do not turn the validator into a general memory or execution sandbox.
+ 
+ \subsection{Executable traceability}
+-The current driver runs unit tests, the inherited core self-check, the finite projection audit, relational checks, two-sided validation, the matcher/issuer/bounded-glob and local-cost experiments, seeded-fault challenges, the repair audit, and the source-backed studies. Each step writes a log and a machine-readable result. Quantitative macros and table rows are generated from those results into the sibling paper directory. The manuscript is not updated by substituting a claimed count into prose independently of the experiment output.
++The current driver runs unit tests, the inherited core self-check, the finite projection audit, relational checks, two-sided validation, the independent character-domain audit, the matcher/issuer/bounded-glob and local-cost experiments, seeded-fault challenges, the repair audit, and the source-backed studies. Each step writes a log and a machine-readable result. Quantitative macros and table rows are generated from those results into the sibling paper directory. The manuscript is not updated by substituting a claimed count into prose independently of the experiment output.
+ 
+ The release package includes source-level change records relative to the supplied project. It also identifies historical directories whose contents were not freshly regenerated. This distinction is necessary because retaining previous outputs is useful for provenance, but their presence must not imply they are results of the current reproduction command. The evidence manifest records what actually ran, with exit status and local execution time for each step.
+ 
+--- a/paper/sections/09-method.tex
++++ b/paper/sections/09-method.tex
+@@ -18,6 +18,8 @@
+ Two-sided enumeration & \FiniteCount{} decisions & Direct tuple-set formula & Three atoms and explicit invalid flag \\
+ Strict literal differential & \StrictCount{} configurations & Exact finite effective tuple sets & Literal policies over three tuples \\
+ Bounded glob differential & \GlobStrictCount{} configurations & Recursive matching and tuple sets & Finite equality upper bounds \\
++Character partition & \DomainPredicateChecks{} signatures & Full code-point sweep over three supports & Primitive predicates, not all policies \\
++Quotient membership & \DomainMatcherCount{} pairs & Concrete recursive/scalar vs projected NFA & Declared alphabets and lengths \\
+ Matcher agreement & \MatcherCount{} pairs & Recursive, scalar, and NFA matching & Declared alphabets and lengths \\
+ Issuer membership & \IssuerCount{} checks & Typed NFA versus scalar membership & Fixed constructors/refinements \\
+ Local costs & \ScalingRuns{} timed runs & Clock measurements and expected judgments & One local environment; descriptive only \\
+--- a/paper/sections/10-validation.tex
++++ b/paper/sections/10-validation.tex
+@@ -91,3 +91,20 @@
+ \input{figures/local-costs}
+ 
+ A full receipt recomputes the gate, so the measured replay path does not promise a cached-speed advantage. The experiment varies only a small literal policy family; it does not stress all automata constructions, arbitrary wildcard intersections, source extraction, or a deployment service. Three repetitions in one local environment cannot establish tail latency, a confidence interval, a production service-level objective, or a population scaling law. Variation on a shared host and the policy family itself can dominate small differences between the tasks. The practical conclusion is limited to the recorded executions: all selected sizes complete with the specified judgments, and the associated costs are available for inspection.
++
++
++\subsection{Character-domain completeness and independent checks}
++\label{sec:character-validation}
++Table~\ref{tab:character-domain} records three deliberately saturated supports. For each, the audit visits all 1,114,112 Python code points, checking the literal singleton signature and the two constructor exclusion predicates before and after projection. This gives \DomainPredicateChecks{} primitive-signature comparisons. It is a complete enumeration of those character predicates for three supports, not of strings, automata runs, or policies. The separately written argument in Proposition~\ref{prop:character-support} is what extends the transition-preservation obligation to arbitrary finite words under the stated language construction.
++
++\begin{table}[t]
++\caption{Saturated support checks. Constructor boundaries are included in the singleton count. The final column is a code point chosen outside the singleton set, not an assertion of provider validity.}
++\label{tab:character-domain}
++\input{generated/character_domain_rows}
++\end{table}
++
++A second audit enumerates 259 patterns of length at most three and 111 concrete words of length at most two, under both equality and glob interpretation. The words include characters outside the preferred pool, supplementary code points, a line separator, an isolated surrogate, and literal metacharacters. Crucially, the concrete word is \emph{not} added to the search support. The comparison checks the concrete recursive oracle and scalar matcher against NFA membership of the explicitly projected word. All \DomainMatcherCount{} comparisons agree. The earlier \MatcherCount{}-comparison finite-alphabet test remains useful, but alone could not expose omission of an unlisted character class.
++
++A further \DomainConstructorCount{} checks insert twelve characters at five constructor positions and compare concrete scalar recognition with the representative-word NFA. Four regular-language review inputs pair the saturated subject/audience checks with closed-language positive controls. An independently selected concrete tuple confirms each negative obligation using scalar issuer, policy and intent predicates. Three complete strict packets exercise the corrected \Fail{}, the closed-control \Pass{}, and a stale-input \Unknown{}; their full receipts reproduce the same status. These are benign synthetic configurations, not provider-issued tokens or cloud deployments.
++
++Finally, two hand-selected local fault challenges check the rejection mechanism itself. Suppressing the residual selector is detected by the independent coverage check; bypassing certificate coverage defeats a deliberately incomplete-support rejection obligation whose unmodified control passes. These challenges address the reported common-mode defect. They are not an estimate of defect prevalence, mutation adequacy, or the independence of the whole trusted computing base.
+--- a/paper/sections/15-validity.tex
++++ b/paper/sections/15-validity.tex
+@@ -3,7 +3,7 @@
+ \subsection{Construct and internal validity}
+ The principal construct is conformance to a supplied release contract. It is not overall application security, cloud authorization success, or release availability. A \Pass{} is conditional on the correctness and completeness of the chosen issuer and governance model and on the contract reflecting the intended behavior. The positive set is finite and can omit important release paths. The upper bound can be too permissive if the contract itself is poorly chosen.
+ 
+-The written propositions concern sets and projections. The bounded audits confirm selected executable instances but do not mechanically prove that the implementation refines the mathematical definitions. The strict experiments have deliberately complete finite oracles for literal policies and equality-bounded glob policies; they do not provide one for arbitrary wildcard policies. The bounded matcher comparison covers specified alphabets and lengths, while its general recurrence is justified separately by a written proof. The scalar and symbolic implementations share assumptions, and backend generation and replay share a trusted core. Correlated defects can survive agreement checks.
++The written propositions concern sets and projections. The bounded audits confirm selected executable instances but do not mechanically prove that the implementation refines the mathematical definitions. The strict experiments have deliberately complete finite oracles for literal policies and equality-bounded glob policies; they do not provide one for arbitrary wildcard policies. The bounded matcher comparison covers specified alphabets and lengths, while its general recurrence is justified separately by a written proof. The scalar and symbolic implementations share assumptions, and backend generation and replay share a trusted core. Correlated defects can survive agreement checks. The preferred-pool omission was one such defect: the revision now states the complete character domain, proves the predicate partition obligation, and checks it independently of fresh-character selection. This reduces that specific risk but does not establish universal implementation correctness or provider equivalence.
+ 
+ The regression suite is selected by the developers, and the eight seeded faults are selected together with detecting tests. Those tests show sensitivity to particular mistakes, not representative defect-detection rates. Counts of enumerated combinations should not be interpreted as independent statistical observations. The high fraction of \Unknown{} outcomes in the powerset enumeration is driven by the experiment's validity settings and inconsistent required sets, not by expected operational usability.
+ 

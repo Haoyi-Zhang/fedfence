@@ -1,169 +1,101 @@
-# FedFence FSE 2027 最终完成报告
+# FedFence 字符支持集完整性修复与验证报告
 
-## 1. 最终状态
+交付日期：2026-10-04。基线为用户上传的 `FedFence_TOSEM_Final_Package.zip`（146 项测试版本），不是重新实现另一套系统。
 
-本工作包已经完成当前环境中可诚实完成的论文、实现、实验、复现、审计和
-PDF 质检。最终产物是一份 **12 页匿名 ACM FSE 评审稿候选件**，配套一个
-可执行的变更审查工具和冻结证据包。
+## 1. 本轮结论
 
-机器审计结论：
+用户指出的候选池耗尽问题成立。此前“分析器与重放器一致”的检查不能排除两者共同漏掉同一字符类别。本轮修复支持集构造、构造器字符边界、覆盖检查、证书版本及普通模式序列的收集歧义；同时更新正文中的字符域、归约论证和证据边界。当前所有 194 项回归测试通过，十步复现入口和 53 项一致性检查均通过；另一个清洁目录中重建通过。
 
-- `local_audit_passed = true`
-- `submission_package_complete = true`
-- `external_validation_complete = false`
+这些结果针对已说明的实现模型和下列检查。它们不是整个 Python 实现无其他缺陷的证明，不是云平台语义认证，也没有把一次本地测试升级为真实部署结果。
 
-最后一项不是失败，而是明确的研究边界：当前证据不能替代代表性抽样、独立
-意图标注、维护者确认、真实组织部署、比较工具共同语料实验或人类参与者研究。
+## 2. 根因与修复
 
-## 2. 论文主线已经从“形式化证明展示”改为“软件配置变更审查”
+原 `DEFAULT_ALPHABET` 只有 73 个候选字符。将候选字符全部列为字面字符，并保留等号语义下的星号、问号后，旧构造输出 75 个字面类别，没有余集类别。冻结的旧函数观察记录在 `tosem/history/character_domain_previous_observation.json`，保留原上传包和源文件摘要；它只执行了旧支持集构造，没有操作任何云端目标。
 
-最终题目为：
+修订后的字符串域明确为 Python `str` 的码点域，编号从 0 到 0x10FFFF。不执行大小写折叠或 Unicode 归一化，`?` 消耗一个码点，而不是一个字节或一个视觉字形。这是本地模型选择，不表示真实发行者能铸造其中所有字符串。严格数据包传输另行要求 UTF-8 可编码；孤立代理码点的原始库测试不等于允许其成为有效严格输入。
 
-> **FedFence: Specification-Guided Review of CI/CD Trust Changes**
+令 S 为所有实际字面字符和构造器谓词边界。若整个码点域 Γ 的余集 Γ−S 非空，支持集必须为 S 加上至少一个余集代表。只有 S=Γ 时才可以不保留 OTHER。偏好池仅决定优先选哪个代表：耗尽后继续扫描覆盖完整码点域的互不相交范围，而不是回到同一个固定池，也不是再加一个仍可能被耗尽的固定哨兵。
 
-核心问题不再表述为“一个字符串是否看起来安全”，而是：
+### 修改位置
 
-> 当 workflow、身份提供方、云信任策略、发布要求和仓库治理分别演化时，
-> 一次配置改动是否扩大了可获权身份，或删除了必须继续工作的身份？
+| 文件（相对 artifact 根目录） | 修订内容 |
+|---|---|
+| `artifact/fedfence/regular.py` | 明确码点域，完整查找余集代表，按操作符收集字面字符，新增不依赖代表选择算法的覆盖检查。 |
+| `artifact/fedfence/github.py` | 将构造器常量以及 `/ : * ?` 等有限排除边界纳入支持；解析器与既有 NFA／标量识别对齐，并使用完整匹配。 |
+| `artifact/fedfence/analyzer.py` | 汇集发行者、Allow／Deny、发布意图和构造器边界；先验证覆盖，失败不产生安全结论。 |
+| `artifact/fedfence/certificate.py` | 四种原子构造先规范化普通模式序列并检查覆盖；验证器拒绝缺失类别或字面字符、重复项、错误域和旧版本；有效案例重算也检查覆盖。 |
+| `fse_workflow/conformance.py` | 明确独立标量路径的具体码点语义；没有把正向检查偷偷缩小为 ASCII 或固定候选池。 |
+| `artifact/scripts/verify_witnesses.py` | 使用包含构造器边界的支持集入口。 |
 
-最终论文按三个研究问题组织：
+普通模式元组还有一个相关边界：例如首项恰好为 `like` 的两个模式，不能当成操作符加值集合。四个原子证书入口在收集前把普通模式序列转换成列表；真正的带操作符条件组仍保留其字面／通配解释。
 
-1. 三值审查门能否区分越权、必需身份丢失、证据不足/语义不支持；
-2. 能否解释公开代码中的 before/after OIDC trust 变更；
-3. 当前公开 IaC 暴露出哪些实现和规范化边界，以及如何接入普通 PR 流程。
+**本轮确实修改了原核心。** 13 个原核心 Python 文件中 4 个修改、9 个逐字节不变。旧交付中“13 个核心文件全部不变”的说法不再适用于本轮。`regular.py` 中从 NFA 数据结构开始的既有表示、自动机操作和搜索代码仍逐字节不变；改变的是支持的构造和验证，不是替换分析算法。
 
-## 3. 实现完成情况
+## 3. 为什么覆盖检查与共同实现的一致性不同
 
-最终实现新增或完成：
+稿件补入支持保持命题：若 S 覆盖所有字面单例及有限字符排除条件，且其余消耗字符的转移不再区分字符，则把 S 外每个字符投影到同一余集代表，不改变每一步转移是否可用。因此保持字符串接受，再由布尔组合保持差集非空和包含关系。subject 和 audience 分别投影即可保留元组反例。
 
-- `pass / fail / unknown` 三值结果；
-- 稳定退出码 `0 / 1 / 2`；
-- before/after change review；
-- 上界安全约束与有限 required-token 正向回归义务；
-- tuple 级 Allow-minus-Deny 语义；
-- 严格 preflight、过期/范围/摘要/依赖检查；
-- replayable certificate 和 concrete witness；
-- text、JSON、SARIF 2.1.0、GitHub annotation 四类输出；
-- 根目录 composite GitHub Action；
-- review packet JSON Schema；
-- 完整参考 PR workflow；
-- 修复一个后端 dispatch 缺陷：selected-claim Deny 不再被错误送入只理解
-  `sub/aud` 的 regular backend。
+该命题的前提必须保留：新增字符类别、归一化或其他区分字符的操作，需要重新细化分类。它不是对云提供商或整个 Python 程序的形式化精化证明。
 
-## 4. 最终证据
+运行时覆盖检查不调用新鲜字符选择器，而是检查全部字面单例是否存在，并利用完整域大小判断是否还必须有 S 外的字符。原子证书携带的 alphabet 不是可信前提：必须先通过该检查，才能验证见证或归纳不变量。分析器／有效重放器也在搜索前检查这一义务。严格门禁仍按原规则把无法支持的前提或后端失败处理为 `unknown`，而不是 `pass`。
 
-### 本地一致性
+底层 NFA 接口仍是显式有限字母表接口，不会把一个任意池外的具体字串自动当作代表串。直接具体匹配应使用标量匹配器，或显式投影后调用 NFA。正文、测试和接口说明均区分这两个层次。
 
-| 项目 | 最终结果 |
-|---|---:|
-| 单元/集成测试 | 79 passed，0 failure/error/skip |
-| 有限语义审计 | 65,536 models passed |
-| 前序历史案例重放 | 37/37 agreement |
-| 前序 self-check | 3,945 passed |
-| 可执行 walkthrough | 8/8 expected |
+## 4. 实际执行的验证
 
-### 公开 before/after 变更
+| 验证层次 | 结果与单位 |
+|---|---|
+| 当前回归套件 | **194 项通过**；此前 146 项，加本轮 48 项；0 失败、0 错误、0 跳过。 |
+| 完整码点域基础判别审计 | 3 种支持集，每种检查 1,114,112 个码点，共 **3,342,336 次基础谓词签名比较**，全部通过。不是三百多万个策略。 |
+| 具体字符串／代表串匹配 | 259 个模式、111 个词、2 种解释，共 **57,498 次比较**全部一致；具体词没有被加入支持集。 |
+| 构造器边界 | 12 个字符 × 5 个插入位置，共 **60 次**具体标量与代表串 NFA 比较通过。 |
+| 新完整审查对照 | subject／audience 各有开放／封闭对照，共 **4 个**常规案例；另有 **3 个**严格包分别得到 `fail`、`pass`、过期 `unknown`，并核对完整收据。 |
+| 覆盖机制敏感性 | **2 个**自建局部故障，均有通过的未修改对照；检测遗漏余集代表及绕过证书覆盖检查。不是随机变异充分性分数。 |
+| 既有核心及组合检查 | 3,945 项核心检查、65,536 个投影模型、65,536 个双向组合、256 个有限重放、56 个严格字面输入、6 个依赖变换、8 个既有手工故障检查全部重跑。 |
+| 既有字符／完整包验证 | 242,580 对匹配、2,304 个发行者检查、192 个有界通配严格包全部重跑；192 是包数，不是当前单元测试数。 |
+| 本地成本 | 54 次计时及 18 次预热重新执行，图表使用本次原始测量；没有跨工具比较或部署 SLA 结论。 |
 
-- 搜索查询：3
-- 候选 commit：17
-- 纳入：9
-- 排除：8，全部有原因
-- source snapshot verified：9/9
-- before/after phase 与开发者陈述方向一致：18/18
-- `fail -> pass`：8
-- `fail -> unknown`：1
-- owner-confirmed findings：0
-- independently adjudicated labels：0
+三种支持集的实际结果：
 
-其中 compatibility repair 证明了二侧约束的必要性：旧策略并未越过安全上界，
-但它漏掉了运行时实际发出的 immutable subject；required-token 义务可将其识别为
-可用性回归。
+| 输入饱和范围 | 字面及构造器单例 | 支持集大小 | 余集代表 |
+|---|---:|---:|---|
+| 完整偏好池 | 75 | 76 | U+0021 |
+| 全部 ASCII | 128 | 129 | U+0080 |
+| 整个基本多文种平面 | 65,536 | 65,537 | U+10000 |
 
-### Immutable-subject 维护语料
+具体的有界模式／词字母集、长度、样本和结果流摘要保留在 `tosem/results/character_domain_audit.json`。回归还包括代理码点、补充平面、换行、空字符、等号下的 `*`／`?`、整个候选池耗尽后额外代表再次被列为字面值、旧域证书、缺失构造器边界、正向身份、过期快照及收据版本失效。
 
-- 12 个公开仓库 / 12 个 full-SHA commit；
-- 11 个 commit 报告 credential exchange 被拒绝或中断；
-- 6 个明确提到 CloudTrail；
-- 4 个明确提到解码真实 workflow token；
-- 2 个修复具有归档的公开 GitHub Actions 成功 run ID；
-- 9 类修复策略。
+## 5. 证书与收据迁移
 
-这些是 source-stated maintenance evidence，不是独立根因裁决或流行率估计。
+新的域标识为 `python-str-codepoints-v1`。原子证书版本为 **3**，有效案例证书版本为 **6**；旧版本不能只改版本字段继续使用，必须从完整且有效的当前输入重新生成。完整双向收据保持原接口，但绑定当前实现摘要：旧实现下的收据不能维持旧的通过结论，需要重新审查。重放成功也可以重放出 `fail` 或 `unknown`，不等同于自动通过。
 
-### Source-normalization frontier
+包中部分历史和参考结果仍保留旧证书，只能用于对照，不是当前可接受的证据。当前结果路径是 `artifact/tosem/results/`（相对包根目录）；不要把旧目录中的结果或旧模板报告当成本轮结果。
 
-24 个 query-defined 公开仓库中：
+## 6. 稿件与清洁重建
 
-- 5 个文件为直接 literal；
-- 2 个可由固定 HCL 默认值 constant-fold；
-- 17 个需要 caller/module/dynamic-HCL/host-language evaluation；
-- 6 个固定源文件中没有显式 audience 条件；
-- 1 个使用当前证明 profile 不支持的 set operator。
+当前稿件 **41 页** ACM 单栏审稿格式，参考文献从第 **38 页**开始，**63 条实际引用、9 幅可编辑矢量图、13 张表**。新增字符支持保持论证、API 域边界、覆盖验证方法、独立对照和一张支持集审计表。新增 Python 官方 Unicode HOWTO 引用；其余参考文献沿用并保留逐条核查台账，不声称本轮再次独立核读所有文献全文。
 
-该实验说明：真实场景的主要瓶颈不仅是正则匹配，而是获得已经解析的配置。
-它不估计真实世界比例，也不声称 extractor accuracy。
+从另一个全新目录开始，删除 **278 个**生成、日志及临时文件后，按当前 `cd artifact && make reproduce` 入口完成 **10 个**证据步骤、图表生成、论文构建和 **53/53 项**一致性检查。**19 个**选定语义指纹与前次运行一致；计时值和 PDF 二进制字节不要求相同。交付采用清洁重建的结果、图表和 PDF。重建发生在相同本地执行环境，不冒充独立实验室复现。
 
-## 5. 性能与工具比较边界
+论文使用实际安装、未修改的 `acmart v2.12` 编译，编译环境和 PDF 摘要记录在 `paper/generated/build_environment.json`。没有声称新模板复编或 TAPS 生产认证。视觉检查记录在 `paper/docs/VISUAL_REVIEW.md`，具体状态以记录为准。
 
-冻结的 9-change 本地批处理运行 7 次：
+## 7. 保留的研究边界与作者事项
 
-- median：946.08 ms
-- p95：986.22 ms
+公开研究仍为 9 个提交、10 个角色契约、21 个配置；来源材料仍为 24 个冻结摘录、0 个完整源码文件及 0 次完整源码抽取。没有把这些材料改写为现实发生率、代表性准确率、云端部署验证、用户效率或工具优越性。
 
-计时仅覆盖 analyzer、required-token checks 和 certificate replay，不包含网络、
-源码收集、Terraform/CDK 求值、云端行为或人工审核。
+没有操作真实云账号、调用发行服务、运行公共工作流、联系维护者或提交论文。五位作者、顺序和邮箱保持用户提供的信息；Tang 暂列 University of Luxembourg，未加入企业单位。作者最终单位、全体同意、通讯作者、既有投稿重叠、利益冲突、材料权限和 AI 披露仍需由作者确认，未代填为已确认。
 
-Access Analyzer、Checkov、tfsec/Trivy、OPA 在本执行环境中没有完成共同语料运行，
-最终记录为 **0 comparative benchmark runs**。论文没有把“工具不可用”解释为
-“工具漏报”，也没有声称产品优越性。
+## 8. 复现与定位
 
-## 6. PDF 与投稿包审计
-
-- 模板：`acmsmall,screen,review,anonymous`
-- 页数：12
-- 引用：32/32，全部定义且全部使用
-- overfull box：0
-- Type 3 fonts：0
-- Author metadata：空
-- mojibake probes：0
-- PDF 可由 PyMuPDF 打开，非扫描件，无加密/XFA
-- 已移除占位 submission ID；正式投稿时可填入系统分配的真实编号
-- 40 个 final-layer JSON 全部可解析，Python 全部可编译，Action/workflow YAML 可解析
-- 12 页全部以 200 DPI 渲染并人工检查：未见文字裁剪、表格越界、重叠、黑块或
-  破损字形
-
-## 7. 复现
-
-```bash
-make reproduce
-make paper
-make audit
+```sh
+cd artifact
+make tests             # 当前 194 项回归
+make character-domain  # 新增字符域独立对照审计
+make reproduce         # 全部实验、图表、论文和一致性审计
 ```
 
-最终单一驱动完整运行通过，manifest 记录 `execution_mode = single-driver-run`。
-12 个步骤均返回 `passed`，总墙钟时间约 34.95 秒；其中测试约 20.17 秒，八个
-walkthrough 约 6.27 秒，其余步骤均在约 1.7 秒内完成。冻结性能文件在普通复现中做
-完整性校验，若需要重新计时可单独运行 `scripts/benchmark_public_changes.py`。
+主要结果：`tosem/results/character_domain_audit.json`、`unit_tests.json`、`reproduction.json`、`final_audit.json`、`clean_rebuild_validation.json`。新测试为 `tests/test_character_domain.py`；支持保持说明为 `docs/CHARACTER_DOMAIN_FIX.md`。相对上一上传包的源码差异为 `docs/changes_from_prior_tosem.patch`，逐文件摘要及 4／9 核心变化计数见 `docs/CHANGES_FROM_PRIOR_TOSEM.json`。相对原 FSE 包的完整源代码差异另行保留。
 
-关键文件：
+解压后、重跑前可执行 `sha256sum -c artifact/docs/PACKAGE_SHA256SUMS`。摘要清单不包含自身，不是作者签名或远程来源认证。重跑实验会更新测量和构建记录，不应继续期待这些文件与交付摘要相同。
 
-- `fse/results/final_reproduction_manifest.json`
-- `fse/results/final_audit.json`
-- `fse/results/provenance.json`
-- `paper/FedFence_FSE_final_submission_candidate.pdf`
-
-## 8. 明确未完成、也未冒充完成的外部研究
-
-当前包没有声称：
-
-- 代表性流行率或 supported-fragment coverage；
-- precision/recall 或独立 field accuracy；
-- 由 FedFence 主动发现并获维护者确认的漏洞；
-- FedFence 在真实组织中的 live deployment；
-- 对现有产品的共同语料优势；
-- 人类参与者的效率/可用性提升；
-- 从数学模型到 Python 的 machine-checked refinement；
-- required-token examples 构成完整的可用性语言。
-
-因此，当前版本是一个完整、可复现、边界诚实的投稿候选包，而不是用生成实验或
-公开 commit 描述替代外部验证。
+补丁核验：已将源码补丁应用到上一上传包的独立解压目录，并核对 35 个变更路径的结果摘要全部一致。该步骤验证补丁可应用及源码字节对应，不是第三次独立实验执行。完整的当前结果、报告和稿件以本次 ZIP 为准。

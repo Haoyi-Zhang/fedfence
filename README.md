@@ -1,146 +1,122 @@
-# FedFence - FSE 2027 submission candidate
+# FedFence — TOSEM research artifact
 
-## Current package entry points
+This is the existing FedFence implementation, revised in place for **“FedFence: Specification-Guided Review of CI/CD Trust Changes: Two-Sided Conformance, Observation Boundaries, and Snapshot-Relative Replay.”** It is a local, specification-driven reviewer of supplied CI/CD trust snapshots, not a cloud deployment controller. `fse_workflow` remains the original package name to avoid a second implementation or a breaking namespace migration.
 
-The current package has sibling `../paper/` and `artifact/` directories. Use
-the package-root README for the current commands. From this artifact directory,
-`make reproduce` calls `scripts/reproduce.py`, `make paper` delegates to the
-package root, and `make manifest-only` inventories the current files without
-running experiments. `make check-entrypoints` is read-only. The inherited
-`scripts/reproduce_final.py`, `scripts/audit_final.py`, and the older layout
-descriptions below are not the current package entry points. Historical
-completion statements below are not results of the local entry-point repair.
+The current entry points are this README and this directory's Makefile. The paper lives in the **sibling `../paper/` directory**. Older FSE documentation and output directories are not the authority for the present manuscript's counts or claims.
 
-**Package status:** the manuscript, artifact, studies, tests, reproducibility
-manifest, and PDF preflight are complete for author review. The package is
-internally reproducible; it does **not** claim representative field accuracy,
-owner-confirmed findings, a live organizational deployment, product superiority,
-or measured human usability.
+## Reproduce from the delivered layout
 
-FedFence reviews changes to CI/CD workload-identity trust. A separately reviewed
-release contract supplies the intended upper bound and optional concrete identities
-that must remain usable. Versioned policy, issuer, workflow, and governance
-snapshots form the change unit. The gate returns:
+```sh
+cd artifact
+make evidence       # all ten offline evidence steps; regenerate paper tables
+make paper          # compile ../paper/FedFence_TOSEM.pdf
+make audit          # verify evidence/manuscript consistency
+# Or execute all three stages:
+make reproduce
+```
 
-- `pass` (process exit `0`) only when containment, required identities, and replay agree;
-- `fail` (exit `1`) with an unintended-admission or missing-required-identity witness; or
-- `unknown` (exit `2`) for unsupported semantics, stale/missing evidence, inconsistent
-  specifications, timeout, or replay disagreement.
+For just the ordinary regression suite, run `make tests`. For the corrected source-backed, source-frontier and maintenance studies, run `make studies`. Outputs are written to `tosem/results/`, with logs in `logs/`; quantitative LaTeX macros and tables are regenerated in `../paper/generated/`. Re-running overwrites generated results and timings. It does not change the supplied public-source fixtures.
 
-## Final additions
+**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The delivered run used Python 3.13.5 on Linux. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
 
-- JSON, human text, SARIF 2.1.0, and GitHub annotation renderers.
-- A root `action.yml` composite action and a review-packet JSON Schema.
-- Stable, documented exit behavior and machine-readable receipts.
-- 79 local tests; 65,536 finite state/policy models; 37 historical cases; 3,945
-  inherited self checks; eight executable walkthroughs.
-- A frozen nine-commit before/after study (eight `fail -> pass`, one
-  `fail -> unknown`).
-- A 12-repository immutable-subject maintenance corpus: 11 commits report denied
-  or broken exchanges, and two have archived public post-fix Actions-success run
-  IDs.
-- A query-defined 24-repository source-normalization frontier: seven files are
-  literal or constant-foldable from pinned source; 17 require caller, module,
-  dynamic-HCL, or host-language evaluation.
+The preserved legacy YAML extractor has separate optional dependencies in `artifact/requirements.txt`; it is **not** exercised by the current JSON reproduction path. No cloud credentials, cloud account, paid API, external analyzer, repository checkout, network fetch or source program execution is required by the current reproduction command. Historical fetch scripts are not called by it.
 
-The public studies are purposive or query-defined. They establish recurring
-maintenance shapes and extraction boundaries, not prevalence or independent
-ground truth.
+## Strict gate and full-review replay
 
-## Package map
+All paths below are relative to this artifact directory. The explicit historical clock is for deterministic fixtures, not a way to approve stale operational evidence.
 
-- `../paper/`: anonymous ACM `acmsmall,screen,review,anonymous` manuscript.
-- `action.yml`: composite GitHub Action.
-- `schemas/`: review-packet schema.
-- `fse_workflow/`: pass/fail/unknown change-review implementation.
-- `examples/`: complete packets and a reference GitHub workflow.
-- `study/`: frozen public-change, runtime-compatibility, and source-frontier manifests.
-- `evidence/public_changes/`: locally captured relevant public diff hunks.
-- `tests/`: unit and integration tests.
-- `scripts/`: reproduction, study, benchmark, and audit drivers.
-- `fse/results/`: machine-readable outputs.
-- `docs/`: study protocols, evidence boundaries, and completion report.
-- `baseline/` and `artifact/`: byte-preserved predecessor submission/material.
+```sh
+python3 -m fse_workflow review \
+  examples/release_gate/availability_before.json \
+  --now 2026-09-23T01:00:00Z \
+  --receipt-json tosem/results/example_receipt.json \
+  --result-json tosem/results/example_review.json
 
-## Quick use
-
-```bash
-python3 -m fse_workflow.cli review examples/release_gate/before.json \
+python3 -m fse_workflow replay \
+  tosem/results/example_receipt.json \
   --now 2026-09-23T01:00:00Z
 
-python3 -m fse_workflow.cli compare \
-  examples/release_gate/before.json \
-  examples/release_gate/after_wildcard.json \
-  --now 2026-09-23T01:00:00Z --format github
-
-python3 -m fse_workflow.cli review \
-  examples/release_gate/after_wildcard.json \
-  --now 2026-09-23T01:00:00Z \
-  --format sarif --output result.sarif --result-json result.json
+python3 -m fse_workflow compare \
+  examples/release_gate/availability_before.json \
+  examples/release_gate/availability_after.json \
+  --now 2026-09-23T01:00:00Z
 ```
 
-A GitHub workflow can invoke the packaged composite action:
+The first two commands return `pass` (exit 0) for the fresh supplied fixture. The comparison deliberately returns `fail` (exit 1) because the second policy excludes a required identity. This is the expected result, not a failed reproduction. Other presentation choices are `--format json`, `--format sarif` and `--format github`; `--result-json` always preserves the machine-readable result. Omit `--now` when evaluating actual supplied snapshots against the current clock. No demonstration here establishes that a real deployment succeeds or fails.
 
-```yaml
-- uses: ./trusted
-  id: fedfence
-  with:
-    packet: candidate/.fedfence/production.json
-- uses: actions/upload-artifact@v4
-  if: always()
-  with:
-    name: fedfence-result
-    path: ${{ steps.fedfence.outputs.result-json }}
+| Verdict | Exit | Meaning within the supported supplied model |
+|---|---:|---|
+| `pass` | 0 | Supported, fresh, consistent premises; upper-bound safety and every declared positive obligation established. |
+| `fail` | 1 | A supported conformance violation, such as an overgrant or a valid required identity excluded by the policy. |
+| `unknown` | 2 | Invalid/inconsistent/stale premises, unsupported syntax or profile, or insufficient analysis/replay evidence. |
+
+An invalid premise takes precedence over a simultaneously observed failure candidate. An invalid required identity is not labeled as a demonstrated deployment regression. `--previous` is used only to report changed dependencies; it is not a verdict cache. A full receipt binds the complete two-sided semantic result and is re-evaluated using the current implementation and caller clock. Receipt integrity and successful replay are not source authentication, approval authentication, or an independent checker. A successfully replayed failing receipt remains a failure.
+
+## Supported analysis boundary
+
+The strict path accepts the documented GitHub-style legacy issuer profile and a narrow trust-policy fragment: supported `2012-10-17` statements, one exact GitHub OIDC provider ARN, `sts:AssumeRoleWithWebIdentity`, `Allow`/`Deny`, and positive `StringEquals`/`StringLike` conditions on `sub` and `aud`. Effective acceptance is a **tuple relation**, not independent subject and audience marginals. Unsupported context keys, mixed provider principals, operators and profiles are refused conservatively. See the manuscript and `fse_workflow/fragment.py` for the executable boundary.
+
+The packet's separate release contract includes admissible identities, declared reviewer metadata, positive regression identities, and a maximum snapshot age. Snapshot digests, source metadata, scope and freshness are checked. Workflow bytes are bound as a dependency but not converted into a reachability proof. JSON Schema describes structure; the Python validator also checks cross-field semantics, reviewed digests and freshness. Neither performs cryptographic authentication of a reviewer or source.
+
+Public cases use explicitly identified **study adapters**. Fourteen configurations use the inherited regular-language study adapter and seven use a finite explicit-issuer relation. These are not all strict-CLI cases, and the finite domain is not asserted to exhaust GitHub's live issuer behavior.
+
+## Delivered evidence
+
+| Layer | Actual unit and result | Authoritative output |
+|---|---|---|
+| Regression suite | 194 tests, 0 failures, 0 errors, 0 skips; baseline was 94 | `tosem/results/unit_tests.json` |
+| Core self-check | 3,945 bounded/symbolic comparisons | `tosem/results/core_self_check.json` |
+| Observation projection | 65,536 four-state/two-observation models | `tosem/results/finite_semantics_audit.json` |
+| Two-sided finite decision | 65,536 decisions over three atoms; 256 full certificate replay samples | `tosem/results/two_sided_exhaustive.json` |
+| Strict literal differential | 56 actual gate configurations; all agree with the direct tuple-set oracle | `tosem/results/strict_literal_differential.csv` |
+| Character support | 3,342,336 code-point predicate comparisons across three saturated supports; 57,498 concrete/quotient matcher pairs; 60 constructor checks | `tosem/results/character_domain_audit.json` |
+| Domain integration and rejection | Four regular cases, three strict packets covering pass/fail/unknown, and two local rejection challenges | `tosem/results/character_domain_audit.json` |
+| Prefix matcher differential | 242,580 exhaustive bounded pairs; recursive oracle, DP matcher and preserved NFA agree | `tosem/results/matcher_differential.json` |
+| Issuer refinement bridge | 2,304 scalar/NFA membership checks, including audience refinements | `tosem/results/issuer_membership_differential.json` |
+| Strict bounded-glob differential | 192 complete packets: 64 pass / 128 fail, all expected | `tosem/results/strict_glob_differential.csv` |
+| Local recomputation costs | 54 timed runs and 18 warm-ups; 6 sizes × 3 tasks × 3 repetitions | `tosem/results/local_scaling.csv` |
+| Relational propositions | Four bounded counterexample searches, reported separately | `tosem/results/relational_audit.json` |
+| Dependency transformations | Six explicit metamorphic relations | `tosem/results/dependency_metamorphic.json` |
+| Seeded semantic faults | Eight hand-selected changes; each has a passing control and an assertion detecting the isolated fault | `tosem/results/seeded_faults.json` |
+| Public change study | 9 commits, 10 role contracts, 21 configurations: 10 pass / 10 fail / 1 unknown | `tosem/results/public_study.json` |
+| Source frontier | 24 verified frozen excerpts, 0 complete source files, 0 executed full-source extractions | `tosem/results/source_frontier.json` |
+| Maintenance records | 12 supplied metadata records; 11 annotated breakage reports, 2 recorded public success-run IDs; 0 live replays | `tosem/results/maintenance_metadata.json` |
+
+These units are not interchangeable and must not be summed into a sample size, success rate, accuracy, or population estimate. Timings are local descriptive measurements, not a competitive or representative performance benchmark. Seeded fault/test pairs were selected together and do not form a population mutation score.
+
+## Layout and provenance
+
+- `fse_workflow/`: existing review wrapper, shared three-valued rule, study adapters and the new full-review receipt support.
+- `artifact/fedfence/`: retained regular-language analysis core, with the character-domain correction applied; this inner `artifact` name is a historical path, not another FedFence system.
+- `tests/`, `scripts/`, `examples/`, `schemas/`: current regression tests, evidence drivers and benign fixtures.
+- `study/`: supplied source manifests, frozen patch/excerpt records and recorded corrections.
+- `tosem/results/`: authoritative current results. `docs/CLAIM_EVIDENCE_MAP.md` maps them to manuscript claims.
+- `tosem/history/`, `fse/results/`, `results/`: retained historical documentation and/or compatibility outputs. Do not use them to overwrite the current study's role and branch distinctions.
+
+The original core's own `artifact/README.md` and Makefile describe an older, narrower component-level workflow. The current whole-project entry point is the Makefile next to **this** README. The compatibility aliases `scripts/reproduce_final.py` and `scripts/audit_final.py` now dispatch to the TOSEM drivers.
+
+See `docs/CHANGELOG_TOSEM.md`, `docs/AUDIT_REPORT.md`, and `docs/FINAL_REPORT_ZH.md`. The final archive hash manifest detects accidental file changes; like review digests, it is not an authenticated signature. No submission to a journal, source publication, cloud action, maintainer contact, or author approval was performed by these scripts.
+
+## Current revision: character-domain correction and independent-directory rebuild
+
+The current suite has 194 tests: 94 in the original uploaded implementation, 18 from the first TOSEM revision, 34 in the second boundary revision, and 48 for character support and certificate coverage. Scalar empty strings and their single-element-list forms agree; explicit malformed clocks no longer become the current clock. The regular-language positive path now intersects issuer subject refinements with the original typed grammar and also honors audience refinements. The earlier changes were in the wrapper. The current correction changes four original core files in place; it does not introduce a replacement system.
+
+Positive wildcard checks use an exact two-row dynamic program with a 2,000,000-cell per-match cap and a shared monotonic review deadline. Exhaustion is `unknown`, not negative membership. Literal equality is a separate fast path. The checks do not promise hard preemption of JSON parsing, allocation, or arbitrary host execution.
+
+To independently regenerate this package in a **new, absent directory** on the same machine:
+
+```sh
+python3 scripts/check_clean_rebuild.py --destination /tmp/fedfence-clean-check
 ```
 
-The full reference workflow is `examples/github-actions-fedfence.yml`.
+The script deletes generated results, logs, paper tables/plot data, the PDF and TeX intermediates in the copy, then calls its current `make reproduce`. Selected deterministic semantic outputs must agree; new timing samples and PDF byte hashes need not. See `docs/CLEAN_REBUILD.md` for the actual recorded execution.
 
-## Reproduce and audit
+`make template-current` is a separate opt-in networked bootstrap for the pinned official acmart v2.20 files. It is not part of offline reproduction, was blocked by external access in this environment, and is not represented as a completed latest-template build.
 
-Requirements: Python 3.11+ standard library; TeX with `acmart`, BibTeX, TikZ;
-`pdfinfo`, `pdftotext`, and `pdffonts` for preflight.
+## Character-domain contract and legacy evidence
 
-```bash
-make reproduce
-make paper
-make audit
-```
+The regular and scalar string model is `python-str-codepoints-v1`: all Python string code points U+0000 through U+10FFFF, without normalization. This is not a live-provider validity claim. The strict UTF-8 packet transport can reject values (e.g. unpaired surrogates) that direct library tests exercise. `DEFAULT_ALPHABET` is only a preference pool for selecting an OTHER representative. All literal singletons and constructor exclusions must be represented; exhausting preferences never exhausts the semantic domain. Raw NFA constructors still have an explicit finite alphabet, so concrete out-of-support words require projection or a support built with their literal characters.
 
-To inventory the supplied current result files without rerunning them:
+Atomic certificates are version 3; effective-case certificates are version 6. Both bind the character-domain identifier. Legacy certificates must be regenerated; do not relabel or reuse their invariants. Full receipts also change because the implementation digest changes. Read `docs/CHARACTER_DOMAIN_FIX.md` for the exact coverage obligation and evidence limits.
 
-```bash
-python3 scripts/manifest_only.py
-```
-
-Current entry-point outputs:
-
-- `results/reproduction.json` (only after an actual reproduction run)
-- `results/manifest.json` (an inventory, not a scientific pass certificate)
-- `../paper/FedFence.pdf` and `../FedFence.pdf` (after a paper build)
-
-The supplied legacy reports and checksum lists describe their original snapshots;
-the entry-point repair does not claim to have rerun those campaigns.
-
-## Supported and unsupported claims
-
-Supported by this package:
-
-- three-valued change review for the stated GitHub/AWS trust fragment;
-- two-sided conformance: exclusion of unintended identities plus finite positive
-  regression examples;
-- internally replayable results and explicit evidence dependencies;
-- source-traceable explanation of the frozen public changes and maintenance cases;
-- a measured source-normalization frontier for the frozen 24-file convenience sample.
-
-Not supported:
-
-- prevalence or representative supported-fragment coverage;
-- independent precision/recall or owner-confirmed findings;
-- proof that a successful public workflow was caused by the cited trust edit;
-- live cloud/provider conformance by FedFence;
-- superiority to Access Analyzer, Checkov, Trivy/tfsec, OPA, ARGUS, or Cosseter;
-- measured developer productivity/usability; or
-- a machine-checked refinement from the calculus to Python.
-
-See `docs/FSE_SUBMISSION_GATES.md` and `FINAL_AUDIT_REPORT.md` for the exact
-boundary.
+Run only the new audit using `make character-domain`. The full `make reproduce` now has ten evidence steps and includes it automatically. The verification checks are local; no cloud account, credentials, public workflow execution, or external security scanner is used.

@@ -1,0 +1,13 @@
+{
+  "schema": "fedfence-historical-support-observation-v1",
+  "source_archive_sha256": "4a5605c26c7255a52805204e9d6a47c55c4ea558e22132fe3cc7fd0150302038",
+  "source_file": "artifact/artifact/fedfence/regular.py",
+  "source_file_sha256": "1c918083884d988c931ea4ee450f913aba6a9fddaba51deee2bf32113223207d",
+  "preferred_pool_characters": 73,
+  "literal_singletons": 75,
+  "old_support_size": 75,
+  "old_has_other": false,
+  "direct_oracle_unlisted_codepoint": 9731,
+  "direct_oracle_glob_question_accepts_one_codepoint": true,
+  "scope": "Historical, locally executed support construction from uploaded previous source. No live cloud or third-party target."
+}

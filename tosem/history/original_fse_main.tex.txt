@@ -1,0 +1,657 @@
+\documentclass[acmsmall,screen,review,anonymous]{acmart}
+\usepackage{amsmath,amsthm,booktabs,array,listings,tikz,float,needspace}
+\usetikzlibrary{arrows.meta,positioning,fit}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\setcopyright{none}
+\settopmatter{printacmref=false}
+\acmConference[FSE 2027]{ACM International Conference on the Foundations of Software Engineering}{July 12--16, 2027}{Shenzhen, China}
+\acmYear{2027}
+\acmDOI{}
+\acmISBN{}
+\acmPrice{}
+\acmMonth{7}
+\title{FedFence: Specification-Guided Review of CI/CD Trust Changes}
+\author{Anonymous Author(s)}
+\renewcommand{\shortauthors}{Anonymous}
+\hypersetup{pdfauthor={},pdftitle={FedFence: Specification-Guided Review of CI/CD Trust Changes}}
+\newcommand{\Obs}{\mathcal{Y}}
+\newcommand{\SafeObs}{\mathcal{H}}
+\newcommand{\Adm}{\operatorname{Adm}}
+\newcommand{\Req}{\mathcal{R}}
+\newtheorem{claim}{Proposition}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,columns=fullflexible,keepspaces=true,showstringspaces=false,frame=single}
+
+\begin{document}
+\begin{abstract}
+CI/CD deployment authority is configured across artifacts that evolve
+independently: workflow definitions, identity-provider claims, cloud trust
+policies, release requirements, and repository protection settings. A change can
+therefore admit an unintended workflow identity or remove an identity that must
+remain usable, even when the edited policy looks locally reasonable. We present
+FedFence, a specification-guided change-review method for GitHub Actions OIDC and
+AWS-style role trust. A release contract, reviewed independently of the policy,
+states an upper-bound intent and may name concrete required deployment identities;
+versioned snapshots supply issuer and governance facts. The checker returns
+\emph{pass}, \emph{fail} with an outside-intent or missing-required-identity
+witness, or \emph{unknown} when evidence or semantics are insufficient. The model
+separates mintable workflow states from cloud-visible claims, characterizes
+observations whose entire mintable preimage satisfies intent, and applies Deny at
+the token-tuple level. The implementation provides strict preflight, before/after
+review, replayable certificates, JSON/SARIF/GitHub outputs, a composite action,
+and dependency-bound receipts. In local evaluation, 79 tests and a 65,536-model
+finite audit pass. A frozen nine-commit change pilot agrees with every
+source-stated before/after direction, including a compatibility repair detectable
+only through the positive obligation. A separate 12-repository maintenance corpus
+contains 11 public reports of denied or broken OIDC exchanges involving immutable
+subject identifiers; public Actions metadata shows post-fix success for two. A
+query-defined 24-repository source sample finds only seven policies literal or
+constant-foldable from the pinned file, while 17 require caller, module, or host-
+language evaluation. These studies establish change-level applicability and an
+extraction frontier, not prevalence, independent field accuracy, or owner
+confirmation.
+\end{abstract}
+
+\ccsdesc[500]{Software and its engineering~Software verification and validation}
+\ccsdesc[300]{Software and its engineering~Configuration management}
+\ccsdesc[300]{Security and privacy~Access control}
+\keywords{configuration verification, CI/CD, infrastructure as code, change impact analysis, authorization, specification}
+\maketitle
+
+\section{Introduction}
+Continuous integration and deployment pipelines routinely act on cloud
+resources.  Instead of storing a long-lived credential, a job can obtain a
+short-lived token from its CI provider and exchange that token for a cloud role.
+The token describes the repository and execution context; the role's trust policy
+decides whether to accept it~\cite{github-oidc,github-aws,aws-conditions}.  Short
+credential lifetime removes one secret-management problem, but it does not ensure
+that the intended workflow is the workflow receiving authority.
+
+This is a configuration-evolution problem.  Workflow code, cloud trust policy,
+repository protection, and release requirements are maintained in different
+places and often by different people.  A small edit from an exact branch subject
+to \texttt{repo:ORG/REPO:*} can admit branches, tags, pull requests, and
+environments.  Conversely, an exact environment subject can still omit the
+branch on which the release requirement depends.  Reviewing one file in isolation
+therefore misses the semantic effect of the change.
+
+FedFence treats deployment intent as a specification against which executable
+trust is reviewed.  The specification names intended repositories, refs,
+environments, and audiences.  The cloud trust policy is the implementation under
+review.  Issuer semantics determine which claims can occur, while repository
+settings provide explicit assumptions where claims omit a relevant fact.  This
+separation does not prove that the release specification is correct; it prevents
+the policy under test from serving as its own oracle.
+
+Policy verification and change-impact analysis are established ideas.  Margrave
+checks access-control properties and policy changes~\cite{margrave}. IaC analyses
+detect configuration smells~\cite{seven-sins}, while ARGUS reasons about
+workflow-code reachability~\cite{argus}. We instead ask how to review a change
+whose workflow-state restrictions are projected into cloud-visible claims.
+
+We study three research questions:
+
+\begin{description}
+\item[RQ1.] Can a review gate distinguish overgrant, required-identity loss, and
+unsupported or stale evidence while binding its verdict to changing snapshots?
+\item[RQ2.] Does the analysis explain source-visible OIDC trust changes at the
+level of concrete before/after behavior rather than only generated policies?
+\item[RQ3.] What implementation and source-normalization boundaries appear in
+current public IaC, and how can the result be delivered in an ordinary pull-request
+workflow?
+\end{description}
+
+We contribute: (1) a developer-facing packet and before/after workflow that
+records specification, policy, issuer, workflow, and governance dependencies;
+(2) a two-sided conformance condition combining universal exclusion of unintended
+identities with finite required-identity regression examples; (3) state semantics
+based on universally safe claim observations and tuple-level Deny; (4) a strict
+implementation boundary with explicit unknown results, replayable receipts,
+SARIF/GitHub integration, and a repaired backend-dispatch defect; and (5) three
+complementary public-source studies: nine normalized before/after changes, twelve
+immutable-subject maintenance commits, and a 24-repository source-normalization
+frontier.
+
+\section{Change Review from Specification to Finding}
+\label{sec:workflow}
+
+\subsection{The review packet}
+Consider a deployment role for \texttt{acme/api}.  The owner wants it available to
+\texttt{main} with audience \texttt{sts.amazonaws.com}.  The initial policy
+requires \nolinkurl{repo:acme/api:ref:refs/heads/main}; a proposed edit changes it
+to \texttt{repo:acme/api:*}.  Under the default GitHub subject model, the new
+predicate also includes pull-request, tag, and environment executions.  One such
+subject is a counterexample to the unchanged release specification.
+
+The owner-facing contract is not a second IAM policy.  It uses literal deployment
+constructors:
+\begin{lstlisting}
+repository: acme/api
+intent:
+  branches: [main]
+  tags: []
+  pull_request: false
+  environments: []
+  audiences: [sts.amazonaws.com]
+required token example:
+  sub: repo:acme/api:ref:refs/heads/main
+  aud: sts.amazonaws.com
+\end{lstlisting}
+The contract records a declared author, a different declared reviewer, a review
+reference, and a digest of the approved content.  These fields reveal an
+unreviewed change within the supplied record; they do not authenticate the people
+named in it.  Identity and approval remain responsibilities of the repository's
+trusted review process.  Required token examples are optional finite regression
+obligations.  They do not define the complete intended language; they preserve
+known deployment paths while the upper-bound intent excludes unintended ones.
+
+The complete packet contains the contract and four versioned snapshots: trust
+policy, issuer profile, workflow revision, and normalized governance evidence.
+Each snapshot records content, digest, source reference, observation time, and
+repository/role scope.  The gate rejects missing, mismatched, future-dated,
+out-of-scope, and expired inputs before semantic analysis.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  node distance=5mm and 7mm,
+  box/.style={draw,rounded corners,align=center,minimum height=7mm,text width=28mm,font=\small},
+  wide/.style={draw,rounded corners,align=center,minimum height=8mm,text width=38mm,font=\small},
+  arr/.style={-{Latex[length=2mm]},thick}
+]
+\node[box] (contract) {reviewed release\\contract};
+\node[box,right=of contract] (snap) {policy, issuer, workflow,\\governance snapshots};
+\node[wide,below=of contract,xshift=18mm] (pre) {strict preflight and\\change-dependency checks};
+\node[wide,below=of pre] (check) {two-sided trust\\conformance};
+\node[box,below left=of check,xshift=8mm] (pass) {pass +\\certificate};
+\node[box,below=of check] (fail) {fail + concrete\\token witness};
+\node[box,below right=of check,xshift=-8mm] (unknown) {unknown +\\reason code};
+\draw[arr] (contract) -- (pre);
+\draw[arr] (snap) -- (pre);
+\draw[arr] (pre) -- (check);
+\draw[arr] (check) -- (pass);
+\draw[arr] (check) -- (fail);
+\draw[arr] (check) -- (unknown);
+\end{tikzpicture}
+\caption{FedFence reviews one configuration change against an independently
+reviewed release contract.  Unknown inputs do not become passing results.}
+\Description{A reviewed release contract and four configuration snapshots flow through strict preflight and an admission checker, which returns pass with a certificate, fail with a token witness, or unknown with a reason code.}
+\label{fig:workflow}
+\end{figure}
+
+\subsection{Before/after behavior}
+The CLI compares complete before and after packets.  In the running example the
+contract is unchanged, the exact policy passes, and the wildcard edit fails with
+a concrete subject:
+\begin{lstlisting}
+Change review: pass -> fail
+Unchanged contract: True
+Confirmed contract regression: True
+Regression kind: admission-expansion
+Counterexample: sub=repo:acme/api:pull_request;
+                aud=sts.amazonaws.com
+\end{lstlisting}
+The developer need not inspect an automaton.  Machine-readable output also
+contains the normalized verdict, accepting statement, replay certificate, input
+hashes, changed fields, and scope flags.
+
+A different regression is possible even when the edited policy remains safely
+inside intent.  Suppose the reviewed intent permits both \texttt{main} and
+\texttt{release}, but the contract names the \texttt{main} token as a required
+production path.  If a change leaves only \texttt{release} admitted, the upper
+safety check still holds, yet FedFence returns fail with
+\texttt{required-token-not-admitted}.  This separates privilege expansion from
+availability loss without claiming that finitely many examples specify all
+required behavior.
+
+A third case illustrates why \emph{unknown} is necessary.  Suppose a policy
+accepts \nolinkurl{repo:acme/api:environment:prod} while the specification says
+production deployment must originate from \texttt{main}.  The subject carries the
+environment but not the requesting branch.  A reviewed environment export may
+supply the missing restriction; without it the gate cannot prove the branch claim
+and returns unknown.  It neither reports a confirmed vulnerability nor certifies
+the role.
+
+\paragraph{Invalidation and integration.}
+The package includes a composite GitHub Action, a reference pull-request workflow,
+and a scheduled-check entry point. The checker runs from the trusted base
+revision; proposed configuration is treated as data. Policy, issuer, workflow,
+governance, contract, or implementation changes are reported as dependencies and
+trigger fresh analysis and replay. A prior receipt is never accepted as a cached
+proof. Text, JSON, SARIF 2.1.0, and GitHub workflow-command renderers carry the
+same verdict; stable process exits are 0 for pass, 1 for fail, and 2 for unknown.
+Timestamps enforce an age bound on supplied exports, but cannot discover an
+external change that was never collected. The reference integration has not been
+deployed in a live organization.
+
+\section{State and Policy Semantics}
+\label{sec:semantics}
+
+\subsection{Mintable states and must-safe observations}
+Let $\Omega$ be workflow states, $M\subseteq\Omega$ the mintable states in the
+reviewed issuer model, and $\Phi\subseteq\Omega$ the independently specified
+release requirement.  Put $R=M\cap\Phi$.  Governance restrictions used to refine
+$M$ are explicit premises.  Let $\pi:M\rightarrow\Obs$ map a state to the claims
+observed by the cloud.
+
+For an effective claim policy $E$, the admitted states are
+\begin{equation}
+  \Adm(E)=\{\omega\in M\mid \pi(\omega)\in E\}.
+\end{equation}
+The desired property is $\Adm(E)\subseteq R$.  The existential image $\pi(R)$ is
+insufficient when an intended and an unintended mintable state share an
+observation.  Define
+\begin{equation}
+  \SafeObs=\pi(M)\setminus\pi(M\setminus R).
+\end{equation}
+An observation is in $\SafeObs$ only if every mintable preimage satisfies the
+release requirement.
+
+\begin{claim}[State safety through observed claims]
+\label{prop:mustsafe}
+$\Adm(E)\subseteq R$ if and only if $\pi(M)\cap E\subseteq\SafeObs$.
+\end{claim}
+\begin{proof}
+If $y\in\pi(M)\cap E$ is not in $\SafeObs$, it has a preimage in
+$M\setminus R$, which is admitted.  Conversely, any admitted state outside $R$
+produces an observation in $\pi(M\setminus R)$, violating the containment.
+\end{proof}
+
+The proposition requires the issuer model to cover the mintable states relevant
+to the claim.  Enumerating only states already supplied to the checker cannot
+establish that completeness.
+
+Change review also needs to preserve explicitly required behavior.  Let
+$\Req\subseteq\pi(M)$ be a finite set of reviewed token tuples representing known
+deployment paths.  FedFence's two-sided condition is
+\begin{equation}
+  \pi(M)\cap E\subseteq\SafeObs
+  \qquad\text{and}\qquad
+  \Req\subseteq\pi(M)\cap E\cap\SafeObs.
+  \label{eq:twosided}
+\end{equation}
+The first conjunct universally excludes unintended mintable identities.  The
+second catches loss of a named path.  Because $\Req$ is finite, satisfying it is
+not a completeness claim about availability; it is an executable regression
+contract.  A required tuple outside the issuer model or upper-bound intent makes
+the packet inconsistent and yields unknown rather than a policy failure.
+
+\subsection{Definability and observation bases}
+A release predicate is saturated on $M$ when no intended and unintended mintable
+states share an observation, equivalently
+\begin{equation}
+  \pi(R)\cap\pi(M\setminus R)=\varnothing.
+\end{equation}
+Then $\SafeObs=\pi(R)$.  If saturation fails, no predicate over the observed
+claims can accept all intended states while excluding all unintended ones.  A
+stricter safe policy can still reject the mixed observation class.
+
+For candidate claims $K$, a basis $J\subseteq K$ defines $R$ when every
+$\pi_J$ equivalence class is homogeneous.  An inclusion-minimal basis has no
+strictly smaller defining subset; a minimum-cardinality basis has the smallest
+size.  These need not coincide.  The new finite implementation returns both and
+supports the empty basis for constant predicates.  It enumerates at most 16
+candidate claims and returns a positive--negative collision when no basis exists.
+Adding a claim refines $\pi$; adding a governance restriction changes $M$.
+Neither discovers business intent automatically.
+
+\subsection{Effective policy and Deny}
+For supported Allow relations $A_1,\ldots,A_m$ and Deny relations
+$D_1,\ldots,D_n$, define
+\begin{equation}
+ A=\bigcup_i A_i,\qquad D=\bigcup_j D_j,\qquad E=A\setminus D.
+\end{equation}
+All state checks use $E$.  Because union distributes over subtraction by the same
+$D$, checking each $A_i\setminus D$ is equivalent to checking $E$; checking raw
+$A_i$ is only sufficient and cannot explain legitimate Deny narrowing.
+
+Deny applies to token tuples, not independently to projected claims.  For
+$A=\{m,d\}\times\{s,o\}$ and $D=\{(d,s),(m,o)\}$, tuples $(m,s)$ and $(d,o)$
+survive.  Subtracting the coordinate projections would incorrectly remove every
+value.  A regression test covers this case.
+
+Unsupported syntax is checked before backend dispatch.  An unknown principal,
+action, condition operator, or claim coordinate cannot be discharged by an empty
+product built after dropping that input.  The strict profile therefore returns
+unknown for unsupported syntax, even where the inherited analyzer had a
+one-directional Allow over-approximation mode.
+
+\paragraph{Narrowing and repair.}
+For intent $I$, issuer image $G$, policy $P$, and token universe $U$, the greatest
+safe sublanguage is $P\cap(I\cup(U\setminus G))$.  This is a language result, not
+a guarantee that IAM offers an equally permissive syntactic edit, or that a
+suggested edit preserves availability.  The current prototype detects and
+explains regressions; it does not claim optimal deployable repair synthesis.
+
+\section{Implementation and Trust Boundary}
+The change-review layer is separate from the frozen predecessor implementation.
+It adds a strict JSON reader, packet schema, contract compiler, snapshot validator,
+policy preflight, change-review CLI, composite GitHub Action, SARIF/GitHub
+renderers, finite projection module, tuple-level conformance checker, public-source
+study harnesses, and study accounting.  The inherited regular-language analyzer and certificate
+replay are invoked only after strict profile checks.  A source digest binds the
+implementation to each new result.
+
+The current regular profile accepts one exact GitHub OIDC federated principal,
+the web-identity role-assumption action, scalar provider-qualified \texttt{sub}
+and \texttt{aud}, and equality/glob string operators.  Selected claims,
+set/absence operators, dynamic expressions, and unsupported principal/action
+forms return unknown unless a separate backend is explicitly selected.
+
+\paragraph{A dispatch defect found during the revision.}
+The inherited parser could accept a selected claim in a Deny statement while the
+regular backend constructed its Deny relation using only \texttt{sub} and
+\texttt{aud}.  In a minimal case, a Deny should remove a \texttt{dev} subject only
+when a particular workflow reference matches.  Dropping that coordinate turns a
+conditional Deny into an unconditional one and can produce a false safe result.
+The new preflight refuses the policy because the selected coordinate is not
+interpreted by the chosen backend.  The regression records the inherited safe
+result and the new unknown result.  This is an implementation-boundary defect,
+not evidence of a deployed cloud exploit.
+
+\paragraph{Three outcomes and receipts.}
+Pass requires both containment and every required token example to succeed,
+with certificate replay agreement.  Fail requires either a concrete
+outside-intent token or an issuer-mintable, intended required tuple that the
+effective policy no longer admits.  Unknown covers malformed or unsupported
+input, an inconsistent required example, stale or missing snapshots, unjustified
+premises, timeouts, and replay disagreement.  A receipt states that it does not authenticate sources
+or authorize deployment.  Unknown is not counted as safe or as a confirmed
+vulnerability.
+
+\paragraph{Proof-to-code boundary.}
+There is no machine-checked refinement from the mathematical semantics to the
+Python implementation.  Analyzer and replay share a parser, issuer constructors,
+and automata primitives.  Strict preflight, separate finite checks, witness
+replay, source snapshots, and explicit failures make the boundary inspectable but
+do not eliminate shared-component risk or establish provider conformance.
+
+\section{Evaluation}
+\label{sec:evaluation}
+We separate local consistency evidence from public-source change evidence.  The
+latter is a purposive pilot whose commit messages and diffs state an intended
+hardening.  It is not a representative sample, an owner-confirmed vulnerability
+study, or an independent accuracy benchmark.
+
+\subsection{RQ1: Does the gate maintain its stated boundary?}
+The current run passes 79 tests with no failures, errors, or skips.  Tests cover
+contract review, snapshot freshness and scope, malformed input, unsupported
+operators, tuple-level Deny, backend dispatch, observation bases, study
+denominators, source-snapshot verification, and CLI exit codes.  These are
+regressions, not deployments.
+
+A finite semantic audit enumerates four workflow states, two observations, every
+mintable/intended subset, every binary projection, and every Allow/Deny subset.
+All 65,536 combinations satisfy Proposition~\ref{prop:mustsafe}.  The audit also
+stores a counterexample to existential-image reasoning when intended and
+unintended mintable states share one observation.  This is a bounded consistency
+check, not a machine proof of provider behavior.
+
+The frozen analyzer agrees with its 37 historical labels, and 3,945 inherited
+self-check comparisons pass.  These results establish regression compatibility
+only.  A strict-profile inventory places 22 cases in the regular profile, 11
+outside it, and four in the separate finite-event backend.  Those proportions
+describe the inherited curated suite, not production coverage.
+
+Table~\ref{tab:walkthroughs} summarizes eight executable walkthroughs.  In
+particular, an intent edit without a fresh review digest is blocked rather than
+used to relabel an unsafe policy.
+
+\begin{table}[H]
+\centering
+\caption{Local executable walkthroughs.  No row is an observed deployment.}
+\label{tab:walkthroughs}
+\begin{tabular}{p{.34\linewidth}p{.14\linewidth}p{.42\linewidth}}
+\toprule
+Input & Outcome & Reason \\
+\midrule
+Exact main subject & Pass & Containment and replay agree \\
+Repository wildcard & Fail & Pull-request subject is outside intent \\
+Old governance export & Unknown & Snapshot exceeds reviewed age \\
+\texttt{IfExists} condition & Unknown & No semantics in the selected profile \\
+Environment without rule & Unknown & Branch restriction lacks evidence \\
+Reviewed environment rule & Pass & Supplied premise discharges restriction \\
+Required main path present & Pass & Safety and positive obligation hold \\
+Required main path removed & Fail & Required token is no longer admitted \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{RQ2: What happens on public trust changes?}
+We froze three GitHub commit-search queries and screened 17 candidate changes.
+We included public commits whose message stated a GitHub/AWS OIDC review goal,
+whose diff exposed the trust-policy delta, and whose before/after policy could be
+normalized without executing repository code.  We excluded duplicate forks,
+non-AWS trusted publishing, multi-topic commits without an isolated review unit,
+new policies lacking a comparable before state, and cases whose positive result
+would require an unavailable governance export.  The resulting nine-repository
+purposive pilot is fixed at full commit SHAs; a screening manifest records every
+inclusion and exclusion.  Relevant hunks are stored locally and verified by
+digest and literal assertions.
+
+Table~\ref{tab:publicchanges} lists the included changes.  Eight move from fail to
+pass.  Seven are security hardenings, one is a compatibility repair that adds the
+immutable subject observed by the developer, and one cross-plane environment
+change moves from fail to unknown because the source packet lacks the governance
+export needed for a branch-sensitive positive result.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Purposive public OIDC change pilot. ``Aligned'' means agreement with
+the behavior stated by the public commit, not owner-confirmed correctness.}
+\label{tab:publicchanges}
+\begin{tabular}{p{.12\linewidth}p{.55\linewidth}p{.20\linewidth}}
+\toprule
+Source & Trust change & FedFence \\
+\midrule
+\cite{change-artur} & repository wildcard $\rightarrow$ exact main & fail $\rightarrow$ pass \\
+\cite{change-pmcg} & branch wildcard $\rightarrow$ exact master & fail $\rightarrow$ pass \\
+\cite{change-arriagada} & exact feature branch $\rightarrow$ exact main & fail $\rightarrow$ pass \\
+\cite{change-shadow} & repository wildcard $\rightarrow$ named release branches & fail $\rightarrow$ pass \\
+\cite{change-amr} & global repository wildcard $\rightarrow$ one organization & fail $\rightarrow$ pass \\
+\cite{change-manyiu} & owner-wide trust $\rightarrow$ one repository and immutable ID & fail $\rightarrow$ pass \\
+\cite{change-michele} & repository wildcard $\rightarrow$ exact environment + audience & fail $\rightarrow$ unknown \\
+\cite{change-sports} & broad immutable wildcard $\rightarrow$ exact immutable main subjects & fail $\rightarrow$ pass \\
+\cite{change-microticket} & legacy-only prod subject $\rightarrow$ legacy + observed immutable subject & fail $\rightarrow$ pass \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Across the 18 before/after phases, FedFence aligns with the source-stated
+direction in every case.  We do not report this as accuracy: the sample was
+selected from explicit changes, intent was reconstructed from commit messages,
+diffs, and tests, and no maintainer was contacted.  The result instead shows that
+the packet represents wrong exact refs, branch/repository/organization wildcards,
+release families, immutable repository scope, environment trust, and a real
+compatibility regression.
+
+The compatibility case is not detectable by one-sided overgrant checking.  Its
+old legacy-only policy is contained in the reviewed upper-bound intent, but it
+omits the immutable subject that the developer reports observing at runtime.  The
+required-token obligation therefore yields fail before the edit and pass after
+both subject forms are admitted.  This is finite source-stated evidence, not an
+independent confirmation of the runtime report.
+
+The explanatory rules behave differently on the same changes.  Among the 17
+phases with a source-stated pass/fail outcome, a presence rule agrees on 9, while
+wildcard-ban and exact-ref-only each agree on 12.  Presence misses wrong exact
+subjects and the compatibility regression; blanket wildcard rules reject safe
+release-family, organization, and repository patterns.  These are not
+production-tool benchmarks.  They show why the target property is not equivalent
+to claim presence, wildcard absence, or exact-branch syntax.
+
+On this machine, analyzer, required-token checks, and certificate replay for all
+nine normalized changes have a median of 0.98 s and p95 of 1.03 s over seven
+repetitions. This excludes source collection and IaC evaluation and is not a
+production tail-latency claim; it only checks feasibility of the local review
+step.
+
+\subsection{Runtime compatibility evidence}
+The nine-change pilot asks whether a complete before/after unit can be normalized.
+We separately collected twelve public maintenance commits whose messages and
+diffs explicitly concern GitHub's immutable owner/repository-ID subject format.
+Eleven report a denied or broken credential exchange; one is a proactive
+hardening. Six identify CloudTrail as the source of the observed subject, four
+report decoding a real workflow token, and one new-repository case states that
+both plan and apply roles accepted a legacy form the repository never emitted
+\cite{change-microticket,change-caringal,change-oasi,change-orderpools,change-dst,change-linyanqing,change-danish,change-jarvis,change-linkforge,change-vicdf}.
+
+Repairs are not uniform. They include exact immutable subjects, dual exact legacy
+and immutable values, wildcarding only numeric-ID segments, and combining such a
+subject constraint with exact repository/ref/environment claims. This diversity is
+the maintenance problem captured by required identities and versioned issuer
+profiles: ``exact string'' is not a stable requirement when the provider changes
+its observation format. Public Actions metadata associated with two pinned fixes
+records successful post-fix runs; two additional commits state that their deploy
+workflow completed or turned green. We treat all such statements as source
+evidence, not independent adjudication of root cause. Table~\ref{tab:runtime}
+summarizes the frozen corpus.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Immutable-subject maintenance corpus. Evidence categories can overlap.}
+\label{tab:runtime}
+\begin{tabular}{p{.49\linewidth}r p{.31\linewidth}}
+\toprule
+Observation & Count & Boundary \\
+\midrule
+Public repositories / commits & 12 & purposive, full-SHA records \\
+Denied or broken exchange reported & 11 & source-stated, not independently reproduced \\
+CloudTrail named as evidence & 6 & message/diff assertion \\
+Real token decoding named & 4 & temporary diagnostic described \\
+Public post-fix Actions success metadata & 2 & run IDs archived in result manifest \\
+Distinct repair strategies & 9 & syntactic categories, not quality ranking \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{RQ3: Source frontier and pull-request delivery}
+A pinned GitHub code-search convenience sample contains 24 public repositories
+with a GitHub OIDC subject condition. The sample is query-defined and does not
+estimate prevalence. Five files contain directly literal trust values and two more
+are constant-foldable from pinned HCL defaults. The remaining 17 require caller
+values, module expansion, dynamic HCL, or host-language execution; one also uses
+\texttt{ForAnyValue:StringLike}, outside the regular profile. Six of the 24 trust
+documents have no explicit audience condition in the pinned source, while two
+delegate that detail to another module. Representative frontiers include nested
+legacy/immutable context generation, Pulumi/Go policy construction, and a
+dynamic set operator~\cite{frontier-babbel,frontier-init4tech,frontier-adhocteam,frontier-tyk}.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Primary source-normalization frontier in the 24-repository sample.}
+\label{tab:frontier}
+\begin{tabular}{p{.55\linewidth}r p{.25\linewidth}}
+\toprule
+Primary class & Files & Current handling \\
+\midrule
+Literal policy in pinned source & 5 & candidate for direct normalization \\
+Constant-foldable HCL & 2 & needs expression evaluation \\
+Caller/module instantiation & 15 & needs resolved plan/module inputs \\
+Host-language generation & 1 & needs synthesis or language front end \\
+Unsupported operator + instantiation & 1 & needs new semantics and inputs \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The composite action turns the strict JSON path into one pull-request step. It
+emits annotations and a result receipt, but it deliberately does not fetch cloud
+state, authenticate reviewers, or execute candidate IaC. Those remain collection
+and repository-governance responsibilities. Thus packaging cost is demonstrated;
+human authoring and review effort is not measured.
+
+\subsection{Evidence that remains outside the claim}
+We have completed no common-corpus runs of Access Analyzer, Checkov, tfsec/Trivy,
+or OPA.  Their executables or required service environment were unavailable in
+this execution environment, and a package-registry probe failed.  The artifact
+records zero runs rather than converting unavailability into a missed finding.
+The seven comparison rules are therefore ablations.  A fair product study must
+preserve each tool's native query, record custom policies separately from the
+engine, and retain unsupported inputs in the denominator~\cite{aws-validation,checkov,opa}.
+
+No deployment owner independently validated the reconstructed intents, no live
+cloud account was queried, and no developer-effort study was conducted.  These
+remain requirements for prevalence, field accuracy, and usability claims.
+
+\section{Threats to Validity}
+\paragraph{Construct validity.}
+The public pilot measures alignment with a developer-stated change, not the
+correctness of business intent or downstream exploitability.  An admission
+witness must still be combined with workflow reachability and cloud permission
+analysis to establish an attack.  The local contract can also be wrong or
+maliciously approved.
+
+\paragraph{Internal validity.}
+The implementation and most tests were developed together.  Separate replay and
+finite audits reduce correlated mistakes but share parts of the TCB.  The source
+snapshot check verifies that normalized literals occur in a captured public diff;
+it is not a general verified Terraform/CDK normalizer.
+
+\paragraph{External validity.}
+Neither nine purposively selected changes, twelve maintenance commits, nor a 24-repository convenience sample can estimate prevalence or supported-fragment coverage.  The screening favors visible OIDC trust deltas and explicit commit messages;
+the compatibility repair was selected because its commit states a concrete
+runtime-observed identity.  Dynamic modules, generated policies,
+private repositories, and organizations with richer IAM controls may look very
+different.
+
+\paragraph{Operational validity.}
+Hashes and timestamps expose mismatch within supplied records but are not
+signatures, identities, or proof that a live export is complete. Public Actions
+metadata proves only that the named run concluded successfully, not that FedFence
+caused the repair. The reference action has not been installed in an organization,
+and measured runtime excludes collection, plan generation, and human review.
+
+\section{Related Work and Positioning}
+Margrave established specification checking, semantic policy analysis, and
+change-impact reasoning for access-control policies~\cite{margrave}.  FedFence
+does not claim those general ideas as new.  Its contribution is the review object
+at an observation boundary where workflow-state restrictions may disappear before
+cloud policy evaluation, together with explicit dependencies on issuer and
+governance records.
+
+IaC security-smell work demonstrates both the prevalence of configuration defects
+and the need for repository-based evaluation and developer feedback
+~\cite{seven-sins}.  ARGUS analyzes information flow through GitHub workflow code
+~\cite{argus}; it can provide upstream reachability evidence but does not decide
+the same identity-admission predicate.  Zelkova and AWS policy validation reason
+about cloud-policy semantics~\cite{zelkova,aws-validation}; OPA provides a policy
+engine whose result depends on user-supplied rules~\cite{opa}; Checkov scans IaC
+resources using its policy library~\cite{checkov}.  FedFence is not positioned as
+a replacement.  Its contract joins an issuer model, executable trust, an
+independent release specification, and governance evidence.  A comparative study
+must instantiate equivalent queries rather than infer tool inferiority from
+interface differences.
+
+\section{Conclusion}
+A CI/CD trust change can admit unintended identities or remove a deployment
+identity that must remain usable even when each edited artifact looks reasonable
+in isolation.  FedFence turns that maintenance problem into a
+specification-guided review: it binds a compact release contract to versioned
+configuration snapshots and returns pass, a concrete token witness, or unknown.
+The revised semantics handles mintable-state projection and tuple-level Deny;
+the strict implementation prevents unsupported coordinates from silently
+reaching the wrong backend.  Local tests and bounded audits support internal consistency. Nine normalized
+public changes show how the review object explains hardening, cross-plane evidence
+withholding, and a compatibility repair; twelve maintenance commits show that
+provider-format drift recurs in public development histories; and 24 pinned source
+files expose where a strict extractor needs evaluation rather than more pattern
+matching. The evidence does not establish prevalence, independent field accuracy,
+or human effort. Those claims require sampled deployments, independent intent
+validation, comparison-tool runs, and repository experience.
+
+\section*{Data Availability}
+The companion package contains the frozen predecessor baseline, the review layer,
+packet schema and composite action, tests, eight synthetic walkthroughs, the
+nine-commit before/after corpus, the twelve-commit runtime-maintenance corpus, the
+24-repository source-frontier sample, pinned URLs and hashes, local raw results,
+and prospective sampling and annotation protocols. No private cloud accounts,
+credentials, maintainer contact, or human-participant data were used. Public
+sources were collected read-only. The package records zero vendor common-corpus
+runs and does not present generated checks as field prevalence.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+\end{document}

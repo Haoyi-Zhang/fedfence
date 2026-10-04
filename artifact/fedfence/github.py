@@ -13,10 +13,22 @@ import json
 from dataclasses import dataclass
 from typing import Iterable, Optional, Sequence, Set, Tuple
 
-from .regular import NFA, EPS, union, literal, intersect, union_globs, DEFAULT_ALPHABET
+from .regular import NFA, EPS, union, literal, intersect, union_globs, DEFAULT_ALPHABET, alphabet_from_patterns
 
-ORG_REPO_COMPONENT_RE = re.compile(r"^[^/:]+$")
-COLON_FREE_COMPONENT_RE = re.compile(r"^[^:]+$")
+# All singleton literals and finite exclusions used by the constructor NFAs.
+# Including these boundaries makes every remaining code point indistinguishable
+# to *both* the constructor predicates and the equality/glob predicates.
+GITHUB_SUPPORT_LITERALS = (
+    "repo:", "/", ":ref:refs/heads/", ":ref:refs/tags/",
+    ":pull_request", ":environment:", "*?",
+)
+ORG_REPO_COMPONENT_RE = re.compile(r"[^/:*?]+")
+COLON_FREE_COMPONENT_RE = re.compile(r"[^:*?]+")
+
+
+def github_alphabet_from_patterns(*patterns: object, base: Sequence[str] = DEFAULT_ALPHABET) -> Tuple[str, ...]:
+    """Complete support for the modeled typed constructor plus string patterns."""
+    return alphabet_from_patterns(("equals", GITHUB_SUPPORT_LITERALS), *patterns, base=base)
 
 @dataclass(frozen=True)
 class SubjectAtom:
@@ -36,27 +48,29 @@ def governance_key(owner: str, repository: str, environment: str) -> str:
 
 
 def parse_github_subject(subject: str) -> Optional[SubjectAtom]:
-    """Parse a default GitHub OIDC subject, returning None if malformed."""
+    """Parse the modeled default constructor; this is not live-provider validation."""
+    if not isinstance(subject, str):
+        return None
     if not subject.startswith("repo:"):
         return None
     body = subject[len("repo:"):]
     if "/" not in body:
         return None
     owner, rest = body.split("/", 1)
-    if not ORG_REPO_COMPONENT_RE.match(owner):
+    if not ORG_REPO_COMPONENT_RE.fullmatch(owner):
         return None
     for marker, kind in ((":ref:refs/heads/", "branch"), (":ref:refs/tags/", "tag"), (":environment:", "environment")):
         if marker in rest:
             repo, value = rest.split(marker, 1)
             if not repo or not value:
                 return None
-            if not ORG_REPO_COMPONENT_RE.match(repo) or not COLON_FREE_COMPONENT_RE.match(value):
+            if not ORG_REPO_COMPONENT_RE.fullmatch(repo) or not COLON_FREE_COMPONENT_RE.fullmatch(value):
                 return None
             return SubjectAtom(owner, repo, kind, value)
     suffix = ":pull_request"
     if rest.endswith(suffix):
         repo = rest[:-len(suffix)]
-        if repo and ORG_REPO_COMPONENT_RE.match(repo):
+        if repo and ORG_REPO_COMPONENT_RE.fullmatch(repo):
             return SubjectAtom(owner, repo, "pull_request", "")
     return None
 
@@ -119,8 +133,9 @@ def _concat(parts: Sequence[NFA], alphabet: Sequence[str]) -> NFA:
 def github_default_subject_nfa(alphabet: Sequence[str] = DEFAULT_ALPHABET) -> NFA:
     """NFA for the default GitHub Actions subject constructors.
 
-    owner and repository components exclude slash and colon; branch/tag and
-    environment components exclude raw colon but allow slash.  This is the
+    Owner/repository components exclude slash, colon, star and question mark;
+    branch/tag/environment components exclude colon, star and question mark,
+    but allow slash. All other Python code points remain in the abstract model.  This is the
     typed issuer language used for default GitHub OIDC subjects.
     """
     alph = tuple(alphabet)

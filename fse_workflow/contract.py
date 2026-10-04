@@ -158,7 +158,7 @@ def check_snapshots(packet, contract, now):
         if not isinstance(rule, dict) or rule.get("bypass_disabled") is not True or rule.get("reviewed") is not True:
             raise InvalidPacket("missing-governance-premise", f"{env['name']}: reviewed no-bypass rule required")
         refs = exact_names(rule.get("allowed_refs"), "governance allowed_refs")
-        if not refs or not set(refs).issubset(env["allowed_refs"]) or not rule.get("source_ref"):
+        if not refs or not set(refs).issubset(env["allowed_refs"]) or not isinstance(rule.get("source_ref"), str) or not rule["source_ref"]:
             raise InvalidPacket("unjustified-governance-premise", f"{env['name']}: exported refs not contained in intent")
         protected.append(f"{repo}:{env['name']}")
     return snaps, {"protected_environments": protected}

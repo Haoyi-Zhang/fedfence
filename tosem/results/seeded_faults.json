@@ -1,0 +1,80 @@
+{
+  "detected": 8,
+  "hand_selected_faults": 8,
+  "passed": true,
+  "rows": [
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/decision.py",
+      "name": "ignore-invalid-priority",
+      "source_change_sha256": "caf94d89a12b79d58de9d38589d7b02904c5a663ea3e2c064b764f8b62a5dd6d",
+      "syntax_or_import_error": false,
+      "test": "test_tosem_consistency.TOSEMConsistencyTests.test_gate_invalid_dominates_overgrant"
+    },
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/decision.py",
+      "name": "omit-positive-loss",
+      "source_change_sha256": "f46b6c788d57c87df18dc45eaf6cb7abdaecc56d38d1c689a769c96458859444",
+      "syntax_or_import_error": false,
+      "test": "test_gate_decision_precedence.GateDecisionPrecedenceTests.test_only_missing"
+    },
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/contract.py",
+      "name": "skip-expiration",
+      "source_change_sha256": "317a36b50c6545116942cc1b9d5ca8834eaf005f0518a3d086d0429e2387de2f",
+      "syntax_or_import_error": false,
+      "test": "test_tosem_consistency.TOSEMConsistencyTests.test_snapshot_age_exact_boundary"
+    },
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/fragment.py",
+      "name": "merge-provider-principals",
+      "source_change_sha256": "435827de3f3e22217c1e0265f50b674a3e33b34762ab932f03265488828620b1",
+      "syntax_or_import_error": false,
+      "test": "test_tosem_consistency.TOSEMConsistencyTests.test_mixed_provider_principals_refused"
+    },
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/normalized_study.py",
+      "name": "coerce-token-coordinates",
+      "source_change_sha256": "4a53a81df2a87c143263ccbb39b887916546c524b36ece7477777b33985a889b",
+      "syntax_or_import_error": false,
+      "test": "test_tosem_consistency.TOSEMConsistencyTests.test_normalized_no_coordinate_coercion"
+    },
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/normalized_study.py",
+      "name": "replay-status-only",
+      "source_change_sha256": "e995326e07815be9a4da8ef73b5a9f1afcb69da3c3f305d033fbfe89c684f5df",
+      "syntax_or_import_error": false,
+      "test": "test_tosem_consistency.TOSEMConsistencyTests.test_normalized_entire_result_replayed"
+    },
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/receipt.py",
+      "name": "skip-receipt-envelope-digest",
+      "source_change_sha256": "026d224ccfea53de4b7f71b54605add350f0c92a6c02d4d6b31fb7ef266f7cfb",
+      "syntax_or_import_error": false,
+      "test": "test_tosem_consistency.TOSEMConsistencyTests.test_receipt_unsealed_tamper"
+    },
+    {
+      "assertion_detected_fault": true,
+      "baseline_passed": true,
+      "file": "fse_workflow/receipt.py",
+      "name": "receipt-verdict-only",
+      "source_change_sha256": "589e501c55becd46f177f61bd14de74eeb47ca11f190d7f6f8c665be956c156f",
+      "syntax_or_import_error": false,
+      "test": "test_tosem_consistency.TOSEMConsistencyTests.test_receipt_implementation_change"
+    }
+  ],
+  "scope": "One preselected regression test per single seeded semantic defect; no representative mutation adequacy estimate; isolated temporary copies only"
+}

@@ -20,6 +20,7 @@ import hashlib
 
 from .io import digest
 from .conformance import check_required_tokens
+from .decision import resolve
 
 # Import the frozen checker through the same isolated package path used elsewhere.
 import sys
@@ -144,15 +145,11 @@ def _verdict(case: Mapping[str, Any], required_tokens: Sequence[Mapping[str, str
         item.get("kind") in {"subject-overgrant", "audience-overgrant"} and item.get("witness")
         for item in findings
     )
-    if not replay_ok:
-        verdict = "unknown"
-    elif has_overgrant or conformance["missing"]:
-        verdict = "fail"
-    elif conformance["invalid"]:
-        verdict = "unknown"
-    elif result.safe:
-        verdict = "pass"
-    else:
+    invalid = not replay_ok or bool(conformance["invalid"])
+    decision = resolve(invalid=invalid, overgrant=bool(has_overgrant),
+                       missing_required=bool(conformance["missing"]))
+    verdict = decision.status
+    if verdict == "pass" and not result.safe:
         verdict = "unknown"
     witnesses = [item["witness"] for item in findings if item.get("witness")]
     return {

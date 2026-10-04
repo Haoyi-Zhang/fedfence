@@ -1,0 +1,96 @@
+{
+  "contract": {
+    "author": "fixture-role-owner",
+    "intent": {
+      "audiences": [
+        "sts.amazonaws.com"
+      ],
+      "branches": [
+        "main",
+        "release"
+      ],
+      "environments": [],
+      "pull_request": false,
+      "tags": []
+    },
+    "max_snapshot_age_seconds": 86400,
+    "repository": "acme/api",
+    "required_tokens": [],
+    "review": {
+      "approved_digest": "29c480731db37f659ed2d015ac333d164930af3560ac37e9afc3a1a304181857",
+      "basis": "owner-supplied-specification",
+      "reference": "fixture-review-1",
+      "reviewer": "fixture-security-reviewer"
+    },
+    "schema": "fedfence-intent-v1",
+    "target_role": "deploy-production"
+  },
+  "schema": "fedfence-review-packet-v1",
+  "snapshots": {
+    "governance": {
+      "body": {
+        "environments": {},
+        "repository": "acme/api"
+      },
+      "observed_at": "2026-09-23T00:00:00Z",
+      "sha256": "e33b4b326f286b21554f886eba4bf848cef1f529a1514ccd53c36f1a71a95c08",
+      "source": "synthetic-regression-fixture"
+    },
+    "issuer": {
+      "body": {
+        "provider": "github-actions",
+        "repository": "acme/api",
+        "subject_mode": "legacy-default",
+        "version": "github-legacy-sub-aud-v1"
+      },
+      "observed_at": "2026-09-23T00:00:00Z",
+      "sha256": "4b3f7e81cdd0f7f7806137d0428d2b5c2c2455351cbd2880215e8ff2609cb5d6",
+      "source": "synthetic-regression-fixture"
+    },
+    "policy": {
+      "body": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+              "StringEquals": {
+                "token.actions.githubusercontent.com:aud": [
+                  "sts.amazonaws.com",
+                  "vault"
+                ],
+                "token.actions.githubusercontent.com:sub": [
+                  "repo:acme/api:ref:refs/heads/main",
+                  "repo:acme/api:ref:refs/heads/dev",
+                  "repo:acme/api:ref:refs/heads/release"
+                ]
+              },
+              "StringLike": {
+                "token.actions.githubusercontent.com:aud": "?ault",
+                "token.actions.githubusercontent.com:sub": "repo:acme/api:ref:refs/heads/[md]ain"
+              }
+            },
+            "Effect": "Allow",
+            "Principal": {
+              "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+            }
+          }
+        ],
+        "Version": "2012-10-17"
+      },
+      "observed_at": "2026-09-23T00:00:00Z",
+      "sha256": "94b8a053cdcbe891e5bc674c9ea9a61e6251afbb941a42e1d45abeaede9dcaf3",
+      "source": "synthetic-regression-fixture",
+      "target_role": "deploy-production"
+    },
+    "workflow": {
+      "body": {
+        "description": "fixture, not executed workflow",
+        "repository": "acme/api",
+        "revision": "synthetic-revision-A"
+      },
+      "observed_at": "2026-09-23T00:00:00Z",
+      "sha256": "b0dea3b8d35483627f46b06302fabfe9b1669e472c61005b8a5e4e322d6000cc",
+      "source": "synthetic-regression-fixture"
+    }
+  }
+}

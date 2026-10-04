@@ -1,0 +1,286 @@
+{
+  "interpretation": "Inherited excerpt annotations, not outcomes of a full-source extractor. Missing files are unavailable, not demonstrated non-normalizable.",
+  "rows": [
+    {
+      "audience_annotation": "exact",
+      "commit": "a8cdf0cb5c7f26359248951cb4da7c6187effa7f",
+      "excerpt_sha256": "bf0bc3f4065caf3f2e7b925d6eae0b4a251319d700282685620c02a209eea128",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "iam.tf",
+      "repository": "ministryofjustice/modernisation-platform-github-oidc-provider"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "90fc3ed6de986a590314e8c6a17a4cf9caa0077c",
+      "excerpt_sha256": "105f81155c5eed60562a8c542f285bb65ee13ca833537ed2a3e2dd055bd3a40b",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "main.tf",
+      "repository": "ministryofjustice/modernisation-platform-github-oidc-role"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "fb03d12160c20ab256b1ecd43eed10920a5894dc",
+      "excerpt_sha256": "15566d10f9c05e939a79ae33e67c42cf058d8d172d87c3e18ae424c007074d9a",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "main.tf",
+      "repository": "babbel/terraform-aws-iam-role-for-github-repository"
+    },
+    {
+      "audience_annotation": "inherited",
+      "commit": "5c5c17fcdcaeddc3421d80d81fc8b7916ca7c6d5",
+      "excerpt_sha256": "528dfbb8f06090173f60abb75fc095b54c00980cc2b8e4ec84dcc1a8cb7d6f53",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_module_evaluation",
+      "path": "github_action.tf",
+      "repository": "SPHTech-Platform/terraform-aws-lambda-github-actions"
+    },
+    {
+      "audience_annotation": "missing",
+      "commit": "6b3ce26d4c6ed5d8a3fe5fe286755eecbdcf6eb0",
+      "excerpt_sha256": "83b30b3dfe208518e90a4543eda4daf47fa18a0c334dcf9397da9e21bafc9df9",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "main.tf",
+      "repository": "terraform-module/terraform-aws-github-oidc-provider"
+    },
+    {
+      "audience_annotation": "missing",
+      "commit": "0458dd532ea6d8d5d11fc938f3dcc3a9a78c1199",
+      "excerpt_sha256": "ea5216bb1dba29ca46e34b2e51f2b425a037a72b3bc49bded260b3401b34cd00",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "main.tf",
+      "repository": "yardbirdsax/terraform-aws-github-action-federation-role"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "1f33dd5f7db8acbfd0f570150bd4d6fa710b723e",
+      "excerpt_sha256": "50e1b9a44040b7c645883a8284f7abbdb2cf5ff57f33ca7bba66c8ac67f60f55",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "literal_source_policy",
+      "path": "base/github.tf",
+      "repository": "TykTechnologies/tyk-ci"
+    },
+    {
+      "audience_annotation": "inherited",
+      "commit": "d0cde0c8537f6be757ab4f121de52d7e14ae4beb",
+      "excerpt_sha256": "0d967116c4a3d7bce152e93b1a0c0aad79c24d13b8987ec6ed3460add08661a9",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_module_evaluation",
+      "path": "main.tf",
+      "repository": "SPHTech-Platform/terraform-github-actions-serverless"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "cba12e30762f72b4a638f3497645ad5ef18bce48",
+      "excerpt_sha256": "66b78dffe113c9f4b79428c852ce362631c6824358f8eca4e6979ecbb6e97795",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "locals.tf",
+      "repository": "suzuki-shunsuke/terraform-aws-tfaction"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "50987d8a272501fab53168297fa1e5b4f4b498ad",
+      "excerpt_sha256": "70050df60acac6819ba212a14c0fbdb341831a3ffeed5f39f8b87db4e9a5e85d",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "constant_foldable_hcl",
+      "path": "terraform/main.tf",
+      "repository": "DanteLore/SmolbeanPlanet3D"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "84a0c4e4bc14dd42dd417ee61792936b06a03e93",
+      "excerpt_sha256": "8c8b3f63ebc3665212da49d90801a20579f998cf40749ec4728ff077f823731c",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "web/main.tf",
+      "repository": "3sidedcube/infrastructure"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "7d1e58f1e513cd47997c44b969fd921aae2ef00d",
+      "excerpt_sha256": "6a6822c6519e0913663e17b8862bbf519bda2685f5821ed2308219edd6ed6003",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "infra/aws/oidc.tf",
+      "repository": "mergecrew/mergecrew"
+    },
+    {
+      "audience_annotation": "missing",
+      "commit": "9558de0eb22634797121f8c3635cc688c7c04081",
+      "excerpt_sha256": "51933fb6dcf843a7239c5814a740f8caae03efed3d25a3ec62d5a1168dc5d703",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "literal_source_policy",
+      "path": "main.tf",
+      "repository": "takanabe/github-actions-oidc-test"
+    },
+    {
+      "audience_annotation": "missing",
+      "commit": "fc8a39ab4438db1b6bb7407fddc6e65017858196",
+      "excerpt_sha256": "6e287b16bad4d2c6ca6a45e6c484aa310b8ac6914553d578e2c614d5bfe1f652",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "main.tf",
+      "repository": "nsbno/terraform-aws-github-oidc"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "6399a15542efaafd8617b114da52f9c0a650ba03",
+      "excerpt_sha256": "9743a69f248e27e7a7a61750d5cc1a05c21d3d88d61c8c7d654871c317acee0a",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "terraform/iam.tf",
+      "repository": "sc932/scottclarkio"
+    },
+    {
+      "audience_annotation": "missing",
+      "commit": "cf1146d8f4237ce7b5b1ec60c2ef7b6b44501460",
+      "excerpt_sha256": "5accf663be4f727ac7426f681afaffc38be8974bfb7f5157ce15e3cabf6ace8f",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "tofu/iam.tf",
+      "repository": "Protect-Democracy/openomb"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "9d390ee1a7e20efd44b83f2bcb0157f834eedc26",
+      "excerpt_sha256": "192c14114bc6beba801355a37b3c64a32dbd16501b58516cc27c82ee11d1c7ea",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "main.tf",
+      "repository": "rackerlabs/oidc-aws-github-module"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "947dccac0faee195be3038782a667b6fb9a8dd90",
+      "excerpt_sha256": "577bb376ad131b6ff937a9f640a4bb61bd38bfae985c3cd5b604e3c8dcacf9e5",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "requires_instantiation",
+      "path": "iam.tf",
+      "repository": "TechHoldingLLC/terraform-aws-github-oidc"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "f92cbf33ccd1258770b8b305d82e622447adee33",
+      "excerpt_sha256": "0767bdf01301cd80f6d85e2b51fe827d424442ac3de4fdcb694501d08fb52922",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "literal_source_policy",
+      "path": "iam.tf",
+      "repository": "RoboJackets/business-process-manual-preview-terraform"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "bc76012c8da6b4e6e9edca8dea003af273745a3b",
+      "excerpt_sha256": "aedbfb204b629fffeac6ac765775c644fa8b03712095c6a34efe0920d9c2b2cd",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "literal_source_policy",
+      "path": "cicd/main.tf",
+      "repository": "infoshareacademy/devops-workshop-08.05.24"
+    },
+    {
+      "audience_annotation": "missing",
+      "commit": "3c1c5629738498d16f4df5b36e2a7e6f2c061dca",
+      "excerpt_sha256": "28f76dbb698acb2fb6e2bb4a539271234c11467ce3841ece4f81a867303fac17",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "constant_foldable_hcl",
+      "path": "website/oidc.tf",
+      "repository": "cloudnativedaysjp/terraform"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "c5d00c4dd8cabe592415ef8d40745001c969232a",
+      "excerpt_sha256": "974c0312faac41084434e1b4633bde9875cc1e97f58a7e0b421908e7be961e23",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "literal_source_policy",
+      "path": "role.tf",
+      "repository": "rajsandhu/group-2-Backend"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "ed022635f7d5d3a599cb54f9b3b37a1750f45ca1",
+      "excerpt_sha256": "52b9ad5d5b1aa06133bdf6046dfe590fe77c48b6d75d6b171003e58f7e5e7a57",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "host_language_generation",
+      "path": "pkg/aws/iam.go",
+      "repository": "init4tech/signet-infra-components"
+    },
+    {
+      "audience_annotation": "exact",
+      "commit": "4aaa0b8ba70a80ad0823b0f1e897839b8d441e7b",
+      "excerpt_sha256": "bee4f695e25c14928d9fb698cd0ce2a1d021691963632c4f0ba514deeef52ba1",
+      "excerpt_verified": true,
+      "extraction_result": "not-executed",
+      "full_source_available": false,
+      "original_annotation": "unsupported_operator_or_instantiation",
+      "path": "main.tf",
+      "repository": "adhocteam/terraform-github-oidc-role"
+    }
+  ],
+  "schema": "fedfence-tosem-frontier-v1",
+  "summary": {
+    "annotation_counts": {
+      "constant_foldable_hcl": 2,
+      "host_language_generation": 1,
+      "literal_source_policy": 5,
+      "requires_instantiation": 13,
+      "requires_module_evaluation": 2,
+      "unsupported_operator_or_instantiation": 1
+    },
+    "annotation_literal_or_foldable": 7,
+    "executed_extractions": 0,
+    "extraction_accuracy_estimated": false,
+    "full_source_files": 0,
+    "records": 24,
+    "verified_excerpts": 24
+  }
+}

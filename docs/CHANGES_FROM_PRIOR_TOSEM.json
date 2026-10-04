@@ -1,0 +1,301 @@
+{
+  "schema": "fedfence-source-change-inventory-v2",
+  "baseline": "Immediate preceding 146-test TOSEM user upload",
+  "baseline_archive": "FedFence_TOSEM_Final_Package.zip",
+  "baseline_sha256": "4a5605c26c7255a52805204e9d6a47c55c4ea558e22132fe3cc7fd0150302038",
+  "scope": "Current core, wrapper, tests, source drivers, schema, manuscript and required reference-ledger/static handoff sources. Generated outputs, documentation inventories and historical copies excluded. Paths relative to package root.",
+  "changes": [
+    {
+      "path": "README.md",
+      "status": "modified",
+      "before_sha256": "30e77f0b31bd22e1c2bed8356c15ee6c5b55e0f7bd587c5e0bac2193a2182b06",
+      "after_sha256": "4febe77297e607b5ddbb7e8955b76778b60fb57a493e5683d21ce12d46b68d75"
+    },
+    {
+      "path": "artifact/Makefile",
+      "status": "modified",
+      "before_sha256": "a6a9573015694a14f0b7ffb7e0ac5e1ec64c554b2951ffea08d1bf6144b6bba6",
+      "after_sha256": "76d8bda955e09fb4e629124a24930092994daaac72b7c5c4f98dc7b979fb954b"
+    },
+    {
+      "path": "artifact/README.md",
+      "status": "modified",
+      "before_sha256": "6a05d905719a012b0e9b23fd618791f9f93482f7112c409355906b8e3add12f0",
+      "after_sha256": "e308b0051e0a4253d34877b67f79b656e73b06606ab51cb91b95b1124dab4717"
+    },
+    {
+      "path": "artifact/artifact/fedfence/analyzer.py",
+      "status": "modified",
+      "before_sha256": "887b9f31e4ade047cf759d267fc37c1efe015fa6092967236d195ff305d9dc3d",
+      "after_sha256": "81ba885f20006cfcb94aaa71967ca8b1126d6646b6e9de6a90da4c3873bb5b2c"
+    },
+    {
+      "path": "artifact/artifact/fedfence/certificate.py",
+      "status": "modified",
+      "before_sha256": "eb4135928b172c9306e83457463e87ae3947f268a94274ea29c1f5a6018408a2",
+      "after_sha256": "c9fa389fda494dd80bebd397e2db5a0740b06d7f442cdad4eb65ecccca36b0ad"
+    },
+    {
+      "path": "artifact/artifact/fedfence/github.py",
+      "status": "modified",
+      "before_sha256": "af0904f4a53f6402a31bc67cbfbcdd34438f59480c1a7c88f3151b4d90f10e93",
+      "after_sha256": "96c216c03c9bd5a6176ba9800e8b3c5a1b6e2ee7f6c89d92f9beeab139ae7fb4"
+    },
+    {
+      "path": "artifact/artifact/fedfence/regular.py",
+      "status": "modified",
+      "before_sha256": "1c918083884d988c931ea4ee450f913aba6a9fddaba51deee2bf32113223207d",
+      "after_sha256": "0e544639ab7bd6f7d0234c2be08aacfb842c1ff6735b1ed1712846c4afabbe99"
+    },
+    {
+      "path": "artifact/artifact/scripts/verify_witnesses.py",
+      "status": "modified",
+      "before_sha256": "509aa4c92a2a097d7110060f7c30e58560301c35752651c76ee1815458c3e80b",
+      "after_sha256": "166e04c0cebf8f094c6869bf305edfffc61f47c4899e82b8c008ca37780a1eca"
+    },
+    {
+      "path": "artifact/docs/CHANGELOG_TOSEM.md",
+      "status": "modified",
+      "before_sha256": "8ca2a83fe8f82710db6ba8a9e9159bb9ca6dfc9bce8af892d448701042604baa",
+      "after_sha256": "87cc09f3dc9d77c2fae1b9edb0a7fe85885ed6c7c244548bcd593a24e60d1179"
+    },
+    {
+      "path": "artifact/docs/CHARACTER_DOMAIN_FIX.md",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "f1677c47dce28d18716a28865b4907e921fbd509559b21001ab0e91b47f30c02"
+    },
+    {
+      "path": "artifact/docs/CLAIM_EVIDENCE_MAP.md",
+      "status": "modified",
+      "before_sha256": "eea5dfb7664cb4e6d57c3136c14378fd6350e23b6409cde3d304435117e5f43a",
+      "after_sha256": "85d8d47ec2b6ddee8c9d24487c4fa6ef6b083b47d739073c4cf9a8c24c30e72a"
+    },
+    {
+      "path": "artifact/docs/SCHEMA_AND_REPLAY.md",
+      "status": "modified",
+      "before_sha256": "01324404dac3d41053b806e289d243c6fe3b5df2b1f6982a4b6644d5354ce55d",
+      "after_sha256": "598cdf2328f74f742bf5b2fee47ad6c4ca3a4fd3e288be6aac33e9ed269d37c0"
+    },
+    {
+      "path": "artifact/fse_workflow/backend.py",
+      "status": "modified",
+      "before_sha256": "10472e197e220643848776d6df9de8dd99fdebfb53f8a57511631dfc5c7025be",
+      "after_sha256": "d01fad75163a18a364ff1c752240537899540d865cc33568a5937763dea27c13"
+    },
+    {
+      "path": "artifact/fse_workflow/conformance.py",
+      "status": "modified",
+      "before_sha256": "1b12199abfce6c67a6d1e93e0663bed7f3427a26953c57300eceb76d7df664ad",
+      "after_sha256": "f5ef591e0f36ea00eff86b8abe619b556cd2150b12ad242e3fd93747c02ca3f1"
+    },
+    {
+      "path": "artifact/fse_workflow/gate.py",
+      "status": "modified",
+      "before_sha256": "68e550a0d7a8bafeec8775646a1e9022a01f5c7728c72a2eb938c7db468173f7",
+      "after_sha256": "f45fa47fe4f7cf9286d1d49f5530f87fc53dead2c0dc1a27ed8680cfd5e1423c"
+    },
+    {
+      "path": "artifact/scripts/audit_tosem.py",
+      "status": "modified",
+      "before_sha256": "72bda6a451ec1e9206ba74a60c18663442f00a9cc0d8d2de62e426945fb8ac6d",
+      "after_sha256": "0cdc18d1476b64238fc5021c7d40d8a66d40675d05aef504161a9635cf5018bd"
+    },
+    {
+      "path": "artifact/scripts/character_domain_fixtures.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "5f7fdfedfeb295b9f68cdfe876c0dd863882de00aa520c6b3d9fc8df7f938e49"
+    },
+    {
+      "path": "artifact/scripts/check_clean_rebuild.py",
+      "status": "modified",
+      "before_sha256": "bd23e1af8c821f42e352eee840773374627922d81a498db3da19da18b69ef4df",
+      "after_sha256": "9eebba39b189ac8925fb760fdaa99fc450d9b11947bc6ae4d8e6d436adc24939"
+    },
+    {
+      "path": "artifact/scripts/generate_tosem_tables.py",
+      "status": "modified",
+      "before_sha256": "cb7929f41ec8c9b8c089aea31a7772ecae4d8acc1be6d55404de82a9480615ad",
+      "after_sha256": "3f2fa94afe3a628d731bbf61c6e40fe9fb2fd3b33b05430177a4ce172f8f9d90"
+    },
+    {
+      "path": "artifact/scripts/reproduce_tosem.py",
+      "status": "modified",
+      "before_sha256": "70b99b06cc05aadebc0d27dbccfbc826477dea32af8431bcf7ba8b893072ddc0",
+      "after_sha256": "dc327403d5f3d97b5eeaa25892a83fcf870fe47f561e1e9306eb2fc37e651a2f"
+    },
+    {
+      "path": "artifact/scripts/run_character_domain_audit.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "de6168ecb6f3b69c9a9d227d1f597b9a1c6343b545b9a8dbb071b01299198594"
+    },
+    {
+      "path": "artifact/scripts/run_final_validation.py",
+      "status": "modified",
+      "before_sha256": "c8c9f09873084f4b747265d863057b627b139295a27cbb3d3e425b69db47e4b6",
+      "after_sha256": "c7102d5df3643216ec1d9e149653bb7c0bc517a89173c0e5a46817dec4385679"
+    },
+    {
+      "path": "artifact/tests/test_character_domain.py",
+      "status": "added",
+      "before_sha256": null,
+      "after_sha256": "3bfe6ef0d6d92b0639bacc7fc4387f1ba4d7c24c7efc8b1d8ead1aaa442db8a3"
+    },
+    {
+      "path": "paper/README.md",
+      "status": "modified",
+      "before_sha256": "6dc20e591c344495c5408d913f28c7092f678667d927446bf0add97c61bd732f",
+      "after_sha256": "8346c611ea977aa7d5d77e44c073e0e6eb3f27bc0bce471afa284cc01b51b02d"
+    },
+    {
+      "path": "paper/docs/COVER_LETTER_DRAFT.md",
+      "status": "modified",
+      "before_sha256": "f9d084532993cddfb89f53ecf77363a7055cb70c270f3a4f7fcf4c7331aef17c",
+      "after_sha256": "c579ef02d9450c6c2dbbd3a6a45976c2db0dc8ee33b56fcc2b5ab76879e51738"
+    },
+    {
+      "path": "paper/docs/REFERENCE_AUDIT.csv",
+      "status": "modified",
+      "before_sha256": "0bed7f95daa2d431b6113a64e846c9267b9406df693d69f0232f8571a9ceaf8b",
+      "after_sha256": "d7926f64f6bd94dfc22a57b216519d7799a2920c25c83e5327543117fe0c0d6d"
+    },
+    {
+      "path": "paper/docs/REFERENCE_AUDIT.json",
+      "status": "modified",
+      "before_sha256": "9f9dcb287f692f196a18076a0cf1291901add55b901096081120e1616ba7ff0a",
+      "after_sha256": "5d7e99cfb7a9681e564fac72a126c4343b43bde8eb7118eb032974bf2ab9df43"
+    },
+    {
+      "path": "paper/docs/REFERENCE_AUDIT.md",
+      "status": "modified",
+      "before_sha256": "91c59ea12b01f0559f11af551f0a638fd37c3f953f35f6868b6a0c8207cac697",
+      "after_sha256": "7ee5f3327f6dfbdf0e35f074acedd5c4e3ecab1e80076607384613bdac6b0a12"
+    },
+    {
+      "path": "paper/docs/TOSEM_SUBMISSION_NOTES.md",
+      "status": "modified",
+      "before_sha256": "d39b9f92ddc59c05bed220163d3acac6dd55afafaae0233bb1f836fc70749d4d",
+      "after_sha256": "209b4a8eced97aa816bd7a73c6f5b36fc8e1866e341ca8b7c7f1eda5c2665884"
+    },
+    {
+      "path": "paper/references.bib",
+      "status": "modified",
+      "before_sha256": "aba4f89266b691ece070dc724e6382e624bb876bc4d5383db4cbfb365eaf8205",
+      "after_sha256": "0ccae9dd95fe5675d1c5874211e39772c2f2fe9885fe1347999d60bc3c2c379c"
+    },
+    {
+      "path": "paper/sections/06-analysis.tex",
+      "status": "modified",
+      "before_sha256": "ba5225cf05fa3115a2e07819b4b43bd41e663ab30ff0d39ce40af7e809c4e8c3",
+      "after_sha256": "783f70a10db3be2a71e631de73dc3fd35e1b05c6ed7cd22220b43a3106694fca"
+    },
+    {
+      "path": "paper/sections/08-implementation.tex",
+      "status": "modified",
+      "before_sha256": "01ca7ebd33a3db76d2dd9359da4af3be9180ed8371a4491690283741995c3711",
+      "after_sha256": "ce6f939eab8f5fe40eaa0af59af0b323c707d1fe21da0414c00514602e93f999"
+    },
+    {
+      "path": "paper/sections/09-method.tex",
+      "status": "modified",
+      "before_sha256": "37f6e4ebd0ec646629ca5693bc44b4a2b520fad4eb2760df860196e9cf0195ca",
+      "after_sha256": "901fb84bfb22f576c5b48fc4427be9194d3ecf30d7ed0200989d413dcc448a23"
+    },
+    {
+      "path": "paper/sections/10-validation.tex",
+      "status": "modified",
+      "before_sha256": "cc0b89031d0e98d308733dd86d9780ec984324695cf87053d622ee1c7f399aa1",
+      "after_sha256": "9919a1cbaff8518e51e3102875e5741e6bca220bbf43b1c6f8e2973ea4fc9861"
+    },
+    {
+      "path": "paper/sections/15-validity.tex",
+      "status": "modified",
+      "before_sha256": "3723021cf70e3962395c4ade7c85b5db0b55d55c1fed8190ee567becbcaf7fd1",
+      "after_sha256": "f3e0d05aab2f3589a2c7a6ef99e51062eba05d89f3ea9eb8b97aaed548d4fa1e"
+    }
+  ],
+  "core_files": [
+    {
+      "path": "artifact/artifact/fedfence/__init__.py",
+      "before_sha256": "75ad4f4c2943325f88064ad2beae890b59674be2bf0404b30afc5584dc4de4bb",
+      "after_sha256": "75ad4f4c2943325f88064ad2beae890b59674be2bf0404b30afc5584dc4de4bb",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/analyzer.py",
+      "before_sha256": "887b9f31e4ade047cf759d267fc37c1efe015fa6092967236d195ff305d9dc3d",
+      "after_sha256": "81ba885f20006cfcb94aaa71967ca8b1126d6646b6e9de6a90da4c3873bb5b2c",
+      "unchanged": false
+    },
+    {
+      "path": "artifact/artifact/fedfence/certificate.py",
+      "before_sha256": "eb4135928b172c9306e83457463e87ae3947f268a94274ea29c1f5a6018408a2",
+      "after_sha256": "c9fa389fda494dd80bebd397e2db5a0740b06d7f442cdad4eb65ecccca36b0ad",
+      "unchanged": false
+    },
+    {
+      "path": "artifact/artifact/fedfence/cli.py",
+      "before_sha256": "d183c2e9aa5d46cb279a057de567af3e153c1d8d860342a0ac724ef6abd48f7b",
+      "after_sha256": "d183c2e9aa5d46cb279a057de567af3e153c1d8d860342a0ac724ef6abd48f7b",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/event.py",
+      "before_sha256": "329a70f02def02ede31e6b93b33997d3c6f60af863d0e4cf58bcbb7880cde67f",
+      "after_sha256": "329a70f02def02ede31e6b93b33997d3c6f60af863d0e4cf58bcbb7880cde67f",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/github.py",
+      "before_sha256": "af0904f4a53f6402a31bc67cbfbcdd34438f59480c1a7c88f3151b4d90f10e93",
+      "after_sha256": "96c216c03c9bd5a6176ba9800e8b3c5a1b6e2ee7f6c89d92f9beeab139ae7fb4",
+      "unchanged": false
+    },
+    {
+      "path": "artifact/artifact/fedfence/github_subject.py",
+      "before_sha256": "798fa49e8cf424d6b7f2f94f16a32630df7e963d7762b58893594144e36ea0b0",
+      "after_sha256": "798fa49e8cf424d6b7f2f94f16a32630df7e963d7762b58893594144e36ea0b0",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/iac.py",
+      "before_sha256": "1d96ea94006c79ad3f3d2f5248acb5c7382f939bd91bb94b8c45879cfbe43baa",
+      "after_sha256": "1d96ea94006c79ad3f3d2f5248acb5c7382f939bd91bb94b8c45879cfbe43baa",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/policy.py",
+      "before_sha256": "371db738820bbfcccaebc4bcf3487535aa678bcdc27be381dfe264436d0d9854",
+      "after_sha256": "371db738820bbfcccaebc4bcf3487535aa678bcdc27be381dfe264436d0d9854",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/projection.py",
+      "before_sha256": "9dad85489ca104c901aaccee5bb014b2d16e91ff4c41d4d392eddac119533080",
+      "after_sha256": "9dad85489ca104c901aaccee5bb014b2d16e91ff4c41d4d392eddac119533080",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/regular.py",
+      "before_sha256": "1c918083884d988c931ea4ee450f913aba6a9fddaba51deee2bf32113223207d",
+      "after_sha256": "0e544639ab7bd6f7d0234c2be08aacfb842c1ff6735b1ed1712846c4afabbe99",
+      "unchanged": false
+    },
+    {
+      "path": "artifact/artifact/fedfence/repair.py",
+      "before_sha256": "32e4f0423118f0061be277f96cf2dd2955037e3572c93ff1e454f4342006fda9",
+      "after_sha256": "32e4f0423118f0061be277f96cf2dd2955037e3572c93ff1e454f4342006fda9",
+      "unchanged": true
+    },
+    {
+      "path": "artifact/artifact/fedfence/spec.py",
+      "before_sha256": "db6cea7e209568662685166bf8be8074da64df5d3eefd84d5969a097fa33c1f8",
+      "after_sha256": "db6cea7e209568662685166bf8be8074da64df5d3eefd84d5969a097fa33c1f8",
+      "unchanged": true
+    }
+  ],
+  "core_files_changed": 4,
+  "core_files_unchanged": 9
+}

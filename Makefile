@@ -1,40 +1,36 @@
 PYTHON ?= python3
 export PYTHONDONTWRITEBYTECODE=1
-.PHONY: tests demo public-changes benchmark source-frontier runtime-corpus reproduce paper audit manifest-only check-entrypoints clean
+.PHONY: character-domain tests evidence reproduce paper audit tables studies public-changes source-frontier runtime-corpus clean
 
 tests:
 	$(PYTHON) scripts/run_fse_tests.py
 
-demo:
-	$(PYTHON) scripts/run_demo_suite.py
+character-domain:
+	$(PYTHON) scripts/run_character_domain_audit.py
 
-public-changes:
-	$(PYTHON) scripts/run_public_change_study.py
-
-benchmark:
-	$(PYTHON) scripts/benchmark_public_changes.py
-
-source-frontier:
-	$(PYTHON) scripts/run_source_frontier_study.py
-
-runtime-corpus:
-	$(PYTHON) scripts/run_runtime_compatibility_study.py
+evidence:
+	$(PYTHON) scripts/reproduce_tosem.py
 
 reproduce:
-	$(PYTHON) scripts/reproduce.py
+	$(PYTHON) scripts/reproduce_tosem.py --paper
 
-paper:
-	$(MAKE) -C .. paper
+studies public-changes source-frontier runtime-corpus:
+	$(PYTHON) scripts/run_tosem_studies.py
+
+tables:
+	$(PYTHON) scripts/generate_tosem_tables.py
+
+paper: tables
+	$(MAKE) -C ../paper
 
 audit:
-	$(PYTHON) scripts/audit_consistency.py
-
-manifest-only:
-	$(PYTHON) scripts/manifest_only.py
-
-check-entrypoints:
-	$(PYTHON) scripts/manifest_only.py --check-only
+	$(PYTHON) scripts/audit_tosem.py
 
 clean:
 	$(MAKE) -C ../paper clean
-	find fse_workflow tests scripts -type d -name __pycache__ -prune -exec rm -rf {} +
+	find . -type d -name __pycache__ -prune -exec rm -rf {} +
+
+# Explicit networked template bootstrap only; never part of offline reproduction.
+.PHONY: template-current
+template-current:
+	$(MAKE) -C ../paper template-current

@@ -18,7 +18,7 @@ def main():
  for ce in c['sports_store']['cross_role_counterexamples']:
   role=rolemap[ce['role']]
   probe=decide(explicit_issuer=[ce['must_reject']],allow=role['after_allow'],intent=[ce['must_reject']],required=[])
-  assert ce['must_reject'] not in probe.admitted,(ce,probe)
+  assert (ce['must_reject']['sub'],ce['must_reject']['aud']) not in probe.admitted,(ce,probe)
  # microticket branches
  m=c['microticket']; common=dict(explicit_issuer=m['explicit_issuer'],intent=m['intent'],required=m['required'])
  for cfg in m['configurations']:

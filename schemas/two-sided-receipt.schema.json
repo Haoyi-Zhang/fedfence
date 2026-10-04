@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:fedfence:two-sided-receipt-v1",
+  "title": "FedFence full-review receipt: structural schema only",
+  "description": "Digest validity, semantic equality, freshness and external authenticity cannot be inferred from this structural schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "packet",
+    "decision",
+    "source_authenticity_verified",
+    "receipt_sha256"
+  ],
+  "properties": {
+    "schema": {
+      "const": "fedfence-two-sided-receipt-v1"
+    },
+    "packet": {
+      "type": "object"
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "verdict",
+        "exit_code",
+        "packet_sha256",
+        "input_hashes",
+        "fragment",
+        "certificate_sha256",
+        "required_token_checks",
+        "findings",
+        "replay_ok"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "verdict": {},
+        "exit_code": {},
+        "packet_sha256": {},
+        "input_hashes": {},
+        "fragment": {},
+        "certificate_sha256": {},
+        "required_token_checks": {},
+        "findings": {},
+        "replay_ok": {}
+      }
+    },
+    "source_authenticity_verified": {
+      "const": false
+    },
+    "receipt_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

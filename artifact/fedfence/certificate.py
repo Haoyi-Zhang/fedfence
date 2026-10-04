@@ -11,9 +11,9 @@ from __future__ import annotations
 from collections import deque
 from typing import Any, Dict, FrozenSet, Iterable, List, Mapping, Optional, Sequence, Tuple, Union
 
-from .regular import DEFAULT_ALPHABET, NFA, alphabet_from_patterns, union_globs, union_literals, intersection_globs, intersection_typed_groups, contains_witness, intersect, union, empty
+from .regular import CHARACTER_DOMAIN, DEFAULT_ALPHABET, NFA, alphabet_from_patterns, validate_support, union_globs, union_literals, intersection_globs, intersection_typed_groups, contains_witness, intersect, union, empty
 from .spec import subject_intent_parts, audience_intent_parts, intent_nfa, intent_alphabet_inputs, subject_intent_display, audience_intent_display
-from .github import github_default_subject_nfa as default_github_subject_nfa, issuer_subject_nfa, parse_github_subject, governance_set, governance_key
+from .github import github_default_subject_nfa as default_github_subject_nfa, issuer_subject_nfa, github_alphabet_from_patterns, GITHUB_SUPPORT_LITERALS, parse_github_subject, governance_set, governance_key
 
 State = FrozenSet[int]
 Triple = Tuple[State, State, State]
@@ -21,14 +21,19 @@ Pair = Tuple[State, State]
 
 
 def _canonical_group(g: Any) -> Tuple[str, List[str]]:
-    """Decode old list groups and new operator-tagged groups."""
+    """Decode supported legacy groups and explicit equality/glob groups."""
     if isinstance(g, Mapping):
-        op = str(g.get("op", "like"))
-        vals = [str(v) for v in g.get("values", [])]
-        return ("equals" if op == "equals" else "like", vals)
-    if isinstance(g, tuple) and len(g) == 2 and str(g[0]) in {"equals", "like"}:
-        return (str(g[0]), [str(v) for v in g[1]])
-    return ("like", [str(v) for v in g])
+        op, raw = g.get("op", "like"), g.get("values", [])
+    elif isinstance(g, tuple) and len(g) == 2 and isinstance(g[0], str):
+        op, raw = g
+    else:
+        op, raw = "like", g
+    if not isinstance(op, str) or op.lower() not in {"equals", "literal", "like", "glob"}:
+        raise ValueError("unsupported condition group operator")
+    vals = [raw] if isinstance(raw, str) else list(raw)
+    if any(not isinstance(v, str) for v in vals):
+        raise ValueError("condition group values must be strings")
+    return ("equals" if op.lower() in {"equals", "literal"} else "like", vals)
 
 
 def _encode_group(g: Any) -> Dict[str, Any]:
@@ -45,6 +50,12 @@ def _nfa_from_groups(groups: Sequence[Any], alphabet: Sequence[str]) -> NFA:
 
 def _cert_alphabet(*parts: Any) -> Tuple[str, ...]:
     return alphabet_from_patterns(parts)
+
+
+def _require_support(alphabet: Sequence[str], *parts: Any) -> None:
+    covered, reason = validate_support(alphabet, *parts)
+    if not covered:
+        raise ValueError("incomplete certificate character support: " + reason)
 
 
 def _enc_state(s: State) -> List[int]:
@@ -130,11 +141,16 @@ def triple_certificate(name: str,
                        intent_patterns: Sequence[str],
                        alphabet: Sequence[str] = DEFAULT_ALPHABET) -> Dict[str, Any]:
     """Build a certificate for L(G) cap L(P) subseteq L(I)."""
-    alph = alphabet_from_patterns(issuer_patterns, policy_patterns, intent_patterns, alphabet)
+    # These parameters are sequences of globs, not tagged group tuples.
+    issuer_patterns, policy_patterns, intent_patterns = (list(issuer_patterns),
+        list(policy_patterns), list(intent_patterns))
+    alph = alphabet_from_patterns(issuer_patterns, policy_patterns, intent_patterns, base=alphabet)
+    _require_support(alph, issuer_patterns, policy_patterns, intent_patterns)
     ng, np, ni = union_globs(issuer_patterns, alph), union_globs(policy_patterns, alph), union_globs(intent_patterns, alph)
     w = _triple_witness(ng, np, ni, alph)
     cert: Dict[str, Any] = {
-        "version": 1,
+        "version": 3,
+        "character_domain": CHARACTER_DOMAIN,
         "kind": "fedfence-atomic-certificate",
         "name": name,
         "judgment": "issuer-policy-intent",
@@ -160,11 +176,14 @@ def pair_certificate(name: str,
                      intent_patterns: Sequence[str],
                      alphabet: Sequence[str] = DEFAULT_ALPHABET) -> Dict[str, Any]:
     """Build a certificate for L(A) subseteq L(B)."""
-    alph = alphabet_from_patterns(allow_patterns, intent_patterns, alphabet)
+    allow_patterns, intent_patterns = list(allow_patterns), list(intent_patterns)
+    alph = alphabet_from_patterns(allow_patterns, intent_patterns, base=alphabet)
+    _require_support(alph, allow_patterns, intent_patterns)
     na, nb = union_globs(allow_patterns, alph), union_globs(intent_patterns, alph)
     w = contains_witness(na, nb, alph)
     cert: Dict[str, Any] = {
-        "version": 1,
+        "version": 3,
+        "character_domain": CHARACTER_DOMAIN,
         "kind": "fedfence-atomic-certificate",
         "name": name,
         "judgment": "language-containment",
@@ -192,13 +211,23 @@ def triple_group_certificate(name: str,
                              alphabet: Sequence[str] = DEFAULT_ALPHABET,
                              issuer_kind: str = "patterns") -> Dict[str, Any]:
     """Build a certificate for L(G) cap (cap_i union policy_groups_i) subseteq L(I)."""
-    alph = alphabet_from_patterns(issuer_patterns, policy_groups, intent_patterns, alphabet)
+    if issuer_kind not in {"patterns", "github-default"}:
+        raise ValueError("unsupported issuer kind")
+    issuer_patterns, intent_patterns = list(issuer_patterns), list(intent_patterns)
+    policy_groups = [_canonical_group(g) for g in policy_groups]
+    builder = github_alphabet_from_patterns if issuer_kind == "github-default" else alphabet_from_patterns
+    alph = builder(issuer_patterns, policy_groups, intent_patterns, base=alphabet)
+    parts = [issuer_patterns, policy_groups, intent_patterns]
+    if issuer_kind == "github-default":
+        parts.append(("equals", GITHUB_SUPPORT_LITERALS))
+    _require_support(alph, *parts)
     ng = default_github_subject_nfa(alph) if issuer_kind == "github-default" else union_globs(issuer_patterns, alph)
     np = _nfa_from_groups(policy_groups, alph)
     ni = union_globs(intent_patterns, alph)
     w = _triple_witness(ng, np, ni, alph)
     cert: Dict[str, Any] = {
-        "version": 2,
+        "version": 3,
+        "character_domain": CHARACTER_DOMAIN,
         "kind": "fedfence-atomic-certificate",
         "name": name,
         "judgment": "issuer-policy-intent",
@@ -225,12 +254,16 @@ def pair_group_certificate(name: str,
                            intent_patterns: Sequence[str],
                            alphabet: Sequence[str] = DEFAULT_ALPHABET) -> Dict[str, Any]:
     """Build a certificate for a conjunctive/disjunctive claim predicate subseteq intent."""
-    alph = alphabet_from_patterns(allow_groups, intent_patterns, alphabet)
+    intent_patterns = list(intent_patterns)
+    allow_groups = [_canonical_group(g) for g in allow_groups]
+    alph = alphabet_from_patterns(allow_groups, intent_patterns, base=alphabet)
+    _require_support(alph, allow_groups, intent_patterns)
     na = _nfa_from_groups(allow_groups, alph)
     nb = union_globs(intent_patterns, alph)
     w = contains_witness(na, nb, alph)
     cert: Dict[str, Any] = {
-        "version": 2,
+        "version": 3,
+        "character_domain": CHARACTER_DOMAIN,
         "kind": "fedfence-atomic-certificate",
         "name": name,
         "judgment": "language-containment",
@@ -251,11 +284,44 @@ def pair_group_certificate(name: str,
 
 
 def verify_atomic_certificate(cert: Mapping[str, Any]) -> Tuple[bool, str]:
-    alph = tuple(str(cert.get("alphabet", "")))
-    if not alph:
-        return False, "empty alphabet in certificate"
-    verdict = str(cert.get("verdict"))
-    judgment = str(cert.get("judgment"))
+    """Reject malformed/legacy domains and verify coverage before any invariant."""
+    try:
+        return _verify_atomic_certificate_checked(cert)
+    except (TypeError, ValueError, KeyError, OverflowError, RecursionError) as exc:
+        return False, "malformed atomic certificate: " + str(exc)
+
+
+def _verify_atomic_certificate_checked(cert: Mapping[str, Any]) -> Tuple[bool, str]:
+    if not isinstance(cert, Mapping):
+        return False, "certificate must be an object"
+    if (cert.get("kind") != "fedfence-atomic-certificate" or cert.get("version") != 3
+            or cert.get("character_domain") != CHARACTER_DOMAIN):
+        return False, "unsupported or legacy certificate character domain; regenerate"
+    raw_alphabet = cert.get("alphabet")
+    if not isinstance(raw_alphabet, str):
+        return False, "alphabet must be a string of representative code points"
+    alph = tuple(raw_alphabet)
+    verdict, judgment = cert.get("verdict"), cert.get("judgment")
+    if verdict not in {"safe", "unsafe"}:
+        return False, "unsupported certificate verdict"
+    if judgment == "issuer-policy-intent":
+        issuer_kind = cert.get("issuer_kind", "patterns")
+        if issuer_kind not in {"patterns", "github-default"}:
+            return False, "unsupported issuer kind"
+        groups = ([_canonical_group(g) for g in cert["policy_groups"]]
+                  if "policy_groups" in cert else cert.get("policy_patterns", []))
+        parts = [cert.get("issuer_patterns", []), groups, cert.get("intent_patterns", [])]
+        if issuer_kind == "github-default":
+            parts.append(("equals", GITHUB_SUPPORT_LITERALS))
+    elif judgment == "language-containment":
+        groups = ([_canonical_group(g) for g in cert["allow_groups"]]
+                  if "allow_groups" in cert else cert.get("allow_patterns", []))
+        parts = [groups, cert.get("intent_patterns", [])]
+    else:
+        return False, "unsupported certificate judgment"
+    covered, reason = validate_support(alph, *parts)
+    if not covered:
+        return False, reason
     if judgment == "issuer-policy-intent":
         ng = default_github_subject_nfa(alph) if cert.get("issuer_kind") == "github-default" else union_globs(cert.get("issuer_patterns", []), alph)
         if "policy_groups" in cert:
@@ -359,7 +425,7 @@ def verify_certificate(cert: Mapping[str, Any]) -> Union[Tuple[bool, str], Tuple
             notes.append(f"s{prod.get('statement')}:{key}:{note}")
     return ok_all, notes
 
-# --- Case-level proof-carrying audit objects (version 5) --------------------
+# --- Case-level proof-carrying audit objects (version 6) --------------------
 
 ANY_GITHUB_SUBJECT = [
     "repo:?*/?*:ref:refs/heads/?*",
@@ -509,7 +575,7 @@ def _event_summary(case: Mapping[str, Any]) -> Dict[str, Any]:
 
 
 def _effective_summary_without_analyzer(case: Mapping[str, Any]) -> Dict[str, Any]:
-    """Independently replay the effective trust judgment without importing analyzer.
+    """Recompute the effective trust judgment without importing analyzer.
 
     The checker and the certificate verifier deliberately share only the parser,
     GitHub constructor semantics, and generic NFA primitives.  They do not call
@@ -536,7 +602,10 @@ def _effective_summary_without_analyzer(case: Mapping[str, Any]) -> Dict[str, An
     alph_inputs: List[Any] = [ANY_GITHUB_SUBJECT, issuer_sub_spec, issuer_aud_patterns] + intent_alphabet_inputs(spec)
     for st in list(allows) + list(denies):
         alph_inputs.extend(st.typed_groups_for("sub")); alph_inputs.extend(st.typed_groups_for("aud"))
-    alphabet = alphabet_from_patterns(alph_inputs)
+    alphabet = github_alphabet_from_patterns(alph_inputs)
+    covered, reason = validate_support(alphabet, ("equals", GITHUB_SUPPORT_LITERALS), alph_inputs)
+    if not covered:
+        raise ValueError("incomplete replay character support: " + reason)
     issuer_sub = issuer_subject_nfa(issuer_sub_spec, alphabet)
     issuer_aud = union_globs(issuer_aud_patterns, alphabet)
     intent_sub = intent_nfa(sub_lits, sub_globs, alphabet) if (sub_lits or sub_globs) else None
@@ -607,7 +676,8 @@ def _effective_summary_without_analyzer(case: Mapping[str, Any]) -> Dict[str, An
 def certificate_for_case(case: Mapping[str, Any]) -> Dict[str, Any]:  # type: ignore[override]
     summary = _effective_summary_without_analyzer(case)
     return {
-        "version": 5,
+        "version": 6,
+        "character_domain": CHARACTER_DOMAIN,
         "kind": "fedfence-effective-case-certificate",
         "name": str(case.get("name", "unnamed")),
         "judgment": "effective-claim-product-admission",
@@ -624,6 +694,8 @@ def certificate_for_case(case: Mapping[str, Any]) -> Dict[str, Any]:  # type: ig
 
 
 def _verify_effective_case_certificate(cert: Mapping[str, Any]) -> Tuple[bool, List[str]]:
+    if cert.get("version") != 6 or cert.get("character_domain") != CHARACTER_DOMAIN:
+        return False, ["unsupported or legacy certificate character domain; regenerate"]
     case = cert.get("case")
     if not isinstance(case, Mapping):
         return False, ["missing embedded case"]
@@ -652,5 +724,5 @@ def _verify_effective_case_certificate(cert: Mapping[str, Any]) -> Tuple[bool, L
         if f.get("kind") == "event-overgrant" and not f.get("witness"):
             ok = False; notes.append("missing event witness")
     if ok:
-        notes.insert(0, "independent effective-admission replay verifies")
+        notes.insert(0, "effective-admission recomputation verifies (shared trusted primitives)")
     return ok, notes

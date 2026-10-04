@@ -1,0 +1,20 @@
+{
+  "schema": "fedfence-release-v2",
+  "date": "2026-10-03",
+  "paper": {
+    "figures": 9,
+    "pages": 39,
+    "references": 62,
+    "references_start_page": 36,
+    "sha256": "8bfadb429275f8789925727acb17655eb6a280e8a0abfed81e42e3dbc6f878d4",
+    "tables": 12
+  },
+  "implementation_sha256": "5563dbe7a4a6fc51586e21f5548aa679b2f679bb9895f408a18197bcdcbb5d21",
+  "tests": 146,
+  "clean_rebuild_passed": true,
+  "consistency_checks": 47,
+  "core_files_unchanged": 13,
+  "current_template_compiled": false,
+  "cloud_accounts_used": false,
+  "submitted": false
+}

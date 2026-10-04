@@ -1,16 +1,14 @@
-"""Finite, model-relative backend for the public-change study.
+"""Finite study adapter over one explicit issuer relation; not the strict gate.
 
-This module is intentionally separate from the strict user-facing CLI.  It consumes
-already-normalized packets and therefore does not attest snapshot freshness, contract
-approval, workflow reachability, or live provider state.  All positive and negative
-obligations are evaluated over the *same explicit issuer relation*.
+Inputs are frozen local data. This adapter does not establish source authenticity,
+contract approval, freshness, workflow reachability, or live provider behavior.
 """
 from __future__ import annotations
 from dataclasses import dataclass, asdict
-from fnmatch import fnmatchcase
-import hashlib, json
 from typing import Any, Iterable
+from .conformance import _glob_matches, ConformanceBudgetExceeded
 from .decision import resolve
+from .io import digest
 
 Token = tuple[str, str]
 
@@ -32,89 +30,112 @@ class StudyResult:
     entry_point: str = "study-only-normalized-backend"
 
     def to_json(self) -> dict[str, Any]:
-        d=asdict(self)
-        return d
+        return asdict(self)
 
 def _token(obj: Any) -> Token:
-    if isinstance(obj,(list,tuple)) and len(obj)==2:
-        return (str(obj[0]),str(obj[1]))
-    if isinstance(obj,dict) and "sub" in obj and "aud" in obj:
-        return (str(obj["sub"]),str(obj["aud"]))
-    raise ValueError(f"token must contain sub and aud: {obj!r}")
-
-def _tokens(values: Iterable[Any]) -> set[Token]:
-    return {_token(v) for v in values}
-
-def _matches(token:Token, rule:Any)->bool:
-    if isinstance(rule,dict):
-        sub=str(rule.get("sub","")); aud=str(rule.get("aud",""))
-    elif isinstance(rule,(list,tuple)) and len(rule)==2:
-        sub,aud=map(str,rule)
+    if isinstance(obj, (list, tuple)) and len(obj) == 2:
+        values = tuple(obj)
+    elif isinstance(obj, dict) and {"sub", "aud"}.issubset(obj):
+        values = (obj["sub"], obj["aud"])
     else:
-        raise ValueError(f"invalid rule: {rule!r}")
-    return fnmatchcase(token[0],sub) and fnmatchcase(token[1],aud)
+        raise ValueError("token must contain sub and aud")
+    if any(not isinstance(v, str) or not v for v in values):
+        raise ValueError("token coordinates must be nonempty strings; no coercion")
+    return values
 
-def _covered(token:Token,rules:Iterable[Any])->bool:
-    return any(_matches(token,r) for r in rules)
+def _rule(obj: Any) -> tuple[str, str, str]:
+    sub, aud = _token(obj)
+    op = obj.get("operator", "StringLike") if isinstance(obj, dict) else "StringLike"
+    if op not in {"StringEquals", "StringLike"}:
+        raise ValueError("unsupported normalized rule operator")
+    return sub, aud, op
 
-def _digest(domain:set[Token])->str:
-    raw=json.dumps(sorted(domain),separators=(",",":"),ensure_ascii=False).encode()
-    return hashlib.sha256(raw).hexdigest()
+def _covered(token: Token, rules: list[tuple[str, str, str]]) -> bool:
+    return any((token == (sub, aud)) if op == "StringEquals" else
+               (_glob_matches(sub, token[0]) and _glob_matches(aud, token[1]))
+               for sub, aud, op in rules)
 
-def decide(*, explicit_issuer:Iterable[Any], allow:Iterable[Any], deny:Iterable[Any]=(),
-           intent:Iterable[Any], required:Iterable[Any]=(), invalid:Iterable[str]=()) -> StudyResult:
-    """Evaluate a normalized packet over one explicit finite issuer relation.
+def _unknown(code: str, detail: str) -> StudyResult:
+    return StudyResult("unknown", 2, [Finding(code, detail)], [], [], [], digest([]))
 
-    Precedence is conservative: any inconsistent/invalid specification yields
-    ``unknown`` (exit 2), while retaining latent overgrant/missing diagnostics.
-    Without invalidity, overgrant or required-token loss yields ``fail`` (exit 1).
+def _decide(*, explicit_issuer: Iterable[Any], allow: Iterable[Any],
+           deny: Iterable[Any] = (), intent: Iterable[Any],
+           required: Iterable[Any] = (), invalid: Iterable[str] = ()) -> StudyResult:
+    """Two-sided conformance; invalidity dominates reportable latent failures.
+
+    Iterable inputs are materialized exactly once, preventing consumption of a
+    generator from changing the policy between subjects. Only * and ? are globs;
+    bracket characters are literals, as in the regular policy fragment.
     """
-    findings=[]; latent=[]
     try:
-        G=_tokens(explicit_issuer); R=_tokens(required)
-    except Exception as e:
-        G=set(); R=set(); invalid=[*invalid,f"malformed-token:{e}"]
-    invalid=list(dict.fromkeys(str(x) for x in invalid if str(x)))
-    # Required identities are positive obligations and must be issuer-mintable.
-    outside=sorted(R-G)
-    for t in outside:
+        G = {_token(t) for t in explicit_issuer}
+        R = {_token(t) for t in required}
+        allows, denies, intents = ([ _rule(t) for t in seq ]
+                                   for seq in (allow, deny, intent))
+        invalids = list(invalid)
+        if any(not isinstance(s, str) or not s for s in invalids):
+            raise ValueError("invalid reasons must be nonempty strings")
+    except (TypeError, ValueError, KeyError) as exc:
+        return _unknown("malformed-normalized-input", str(exc))
+    findings: list[Finding] = []
+    for t in sorted(R - G):
         findings.append(Finding("required-token-outside-issuer-domain",
-                                "required identity is outside the explicit issuer model",t))
-    if outside:
-        invalid.append("inconsistent-positive-obligation")
-    admitted=sorted(t for t in G if _covered(t,allow) and not _covered(t,deny))
-    over=sorted(t for t in admitted if not _covered(t,intent))
-    missing=sorted(t for t in R if t not in set(admitted))
-    latent.extend(Finding("admission-expansion","issuer-mintable token is admitted outside intent",t) for t in over)
-    latent.extend(Finding("required-token-not-admitted","required issuer-mintable token is not admitted",t) for t in missing)
-    if invalid:
-        findings=[Finding("inconsistent-specification",x) for x in dict.fromkeys(invalid)] + findings
-        d=resolve(invalid=True,overgrant=bool(over),missing_required=bool(missing))
-        return StudyResult(d.status,d.exit_code,findings,latent,admitted,sorted(G),_digest(G))
-    if latent:
-        d=resolve(invalid=False,overgrant=bool(over),missing_required=bool(missing))
-        return StudyResult(d.status,d.exit_code,latent,[],admitted,sorted(G),_digest(G))
-    d=resolve(invalid=False,overgrant=False,missing_required=False)
-    return StudyResult(d.status,d.exit_code,[],[],admitted,sorted(G),_digest(G))
+                                "required identity is outside the explicit issuer model", t))
+    for t in sorted(R):
+        if not _covered(t, intents):
+            findings.append(Finding("required-token-outside-intent",
+                                    "required identity contradicts the upper-bound intent", t))
+    if findings:
+        invalids.append("inconsistent-positive-obligation")
+    admitted = sorted(t for t in G if _covered(t, allows) and not _covered(t, denies))
+    over = sorted(t for t in admitted if not _covered(t, intents))
+    # A missing identity is confirmed only when both model and intent admit it.
+    missing = sorted(t for t in (R & G) if _covered(t, intents) and t not in admitted)
+    latent = [Finding("admission-expansion", "issuer-mintable token admitted outside intent", t)
+              for t in over]
+    latent += [Finding("required-token-not-admitted", "required identity is not admitted", t)
+               for t in missing]
+    d = resolve(invalid=bool(invalids), overgrant=bool(over), missing_required=bool(missing))
+    if invalids:
+        findings = [Finding("inconsistent-specification", s) for s in dict.fromkeys(invalids)] + findings
+    else:
+        findings, latent = latent, []
+    return StudyResult(d.status, d.exit_code, findings, latent, admitted, sorted(G), digest(sorted(G)))
 
-def certificate(packet:dict[str,Any], result:StudyResult)->dict[str,Any]:
-    body={
-        "schema":"fedfence.normalized-study-certificate.v1",
-        "packet":packet,
-        "decision":result.to_json(),
-        "issuer_domain":result.issuer_domain,
-        "issuer_domain_digest":result.issuer_domain_digest,
-    }
-    body["certificate_digest"]=hashlib.sha256(json.dumps(body,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
-    return body
+def decide(*, explicit_issuer: Iterable[Any], allow: Iterable[Any],
+           deny: Iterable[Any] = (), intent: Iterable[Any],
+           required: Iterable[Any] = (), invalid: Iterable[str] = ()) -> StudyResult:
+    """Conservative wrapper: bounded membership exhaustion remains unknown."""
+    try:
+        return _decide(explicit_issuer=explicit_issuer, allow=allow, deny=deny,
+                       intent=intent, required=required, invalid=invalid)
+    except ConformanceBudgetExceeded as exc:
+        return _unknown(exc.code, str(exc))
 
-def replay(cert:dict[str,Any])->StudyResult:
-    p=cert["packet"]
-    got=decide(explicit_issuer=p.get("explicit_issuer",[]),allow=p.get("allow",[]),deny=p.get("deny",[]),
-               intent=p.get("intent",[]),required=p.get("required",[]),invalid=p.get("invalid",[]))
-    if got.issuer_domain_digest!=cert.get("issuer_domain_digest"):
-        return StudyResult("unknown",2,[Finding("issuer-domain-replay-mismatch","certificate and replay use different issuer domains")],[],got.admitted,got.issuer_domain,got.issuer_domain_digest)
-    recorded=cert.get("decision",{})
-    if got.status!=recorded.get("status") or got.exit_code!=recorded.get("exit_code"):
-        return StudyResult("unknown",2,[Finding("decision-replay-mismatch","recorded and replayed decisions differ")],[],got.admitted,got.issuer_domain,got.issuer_domain_digest)
-    return got
+def certificate(packet: dict[str, Any], result: StudyResult) -> dict[str, Any]:
+    body = {"schema": "fedfence.normalized-study-certificate.v1", "packet": packet,
+            "decision": result.to_json(), "issuer_domain": result.issuer_domain,
+            "issuer_domain_digest": result.issuer_domain_digest}
+    # Hashes detect record changes; they are not signatures or source authentication.
+    return {**body, "certificate_digest": digest(body)}
+
+def replay(cert: dict[str, Any]) -> StudyResult:
+    try:
+        fields = {"schema", "packet", "decision", "issuer_domain", "issuer_domain_digest", "certificate_digest"}
+        if not isinstance(cert, dict) or set(cert) != fields or cert["schema"] != "fedfence.normalized-study-certificate.v1":
+            raise ValueError("unexpected certificate schema or fields")
+        if cert["certificate_digest"] != digest({k:v for k,v in cert.items() if k != "certificate_digest"}):
+            raise ValueError("certificate content digest mismatch")
+        packet = cert["packet"]
+        if not isinstance(packet, dict) or not {"explicit_issuer", "allow", "intent"}.issubset(packet):
+            raise ValueError("incomplete replay packet")
+        if set(packet) - {"explicit_issuer", "allow", "deny", "intent", "required", "invalid"}:
+            raise ValueError("unknown replay packet field")
+        got = decide(**packet)
+        if digest(got.issuer_domain) != digest(cert["issuer_domain"]) or got.issuer_domain_digest != cert["issuer_domain_digest"]:
+            return _unknown("issuer-domain-replay-mismatch", "different explicit issuer relation")
+        if digest(got.to_json()) != digest(cert["decision"]):
+            return _unknown("decision-replay-mismatch", "recomputed result differs, including findings and admitted tuples")
+        return got
+    except (TypeError, ValueError, KeyError) as exc:
+        return _unknown("invalid-certificate", str(exc))

@@ -1,0 +1,19 @@
+{
+  "renderer": "PDF skill render_pdf.py, 120 dpi",
+  "pages_rendered": 39,
+  "preceding_rendered_review": "All 39 pages inspected in four contact sheets; detailed checks on equations, timeline and measurements.",
+  "changed_pages": [
+    "page-26.png",
+    "page-30.png",
+    "page-31.png"
+  ],
+  "identical_other_pages": 36,
+  "current_pdf_sha256": "8bfadb429275f8789925727acb17655eb6a280e8a0abfed81e42e3dbc6f878d4",
+  "passed": true,
+  "changed_pages_reinspected": true,
+  "observed_clipped_text": false,
+  "observed_overlapping_elements": false,
+  "observed_missing_glyphs": false,
+  "listing_split_fixed": true,
+  "scope": "Visual inspection and render comparison; not publisher production certification."
+}

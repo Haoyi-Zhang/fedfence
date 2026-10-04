@@ -22,8 +22,10 @@ def inspect_policy(policy: Any) -> dict:
         return {"supported": False, "statements": 0, "issues": [{"code": "invalid-policy", "location": "$", "detail": "expected object"}]}
     for key in sorted(set(policy) - {"Version", "Id", "Statement"}):
         issue("unsupported-policy-field", key, str(key))
-    if policy.get("Version", "2012-10-17") != "2012-10-17":
+    if policy.get("Version") != "2012-10-17":
         issue("unsupported-policy-version", "Version", str(policy.get("Version")))
+    if "Id" in policy and not isinstance(policy["Id"], str):
+        issue("invalid-policy-id", "Id", "optional policy Id must be a string")
     statements = policy.get("Statement")
     if isinstance(statements, dict):
         statements = [statements]
@@ -31,6 +33,7 @@ def inspect_policy(policy: Any) -> dict:
         issue("invalid-statements", "Statement", "a nonempty statement list is required")
         statements = []
     allows = 0
+    provider_arns = set()
     for i, st in enumerate(statements):
         loc = f"Statement[{i}]"
         if not isinstance(st, dict):
@@ -38,6 +41,8 @@ def inspect_policy(policy: Any) -> dict:
             continue
         for field in sorted(set(st) - FIELDS):
             issue("unsupported-statement-field", f"{loc}.{field}", field)
+        if "Sid" in st and not isinstance(st["Sid"], str):
+            issue("invalid-statement-id", f"{loc}.Sid", "optional Sid must be a string")
         effect = st.get("Effect")
         if not isinstance(effect, str) or effect not in {"Allow", "Deny"}:
             issue("invalid-effect", f"{loc}.Effect", "explicit Allow/Deny required")
@@ -50,6 +55,8 @@ def inspect_policy(policy: Any) -> dict:
             fed = fed[0] if isinstance(fed, list) and len(fed) == 1 else fed
             if not isinstance(fed, str) or ARN.fullmatch(fed) is None:
                 issue("unsupported-principal", f"{loc}.Principal", "exact GitHub OIDC provider ARN required")
+            else:
+                provider_arns.add(fed)
         actions = st.get("Action")
         actions = [actions] if isinstance(actions, str) else actions
         if not isinstance(actions, list) or len(actions) != 1 or not isinstance(actions[0], str) or actions[0].lower() != ACTION.lower():
@@ -74,6 +81,8 @@ def inspect_policy(policy: Any) -> dict:
                     continue
                 if any("${" in v or "%{" in v for v in values):
                     issue("unresolved-interpolation", f"{ploc}.{key}", "provider/IaC variables require resolution")
+    if len(provider_arns) > 1:
+        issue("mixed-provider-principals", "Statement", "all projected statements must use the same exact provider ARN")
     if not allows:
         issue("no-supported-allow", "Statement", "gate requires an explicit role-admission Allow")
     return {"supported": not issues, "statements": len(statements), "issues": issues,

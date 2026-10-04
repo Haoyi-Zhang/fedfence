@@ -5,7 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from fedfence.analyzer import analyze_case, ANY_GITHUB_AUDIENCE, ANY_GITHUB_SUBJECT  # noqa: E402
-from fedfence.github import issuer_subject_nfa  # noqa: E402
+from fedfence.github import issuer_subject_nfa, github_alphabet_from_patterns  # noqa: E402
 from fedfence.policy import allow_statements_for_web_identity, deny_statements_for_web_identity  # noqa: E402
 from fedfence.regular import alphabet_from_patterns, intersection_typed_groups, union_globs  # noqa: E402
 from fedfence.spec import subject_intent_parts, audience_intent_parts, intent_nfa, intent_alphabet_inputs  # noqa: E402
@@ -53,7 +53,7 @@ def verify_case(path: Path) -> tuple[bool, str]:
     alph_inputs = [ANY_GITHUB_SUBJECT, issuer_patterns, issuer_aud_patterns] + intent_alphabet_inputs(spec)
     for st in stms + denys:
         alph_inputs.extend(st.typed_groups_for("sub")); alph_inputs.extend(st.typed_groups_for("aud"))
-    alphabet = alphabet_from_patterns(alph_inputs)
+    alphabet = github_alphabet_from_patterns(alph_inputs)
     issuer_sub = issuer_subject_nfa(list(issuer_patterns), alphabet)
     issuer_aud = union_globs(issuer_aud_patterns, alphabet)
     intended_sub = intent_nfa(sub_lits, sub_globs, alphabet)

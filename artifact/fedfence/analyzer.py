@@ -19,13 +19,13 @@ try:
 except Exception:  # pragma: no cover
     yaml = None
 
-from .github import github_default_subject_nfa, issuer_subject_nfa, governance_key, parse_github_subject, governance_set
+from .github import github_default_subject_nfa, issuer_subject_nfa, github_alphabet_from_patterns, GITHUB_SUPPORT_LITERALS, governance_key, parse_github_subject, governance_set
 from .policy import StatementConstraints, allow_statements_for_web_identity, deny_statements_for_web_identity
 from .spec import subject_intent_parts, audience_intent_parts, intent_nfa, intent_alphabet_inputs
 from .regular import (
     DEFAULT_ALPHABET,
     NFA,
-    alphabet_from_patterns,
+    validate_support,
     contains_witness,
     empty,
     intersect,
@@ -319,7 +319,10 @@ def analyze_case(case: Mapping[str, Any]) -> AnalysisResult:
     for st in list(stmts) + list(deny_stmts):
         alphabet_inputs.extend(st.typed_groups_for("sub"))
         alphabet_inputs.extend(st.typed_groups_for("aud"))
-    alphabet = alphabet_from_patterns(alphabet_inputs)
+    alphabet = github_alphabet_from_patterns(alphabet_inputs)
+    covered, reason = validate_support(alphabet, ("equals", GITHUB_SUPPORT_LITERALS), alphabet_inputs)
+    if not covered:
+        raise ValueError("incomplete analysis character support: " + reason)
 
     issuer_sub_nfa = issuer_subject_nfa(list(issuer_sub_spec or []), alphabet)
     issuer_aud_nfa = union_globs(issuer_aud, alphabet)

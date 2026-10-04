@@ -1,0 +1,5 @@
+{
+  "comparisons": 3945,
+  "passed": true,
+  "scope": "bounded words over ab: plus symbolic regression examples; not provider equivalence"
+}
