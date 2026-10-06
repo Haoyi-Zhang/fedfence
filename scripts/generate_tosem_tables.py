@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the paper's quantitative macros and tables from current results."""
 from pathlib import Path
-import json, sys
+import ast, json, sys
 ROOT=Path(__file__).resolve().parents[1]; OUT=ROOT.parent/'paper/generated';OUT.mkdir(parents=True,exist_ok=True)
 RES=ROOT/'tosem/results'
 def load(name, fallback=None):
@@ -11,6 +11,11 @@ def load(name, fallback=None):
 def tex(s):
     return str(s).replace('\\',r'\textbackslash{}').replace('_',r'\_').replace('&',r'\&').replace('%',r'\%').replace('#',r'\#')
 u=load('unit_tests.json','fse/results/unit_tests.json');f=load('two_sided_exhaustive.json');s=load('strict_literal_differential.json');r=load('relational_audit.json');p=load('public_study.json');fr=load('source_frontier.json');m=load('maintenance_metadata.json');proj=load('finite_semantics_audit.json','fse/results/finite_semantics_audit.json')
+discovered=sum(sum(isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef)) and n.name.startswith('test_')
+                   for n in ast.walk(ast.parse(path.read_text(encoding='utf-8'))))
+               for path in (ROOT/'tests').glob('test_*.py'))
+if u['tests_run'] != discovered:
+    raise ValueError('unit-test record is stale for the current sources; regenerate evidence before paper tables')
 macros={'TestCount':u['tests_run'],'FiniteCount':f['checked'],'FinitePass':f['verdicts']['pass'],'FiniteFail':f['verdicts']['fail'],'FiniteUnknown':f['verdicts']['unknown'],'FiniteReplay':f['replay_samples'],'StrictCount':s['checked'],'StrictPass':s['verdicts']['pass'],'StrictFail':s['verdicts']['fail'],'ProjectionCount':proj['checked_models'],'PublicCommits':p['summary']['commits'],'PublicRoles':p['summary']['role_contracts'],'PublicConfigurations':p['summary']['evaluations'],'PublicPass':p['summary']['verdicts']['pass'],'PublicFail':p['summary']['verdicts']['fail'],'PublicUnknown':p['summary']['verdicts']['unknown'],'SourceCount':fr['summary']['records'],'SourceFull':fr['summary']['full_source_files'],'SourceExtractions':fr['summary']['executed_extractions'],'MaintenanceCount':m['summary']['records'],'ReportedBreakages':m['summary']['reports_annotated_breakage'],'RecordedSuccesses':m['summary']['records_with_success_run_id']}
 matcher=load('matcher_differential.json');issuer=load('issuer_membership_differential.json');gs=load('strict_glob_differential.json');scaling=load('local_scaling.json')
 macros.update(MatcherCount=matcher['checked'],IssuerCount=issuer['checked'],GlobStrictCount=gs['checked'],GlobStrictPass=gs['verdicts'].get('pass',0),GlobStrictFail=gs['verdicts'].get('fail',0),ScalingRuns=scaling['recorded_runs'])

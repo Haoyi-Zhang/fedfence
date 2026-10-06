@@ -9,7 +9,6 @@ format for projection-definability experiments.
 """
 from __future__ import annotations
 from dataclasses import dataclass, asdict
-from fnmatch import fnmatchcase
 from typing import Any, Mapping, Sequence
 
 from .policy import AWS_GITHUB_PRINCIPAL_RE, GITHUB_PREFIX
@@ -73,10 +72,32 @@ def _op_name(op: str) -> str | None:
     return suffix if suffix in SUPPORTED_OPS else None
 
 
+def _glob_matches(pattern: str, value: str) -> bool:
+    """Whole-string star/question-mark matching; every other code point is literal.
+
+    The finite-event path uses the same prefix recurrence as the scalar positive
+    path, rather than importing a host glob language with bracket classes.
+    """
+    if '*' not in pattern and '?' not in pattern:
+        return pattern == value
+    row = [True] + [False] * len(value)
+    for char in pattern:
+        nxt = [False] * (len(value) + 1)
+        if char == '*':
+            nxt[0] = row[0]
+            for j in range(1, len(nxt)):
+                nxt[j] = row[j] or nxt[j - 1]
+        else:
+            for j in range(1, len(nxt)):
+                nxt[j] = row[j - 1] and (char == '?' or char == value[j - 1])
+        row = nxt
+    return row[-1]
+
+
 def _match_value(op: str, claim_value: str, vals: Sequence[str]) -> bool:
     if op in {"stringequals", "arnequals"}:
         return any(claim_value == v for v in vals)
-    return any(fnmatchcase(claim_value, v) for v in vals)
+    return any(_glob_matches(v, claim_value) for v in vals)
 
 
 def _statement_matches(st: Mapping[str, Any], claims: Mapping[str, str]) -> tuple[bool, str | None]:
@@ -96,7 +117,9 @@ def _statement_matches(st: Mapping[str, Any], claims: Mapping[str, str]) -> tupl
             key = _normalize_key(str(raw_key))
             if key is None:
                 return False, f"key:{raw_key}"
-            if not _match_value(op, str(claims.get(key, "")), _as_list(raw_vals)):
+            # These are positive operators, not IfExists/Null. An absent claim
+            # cannot be replaced with a present empty string, even for '*' or ''.
+            if key not in claims or not _match_value(op, claims[key], _as_list(raw_vals)):
                 return False, None
     return True, None
 

@@ -17,7 +17,7 @@ make reproduce
 
 For just the ordinary regression suite, run `make tests`. For the corrected source-backed, source-frontier and maintenance studies, run `make studies`. Outputs are written to `tosem/results/`, with logs in `logs/`; quantitative LaTeX macros and tables are regenerated in `../paper/generated/`. Re-running overwrites generated results and timings. It does not change the supplied public-source fixtures.
 
-**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The delivered run used Python 3.13.5 on Linux. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
+**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The supplied measurement snapshot used Python 3.13.5 on Linux; the current nine-stage local repair recheck used bundled Python 3.12.14 on Windows. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
 
 The preserved legacy YAML extractor has separate optional dependencies in `artifact/requirements.txt`; it is **not** exercised by the current JSON reproduction path. No cloud credentials, cloud account, paid API, external analyzer, repository checkout, network fetch or source program execution is required by the current reproduction command. Historical fetch scripts are not called by it.
 
@@ -62,9 +62,11 @@ Public cases use explicitly identified **study adapters**. Fourteen configuratio
 
 ## Delivered evidence
 
+The table below describes the supplied snapshot, not a newly regenerated collection of current receipts. A separate current local recheck passes all 204 tests and the nine offline stages described below, with its raw attempts retained outside the deliverable. The semantic counts agree; the earlier Linux timing table is deliberately unchanged. The eight historical seeded-fault trials and current paper/PDF build were not rerun. Source-bound hashes and receipts must be regenerated against repaired sources rather than relabeled. The table generator now refuses the supplied 194-test record when used with current 204-test sources.
+
 | Layer | Actual unit and result | Authoritative output |
 |---|---|---|
-| Regression suite | 194 tests, 0 failures, 0 errors, 0 skips; baseline was 94 | `tosem/results/unit_tests.json` |
+| Historical regression snapshot | 194 tests, 0 failures, 0 errors, 0 skips; current recheck: 204 tests | `tosem/results/unit_tests.json` (historical) |
 | Core self-check | 3,945 bounded/symbolic comparisons | `tosem/results/core_self_check.json` |
 | Observation projection | 65,536 four-state/two-observation models | `tosem/results/finite_semantics_audit.json` |
 | Two-sided finite decision | 65,536 decisions over three atoms; 256 full certificate replay samples | `tosem/results/two_sided_exhaustive.json` |
@@ -90,16 +92,18 @@ These units are not interchangeable and must not be summed into a sample size, s
 - `artifact/fedfence/`: retained regular-language analysis core, with the character-domain correction applied; this inner `artifact` name is a historical path, not another FedFence system.
 - `tests/`, `scripts/`, `examples/`, `schemas/`: current regression tests, evidence drivers and benign fixtures.
 - `study/`: supplied source manifests, frozen patch/excerpt records and recorded corrections.
-- `tosem/results/`: authoritative current results. `docs/CLAIM_EVIDENCE_MAP.md` maps them to manuscript claims.
+- `tosem/results/`: supplied source-bound snapshots; regenerate for current source identities. `docs/CLAIM_EVIDENCE_MAP.md` describes the earlier claim mapping.
 - `tosem/history/`, `fse/results/`, `results/`: retained historical documentation and/or compatibility outputs. Do not use them to overwrite the current study's role and branch distinctions.
 
 The original core's own `artifact/README.md` and Makefile describe an older, narrower component-level workflow. The current whole-project entry point is the Makefile next to **this** README. The compatibility aliases `scripts/reproduce_final.py` and `scripts/audit_final.py` now dispatch to the TOSEM drivers.
 
 See `docs/CHANGELOG_TOSEM.md`, `docs/AUDIT_REPORT.md`, and `docs/FINAL_REPORT_ZH.md`. The final archive hash manifest detects accidental file changes; like review digests, it is not an authenticated signature. No submission to a journal, source publication, cloud action, maintainer contact, or author approval was performed by these scripts.
 
-## Current revision: character-domain correction and independent-directory rebuild
+## Current finite-helper repairs and earlier character-domain correction
 
-The current suite has 194 tests: 94 in the original uploaded implementation, 18 from the first TOSEM revision, 34 in the second boundary revision, and 48 for character support and certificate coverage. Scalar empty strings and their single-element-list forms agree; explicit malformed clocks no longer become the current clock. The regular-language positive path now intersects issuer subject refinements with the original typed grammar and also honors audience refinements. The earlier changes were in the wrapper. The current correction changes four original core files in place; it does not introduce a replacement system.
+The current suite has 204 tests: the retained 194-test checkpoint plus ten methods covering finite-event matching, absent versus empty claims, certificate replay, and the empty observation basis. The finite-event path now implements only star and question-mark operators, with literal brackets, and requires presence for its four supported positive condition operators. A constant predicate can have the empty cardinality-minimum observation basis. These are retained library-helper repairs, not changes to the strict CLI's accepted fragment or claims about a live provider.
+
+The earlier character-domain correction remains in place. Scalar empty strings and their single-element-list forms agree; explicit malformed clocks no longer become the current clock. The regular-language positive path intersects issuer subject refinements with the original typed grammar and also honors audience refinements. No replacement system or namespace migration is introduced.
 
 Positive wildcard checks use an exact two-row dynamic program with a 2,000,000-cell per-match cap and a shared monotonic review deadline. Exhaustion is `unknown`, not negative membership. Literal equality is a separate fast path. The checks do not promise hard preemption of JSON parsing, allocation, or arbitrary host execution.
 
@@ -111,7 +115,7 @@ python3 scripts/check_clean_rebuild.py --destination /tmp/fedfence-clean-check
 
 The script deletes generated results, logs, paper tables/plot data, the PDF and TeX intermediates in the copy, then calls its current `make reproduce`. Selected deterministic semantic outputs must agree; new timing samples and PDF byte hashes need not. See `docs/CLEAN_REBUILD.md` for the actual recorded execution.
 
-`make template-current` is a separate opt-in networked bootstrap for the pinned official acmart v2.20 files. It is not part of offline reproduction, was blocked by external access in this environment, and is not represented as a completed latest-template build.
+`make template-current` is a separate opt-in networked bootstrap for the pinned official acmart v2.20 files. It is not part of offline reproduction. The supplied earlier attempt was blocked by external access and is not represented as a completed latest-template build; it was not rerun in this repair.
 
 ## Character-domain contract and legacy evidence
 
@@ -120,3 +124,15 @@ The regular and scalar string model is `python-str-codepoints-v1`: all Python st
 Atomic certificates are version 3; effective-case certificates are version 6. Both bind the character-domain identifier. Legacy certificates must be regenerated; do not relabel or reuse their invariants. Full receipts also change because the implementation digest changes. Read `docs/CHARACTER_DOMAIN_FIX.md` for the exact coverage obligation and evidence limits.
 
 Run only the new audit using `make character-domain`. The full `make reproduce` now has ten evidence steps and includes it automatically. The verification checks are local; no cloud account, credentials, public workflow execution, or external security scanner is used.
+
+## Bounded flat-repository scientific checks
+
+From this directory, or a repository whose root is this artifact directory, run:
+
+```sh
+python -B scripts/run_scientific_checks.py --out scientific-check-output
+```
+
+The output directory must be new. The driver retains raw logs, fails on any nonzero stage, and enforces a shared 1,200-second budget as well as per-stage limits. Its nine stages exercise the current unit suite, core, projection, relational, two-sided, character, matcher/issuer/bounded-glob/scaling, repair, and supplied-source checks. `--no-paper-table` keeps the character audit's checks identical while omitting its sibling-paper write. The current unit output is `fse/results/unit_tests.json`; this flat driver does not relabel the supplied `tosem/results/unit_tests.json` or earlier seeded-fault records as current. No paper build or eight-fault mutation-copy campaign is included.
+
+`.github/workflows/scientific-checks.yml` runs that command on Ubuntu 24.04 for pushes to `main`, pull requests, or manual dispatch. It bounds wall time, CPU time, and virtual memory, retains failure gates, and uploads raw logs and result files even after a failure. The action revisions are pinned. This is a prepared workflow; its nine-stage Windows local run is not a hosted CI result. The existing material-integrity workflow is retained separately.

@@ -196,7 +196,7 @@ def minimal_claim_bases(states: Sequence[WorkflowState], predicate: Callable[[Wo
     """Return cardinality-minimal claim bases that define predicate on states."""
     cand = list(candidates)
     bases: List[Tuple[str, ...]] = []
-    for k in range(1, len(cand) + 1):
+    for k in range(len(cand) + 1):
         for subset in combinations(cand, k):
             if is_definable_by_claims(states, subset, predicate):
                 bases.append(tuple(subset))

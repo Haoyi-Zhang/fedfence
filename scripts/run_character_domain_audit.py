@@ -6,6 +6,7 @@ string, policy, or cloud issuer. Independent recursive/scalar oracles never call
 alphabet_from_patterns. All inputs are constructed locally.
 """
 from __future__ import annotations
+import argparse
 import copy
 import hashlib
 import itertools
@@ -193,6 +194,10 @@ def safe_json(path,value):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--no-paper-table', action='store_true',
+                        help='run the same scientific checks without requiring a sibling paper directory')
+    args = parser.parse_args()
     result=dict(schema='fedfence-character-domain-audit-v1',passed=True,
                 character_domain=CHARACTER_DOMAIN,implementation_sha256=implementation_digest(),
                 network_access=False,cloud_accounts_used=False,
@@ -210,7 +215,8 @@ def main():
              r"Saturated input & Singletons $|S|$ & Support $|A|$ & Residual representative \\" + "\n" +
              r"\midrule" + "\n" + '\n'.join(rows) + "\n" +
              r"\bottomrule" + "\n" + r"\end{tabularx}" + "\n")
-    (ROOT.parent/'paper/generated/character_domain_rows.tex').write_text(table)
+    if not args.no_paper_table:
+        (ROOT.parent/'paper/generated/character_domain_rows.tex').write_text(table)
     print(json.dumps(dict(passed=True,codepoint_predicate_comparisons=result['partition']['primitive_signature_comparisons'],
         quotient_matcher_comparisons=result['matcher']['checked'],constructor_comparisons=result['constructor']['checked'],
         regular_cases=result['integration']['regular_cases'],strict_packets=result['integration']['strict_packets'])))
