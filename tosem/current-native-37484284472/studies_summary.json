@@ -1,0 +1,48 @@
+{
+  "frontier": {
+    "annotation_counts": {
+      "constant_foldable_hcl": 2,
+      "host_language_generation": 1,
+      "literal_source_policy": 5,
+      "requires_instantiation": 13,
+      "requires_module_evaluation": 2,
+      "unsupported_operator_or_instantiation": 1
+    },
+    "annotation_literal_or_foldable": 7,
+    "executed_extractions": 0,
+    "extraction_accuracy_estimated": false,
+    "full_source_files": 0,
+    "records": 24,
+    "verified_excerpts": 24
+  },
+  "maintenance": {
+    "independent_root_cause_adjudication": false,
+    "live_workflows_run": 0,
+    "records": 12,
+    "records_with_success_run_id": 2,
+    "reports_annotated_breakage": 11,
+    "verified_record_digests": 12
+  },
+  "public": {
+    "additional_variable_branch": 1,
+    "cloud_validation": false,
+    "commits": 9,
+    "entry_points": {
+      "finite-explicit-issuer-study-adapter": 7,
+      "regular-language-study-adapter": 14
+    },
+    "evaluations": 21,
+    "independent_accuracy_measure": false,
+    "ordinary_role_phases": 20,
+    "owner_confirmed": false,
+    "role_contracts": 10,
+    "safety_or_full_study_replay_checks": 21,
+    "source_authenticity_verified": false,
+    "verdicts": {
+      "fail": 10,
+      "pass": 10,
+      "unknown": 1
+    },
+    "verified_patch_digests": 9
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "finite": {
+    "schema": "fedfence-tosem-exhaustive-v1",
+    "atoms": [
+      [
+        "repo:fixture/app:ref:refs/heads/main",
+        "sts.amazonaws.com"
+      ],
+      [
+        "repo:fixture/app:ref:refs/heads/dev",
+        "sts.amazonaws.com"
+      ],
+      [
+        "repo:fixture/app:ref:refs/heads/test",
+        "sts.amazonaws.com"
+      ]
+    ],
+    "relation_combinations": 32768,
+    "validity_settings": 2,
+    "checked": 65536,
+    "verdicts": {
+      "pass": 4096,
+      "unknown": 57536,
+      "fail": 3904
+    },
+    "replay_samples": 256,
+    "passed": true,
+    "elapsed_seconds": 1.9065293100000034,
+    "oracle": "direct Python set operations; no cloud or formal refinement proof"
+  },
+  "strict": {
+    "schema": "fedfence-tosem-strict-differential-v1",
+    "checked": 56,
+    "passed": true,
+    "verdicts": {
+      "pass": 9,
+      "fail": 47
+    },
+    "total_seconds": 7.303975819999998,
+    "oracle": "direct finite tuple sets for literal policies; independently written expected outcome, shared Python runtime",
+    "scope": "7 nonempty Allow subsets times 8 Deny subsets over three benign tuples; no issuer/backend completeness claim"
+  },
+  "metamorphic": {
+    "schema": "fedfence-tosem-dependency-metamorphic-v1",
+    "rows": [
+      {
+        "name": "unchanged-fresh-packet",
+        "verdict": "pass",
+        "changed_fields": []
+      },
+      {
+        "name": "workflow-byte-change",
+        "verdict": "pass",
+        "changed_fields": [
+          "workflow"
+        ]
+      },
+      {
+        "name": "issuer-source-metadata-change",
+        "verdict": "pass",
+        "changed_fields": [
+          "issuer"
+        ]
+      },
+      {
+        "name": "subject-widening",
+        "verdict": "fail",
+        "changed_fields": [
+          "policy"
+        ]
+      },
+      {
+        "name": "stale-governance",
+        "verdict": "unknown",
+        "changed_fields": []
+      },
+      {
+        "name": "reviewed-intent-expansion",
+        "verdict": "pass",
+        "changed_fields": [
+          "contract"
+        ]
+      }
+    ],
+    "passed": true,
+    "checked": 6,
+    "interpretation": "workflow content invalidates dependencies but is not executed or semantically interpreted"
+  },
+  "network_access": false,
+  "cloud_accounts_used": false
+}

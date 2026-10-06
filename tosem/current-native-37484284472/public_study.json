@@ -1,0 +1,1172 @@
+{
+  "role_transitions": [
+    {
+      "after": "pass",
+      "before": "fail",
+      "id": "artur-main-branch",
+      "repository": "artur-duart/togglemaster-devops-fiap",
+      "role": "source-selected-role"
+    },
+    {
+      "after": "pass",
+      "before": "fail",
+      "id": "pmcg-master-branch",
+      "repository": "P-mcg01/muyu-invoice-infrastructure",
+      "role": "source-selected-role"
+    },
+    {
+      "after": "pass",
+      "before": "fail",
+      "id": "arriagada-main-branch",
+      "repository": "ArriagadaInc/tpi-backend",
+      "role": "source-selected-role"
+    },
+    {
+      "after": "pass",
+      "before": "fail",
+      "id": "shadow-release-branches",
+      "repository": "shadow-architect-dev/aws-landing-zone",
+      "role": "source-selected-role"
+    },
+    {
+      "after": "pass",
+      "before": "fail",
+      "id": "amr-org-scope",
+      "repository": "amr-elzoghby/Internal-Developer-Platform",
+      "role": "source-selected-role"
+    },
+    {
+      "after": "pass",
+      "before": "fail",
+      "id": "manyiu-repository-scope",
+      "repository": "manyiu/vazue-playlang",
+      "role": "source-selected-role"
+    },
+    {
+      "after": "unknown",
+      "before": "fail",
+      "id": "michele-environment-cut",
+      "repository": "micheleformenti/aws-two-tier-architecture",
+      "role": "source-selected-role"
+    },
+    {
+      "after": "pass",
+      "before": "fail",
+      "id": "sports-store-role-split",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "role": "github_actions_ecr"
+    },
+    {
+      "after": "pass",
+      "before": "pass",
+      "id": "sports-store-role-split",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "role": "github_actions_frontend"
+    },
+    {
+      "after": "pass",
+      "before": "fail",
+      "conditional_on": "nonempty observed binding; assignment not established by supplied evidence",
+      "default_empty": "fail",
+      "id": "microticket-variable-branches",
+      "repository": "sdunster/microticket",
+      "role": "github_deploy"
+    }
+  ],
+  "rows": [
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "id": "artur-main-branch",
+      "repository": "artur-duart/togglemaster-devops-fiap",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "207e29ef4b00341d2a0a714c8fab5f81c9a9ab99cea6a1462d97885a2ccf11c5",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:artur-duart/togglemaster-devops-fiap:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "42f71e00360628e67f44733b82a2863b7cf973ffb9f6a03fd9e8f0982ec6294e",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:artur-duart/togglemaster-devops-fiap:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "id": "artur-main-branch",
+      "repository": "artur-duart/togglemaster-devops-fiap",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "b5bafd95a607ba1ccb62dc49c5a5a281b9c260d35137bf1f358b864d21eaa888",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "abc4e46058578041b050077b11ef64e806294b9536e3d634b2a03fcf539b2036",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "id": "pmcg-master-branch",
+      "repository": "P-mcg01/muyu-invoice-infrastructure",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "d0d35b62a1d705472c96c3740b8273d5b5d5aa45f9a8e9d1ae91c8b262ab716e",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/-; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "ae718b4ce41068cf29a8aa44eea279d57851058ac94931d3c4a69ffea23bc58c",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:P-mcg01/muyu-invoice-generator:ref:refs/heads/-; aud=sts.amazonaws.com"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "id": "pmcg-master-branch",
+      "repository": "P-mcg01/muyu-invoice-infrastructure",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "d3f1ce0d7b01036540509b9c73a2377e01f29e1b2a8c7d7458b263bb1a124294",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "564dec0259c99c22899416ec01581fee1ae6d36e404b4a3f42a20443efdd3bf6",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "id": "arriagada-main-branch",
+      "repository": "ArriagadaInc/tpi-backend",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "8d9dd5b290328a055e6ebab7fc8e7deb129ea62ed7ca41699288386bf0db1d6e",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "2336c36a2bd2b4e1d17c2d5ec4cc79cf46429fbfe3324b71f4fc8f035930655d",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:ArriagadaInc@37077654/tpi-backend@1318709295:ref:refs/heads/feat/h2-5-simple-dev-auth; aud=sts.amazonaws.com"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "id": "arriagada-main-branch",
+      "repository": "ArriagadaInc/tpi-backend",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "pass",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "85e1083ef5fe310e6b93fa2ccd9f0fc7450012d4870896bc6fa5c0ec8a90502d",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "96c5a72ec745f55fb548b3dc48a379561c23052d9e0e8341092b7b6938eb6eca",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "id": "shadow-release-branches",
+      "repository": "shadow-architect-dev/aws-landing-zone",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "3e6fcc84211cb3e665baf92e1f274db2f753461f5cf5f4751a573aa6b9d7c31b",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:shadow-architect-dev/aws-landing-zone:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "31ae931e445ab09a04a45facab1003e7398d019a925340ab18ac22f93a55520c",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:shadow-architect-dev/aws-landing-zone:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "id": "shadow-release-branches",
+      "repository": "shadow-architect-dev/aws-landing-zone",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "a3920b0b321e6305c10fc3e2774ac21e1576c8adb79e9851eb291ff2bbe01342",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "6645577c52b20f8e959d6fada35f5b7a50bc036adf452a4c2e7fd77f385c35e1",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "id": "amr-org-scope",
+      "repository": "amr-elzoghby/Internal-Developer-Platform",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "ef705f29fd987bdd0282d172506470f52f89d077be1a0e0bfb24f2e9280219fb",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:-/-:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "efeafa3b7d99149821100cd9fdb12fd7c2fb4d3f9a7c8f0169a9e9433a3c2f68",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:-/-:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "id": "amr-org-scope",
+      "repository": "amr-elzoghby/Internal-Developer-Platform",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "450c992609f605037b4ca824c3aab6d6f1c272beba74b262684c166e13e8bd87",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "0ac081d769ef5cb2d9c61ab3e35dce4e2d9c1f1225183e63128023b89d4719f9",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "id": "manyiu-repository-scope",
+      "repository": "manyiu/vazue-playlang",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "47f03da3e21947d2cfd9bbf8844d6ee018af102dee370229e82bb56cc7b2f0bd",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:manyiu/%:pull_request; aud=sts.amazonaws.com"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "ee2bd1f43c07fec9593e5844752fac788b998b206189d5bd06c8c85f5d8b4998",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:manyiu/%:pull_request; aud=sts.amazonaws.com"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "id": "manyiu-repository-scope",
+      "repository": "manyiu/vazue-playlang",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "b9863a4fc6786ee4232776c24d7f3f00664614b75007a15085e7467b0597c143",
+        "certificate_verdict": "safe",
+        "findings": [],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "18e49acf3576900d101fb9b7b871a69d7059c4774dab37a42a4e87c254cd7464",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": true,
+        "verdict": "pass",
+        "witnesses": []
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "id": "michele-environment-cut",
+      "repository": "micheleformenti/aws-two-tier-architecture",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "fail",
+          "wildcard_ban": "fail"
+        },
+        "certificate_sha256": "8b3ac6d00a7e514ca101f3f881d4b755e6ebbf41823f21c870c35f4c1147de98",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": false,
+            "kind": "missing-aud",
+            "message": "Allow statement has no provider-qualified audience condition; safety is decided on issuer audiences.",
+            "severity": "medium",
+            "statement": 0,
+            "witness": null
+          },
+          {
+            "blocking": true,
+            "kind": "subject-overgrant",
+            "message": "Effective policy admits an issuer-mintable subject outside intent.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=*"
+          },
+          {
+            "blocking": true,
+            "kind": "audience-overgrant",
+            "message": "Effective policy admits an issuer-mintable audience outside intent.",
+            "severity": "medium",
+            "statement": 0,
+            "witness": "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=*"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "4005c36482db436f2861350750a8040f52def3c912b37aba75af05a34bb98f47",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "fail",
+        "witnesses": [
+          "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=*",
+          "sub=repo:micheleformenti/aws-two-tier-architecture:pull_request; aud=*"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "id": "michele-environment-cut",
+      "repository": "micheleformenti/aws-two-tier-architecture",
+      "result": {
+        "baselines": {
+          "exact_ref_only": "fail",
+          "presence": "pass",
+          "wildcard_ban": "pass"
+        },
+        "certificate_sha256": "c97b6f0c6db8e9262c50e788322f764875aa5661c2edf5c09992bee702586531",
+        "certificate_verdict": "unsafe",
+        "findings": [
+          {
+            "blocking": true,
+            "kind": "unprotected-environment",
+            "message": "Environment subject requires a repository-scoped protected-environment governance fact.",
+            "severity": "high",
+            "statement": 0,
+            "witness": "sub=repo:micheleformenti/aws-two-tier-architecture:environment:dev; governance=micheleformenti/aws-two-tier-architecture:dev"
+          }
+        ],
+        "matches_source_stated_expectation": true,
+        "policy_sha256": "509e716f801b8d227dd002ece86025dca89fe25ececb3c4f2c3c5bb8cefceee1",
+        "replay_notes": [
+          "effective-admission recomputation verifies (shared trusted primitives)"
+        ],
+        "replay_ok": true,
+        "required_token_checks": {
+          "all_satisfied": true,
+          "checks": [],
+          "invalid": [],
+          "missing": [],
+          "required": 0,
+          "satisfied": 0
+        },
+        "safe_boolean": false,
+        "verdict": "unknown",
+        "witnesses": [
+          "sub=repo:micheleformenti/aws-two-tier-architecture:environment:dev; governance=micheleformenti/aws-two-tier-architecture:dev"
+        ]
+      },
+      "role": "source-selected-role"
+    },
+    {
+      "conditional_on": "supplied seven-tuple issuer relation",
+      "configuration": "before",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "id": "sports-store-role-split",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "result": {
+        "admitted": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "entry_point": "study-only-normalized-backend",
+        "exit_code": 1,
+        "findings": [
+          {
+            "code": "admission-expansion",
+            "detail": "issuer-mintable token admitted outside intent",
+            "token": [
+              "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "issuer_domain": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "issuer_domain_digest": "a4492f930ad214765d8963ac4de676be38d3a4b0b461d8a3968bb67c9729cd6e",
+        "latent_findings": [],
+        "replay_ok": true,
+        "status": "fail",
+        "verdict": "fail"
+      },
+      "role": "github_actions_ecr"
+    },
+    {
+      "conditional_on": "supplied seven-tuple issuer relation",
+      "configuration": "after",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "id": "sports-store-role-split",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "result": {
+        "admitted": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "entry_point": "study-only-normalized-backend",
+        "exit_code": 0,
+        "findings": [],
+        "issuer_domain": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "issuer_domain_digest": "a4492f930ad214765d8963ac4de676be38d3a4b0b461d8a3968bb67c9729cd6e",
+        "latent_findings": [],
+        "replay_ok": true,
+        "status": "pass",
+        "verdict": "pass"
+      },
+      "role": "github_actions_ecr"
+    },
+    {
+      "conditional_on": "supplied seven-tuple issuer relation",
+      "configuration": "before",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "id": "sports-store-role-split",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "result": {
+        "admitted": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "entry_point": "study-only-normalized-backend",
+        "exit_code": 0,
+        "findings": [],
+        "issuer_domain": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "issuer_domain_digest": "a4492f930ad214765d8963ac4de676be38d3a4b0b461d8a3968bb67c9729cd6e",
+        "latent_findings": [],
+        "replay_ok": true,
+        "status": "pass",
+        "verdict": "pass"
+      },
+      "role": "github_actions_frontend"
+    },
+    {
+      "conditional_on": "supplied seven-tuple issuer relation",
+      "configuration": "after",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "id": "sports-store-role-split",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "result": {
+        "admitted": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "entry_point": "study-only-normalized-backend",
+        "exit_code": 0,
+        "findings": [],
+        "issuer_domain": [
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "issuer_domain_digest": "a4492f930ad214765d8963ac4de676be38d3a4b0b461d8a3968bb67c9729cd6e",
+        "latent_findings": [],
+        "replay_ok": true,
+        "status": "pass",
+        "verdict": "pass"
+      },
+      "role": "github_actions_frontend"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "id": "microticket-variable-branches",
+      "repository": "sdunster/microticket",
+      "result": {
+        "admitted": [
+          [
+            "repo:sdunster/microticket:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "entry_point": "study-only-normalized-backend",
+        "exit_code": 1,
+        "findings": [
+          {
+            "code": "required-token-not-admitted",
+            "detail": "required identity is not admitted",
+            "token": [
+              "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "issuer_domain": [
+          [
+            "repo:sdunster/microticket:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "issuer_domain_digest": "4682f29d84cca0e8f16ba693aebe21fa407f257f1303d11d3d083b5d87700c9d",
+        "latent_findings": [],
+        "replay_ok": true,
+        "status": "fail",
+        "verdict": "fail"
+      },
+      "role": "github_deploy"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after-default-empty",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "id": "microticket-variable-branches",
+      "repository": "sdunster/microticket",
+      "result": {
+        "admitted": [
+          [
+            "repo:sdunster/microticket:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "entry_point": "study-only-normalized-backend",
+        "exit_code": 1,
+        "findings": [
+          {
+            "code": "required-token-not-admitted",
+            "detail": "required identity is not admitted",
+            "token": [
+              "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+              "sts.amazonaws.com"
+            ]
+          }
+        ],
+        "issuer_domain": [
+          [
+            "repo:sdunster/microticket:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "issuer_domain_digest": "4682f29d84cca0e8f16ba693aebe21fa407f257f1303d11d3d083b5d87700c9d",
+        "latent_findings": [],
+        "replay_ok": true,
+        "status": "fail",
+        "verdict": "fail"
+      },
+      "role": "github_deploy"
+    },
+    {
+      "conditional_on": "the variable being assigned from the reported observed token",
+      "configuration": "after-observed-binding",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "id": "microticket-variable-branches",
+      "repository": "sdunster/microticket",
+      "result": {
+        "admitted": [
+          [
+            "repo:sdunster/microticket:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "entry_point": "study-only-normalized-backend",
+        "exit_code": 0,
+        "findings": [],
+        "issuer_domain": [
+          [
+            "repo:sdunster/microticket:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ],
+          [
+            "repo:sdunster@964295/microticket@1375658353:ref:refs/heads/prod",
+            "sts.amazonaws.com"
+          ]
+        ],
+        "issuer_domain_digest": "4682f29d84cca0e8f16ba693aebe21fa407f257f1303d11d3d083b5d87700c9d",
+        "latent_findings": [],
+        "replay_ok": true,
+        "status": "pass",
+        "verdict": "pass"
+      },
+      "role": "github_deploy"
+    }
+  ],
+  "schema": "fedfence-tosem-public-study-v1",
+  "sources": [
+    {
+      "assertions_verified": true,
+      "commit": "b09186ba3cbb56337e0b695318754d0d8453421c",
+      "digest_verified": true,
+      "path": "evidence/public_changes/artur-main-branch.patch",
+      "repository": "artur-duart/togglemaster-devops-fiap",
+      "sha256": "5f4c35a4aa0558218ba6ec6348387b7d5db45a501e827243df0f331868254a54",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "bb96ae77561bfab07471a0629f165db4a2515535",
+      "digest_verified": true,
+      "path": "evidence/public_changes/pmcg-master-branch.patch",
+      "repository": "P-mcg01/muyu-invoice-infrastructure",
+      "sha256": "044d141581af7f3255afaf2f7dd867b68f79fc639fd7e3ccd335462bd59ad7fc",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "8a67b6071b08fb363b664222a28d7250c29ed8cf",
+      "digest_verified": true,
+      "path": "evidence/public_changes/arriagada-main-branch.patch",
+      "repository": "ArriagadaInc/tpi-backend",
+      "sha256": "3f3d17bb11d66c0cc6085061fb8b3611e6b1c814bbc045623ed8445fc5b076fa",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "f97fab6ffb0b9558fb7e5df562bb1b12ab1268d1",
+      "digest_verified": true,
+      "path": "evidence/public_changes/shadow-release-branches.patch",
+      "repository": "shadow-architect-dev/aws-landing-zone",
+      "sha256": "fd075249ca7f6c3813b3050ac2a6bdb03453b6589d7e0dec7a5c3084b9f74e6c",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "d5dd8a140fd8409c79a3dbb70a23d28b16e8aeb5",
+      "digest_verified": true,
+      "path": "evidence/public_changes/amr-org-scope.patch",
+      "repository": "amr-elzoghby/Internal-Developer-Platform",
+      "sha256": "bbca8d07e9881bb38dd9504376f5e217cbd520c8661d89b18a3cc1279b78ceb7",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "8ebbad974724acace02bbb1d7462a7529235aabd",
+      "digest_verified": true,
+      "path": "evidence/public_changes/manyiu-repository-scope.patch",
+      "repository": "manyiu/vazue-playlang",
+      "sha256": "d287826ba008f0a0055391705f45f78a7a8ca21fec76f31d41c3ed24f47b253d",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "5d7339a716eb1e64623a95e756298f6057030285",
+      "digest_verified": true,
+      "path": "evidence/public_changes/michele-environment-cut.patch",
+      "repository": "micheleformenti/aws-two-tier-architecture",
+      "sha256": "9dec13023b33cfe2b86ae842bb20bc85a8ed51cd403f3bf9d5bc14967691d2b3",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+      "digest_verified": true,
+      "path": "evidence/public_changes/sports-store-immutable-main.patch",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "sha256": "18e914e77008cf42d065ea18ea504cd7365d4c882617200e48805586cd64e327",
+      "source_authenticity_verified": false
+    },
+    {
+      "assertions_verified": true,
+      "commit": "79abbeceae16b22f22a78770d580e44058c9f559",
+      "digest_verified": true,
+      "path": "evidence/public_changes/microticket-immutable-compatibility.patch",
+      "repository": "sdunster/microticket",
+      "sha256": "8dbf73fc27baa3edce0ddb51a05eb43f367d98c6cf7ac03b8638b19c14b93b7f",
+      "source_authenticity_verified": false
+    }
+  ],
+  "summary": {
+    "additional_variable_branch": 1,
+    "cloud_validation": false,
+    "commits": 9,
+    "entry_points": {
+      "finite-explicit-issuer-study-adapter": 7,
+      "regular-language-study-adapter": 14
+    },
+    "evaluations": 21,
+    "independent_accuracy_measure": false,
+    "ordinary_role_phases": 20,
+    "owner_confirmed": false,
+    "role_contracts": 10,
+    "safety_or_full_study_replay_checks": 21,
+    "source_authenticity_verified": false,
+    "verdicts": {
+      "fail": 10,
+      "pass": 10,
+      "unknown": 1
+    },
+    "verified_patch_digests": 9
+  }
+}

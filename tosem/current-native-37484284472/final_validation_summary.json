@@ -1,0 +1,522 @@
+{
+  "cloud_accounts_used": false,
+  "implementation_sha256": "f9386c26685ccc50e7045b7b90a738a281fbdcb695e177c8386df11f84e78477",
+  "network_access": false,
+  "passed": true,
+  "results": {
+    "issuer": {
+      "accepted": 348,
+      "audience_refinements": [
+        null,
+        [],
+        [
+          "?*"
+        ],
+        [
+          "sts.amazonaws.com"
+        ],
+        [
+          "vault"
+        ],
+        [
+          ""
+        ]
+      ],
+      "audiences": [
+        "",
+        "sts.amazonaws.com",
+        "vault",
+        "audit"
+      ],
+      "checked": 2304,
+      "passed": true,
+      "rejected": 1956,
+      "result_stream_sha256": "ea7d861ba1f698b25dc7e71a271f31fe74153025f3995feb017e73a6bf30d05c",
+      "schema": "fedfence-issuer-membership-audit-v1",
+      "scope": "Bounded agreement with the retained typed constructor/refinement NFAs, not live issuer behavior.",
+      "subject_refinements": [
+        null,
+        [],
+        [
+          "*"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/main"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/dev"
+        ],
+        [
+          "repo:acme/api:*"
+        ],
+        [
+          "repository_id:*"
+        ],
+        [
+          ""
+        ]
+      ],
+      "subjects": [
+        "repo:acme/api:ref:refs/heads/main",
+        "repo:acme/api:ref:refs/heads/dev",
+        "repo:acme/api:ref:refs/heads/feature/test",
+        "repo:acme/api:ref:refs/tags/v1",
+        "repo:acme/api:environment:prod",
+        "repo:acme/api:pull_request",
+        "repo:acme/api:ref:refs/heads/",
+        "repo:acme/api:ref:refs/heads/with:colon",
+        "repo:acme/api:ref:refs/heads/*",
+        "repo:acme/api:ref:refs/heads/?",
+        "repository_id:123:environment:prod",
+        "repo:acme/other:ref:refs/heads/main"
+      ]
+    },
+    "matcher": {
+      "checked": 242580,
+      "elapsed_seconds": 3.1811581669999995,
+      "implementations": [
+        "recursive split oracle",
+        "positive prefix DP",
+        "retained core NFA"
+      ],
+      "matching_pairs": 12249,
+      "nonmatching_pairs": 230331,
+      "passed": true,
+      "pattern_alphabet": [
+        "a",
+        "b",
+        "*",
+        "?",
+        "[",
+        "]"
+      ],
+      "pattern_max_length": 4,
+      "patterns": 1555,
+      "result_stream_sha256": "090945c0d3554e64ce90d4e3b1d4fb1e733e5273da11e9b5524cec0cb47401c3",
+      "sample_rows": [
+        [
+          "",
+          "",
+          true,
+          true,
+          true
+        ],
+        [
+          "a??",
+          "][",
+          false,
+          false,
+          false
+        ],
+        [
+          "**b",
+          "a]a",
+          false,
+          false,
+          false
+        ],
+        [
+          "[a]",
+          "b[]",
+          false,
+          false,
+          false
+        ],
+        [
+          "]]?",
+          "[[b",
+          false,
+          false,
+          false
+        ],
+        [
+          "ab[b",
+          "]b\n",
+          false,
+          false,
+          false
+        ],
+        [
+          "a?*]",
+          "\nb[",
+          false,
+          false,
+          false
+        ],
+        [
+          "a]b[",
+          "\n",
+          false,
+          false,
+          false
+        ],
+        [
+          "bba*",
+          "\n[",
+          false,
+          false,
+          false
+        ],
+        [
+          "b*]a",
+          "a\na",
+          false,
+          false,
+          false
+        ],
+        [
+          "b[?[",
+          "b]]",
+          false,
+          false,
+          false
+        ],
+        [
+          "*a**",
+          "[]b",
+          false,
+          false,
+          false
+        ],
+        [
+          "**ba",
+          "][\n",
+          false,
+          false,
+          false
+        ],
+        [
+          "*?][",
+          "\n[[",
+          false,
+          false,
+          false
+        ],
+        [
+          "*][?",
+          "a\n",
+          false,
+          false,
+          false
+        ],
+        [
+          "?b?b",
+          "aa[",
+          false,
+          false,
+          false
+        ],
+        [
+          "??b]",
+          "baa",
+          false,
+          false,
+          false
+        ],
+        [
+          "?]a?",
+          "b\n]",
+          false,
+          false,
+          false
+        ],
+        [
+          "[a]b",
+          "[\nb",
+          false,
+          false,
+          false
+        ],
+        [
+          "[*?]",
+          "]]\n",
+          false,
+          false,
+          false
+        ],
+        [
+          "[[*?",
+          "\n][",
+          false,
+          false,
+          false
+        ],
+        [
+          "]ab*",
+          "b\n",
+          false,
+          false,
+          false
+        ],
+        [
+          "]*aa",
+          "ab[",
+          false,
+          false,
+          false
+        ],
+        [
+          "]?[[",
+          "bba",
+          false,
+          false,
+          false
+        ],
+        [
+          "]]?*",
+          "[a]",
+          false,
+          false,
+          false
+        ]
+      ],
+      "schema": "fedfence-bounded-matcher-audit-v1",
+      "scope": "Exhaustive for declared finite alphabets/lengths only; not all-string equivalence.",
+      "value_alphabet": [
+        "a",
+        "b",
+        "[",
+        "]",
+        "\n"
+      ],
+      "value_max_length": 3,
+      "values": 156
+    },
+    "scaling": {
+      "csv_sha256": "bc3867dc82d4dbb38128694f910ec71f1890b37d3c16685ef0889aceb1ebb149",
+      "environment": {
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]"
+      },
+      "passed": true,
+      "recorded_runs": 54,
+      "repetitions": 3,
+      "schema": "fedfence-local-scaling-v1",
+      "scope": "Single local interpreter/process environment, subprocess startup included; descriptive medians and observed ranges, not confidence intervals or tool comparisons.",
+      "sizes": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32
+      ],
+      "summary": [
+        {
+          "max_seconds": 0.0927763690000063,
+          "median_seconds": 0.09256354299999714,
+          "min_seconds": 0.09200547400000403,
+          "repetitions": 3,
+          "required_tokens": 1,
+          "task": "review-pass"
+        },
+        {
+          "max_seconds": 0.09362282099999675,
+          "median_seconds": 0.09330872000001023,
+          "min_seconds": 0.0929430759999974,
+          "repetitions": 3,
+          "required_tokens": 1,
+          "task": "review-positive-loss"
+        },
+        {
+          "max_seconds": 0.0928687549999978,
+          "median_seconds": 0.09271196299999929,
+          "min_seconds": 0.09227458499999841,
+          "repetitions": 3,
+          "required_tokens": 1,
+          "task": "receipt-replay"
+        },
+        {
+          "max_seconds": 0.09664256800000715,
+          "median_seconds": 0.09608118199999183,
+          "min_seconds": 0.09598098500001129,
+          "repetitions": 3,
+          "required_tokens": 2,
+          "task": "review-pass"
+        },
+        {
+          "max_seconds": 0.09706455799999958,
+          "median_seconds": 0.09667771099999811,
+          "min_seconds": 0.09642391699999564,
+          "repetitions": 3,
+          "required_tokens": 2,
+          "task": "review-positive-loss"
+        },
+        {
+          "max_seconds": 0.0957602380000111,
+          "median_seconds": 0.09509076300000174,
+          "min_seconds": 0.09502581799999632,
+          "repetitions": 3,
+          "required_tokens": 2,
+          "task": "receipt-replay"
+        },
+        {
+          "max_seconds": 0.10160711899999342,
+          "median_seconds": 0.10157956400000501,
+          "min_seconds": 0.10050167600000748,
+          "repetitions": 3,
+          "required_tokens": 4,
+          "task": "review-pass"
+        },
+        {
+          "max_seconds": 0.10244575199999417,
+          "median_seconds": 0.10168803800000603,
+          "min_seconds": 0.10123834299999146,
+          "repetitions": 3,
+          "required_tokens": 4,
+          "task": "review-positive-loss"
+        },
+        {
+          "max_seconds": 0.10173137600000359,
+          "median_seconds": 0.1012808509999985,
+          "min_seconds": 0.10049376999999993,
+          "repetitions": 3,
+          "required_tokens": 4,
+          "task": "receipt-replay"
+        },
+        {
+          "max_seconds": 0.11480811299999516,
+          "median_seconds": 0.11367474099999697,
+          "min_seconds": 0.113336517999997,
+          "repetitions": 3,
+          "required_tokens": 8,
+          "task": "review-pass"
+        },
+        {
+          "max_seconds": 0.1154236539999971,
+          "median_seconds": 0.11521751100001154,
+          "min_seconds": 0.11479647100000534,
+          "repetitions": 3,
+          "required_tokens": 8,
+          "task": "review-positive-loss"
+        },
+        {
+          "max_seconds": 0.11537423299999716,
+          "median_seconds": 0.11445219400000894,
+          "min_seconds": 0.11375603800000533,
+          "repetitions": 3,
+          "required_tokens": 8,
+          "task": "receipt-replay"
+        },
+        {
+          "max_seconds": 0.1407679349999995,
+          "median_seconds": 0.13784552299999575,
+          "min_seconds": 0.13690140399999962,
+          "repetitions": 3,
+          "required_tokens": 16,
+          "task": "review-pass"
+        },
+        {
+          "max_seconds": 0.1406273779999907,
+          "median_seconds": 0.13961004000000798,
+          "min_seconds": 0.13877541399999416,
+          "repetitions": 3,
+          "required_tokens": 16,
+          "task": "review-positive-loss"
+        },
+        {
+          "max_seconds": 0.13940212400000007,
+          "median_seconds": 0.1389006799999919,
+          "min_seconds": 0.13751195300000063,
+          "repetitions": 3,
+          "required_tokens": 16,
+          "task": "receipt-replay"
+        },
+        {
+          "max_seconds": 0.1824628319999988,
+          "median_seconds": 0.18119433100000037,
+          "min_seconds": 0.18083685100000935,
+          "repetitions": 3,
+          "required_tokens": 32,
+          "task": "review-pass"
+        },
+        {
+          "max_seconds": 0.1833228020000064,
+          "median_seconds": 0.1824121080000083,
+          "min_seconds": 0.18177000400000054,
+          "repetitions": 3,
+          "required_tokens": 32,
+          "task": "review-positive-loss"
+        },
+        {
+          "max_seconds": 0.20352872000000843,
+          "median_seconds": 0.18239930800000081,
+          "min_seconds": 0.18026836800000012,
+          "repetitions": 3,
+          "required_tokens": 32,
+          "task": "receipt-replay"
+        }
+      ],
+      "warmup_runs": 18
+    },
+    "strict_glob": {
+      "audience_patterns": [
+        "*",
+        "sts.amazonaws.com",
+        "?ault",
+        "[sv]*"
+      ],
+      "checked": 192,
+      "complete_policy_bound": "Each Allow intersects finite StringEquals subject/audience bounds; no other Allow exists.",
+      "csv_sha256": "92ed29c1d473ea79a4fcf285f11baddd37a49cdb48d80f016072623e8931915b",
+      "deny_modes": 3,
+      "elapsed_seconds": 21.30088178300001,
+      "independent_oracle": "Recursive glob matching and direct tuple set Allow-minus-Deny.",
+      "intent": [
+        [
+          "repo:acme/api:ref:refs/heads/main",
+          "sts.amazonaws.com"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/release",
+          "sts.amazonaws.com"
+        ]
+      ],
+      "passed": true,
+      "required_settings": 2,
+      "schema": "fedfence-strict-bounded-glob-v1",
+      "scope": "Benign generated fixtures; no real account, provider equivalence, or population inference.",
+      "subject_patterns": [
+        "*",
+        "repo:acme/api:ref:refs/heads/main",
+        "repo:acme/api:ref:refs/heads/m*",
+        "repo:acme/api:ref:refs/heads/?ain",
+        "repo:acme/api:ref:refs/heads/[md]ain",
+        "",
+        "repo:acme/api:ref:refs/heads/**",
+        "repo:acme/api:ref:refs/heads/releas?"
+      ],
+      "universe": [
+        [
+          "repo:acme/api:ref:refs/heads/main",
+          "sts.amazonaws.com"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/main",
+          "vault"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/dev",
+          "sts.amazonaws.com"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/dev",
+          "vault"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/release",
+          "sts.amazonaws.com"
+        ],
+        [
+          "repo:acme/api:ref:refs/heads/release",
+          "vault"
+        ]
+      ],
+      "verdicts": {
+        "fail": 128,
+        "pass": 64
+      }
+    }
+  },
+  "schema": "fedfence-final-validation-v1"
+}

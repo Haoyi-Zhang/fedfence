@@ -1,0 +1,67 @@
+{
+  "accepted": 348,
+  "audience_refinements": [
+    null,
+    [],
+    [
+      "?*"
+    ],
+    [
+      "sts.amazonaws.com"
+    ],
+    [
+      "vault"
+    ],
+    [
+      ""
+    ]
+  ],
+  "audiences": [
+    "",
+    "sts.amazonaws.com",
+    "vault",
+    "audit"
+  ],
+  "checked": 2304,
+  "passed": true,
+  "rejected": 1956,
+  "result_stream_sha256": "ea7d861ba1f698b25dc7e71a271f31fe74153025f3995feb017e73a6bf30d05c",
+  "schema": "fedfence-issuer-membership-audit-v1",
+  "scope": "Bounded agreement with the retained typed constructor/refinement NFAs, not live issuer behavior.",
+  "subject_refinements": [
+    null,
+    [],
+    [
+      "*"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/main"
+    ],
+    [
+      "repo:acme/api:ref:refs/heads/dev"
+    ],
+    [
+      "repo:acme/api:*"
+    ],
+    [
+      "repository_id:*"
+    ],
+    [
+      ""
+    ]
+  ],
+  "subjects": [
+    "repo:acme/api:ref:refs/heads/main",
+    "repo:acme/api:ref:refs/heads/dev",
+    "repo:acme/api:ref:refs/heads/feature/test",
+    "repo:acme/api:ref:refs/tags/v1",
+    "repo:acme/api:environment:prod",
+    "repo:acme/api:pull_request",
+    "repo:acme/api:ref:refs/heads/",
+    "repo:acme/api:ref:refs/heads/with:colon",
+    "repo:acme/api:ref:refs/heads/*",
+    "repo:acme/api:ref:refs/heads/?",
+    "repository_id:123:environment:prod",
+    "repo:acme/other:ref:refs/heads/main"
+  ]
+}

@@ -62,7 +62,18 @@ Public cases use explicitly identified **study adapters**. Fourteen configuratio
 
 ## Delivered evidence
 
-The table below describes the supplied snapshot, not a newly regenerated collection of current receipts. A separate current local recheck passes all 204 tests and the nine offline stages described below, with its raw attempts retained outside the deliverable. The semantic counts agree; the earlier Linux timing table is deliberately unchanged. The eight historical seeded-fault trials and current paper/PDF build were not rerun. Source-bound hashes and receipts must be regenerated against repaired sources rather than relabeled. The table generator now refuses the supplied 194-test record when used with current 204-test sources.
+The table below describes the historical supplied snapshot. Current native evidence is retained separately in `tosem/current-native-37484284472/`: nine successful stages, 204 tests, and zero failures, errors, or skips, using CPython 3.12.14 on Linux in 58.874 seconds. `tosem/results/current_science_receipt.json` binds the actual native output bytes and current scientific sources. Its new passive audit checks consistency, not a new scientific execution, source authentication, proof correctness, or a ten-stage reproduction pass. The archive also contained older records that the nine-stage driver did not produce; those were not imported as current evidence.
+
+The historical 194-test record, ten-stage receipts, eight seeded-fault trials, negative examples, and Python 3.13.5 Linux timing data remain unchanged. The newer campaign's 54 timings, 18 warm-ups, and 18 summary cells are retained separately; the paper's cost table and figure still use the historical measurements. The earlier Windows nine-stage recheck also passed 204 tests. No live cloud or public-source program was executed.
+
+To passively verify the current native records or regenerate paper tables from them:
+
+```sh
+python -B scripts/audit_current_science.py
+python -B scripts/generate_tosem_tables.py --current-receipt tosem/results/current_science_receipt.json
+```
+
+These commands do not execute the scientific drivers. The explicit current-receipt mode fails if bound sources/data change or counts disagree. The original default table-generation path still refuses the old 194-test record with current 204-test sources. The full ten-stage audit remains a separate gate; this receipt does not turn its historical pass into a current pass.
 
 | Layer | Actual unit and result | Authoritative output |
 |---|---|---|
@@ -135,4 +146,4 @@ python -B scripts/run_scientific_checks.py --out scientific-check-output
 
 The output directory must be new. The driver retains raw logs, fails on any nonzero stage, and enforces a shared 1,200-second budget as well as per-stage limits. Its nine stages exercise the current unit suite, core, projection, relational, two-sided, character, matcher/issuer/bounded-glob/scaling, repair, and supplied-source checks. `--no-paper-table` keeps the character audit's checks identical while omitting its sibling-paper write. The current unit output is `fse/results/unit_tests.json`; this flat driver does not relabel the supplied `tosem/results/unit_tests.json` or earlier seeded-fault records as current. No paper build or eight-fault mutation-copy campaign is included.
 
-`.github/workflows/scientific-checks.yml` runs that command on Ubuntu 24.04 for pushes to `main`, pull requests, or manual dispatch. It bounds wall time, CPU time, and virtual memory, retains failure gates, and uploads raw logs and result files even after a failure. The action revisions are pinned. This is a prepared workflow; its nine-stage Windows local run is not a hosted CI result. The existing material-integrity workflow is retained separately.
+`.github/workflows/scientific-checks.yml` runs that command on Ubuntu 24.04 for pushes to `main`, pull requests, or manual dispatch. It bounds wall time, CPU time, and virtual memory, retains failure gates, and uploads raw logs and result files even after a failure. The action revisions are pinned. Main confirmed native run 37484284472, artifact 11422128499, head `e2535e4bdf8b04d098fe132ee008a018a8402ac8`; its downloaded data were inspected passively here, without a new remote call. The Windows recheck is a separate local execution. The existing material-integrity workflow is retained separately.

@@ -1,0 +1,97 @@
+{
+  "cloud_accounts_used": false,
+  "environment": {
+    "implementation_sha256": "f9386c26685ccc50e7045b7b90a738a281fbdcb695e177c8386df11f84e78477",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]"
+  },
+  "finite": {
+    "atoms": [
+      [
+        "repo:fixture/app:ref:refs/heads/main",
+        "sts.amazonaws.com"
+      ],
+      [
+        "repo:fixture/app:ref:refs/heads/dev",
+        "sts.amazonaws.com"
+      ],
+      [
+        "repo:fixture/app:ref:refs/heads/test",
+        "sts.amazonaws.com"
+      ]
+    ],
+    "checked": 65536,
+    "elapsed_seconds": 1.9065293100000034,
+    "oracle": "direct Python set operations; no cloud or formal refinement proof",
+    "passed": true,
+    "relation_combinations": 32768,
+    "replay_samples": 256,
+    "schema": "fedfence-tosem-exhaustive-v1",
+    "validity_settings": 2,
+    "verdicts": {
+      "fail": 3904,
+      "pass": 4096,
+      "unknown": 57536
+    }
+  },
+  "metamorphic": {
+    "checked": 6,
+    "interpretation": "workflow content invalidates dependencies but is not executed or semantically interpreted",
+    "passed": true,
+    "rows": [
+      {
+        "changed_fields": [],
+        "name": "unchanged-fresh-packet",
+        "verdict": "pass"
+      },
+      {
+        "changed_fields": [
+          "workflow"
+        ],
+        "name": "workflow-byte-change",
+        "verdict": "pass"
+      },
+      {
+        "changed_fields": [
+          "issuer"
+        ],
+        "name": "issuer-source-metadata-change",
+        "verdict": "pass"
+      },
+      {
+        "changed_fields": [
+          "policy"
+        ],
+        "name": "subject-widening",
+        "verdict": "fail"
+      },
+      {
+        "changed_fields": [],
+        "name": "stale-governance",
+        "verdict": "unknown"
+      },
+      {
+        "changed_fields": [
+          "contract"
+        ],
+        "name": "reviewed-intent-expansion",
+        "verdict": "pass"
+      }
+    ],
+    "schema": "fedfence-tosem-dependency-metamorphic-v1"
+  },
+  "network_access": false,
+  "strict": {
+    "checked": 56,
+    "oracle": "direct finite tuple sets for literal policies; independently written expected outcome, shared Python runtime",
+    "passed": true,
+    "schema": "fedfence-tosem-strict-differential-v1",
+    "scope": "7 nonempty Allow subsets times 8 Deny subsets over three benign tuples; no issuer/backend completeness claim",
+    "total_seconds": 7.303975819999998,
+    "verdicts": {
+      "fail": 47,
+      "pass": 9
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "steps": [
+    {
+      "name": "unit-tests",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_fse_tests.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 9.588216532000004
+    },
+    {
+      "name": "core-self-check",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "artifact/scripts/self_check.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.4649647419999994
+    },
+    {
+      "name": "projection-audit",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_finite_audit.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.11439270200000351
+    },
+    {
+      "name": "relational-audit",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_relational_audit.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.16492306900000386
+    },
+    {
+      "name": "two-sided-validation",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_tosem_validation.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 9.889162794
+    },
+    {
+      "name": "character-domain",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_character_domain_audit.py",
+        "--no-paper-table"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 3.9735531670000057
+    },
+    {
+      "name": "matcher-issuer-globs-scaling",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_final_validation.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 33.539921704
+    },
+    {
+      "name": "repair-audit",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_repair_audit.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 0.06514622100000622
+    },
+    {
+      "name": "source-studies",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
+        "-B",
+        "scripts/run_tosem_studies.py"
+      ],
+      "exit_code": 0,
+      "timed_out": false,
+      "seconds": 1.066622740000014
+    }
+  ],
+  "passed": true,
+  "elapsed_seconds": 58.87410010600001,
+  "whole_seconds": 1200,
+  "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "scope": "Local finite/synthetic consistency and supplied-data integrity; not provider equivalence or paper/PDF QA."
+}

@@ -1,11 +1,21 @@
 #!/usr/bin/env python3
 """Generate the paper's quantitative macros and tables from current results."""
 from pathlib import Path
-import ast, json, sys
+import argparse, ast, json, sys
 ROOT=Path(__file__).resolve().parents[1]; OUT=ROOT.parent/'paper/generated';OUT.mkdir(parents=True,exist_ok=True)
 RES=ROOT/'tosem/results'
-def load(name, fallback=None):
-    p=RES/name
+ap=argparse.ArgumentParser(description=__doc__)
+ap.add_argument('--current-receipt',type=Path,help='use the separately retained native nine-stage evidence after passive source/output audit')
+args=ap.parse_args()
+CURRENT=None; current_receipt=None; current_audit=None
+if args.current_receipt:
+    from audit_current_science import audit, load as strict_load
+    path=args.current_receipt if args.current_receipt.is_absolute() else ROOT/args.current_receipt
+    current_receipt=strict_load(path)
+    current_audit=audit(ROOT,current_receipt)  # Fail closed on changed source, missing data, or inconsistent counts.
+    CURRENT=ROOT/current_receipt['result_directory']
+def load(name, fallback=None, historical=False):
+    p=(CURRENT if CURRENT is not None and not historical else RES)/name
     if not p.exists() and fallback:p=ROOT/fallback
     return json.loads(p.read_text())
 def tex(s):
@@ -17,7 +27,7 @@ discovered=sum(sum(isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef)) and n.na
 if u['tests_run'] != discovered:
     raise ValueError('unit-test record is stale for the current sources; regenerate evidence before paper tables')
 macros={'TestCount':u['tests_run'],'FiniteCount':f['checked'],'FinitePass':f['verdicts']['pass'],'FiniteFail':f['verdicts']['fail'],'FiniteUnknown':f['verdicts']['unknown'],'FiniteReplay':f['replay_samples'],'StrictCount':s['checked'],'StrictPass':s['verdicts']['pass'],'StrictFail':s['verdicts']['fail'],'ProjectionCount':proj['checked_models'],'PublicCommits':p['summary']['commits'],'PublicRoles':p['summary']['role_contracts'],'PublicConfigurations':p['summary']['evaluations'],'PublicPass':p['summary']['verdicts']['pass'],'PublicFail':p['summary']['verdicts']['fail'],'PublicUnknown':p['summary']['verdicts']['unknown'],'SourceCount':fr['summary']['records'],'SourceFull':fr['summary']['full_source_files'],'SourceExtractions':fr['summary']['executed_extractions'],'MaintenanceCount':m['summary']['records'],'ReportedBreakages':m['summary']['reports_annotated_breakage'],'RecordedSuccesses':m['summary']['records_with_success_run_id']}
-matcher=load('matcher_differential.json');issuer=load('issuer_membership_differential.json');gs=load('strict_glob_differential.json');scaling=load('local_scaling.json')
+matcher=load('matcher_differential.json');issuer=load('issuer_membership_differential.json');gs=load('strict_glob_differential.json');scaling=load('local_scaling.json',historical=True)
 macros.update(MatcherCount=matcher['checked'],IssuerCount=issuer['checked'],GlobStrictCount=gs['checked'],GlobStrictPass=gs['verdicts'].get('pass',0),GlobStrictFail=gs['verdicts'].get('fail',0),ScalingRuns=scaling['recorded_runs'])
 domain=load('character_domain_audit.json')
 macros.update(DomainPredicateChecks=domain['partition']['primitive_signature_comparisons'],
@@ -25,7 +35,8 @@ macros.update(DomainPredicateChecks=domain['partition']['primitive_signature_com
               DomainMatcherCount=domain['matcher']['checked'],
               DomainConstructorCount=domain['constructor']['checked'])
 core=RES/'core_self_check.json'
-if core.exists():macros['CoreComparisons']=load('core_self_check.json')['comparisons']
+if CURRENT is not None:macros['CoreComparisons']=current_audit['core_comparisons']
+elif core.exists():macros['CoreComparisons']=load('core_self_check.json')['comparisons']
 (OUT/'results.tex').write_text('% Automatically generated; do not edit counts by hand.\n'+''.join('\\newcommand{\\'+k+'}{'+f'{v:,}'+'}\n' for k,v in macros.items()))
 rows=[]
 labels={'two_sided_realizability':'Two-sided realizability','governance_restriction':'Governance restriction','intent_monotonicity':'Intent monotonicity','observation_refinement':'Observation refinement'}
@@ -35,7 +46,13 @@ rows=[]
 for k,v in fr['summary']['annotation_counts'].items():rows.append(tex(k.replace('_',' '))+f' & {v} \\\\')
 (OUT/'frontier_rows.tex').write_text('\n'.join(rows)+'\n')
 (OUT/'tables.tex').write_text('\\newcommand{\\RelationalRows}{%\n'+(OUT/'relational_rows.tex').read_text()+'}\n'+'\\newcommand{\\FrontierRows}{%\n'+(OUT/'frontier_rows.tex').read_text()+'}\n')
-(OUT/'generation.json').write_text(json.dumps(dict(source='artifact/tosem/results',macros=macros,quantitative_tables_from_results=True),indent=2)+'\n')
+provenance=dict(source='artifact/'+(current_receipt['result_directory'] if CURRENT is not None else 'tosem/results'),macros=macros,quantitative_tables_from_results=True,
+                retained_measurements='Scaling tables/plot retain the historical Python 3.13.5 Linux snapshot, not the current native timing data.')
+if CURRENT is not None:
+    provenance['current_science_receipt']='artifact/tosem/results/current_science_receipt.json'
+    provenance['native_run']=current_receipt['run']
+    provenance['unit_test_count_source']=dict(tests_run=u['tests_run'],python=current_audit['python'],platform=current_audit['platform'],scope='Retained native nine-stage output, passively audited against current sources.')
+(OUT/'generation.json').write_text(json.dumps(provenance,indent=2)+'\n')
 print('Generated',len(macros),'quantitative macros from current results.')
 
 # All plotted points and table values come from the recorded local measurements.
