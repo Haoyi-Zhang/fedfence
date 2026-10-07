@@ -1,0 +1,22 @@
+id,repository,role,configuration,entry_point,verdict,conditional_on
+artur-main-branch,artur-duart/togglemaster-devops-fiap,source-selected-role,before,regular-language-study-adapter,fail,
+artur-main-branch,artur-duart/togglemaster-devops-fiap,source-selected-role,after,regular-language-study-adapter,pass,
+pmcg-master-branch,P-mcg01/muyu-invoice-infrastructure,source-selected-role,before,regular-language-study-adapter,fail,
+pmcg-master-branch,P-mcg01/muyu-invoice-infrastructure,source-selected-role,after,regular-language-study-adapter,pass,
+arriagada-main-branch,ArriagadaInc/tpi-backend,source-selected-role,before,regular-language-study-adapter,fail,
+arriagada-main-branch,ArriagadaInc/tpi-backend,source-selected-role,after,regular-language-study-adapter,pass,
+shadow-release-branches,shadow-architect-dev/aws-landing-zone,source-selected-role,before,regular-language-study-adapter,fail,
+shadow-release-branches,shadow-architect-dev/aws-landing-zone,source-selected-role,after,regular-language-study-adapter,pass,
+amr-org-scope,amr-elzoghby/Internal-Developer-Platform,source-selected-role,before,regular-language-study-adapter,fail,
+amr-org-scope,amr-elzoghby/Internal-Developer-Platform,source-selected-role,after,regular-language-study-adapter,pass,
+manyiu-repository-scope,manyiu/vazue-playlang,source-selected-role,before,regular-language-study-adapter,fail,
+manyiu-repository-scope,manyiu/vazue-playlang,source-selected-role,after,regular-language-study-adapter,pass,
+michele-environment-cut,micheleformenti/aws-two-tier-architecture,source-selected-role,before,regular-language-study-adapter,fail,
+michele-environment-cut,micheleformenti/aws-two-tier-architecture,source-selected-role,after,regular-language-study-adapter,unknown,
+sports-store-role-split,Deploy-On-Friday2-0/sports-store-infrastructure,github_actions_ecr,before,finite-explicit-issuer-study-adapter,fail,supplied seven-tuple issuer relation
+sports-store-role-split,Deploy-On-Friday2-0/sports-store-infrastructure,github_actions_ecr,after,finite-explicit-issuer-study-adapter,pass,supplied seven-tuple issuer relation
+sports-store-role-split,Deploy-On-Friday2-0/sports-store-infrastructure,github_actions_frontend,before,finite-explicit-issuer-study-adapter,pass,supplied seven-tuple issuer relation
+sports-store-role-split,Deploy-On-Friday2-0/sports-store-infrastructure,github_actions_frontend,after,finite-explicit-issuer-study-adapter,pass,supplied seven-tuple issuer relation
+microticket-variable-branches,sdunster/microticket,github_deploy,before,finite-explicit-issuer-study-adapter,fail,
+microticket-variable-branches,sdunster/microticket,github_deploy,after-default-empty,finite-explicit-issuer-study-adapter,fail,
+microticket-variable-branches,sdunster/microticket,github_deploy,after-observed-binding,finite-explicit-issuer-study-adapter,pass,the variable being assigned from the reported observed token

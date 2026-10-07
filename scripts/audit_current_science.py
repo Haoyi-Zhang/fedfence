@@ -84,7 +84,11 @@ def linux_implementation_digest(root):
     return h.hexdigest()
 
 
-def audit(root, receipt):
+def audit(root, receipt, evidence_root=None):
+    # Relocation changes storage only, never the original receipt or source bindings.
+    root = root.resolve()
+    evidence_root = root if evidence_root is None else (root / evidence_root).resolve(strict=True)
+    require(evidence_root.is_dir() and evidence_root.is_relative_to(root), 'evidence root outside artifact')
     require(receipt['schema'] == 'fedfence-current-science-receipt-v1', 'receipt schema')
     require(receipt['evidence_kind'] == 'retained-native-nine-stage-campaign', 'evidence kind')
     require(receipt['source_files'] == science_sources(root), 'scientific source bytes changed')
@@ -99,9 +103,25 @@ def audit(root, receipt):
     expected_files.update(prefix + f'/bounded_glob_packets/case-{i:03}.json' for i in range(192))
     require(set(receipt['evidence_files']) == expected_files and receipt['execution'] == prefix + '/execution.json',
             'complete current evidence set')
+    if 'fresh_preparation' in receipt:
+        item = receipt['fresh_preparation']
+        prepared_path = bounded_path(evidence_root, item['path'])
+        require(sha(prepared_path) == item['sha256'], 'original fresh preparation bytes')
+        prepared = load(prepared_path)
+        origins = {}
+        for name in expected_files:
+            leaf = name[len(prefix) + 1:]
+            folder = ('scientific-check-output' if leaf.endswith('.log') or leaf == 'execution.json'
+                      else 'fse/results' if leaf in ('unit_tests.json', 'finite_semantics_audit.json')
+                      else 'results' if leaf == 'repair_audit.json' else 'tosem/results')
+            origins[leaf] = folder + '/' + leaf
+        require(prepared['schema'] == 'fedfence-fresh-preparation-v1' and
+                all(prepared[k] == receipt[k] for k in ('source_files', 'study_inputs', 'implementation_sha256'))
+                and prepared['output_map'] == origins, 'fresh preparation scientific/origin binding')
+        # The retained complete support snapshot is historical, not a reseal of edited consumers.
     for name, expected in receipt['evidence_files'].items():
-        require(sha(bounded_path(root, name)) == expected, 'evidence bytes changed: ' + name)
-    base = bounded_path(root, receipt['execution']).parent
+        require(sha(bounded_path(evidence_root, name)) == expected, 'evidence bytes changed: ' + name)
+    base = bounded_path(evidence_root, receipt['execution']).parent
     record = load(base / 'execution.json')
     require(record['passed'] is True and len(record['steps']) == 9, 'nine-stage completion')
     require(0 < record['elapsed_seconds'] <= record['whole_seconds'] <= 1200, 'execution budget')
@@ -238,10 +258,13 @@ def audit(root, receipt):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--receipt', type=Path, default=ROOT / 'tosem/results/current_science_receipt.json')
+    parser.add_argument('--evidence-root', type=Path, default=ROOT,
+                        help='storage root beneath artifact for an unmodified relocated receipt')
     parser.add_argument('--report', type=Path)
     args = parser.parse_args()
     try:
-        result = audit(ROOT, load(args.receipt))
+        receipt_path = args.receipt if args.receipt.is_absolute() else ROOT / args.receipt
+        result = audit(ROOT, load(receipt_path), args.evidence_root)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         result = dict(passed=False, error=str(exc))
     if args.report:

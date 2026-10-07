@@ -1,0 +1,12 @@
+test_bounded_recursive_definition (__main__.GlobMatchesTests.test_bounded_recursive_definition) ... ok
+test_cell_cap_inclusive_and_one_column_over (__main__.GlobMatchesTests.test_cell_cap_inclusive_and_one_column_over) ... ok
+test_expired_deadline_precedes_type_validation (__main__.GlobMatchesTests.test_expired_deadline_precedes_type_validation) ... ok
+test_injected_deadlines_at_every_check (__main__.GlobMatchesTests.test_injected_deadlines_at_every_check) ... ok
+test_literal_and_codepoint_controls (__main__.GlobMatchesTests.test_literal_and_codepoint_controls) ... ok
+test_literal_fastpath_is_not_wildcard_cell_work (__main__.GlobMatchesTests.test_literal_fastpath_is_not_wildcard_cell_work) ... ok
+test_nonstring_inputs_are_not_coerced (__main__.GlobMatchesTests.test_nonstring_inputs_are_not_coerced) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.187s
+
+OK

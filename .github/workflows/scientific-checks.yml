@@ -30,6 +30,11 @@ jobs:
         run: |
           set -euo pipefail
           timeout --signal=TERM --kill-after=5s 60s python -B fresh_science_tests/test_assembler.py --out "$RUNNER_TEMP/p113-assembler-guards" -v 2>&1 | tee "$RUNNER_TEMP/p113-assembler-guards.log"
+      - name: Check passive evidence consumers separately from scientific stages
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=5s 60s python -B coherence_tests/test_evidence_consumers.py -v 2>&1 | tee "$RUNNER_TEMP/p113-consumer-tests.log"
       - name: Prepare a new source-bound copy on the reviewed main push
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: bash
@@ -88,6 +93,7 @@ jobs:
             results/repair_audit.json
             ${{ runner.temp }}/p113-assembler-guards/
             ${{ runner.temp }}/p113-assembler-guards.log
+            ${{ runner.temp }}/p113-consumer-tests.log
             ${{ runner.temp }}/p113-fresh-prepare.log
             ${{ runner.temp }}/p113-fresh-native/_fresh-science/
             ${{ runner.temp }}/p113-fresh-native/fresh-native-evidence/

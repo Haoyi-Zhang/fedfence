@@ -1,0 +1,9 @@
+{"name": "unit-tests", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_fse_tests.py"], "exit_code": 0, "timed_out": false, "seconds": 10.245252287}
+{"name": "core-self-check", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "artifact/scripts/self_check.py"], "exit_code": 0, "timed_out": false, "seconds": 0.5161133489999941}
+{"name": "projection-audit", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_finite_audit.py"], "exit_code": 0, "timed_out": false, "seconds": 0.11479544099999828}
+{"name": "relational-audit", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_relational_audit.py"], "exit_code": 0, "timed_out": false, "seconds": 0.16513188700000114}
+{"name": "two-sided-validation", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_tosem_validation.py"], "exit_code": 0, "timed_out": false, "seconds": 10.445963505000002}
+{"name": "character-domain", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_character_domain_audit.py", "--no-paper-table"], "exit_code": 0, "timed_out": false, "seconds": 4.277522245999997}
+{"name": "matcher-issuer-globs-scaling", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_final_validation.py"], "exit_code": 0, "timed_out": false, "seconds": 38.328567045}
+{"name": "repair-audit", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_repair_audit.py"], "exit_code": 0, "timed_out": false, "seconds": 0.06444899100000612}
+{"name": "source-studies", "command": ["/opt/hostedtoolcache/Python/3.12.14/x64/bin/python", "-B", "scripts/run_tosem_studies.py"], "exit_code": 0, "timed_out": false, "seconds": 1.167694615000002}

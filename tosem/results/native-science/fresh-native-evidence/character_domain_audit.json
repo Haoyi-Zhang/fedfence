@@ -1,0 +1,263 @@
+{
+  "character_domain": "python-str-codepoints-v1",
+  "cloud_accounts_used": false,
+  "constructor": {
+    "characters": 12,
+    "checked": 60,
+    "passed": true,
+    "positions": 5,
+    "result_stream_sha256": "c9978470963a4dac0466642fa19ddc0579432a9c8afeb9e9eaaed69d9b8a2af0",
+    "scope": "Scalar typed-constructor membership vs quotient NFA at five insertion positions; abstract model only."
+  },
+  "implementation_sha256": "21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299",
+  "integration": {
+    "passed": true,
+    "regular_cases": 4,
+    "rows": [
+      {
+        "actual_safe": false,
+        "closed_control": false,
+        "coordinate": "sub",
+        "expected_safe": false,
+        "independent_concrete_violation": {
+          "aud": "sts.amazonaws.com",
+          "sub": "repo:acme/api:ref:refs/heads/!"
+        },
+        "replay_ok": true
+      },
+      {
+        "actual_safe": true,
+        "closed_control": true,
+        "coordinate": "sub",
+        "expected_safe": true,
+        "independent_concrete_violation": null,
+        "replay_ok": true
+      },
+      {
+        "actual_safe": false,
+        "closed_control": false,
+        "coordinate": "aud",
+        "expected_safe": false,
+        "independent_concrete_violation": {
+          "aud": "!",
+          "sub": "repo:acme/api:ref:refs/heads/main"
+        },
+        "replay_ok": true
+      },
+      {
+        "actual_safe": true,
+        "closed_control": true,
+        "coordinate": "aud",
+        "expected_safe": true,
+        "independent_concrete_violation": null,
+        "replay_ok": true
+      }
+    ],
+    "scope": "Locally constructed positive/negative/stale review inputs; no provider-issued token or deployment.",
+    "strict_packets": 3,
+    "strict_rows": [
+      {
+        "clock": "2026-09-23T01:00:00Z",
+        "closed_control": false,
+        "expected": "fail",
+        "receipt_replay_ok": true,
+        "verdict": "fail"
+      },
+      {
+        "clock": "2026-09-23T01:00:00Z",
+        "closed_control": true,
+        "expected": "pass",
+        "receipt_replay_ok": true,
+        "verdict": "pass"
+      },
+      {
+        "clock": "2026-09-25T01:00:00Z",
+        "closed_control": false,
+        "expected": "unknown",
+        "receipt_replay_ok": true,
+        "verdict": "unknown"
+      }
+    ]
+  },
+  "matcher": {
+    "checked": 57498,
+    "matching": 1981,
+    "nonmatching": 55517,
+    "operators": 2,
+    "passed": true,
+    "pattern_alphabet": [
+      "a",
+      "*",
+      "?",
+      "[",
+      "\u00e9",
+      "\ud800\udc00"
+    ],
+    "pattern_max_length": 3,
+    "patterns": 259,
+    "result_stream_sha256": "7414fdc54786be094495e7711952432f5f23bb8e532df251bc94d6f78884ef66",
+    "sample_rows": [
+      [
+        "equals",
+        "",
+        "",
+        "",
+        true
+      ],
+      [
+        "equals",
+        "aa?",
+        "[",
+        "!",
+        false
+      ],
+      [
+        "equals",
+        "**\ud800\udc00",
+        "a*",
+        "a*",
+        false
+      ],
+      [
+        "equals",
+        "?[?",
+        "\u00e9\ud800\udc00",
+        "!!",
+        false
+      ],
+      [
+        "equals",
+        "[\u00e9\ud800\udc00",
+        "\u96ea\u00e9",
+        "!\u00e9",
+        false
+      ],
+      [
+        "equals",
+        "\ud800\udc00a?",
+        "\u96ea\ud800",
+        "!!",
+        false
+      ],
+      [
+        "like",
+        "a\u00e9",
+        "\ud800\udc00[",
+        "!!",
+        false
+      ],
+      [
+        "like",
+        "a?*",
+        "\udbff\udfff*",
+        "!!",
+        false
+      ],
+      [
+        "like",
+        "*[\u00e9",
+        "*\ud800\udc00",
+        "!!",
+        false
+      ],
+      [
+        "like",
+        "?\ud800\udc00*",
+        "?\u00e9",
+        "!!",
+        false
+      ],
+      [
+        "like",
+        "\u00e9a\u00e9",
+        "?\ud800",
+        "!!",
+        false
+      ],
+      [
+        "like",
+        "\ud800\udc00?*",
+        "[[",
+        "!!",
+        false
+      ]
+    ],
+    "scope": "Bounded strings; recursive concrete oracle and scalar matcher vs representative-word NFA, including literal metacharacters and supplementary code points.",
+    "support_padding": "all preferred characters as equality literals; concrete words are NOT added",
+    "word_alphabet": [
+      "a",
+      "\u00e9",
+      "\u96ea",
+      "\ud800\udc00",
+      "\udbff\udfff",
+      "*",
+      "?",
+      "[",
+      "\n",
+      "\ud800"
+    ],
+    "word_max_length": 2,
+    "words": 111
+  },
+  "network_access": false,
+  "partition": {
+    "codepoints_per_partition": 1114112,
+    "partitions": 3,
+    "passed": true,
+    "primitive_signature_comparisons": 3342336,
+    "rows": [
+      {
+        "checked_codepoints": 1114112,
+        "literal_classes": 75,
+        "other_representative_codepoint": 33,
+        "passed": true,
+        "pool": "preference-pool",
+        "pool_size": 73,
+        "result_stream_sha256": "13ea4f2ace7f2d5293111695a92c180dd798abc815b14b71c4165cdd5078c88e",
+        "support_size": 76
+      },
+      {
+        "checked_codepoints": 1114112,
+        "literal_classes": 128,
+        "other_representative_codepoint": 128,
+        "passed": true,
+        "pool": "ascii",
+        "pool_size": 128,
+        "result_stream_sha256": "e41eef0bb3e630b57d880338aebbfa872a218e1e27a86db460304d462365e688",
+        "support_size": 129
+      },
+      {
+        "checked_codepoints": 1114112,
+        "literal_classes": 65536,
+        "other_representative_codepoint": 65536,
+        "passed": true,
+        "pool": "bmp",
+        "pool_size": 65536,
+        "result_stream_sha256": "81339a5ce36b0295811f057ba45427da3a1a3e98fe254949c2d7f1734580eeeb",
+        "support_size": 65537
+      }
+    ],
+    "scope": "Complete code-point enumeration of singleton and constructor predicate signatures for three declared supports; not enumeration of strings or policies."
+  },
+  "passed": true,
+  "rejection": {
+    "challenges": 2,
+    "passed": true,
+    "rows": [
+      {
+        "control_passed": true,
+        "detected": true,
+        "detector": "independent support cardinality check",
+        "fault": "omit required residual class"
+      },
+      {
+        "control_passed": true,
+        "detected": true,
+        "detector": "incomplete-domain certificate rejection obligation",
+        "fault": "bypass certificate support check"
+      }
+    ],
+    "scope": "Two hand-selected benign local fault injections, not mutation-adequacy or bug-rate evidence."
+  },
+  "schema": "fedfence-character-domain-audit-v1"
+}

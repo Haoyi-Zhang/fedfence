@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "receipt": "/home/runner/work/_temp/p113-fresh-native/_fresh-science/current-science-receipt.json",
+  "report": "/home/runner/work/_temp/p113-fresh-native/_fresh-science/native-audit.json",
+  "evidence_files": 225,
+  "ordinary_methods": 204,
+  "scalar_methods": 7
+}

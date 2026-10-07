@@ -1,0 +1,12 @@
+{
+  "checked": 56,
+  "oracle": "direct finite tuple sets for literal policies; independently written expected outcome, shared Python runtime",
+  "passed": true,
+  "schema": "fedfence-tosem-strict-differential-v1",
+  "scope": "7 nonempty Allow subsets times 8 Deny subsets over three benign tuples; no issuer/backend completeness claim",
+  "total_seconds": 7.564510487999996,
+  "verdicts": {
+    "fail": 47,
+    "pass": 9
+  }
+}

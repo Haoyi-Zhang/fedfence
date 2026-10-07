@@ -1,0 +1,48 @@
+{
+  "public": {
+    "commits": 9,
+    "role_contracts": 10,
+    "evaluations": 21,
+    "ordinary_role_phases": 20,
+    "additional_variable_branch": 1,
+    "verdicts": {
+      "fail": 10,
+      "pass": 10,
+      "unknown": 1
+    },
+    "entry_points": {
+      "regular-language-study-adapter": 14,
+      "finite-explicit-issuer-study-adapter": 7
+    },
+    "verified_patch_digests": 9,
+    "safety_or_full_study_replay_checks": 21,
+    "source_authenticity_verified": false,
+    "owner_confirmed": false,
+    "independent_accuracy_measure": false,
+    "cloud_validation": false
+  },
+  "frontier": {
+    "records": 24,
+    "verified_excerpts": 24,
+    "full_source_files": 0,
+    "annotation_counts": {
+      "requires_instantiation": 13,
+      "requires_module_evaluation": 2,
+      "literal_source_policy": 5,
+      "constant_foldable_hcl": 2,
+      "host_language_generation": 1,
+      "unsupported_operator_or_instantiation": 1
+    },
+    "annotation_literal_or_foldable": 7,
+    "executed_extractions": 0,
+    "extraction_accuracy_estimated": false
+  },
+  "maintenance": {
+    "records": 12,
+    "verified_record_digests": 12,
+    "reports_annotated_breakage": 11,
+    "records_with_success_run_id": 2,
+    "live_workflows_run": 0,
+    "independent_root_cause_adjudication": false
+  }
+}

@@ -4,6 +4,14 @@ This is the existing FedFence implementation, revised in place for **“FedFence
 
 The current entry points are this README and this directory's Makefile. The paper lives in the **sibling `../paper/` directory**. Older FSE documentation and output directories are not the authority for the present manuscript's counts or claims.
 
+For the delivered current evidence, `make native-audit` passively checks the
+retained 225-file Linux campaign against this artifact's actual scientific
+sources, and `make tables` validates all selected inputs before regenerating
+tables. Both select `tosem/results/native-science` explicitly. `make coherence-tests`
+runs twelve separate portable passive-consumer regressions, also a required
+scientific-CI step; they are not part of the 204 ordinary tests or nine stages.
+See [current consumer instructions](docs/CURRENT_EVIDENCE_CONSUMERS.md).
+
 ## Reproduce from the delivered layout
 
 ```sh
@@ -17,7 +25,7 @@ make reproduce
 
 For just the ordinary regression suite, run `make tests`. For the corrected source-backed, source-frontier and maintenance studies, run `make studies`. Outputs are written to `tosem/results/`, with logs in `logs/`; quantitative LaTeX macros and tables are regenerated in `../paper/generated/`. Re-running overwrites generated results and timings. It does not change the supplied public-source fixtures.
 
-**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The supplied measurement snapshot used Python 3.13.5 on Linux; the current nine-stage local repair recheck used bundled Python 3.12.14 on Windows. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
+**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The supplied measurement snapshot used Python 3.13.5 on Linux; the accepted current native nine-stage campaign used CPython 3.12.14 on Linux. An earlier local repair recheck used bundled Python 3.12.14 on Windows. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
 
 The preserved legacy YAML extractor has separate optional dependencies in `artifact/requirements.txt`; it is **not** exercised by the current JSON reproduction path. No cloud credentials, cloud account, paid API, external analyzer, repository checkout, network fetch or source program execution is required by the current reproduction command. Historical fetch scripts are not called by it.
 
@@ -44,14 +52,12 @@ separate required step and retains their raw log; the original scientific
 command and all 204-test/source-bound gates remain unchanged. This configuration
 is not a hosted CI success claim.
 
-Retained campaigns precede this buffer change. Their records, source digests,
-negative controls and Linux timings are not relabelled as runs of the changed
-matcher. Source-bound audits must still reject changed sources; this scalar
-suite does not refresh those receipts or establish full-gate conformance or a
-measured speedup. Installation is held pending legitimate fresh full evidence:
-both current reproduction paths include the timed scaling campaign, and the
-native receipt requires Linux CPython 3.12.14. An untimed scalar run cannot
-satisfy those requirements, and old evidence must not be rehashed.
+Earlier campaigns precede this buffer change and remain bound to their original
+sources. The separate current native campaign identified below genuinely ran
+the changed matcher; it is not a reseal of those earlier records. The scalar
+suite alone does not refresh receipts or establish full-gate conformance or a
+measured speedup. The native receipt requires Linux CPython 3.12.14; the nine-
+and ten-stage routes remain distinct, and old evidence must not be rehashed.
 
 On pushes to `main`, `scientific-checks.yml` automatically runs the owned fresh
 route, pinned to Linux CPython 3.12.14. After the separate eight assembler guards,
@@ -65,7 +71,9 @@ reviewed ref; it is not another automatic push job. Both workflows share a
 non-cancelling concurrency group. Review the source/ref and schedule one owned
 campaign without other concurrent measurement jobs. Old receipts, historical
 Linux timings and negative controls are not rewritten, and the new route is
-not represented here as an already successful native run of the changed matcher.
+not a ten-stage or current-PDF success claim. The retained successful current
+nine-stage run is identified below; configuring a workflow alone is not evidence
+that another run succeeded.
 See [fresh native instructions](docs/FRESH_NATIVE_EVIDENCE.md), including the
 separate eight-method portable assembler guards (not part of 204 or seven).
 
@@ -110,15 +118,32 @@ Public cases use explicitly identified **study adapters**. Fourteen configuratio
 
 ## Delivered evidence
 
-The table below describes the historical supplied snapshot. Retained pre-buffer-change native evidence is separate in `tosem/current-native-37484284472/`: nine successful stages, 204 tests, and zero failures, errors, or skips, using CPython 3.12.14 on Linux in 58.874 seconds. `tosem/results/current_science_receipt.json` binds the actual native output bytes and those pre-buffer-change scientific sources, not the changed matcher. Its passive audit checks consistency and must reject this source change; it is not a new scientific execution, source authentication, proof correctness, or a ten-stage reproduction pass. The archive also contained older records that the nine-stage driver did not produce; those were not imported as current evidence.
+The current campaign is run **37670050420**, attempt 1, source commit
+`07258c854b9136504952d2b842866074500847bf`: nine successful stages, 204 ordinary
+tests with no failures/errors/skips, and 225 bound evidence files, on Linux
+CPython 3.12.14. The original receipt and eight sidecars are retained under
+`tosem/results/native-science`, byte-unchanged. Its seven scalar methods and
+eight assembler guards are separate from 204. The preparation manifest's full
+support-source inventory describes that published snapshot, not newly edited
+consumer wrappers. The passive audit binds the unchanged 56 scientific files
+and 12 study inputs to the actual installed artifact root. It does not establish
+a new run, source authentication, proof correctness or a ten-stage/PDF pass.
+
+The table below describes the historical supplied snapshot. Retained
+pre-buffer-change native evidence remains in `tosem/current-native-37484284472/`,
+with its original `tosem/results/current_science_receipt.json`; that receipt must
+still reject the changed matcher. Historical 58.874-second execution metadata
+is not a measurement of the buffer-reuse implementation.
 
 The historical 194-test record, ten-stage receipts, eight seeded-fault trials, negative examples, and Python 3.13.5 Linux timing data remain unchanged. The newer campaign's 54 timings, 18 warm-ups, and 18 summary cells are retained separately; the paper's cost table and figure still use the historical measurements. The earlier Windows nine-stage recheck also passed 204 tests. No live cloud or public-source program was executed.
 
 To passively verify the current native records or regenerate paper tables from them:
 
 ```sh
-python -B scripts/audit_current_science.py
-python -B scripts/generate_tosem_tables.py --current-receipt tosem/results/current_science_receipt.json
+make native-audit
+make tables
+# Without make, with Python on the command path:
+python -B scripts/generate_tosem_tables.py --current-receipt tosem/results/native-science/_fresh-science/current-science-receipt.json --evidence-root tosem/results/native-science
 ```
 
 These commands do not execute the scientific drivers. The explicit current-receipt mode fails if bound sources/data change or counts disagree. The original default table-generation path still refuses the old 194-test record with current 204-test sources. The full ten-stage audit remains a separate gate; this receipt does not turn its historical pass into a current pass.

@@ -1,0 +1,50 @@
+{
+  "denominators": {
+    "additional_microticket_empty_branch": 1,
+    "commits": 9,
+    "evaluated_configurations": 21,
+    "ordinary_before_after_role_phases": 20,
+    "roles_after_sports_store_split": 10
+  },
+  "issuer_contract": {
+    "checks": 7,
+    "status": "pass"
+  },
+  "rows": [
+    {
+      "after": "pass",
+      "before": "fail",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "role": "github_actions_ecr"
+    },
+    {
+      "after": "pass",
+      "before": "pass",
+      "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+      "role": "github_actions_frontend"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "before",
+      "repository": "sdunster/microticket",
+      "result": "fail",
+      "role": "github_deploy"
+    },
+    {
+      "conditional_on": null,
+      "configuration": "after-default-empty",
+      "repository": "sdunster/microticket",
+      "result": "fail",
+      "role": "github_deploy"
+    },
+    {
+      "conditional_on": "the variable being assigned from the reported observed token",
+      "configuration": "after-observed-binding",
+      "repository": "sdunster/microticket",
+      "result": "pass",
+      "role": "github_deploy"
+    }
+  ],
+  "schema": "fedfence.repair-audit.v1",
+  "status": "pass"
+}

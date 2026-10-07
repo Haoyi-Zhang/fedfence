@@ -1,0 +1,29 @@
+{
+  "atoms": [
+    [
+      "repo:fixture/app:ref:refs/heads/main",
+      "sts.amazonaws.com"
+    ],
+    [
+      "repo:fixture/app:ref:refs/heads/dev",
+      "sts.amazonaws.com"
+    ],
+    [
+      "repo:fixture/app:ref:refs/heads/test",
+      "sts.amazonaws.com"
+    ]
+  ],
+  "checked": 65536,
+  "elapsed_seconds": 2.115243072999995,
+  "oracle": "direct Python set operations; no cloud or formal refinement proof",
+  "passed": true,
+  "relation_combinations": 32768,
+  "replay_samples": 256,
+  "schema": "fedfence-tosem-exhaustive-v1",
+  "validity_settings": 2,
+  "verdicts": {
+    "fail": 3904,
+    "pass": 4096,
+    "unknown": 57536
+  }
+}
