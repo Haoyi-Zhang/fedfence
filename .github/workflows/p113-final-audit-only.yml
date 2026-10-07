@@ -30,6 +30,15 @@ jobs:
           set -euo pipefail
           python -B -c 'import json,os,platform,sys; e=json.load(open(os.environ["GITHUB_EVENT_PATH"])); r=e["repository"]; assert r["private"] is True and r["id"] == 1385799011 and r["owner"]["id"] == 184843647; assert os.environ["GITHUB_REPOSITORY"] == r["full_name"] == "Haoyi-Zhang/fedfence"; assert os.environ["GITHUB_REPOSITORY_ID"] == "1385799011"; assert os.environ["GITHUB_EVENT_NAME"] == "push" and os.environ["GITHUB_REF"] == "refs/heads/internal/p113-audit-1b58ac09c5ea"; assert platform.system() == "Linux" and sys.implementation.name == "cpython" and sys.version_info[:3] == (3,12,14) and not sys.flags.optimize'
           python -B owned-p113-audit/prepare_audit.py prepare --packet owned-p113-audit/inputs/audit-input.tar.gz --out "$RUNNER_TEMP/p113-final-audit"
+      - name: Provision required PDF reader tools from Ubuntu repositories
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            sudo timeout --signal=TERM --kill-after=10s 180s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 update
+            sudo env DEBIAN_FRONTEND=noninteractive timeout --signal=TERM --kill-after=10s 120s apt-get -o Acquire::Retries=2 -o Acquire::http::Timeout=30 install -y --no-install-recommends poppler-utils
+            dpkg-query -W poppler-utils
+          } 2>&1 | tee "$RUNNER_TEMP/p113-final-audit-provision.log"
       - name: Read-only Poppler availability and version preflight
         shell: bash
         run: |
@@ -59,6 +68,7 @@ jobs:
           path: |
             owned-p113-audit/
             ${{ runner.temp }}/p113-final-audit/
+            ${{ runner.temp }}/p113-final-audit-provision.log
             ${{ runner.temp }}/p113-final-audit-tools.log
             ${{ runner.temp }}/p113-final-audit.log
             ${{ runner.temp }}/p113-final-audit-verification.log
