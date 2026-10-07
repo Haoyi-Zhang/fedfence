@@ -1,0 +1,82 @@
+# Private payload only. Exact canonical identity supplied by main's fresh GET.
+name: P113 ten-stage science only (no PDF acceptance)
+on:
+  push:
+    branches: ['internal/p113-tenstage-8ce64167539a']
+permissions:
+  contents: read
+concurrency:
+  group: p113-fresh-owned-native-evidence
+  cancel-in-progress: false
+jobs:
+  owned-ten-stage-science:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      P113_EXPECTED_REPOSITORY: 'Haoyi-Zhang/fedfence'
+      P113_EXPECTED_REPOSITORY_ID: '1385799011'
+      P113_EXPECTED_OWNER_ID: '184843647'
+      P113_EXPECTED_REF: 'refs/heads/internal/p113-tenstage-8ce64167539a'
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONOPTIMIZE: '0'
+      PYTHONPATH: ''
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Require exact private identity/ref and native runtime before preparation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -B -c 'import json,os,platform,sys; e=json.load(open(os.environ["GITHUB_EVENT_PATH"])); assert e["repository"]["private"] is True; rid=os.environ["P113_EXPECTED_REPOSITORY_ID"]; assert rid.isdecimal() and int(rid)>0; assert os.environ["GITHUB_REPOSITORY_ID"] == rid == str(e["repository"]["id"]); assert str(e["repository"]["owner"]["id"]) == os.environ["P113_EXPECTED_OWNER_ID"]; assert os.environ["GITHUB_REPOSITORY"] == os.environ["P113_EXPECTED_REPOSITORY"] == e["repository"]["full_name"]; assert os.environ["GITHUB_REF"] == os.environ["P113_EXPECTED_REF"] and os.environ["GITHUB_REF"] not in ("refs/heads/main","refs/heads/master"); assert os.environ["GITHUB_EVENT_NAME"] == "push"; assert platform.system() == "Linux" and sys.implementation.name == "cpython" and sys.version_info[:3] == (3,12,14) and not sys.flags.optimize'
+          python -B owned-p113-tenstage/prepare_execution.py prepare --packet owned-p113-tenstage/inputs/science-source.tar.gz --out "$RUNNER_TEMP/p113-tenstage"
+          python -B -c 'import json,os,pathlib; p=pathlib.Path(os.environ["RUNNER_TEMP"])/"p113-tenstage/ci-identity.json"; p.write_text(json.dumps({k:os.environ[k] for k in ("GITHUB_REPOSITORY","GITHUB_REPOSITORY_ID","GITHUB_SHA","GITHUB_RUN_ID","GITHUB_RUN_ATTEMPT","GITHUB_REF")},indent=2)+"\n")'
+      - name: Actual separate passive consumer twelve methods
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/p113-tenstage/retained/P113/artifact"
+          timeout --signal=TERM --kill-after=5s 60s python -B coherence_tests/test_evidence_consumers.py -v 2>&1 | tee "$RUNNER_TEMP/p113-tenstage/consumer12.log"
+      - name: Actual separate assembler eight methods (no native collection)
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/p113-tenstage/retained/P113/artifact"
+          timeout --signal=TERM --kill-after=5s 60s python -B fresh_science_tests/test_assembler.py --out "$RUNNER_TEMP/p113-tenstage/assembler-guards" -v 2>&1 | tee "$RUNNER_TEMP/p113-tenstage/assembler8.log"
+      - name: Actual separate scalar seven methods
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/p113-tenstage/execution/P113/artifact"
+          timeout --signal=TERM --kill-after=5s 30s python -B scalar_tests/test_glob_matches.py -v 2>&1 | tee "$RUNNER_TEMP/p113-tenstage/scalar7.log"
+      - name: Original ten scientific stages exactly once without paper build
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/p113-tenstage/execution/P113/artifact"
+          CPU=$(python -c 'import os; print(min(os.sched_getaffinity(0)))')
+          ulimit -t 900
+          ulimit -v 2097152
+          timeout --signal=TERM --kill-after=15s 1200s taskset -c "$CPU" python -B scripts/reproduce_tosem.py 2>&1 | tee "$RUNNER_TEMP/p113-tenstage/tenstage-driver.log"
+      - name: Require actual ten-stage records and unchanged prepared source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -B owned-p113-tenstage/prepare_execution.py verify --out "$RUNNER_TEMP/p113-tenstage"
+          python -B owned-p113-tenstage/check_science_output.py --out "$RUNNER_TEMP/p113-tenstage"
+      - name: Retain complete source and raw result even when a step fails
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p113-tenstage-science-only
+          if-no-files-found: warn
+          include-hidden-files: true
+          path: |
+            owned-p113-tenstage/inputs/science-source.tar.gz
+            owned-p113-tenstage/prepare_execution.py
+            owned-p113-tenstage/check_science_output.py
+            ${{ runner.temp }}/p113-tenstage/
