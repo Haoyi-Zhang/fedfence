@@ -71,8 +71,23 @@ class EvidenceConsumers(unittest.TestCase):
         self.assertEqual(json.loads(outputs['plot_provenance.json'])['csv_sha256'], historical['csv_sha256'])
 
     def test_historical_default_cannot_claim_current_204(self):
-        with self.assertRaisesRegex(ValueError, 'unit-test record is stale'):
-            tables.generate(ROOT)
+        # Genuine root evidence is now current; stale evidence is an explicit
+        # in-memory negative fixture, never an assumption about delivered data.
+        outputs = tables.generate(ROOT)
+        self.assertEqual(json.loads(outputs['generation.json'])['macros']['TestCount'], 204)
+        unit_record = (ROOT/'tosem/results/unit_tests.json').resolve()
+        original_load = tables.strict_load
+
+        def stale_unit_record(path):
+            value = original_load(path)
+            if Path(path).resolve() == unit_record:
+                value = copy.deepcopy(value)
+                value['tests_run'] = 194
+            return value
+
+        with patch.object(tables, 'strict_load', side_effect=stale_unit_record):
+            with self.assertRaisesRegex(ValueError, 'unit-test record is stale'):
+                tables.generate(ROOT)
 
     def test_evidence_tamper_rejected(self):
         root = self.fixture()
