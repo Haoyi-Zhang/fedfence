@@ -21,6 +21,54 @@ For just the ordinary regression suite, run `make tests`. For the corrected sour
 
 The preserved legacy YAML extractor has separate optional dependencies in `artifact/requirements.txt`; it is **not** exercised by the current JSON reproduction path. No cloud credentials, cloud account, paid API, external analyzer, repository checkout, network fetch or source program execution is required by the current reproduction command. Historical fetch scripts are not called by it.
 
+### Optional portable scalar matcher tests
+
+From this artifact directory, with Python 3.10+ and no extra dependencies:
+
+```sh
+python -B scalar_tests/test_glob_matches.py -v
+```
+
+This self-contained seven-method suite loads only `fse_workflow/conformance.py`
+and standard-library modules. It compares 10,571 bounded pattern/string pairs
+with an independent recursive definition, adds 15 literal/code-point controls,
+and checks the cell cap, literal fast path, invalid types and injected deadlines.
+It does not import or execute gates, policies, providers, symbolic analysis,
+receipts or cloud/workflow commands, and needs no before copy or private paths.
+
+The scalar DP now reuses its two row buffers; recurrence, character domain,
+cell cap and deadline checks are unchanged. These tests live outside `tests/`
+and are **not** included in the retained 204-test discovery count or the
+existing nine-/ten-stage drivers. Scientific CI runs the seven methods as a
+separate required step and retains their raw log; the original scientific
+command and all 204-test/source-bound gates remain unchanged. This configuration
+is not a hosted CI success claim.
+
+Retained campaigns precede this buffer change. Their records, source digests,
+negative controls and Linux timings are not relabelled as runs of the changed
+matcher. Source-bound audits must still reject changed sources; this scalar
+suite does not refresh those receipts or establish full-gate conformance or a
+measured speedup. Installation is held pending legitimate fresh full evidence:
+both current reproduction paths include the timed scaling campaign, and the
+native receipt requires Linux CPython 3.12.14. An untimed scalar run cannot
+satisfy those requirements, and old evidence must not be rehashed.
+
+On pushes to `main`, `scientific-checks.yml` automatically runs the owned fresh
+route, pinned to Linux CPython 3.12.14. After the separate eight assembler guards,
+it prepares a new execution copy without deleting checkout outputs, runs the
+unchanged nine stages and the separate seven scalar methods, then assembles
+exactly 225 fresh native evidence files. The unchanged passive audit must accept
+before a new receipt is issued. Pull-request and manual runs of that scientific
+workflow retain scalar-plus-nine-stage checkout checks, without fresh collection.
+The separate `fresh-native-evidence.yml` remains manual-only for an explicitly
+reviewed ref; it is not another automatic push job. Both workflows share a
+non-cancelling concurrency group. Review the source/ref and schedule one owned
+campaign without other concurrent measurement jobs. Old receipts, historical
+Linux timings and negative controls are not rewritten, and the new route is
+not represented here as an already successful native run of the changed matcher.
+See [fresh native instructions](docs/FRESH_NATIVE_EVIDENCE.md), including the
+separate eight-method portable assembler guards (not part of 204 or seven).
+
 ## Strict gate and full-review replay
 
 All paths below are relative to this artifact directory. The explicit historical clock is for deterministic fixtures, not a way to approve stale operational evidence.
@@ -62,7 +110,7 @@ Public cases use explicitly identified **study adapters**. Fourteen configuratio
 
 ## Delivered evidence
 
-The table below describes the historical supplied snapshot. Current native evidence is retained separately in `tosem/current-native-37484284472/`: nine successful stages, 204 tests, and zero failures, errors, or skips, using CPython 3.12.14 on Linux in 58.874 seconds. `tosem/results/current_science_receipt.json` binds the actual native output bytes and current scientific sources. Its new passive audit checks consistency, not a new scientific execution, source authentication, proof correctness, or a ten-stage reproduction pass. The archive also contained older records that the nine-stage driver did not produce; those were not imported as current evidence.
+The table below describes the historical supplied snapshot. Retained pre-buffer-change native evidence is separate in `tosem/current-native-37484284472/`: nine successful stages, 204 tests, and zero failures, errors, or skips, using CPython 3.12.14 on Linux in 58.874 seconds. `tosem/results/current_science_receipt.json` binds the actual native output bytes and those pre-buffer-change scientific sources, not the changed matcher. Its passive audit checks consistency and must reject this source change; it is not a new scientific execution, source authentication, proof correctness, or a ten-stage reproduction pass. The archive also contained older records that the nine-stage driver did not produce; those were not imported as current evidence.
 
 The historical 194-test record, ten-stage receipts, eight seeded-fault trials, negative examples, and Python 3.13.5 Linux timing data remain unchanged. The newer campaign's 54 timings, 18 warm-ups, and 18 summary cells are retained separately; the paper's cost table and figure still use the historical measurements. The earlier Windows nine-stage recheck also passed 204 tests. No live cloud or public-source program was executed.
 
@@ -146,4 +194,4 @@ python -B scripts/run_scientific_checks.py --out scientific-check-output
 
 The output directory must be new. The driver retains raw logs, fails on any nonzero stage, and enforces a shared 1,200-second budget as well as per-stage limits. Its nine stages exercise the current unit suite, core, projection, relational, two-sided, character, matcher/issuer/bounded-glob/scaling, repair, and supplied-source checks. `--no-paper-table` keeps the character audit's checks identical while omitting its sibling-paper write. The current unit output is `fse/results/unit_tests.json`; this flat driver does not relabel the supplied `tosem/results/unit_tests.json` or earlier seeded-fault records as current. No paper build or eight-fault mutation-copy campaign is included.
 
-`.github/workflows/scientific-checks.yml` runs that command on Ubuntu 24.04 for pushes to `main`, pull requests, or manual dispatch. It bounds wall time, CPU time, and virtual memory, retains failure gates, and uploads raw logs and result files even after a failure. The action revisions are pinned. The retained Linux evidence identifies run 37484284472, artifact 11422128499, and source commit `e2535e4bdf8b04d098fe132ee008a018a8402ac8`. The Windows recheck is a separate local execution. The existing material-integrity workflow is retained separately.
+`.github/workflows/scientific-checks.yml` runs that command on Ubuntu 24.04 with CPython 3.12.14 for pushes to `main`, pull requests, or manual dispatch. A main push uses the fresh copy and mandatory collection described above; the other triggers retain checkout checks. It bounds wall time and process CPU/address space, uses one allowed CPU for the scientific driver, retains failure gates, and uploads raw logs and result files even after a failure. The action revisions are pinned. The separate fresh-native workflow is manual-only and shares the concurrency group, which does not serialize other projects. The retained pre-buffer-change Linux evidence identifies run 37484284472, artifact 11422128499, and source commit `e2535e4bdf8b04d098fe132ee008a018a8402ac8`. The Windows recheck is a separate local execution. The existing material-integrity workflow is retained separately.

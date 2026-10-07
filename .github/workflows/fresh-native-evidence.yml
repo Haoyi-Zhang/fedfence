@@ -1,8 +1,5 @@
-name: Scientific checks
+name: Fresh owned native evidence (manual)
 on:
-  push:
-    branches: [main]
-  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
@@ -10,7 +7,7 @@ concurrency:
   group: p113-fresh-owned-native-evidence
   cancel-in-progress: false
 jobs:
-  owned-offline-models:
+  fresh-owned-offline-models:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
@@ -24,68 +21,47 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12.14'
-      - name: Check separate assembler guards on the reviewed main push
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Check assembler guards separately (not ordinary or scalar count)
         shell: bash
         run: |
           set -euo pipefail
           timeout --signal=TERM --kill-after=5s 60s python -B fresh_science_tests/test_assembler.py --out "$RUNNER_TEMP/p113-assembler-guards" -v 2>&1 | tee "$RUNNER_TEMP/p113-assembler-guards.log"
-      - name: Prepare a new source-bound copy on the reviewed main push
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      - name: Prepare a new source-bound execution copy
         shell: bash
         run: |
           set -euo pipefail
           python -B scripts/assemble_fresh_science.py prepare --source "$GITHUB_WORKSPACE" --workdir "$RUNNER_TEMP/p113-fresh-native" | tee "$RUNNER_TEMP/p113-fresh-prepare.log"
-          python -c 'import json,os; print(json.dumps({k:os.environ[k] for k in ("GITHUB_SHA","GITHUB_RUN_ID","GITHUB_RUN_ATTEMPT","GITHUB_REF")}))' | tee "$RUNNER_TEMP/p113-fresh-native/_fresh-science/ci-identity.json"
-      - name: Run the separate scalar matcher regression suite
+      - name: Separate scalar seven-method regression
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$GITHUB_EVENT_NAME" == push && "$GITHUB_REF" == refs/heads/main ]]; then
-            cd "$RUNNER_TEMP/p113-fresh-native"
-            LOG=_fresh-science/scalar-tests.log
-          else
-            mkdir -p scalar-regression-output
-            LOG=scalar-regression-output/glob-tests.log
-          fi
-          timeout --signal=TERM --kill-after=5s 30s python -B scalar_tests/test_glob_matches.py -v 2>&1 | tee "$LOG"
-      - name: Run finite and synthetic scientific gates exactly once
+          cd "$RUNNER_TEMP/p113-fresh-native"
+          timeout --signal=TERM --kill-after=5s 30s python -B scalar_tests/test_glob_matches.py -v 2>&1 | tee _fresh-science/scalar-tests.log
+      - name: Unchanged nine-stage scientific campaign, serial on one CPU
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$GITHUB_EVENT_NAME" == push && "$GITHUB_REF" == refs/heads/main ]]; then
-            cd "$RUNNER_TEMP/p113-fresh-native"
-            export TMPDIR="$PWD/_fresh-science/tmp"
-            LOG=_fresh-science/driver.log
-          else
-            mkdir -p scalar-regression-output
-            LOG=scalar-regression-output/scientific-driver.log
-          fi
+          cd "$RUNNER_TEMP/p113-fresh-native"
+          export TMPDIR="$PWD/_fresh-science/tmp"
           CPU=$(python -c 'import os; print(min(os.sched_getaffinity(0)))')
+          printf 'Single allowed CPU: %s\n' "$CPU" | tee _fresh-science/affinity.log
           ulimit -t 900
           ulimit -v 2097152
-          timeout --signal=TERM --kill-after=15s 1200s taskset -c "$CPU" python -B scripts/run_scientific_checks.py 2>&1 | tee "$LOG"
-      - name: Require fresh source-bound native evidence on the reviewed main push
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+          timeout --signal=TERM --kill-after=15s 1200s taskset -c "$CPU" python -B scripts/run_scientific_checks.py 2>&1 | tee _fresh-science/driver.log
+      - name: Assemble new evidence and require unchanged native audit
         shell: bash
         run: |
           set -euo pipefail
           cd "$RUNNER_TEMP/p113-fresh-native"
           timeout --signal=TERM --kill-after=5s 60s python -B scripts/assemble_fresh_science.py collect --workdir "$PWD" 2>&1 | tee _fresh-science/assembler.log
-      - name: Retain raw outputs even when a gate fails
+      - name: Retain complete generated output and guard attempts even on failure
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: owned-offline-model-output
+          name: fresh-owned-native-evidence
           if-no-files-found: warn
           include-hidden-files: true
           path: |
-            scalar-regression-output/
-            scientific-check-output/
-            tosem/results/
-            fse/results/unit_tests.json
-            fse/results/finite_semantics_audit.json
-            results/repair_audit.json
             ${{ runner.temp }}/p113-assembler-guards/
             ${{ runner.temp }}/p113-assembler-guards.log
             ${{ runner.temp }}/p113-fresh-prepare.log

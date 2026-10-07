@@ -62,17 +62,18 @@ def _glob_matches(pattern: str, actual: str, *, deadline: float | None = None) -
     if len(pattern) * (len(actual) + 1) > 2_000_000:
         raise ConformanceBudgetExceeded("positive glob match exceeds 2000000 cell budget")
     row = [True] + [False] * len(actual)
+    nxt = [False] * (len(actual) + 1)
     for char in pattern:
         _check_deadline(deadline)
-        nxt = [False] * (len(actual) + 1)
         if char == "*":
             nxt[0] = row[0]
             for j in range(1, len(nxt)):
                 nxt[j] = row[j] or nxt[j - 1]
         else:
+            nxt[0] = False
             for j in range(1, len(nxt)):
                 nxt[j] = row[j - 1] and (char == "?" or char == actual[j - 1])
-        row = nxt
+        row, nxt = nxt, row
     return row[-1]
 
 
