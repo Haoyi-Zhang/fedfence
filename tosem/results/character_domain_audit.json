@@ -9,7 +9,7 @@
     "result_stream_sha256": "c9978470963a4dac0466642fa19ddc0579432a9c8afeb9e9eaaed69d9b8a2af0",
     "scope": "Scalar typed-constructor membership vs quotient NFA at five insertion positions; abstract model only."
   },
-  "implementation_sha256": "496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7",
+  "implementation_sha256": "21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299",
   "integration": {
     "passed": true,
     "regular_cases": 4,

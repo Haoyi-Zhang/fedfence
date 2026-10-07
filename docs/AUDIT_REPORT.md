@@ -2,15 +2,15 @@
 
 PASS — 53/53 checks.
 
-Implementation SHA-256: `496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7`.
+Implementation SHA-256: `21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299`.
 
 Paper: 41 pages; 63 references; 9 figures; 13 tables.
 
 | Check | Result | Detail |
 |---|---|---|
-| unit-test-discovery-and-record | PASS | {'recorded': 194, 'test_methods_in_source': 194} |
+| unit-test-discovery-and-record | PASS | {'recorded': 204, 'test_methods_in_source': 204} |
 | all-ten-reproduction-steps | PASS |  |
-| current-implementation-matches-records | PASS | 496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7 |
+| current-implementation-matches-records | PASS | 21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299 |
 | offline-recorded-scope | PASS |  |
 | character-domain-current-implementation | PASS |  |
 | full-codepoint-predicate-signatures | PASS |  |

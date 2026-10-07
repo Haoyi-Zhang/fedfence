@@ -1,0 +1,24 @@
+BASELINE
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.106s
+
+OK
+
+SEEDED FAULT
+F
+======================================================================
+FAIL: test_receipt_unsealed_tamper (test_tosem_consistency.TOSEMConsistencyTests.test_receipt_unsealed_tamper)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/fedfence-benign-fault-ujp7vkwx/tests/test_tosem_consistency.py", line 70, in test_receipt_unsealed_tamper
+    self.assertEqual('invalid-receipt',replay_receipt(c,now=NOW)['findings'][0]['code'])
+AssertionError: 'invalid-receipt' != 'receipt-replay-disagreement'
+- invalid-receipt
++ receipt-replay-disagreement
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.214s
+
+FAILED (failures=1)

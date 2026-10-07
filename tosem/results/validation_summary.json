@@ -1,10 +1,10 @@
 {
   "cloud_accounts_used": false,
   "environment": {
-    "implementation_sha256": "496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7",
-    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
-    "processor": "",
-    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]"
+    "implementation_sha256": "21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]"
   },
   "finite": {
     "atoms": [
@@ -22,7 +22,7 @@
       ]
     ],
     "checked": 65536,
-    "elapsed_seconds": 0.9914563069999076,
+    "elapsed_seconds": 2.125636775000004,
     "oracle": "direct Python set operations; no cloud or formal refinement proof",
     "passed": true,
     "relation_combinations": 32768,
@@ -88,7 +88,7 @@
     "passed": true,
     "schema": "fedfence-tosem-strict-differential-v1",
     "scope": "7 nonempty Allow subsets times 8 Deny subsets over three benign tuples; no issuer/backend completeness claim",
-    "total_seconds": 34.97812046900003,
+    "total_seconds": 7.194069816999999,
     "verdicts": {
       "fail": 47,
       "pass": 9

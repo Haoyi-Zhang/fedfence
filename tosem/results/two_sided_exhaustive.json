@@ -14,7 +14,7 @@
     ]
   ],
   "checked": 65536,
-  "elapsed_seconds": 0.9914563069999076,
+  "elapsed_seconds": 2.125636775000004,
   "oracle": "direct Python set operations; no cloud or formal refinement proof",
   "passed": true,
   "relation_combinations": 32768,

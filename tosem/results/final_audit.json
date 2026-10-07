@@ -2,8 +2,8 @@
   "checks": [
     {
       "detail": {
-        "recorded": 194,
-        "test_methods_in_source": 194
+        "recorded": 204,
+        "test_methods_in_source": 204
       },
       "name": "unit-test-discovery-and-record",
       "passed": true
@@ -14,7 +14,7 @@
       "passed": true
     },
     {
-      "detail": "496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7",
+      "detail": "21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299",
       "name": "current-implementation-matches-records",
       "passed": true
     },
@@ -281,7 +281,7 @@
       "passed": true
     }
   ],
-  "implementation_sha256": "496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7",
+  "implementation_sha256": "21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299",
   "limitations": [
     "Not an acceptance prediction or universal correctness proof.",
     "Local source digests do not authenticate remote sources or reviewer identities.",
@@ -292,7 +292,7 @@
     "pages": 41,
     "references": 63,
     "references_start_page": 38,
-    "sha256": "a1ef2a4181127b7de117827ad3b9c25d6c878180c478a9314f577667faab6641",
+    "sha256": "994070662254a58e5bd25d57469d63323cf1a4beb48f9305353b627a45a570ad",
     "tables": 13
   },
   "passed": true,

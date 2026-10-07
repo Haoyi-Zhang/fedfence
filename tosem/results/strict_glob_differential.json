@@ -9,7 +9,7 @@
   "complete_policy_bound": "Each Allow intersects finite StringEquals subject/audience bounds; no other Allow exists.",
   "csv_sha256": "92ed29c1d473ea79a4fcf285f11baddd37a49cdb48d80f016072623e8931915b",
   "deny_modes": 3,
-  "elapsed_seconds": 120.07504166399985,
+  "elapsed_seconds": 24.668116527000024,
   "independent_oracle": "Recursive glob matching and direct tuple set Allow-minus-Deny.",
   "intent": [
     [

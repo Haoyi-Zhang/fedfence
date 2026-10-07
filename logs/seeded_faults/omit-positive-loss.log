@@ -1,0 +1,29 @@
+BASELINE
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+SEEDED FAULT
+F
+======================================================================
+FAIL: test_only_missing (test_gate_decision_precedence.GateDecisionPrecedenceTests.test_only_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/fedfence-benign-fault-1djadh0d/tests/test_gate_decision_precedence.py", line 8, in test_only_missing
+    def test_only_missing(self): self.assertEqual(('fail',1),(lambda d:(d.status,d.exit_code))(resolve(invalid=False,overgrant=False,missing_required=True)))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: ('fail', 1) != ('pass', 0)
+
+First differing element 0:
+'fail'
+'pass'
+
+- ('fail', 1)
++ ('pass', 0)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

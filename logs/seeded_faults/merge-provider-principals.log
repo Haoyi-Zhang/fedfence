@@ -1,0 +1,25 @@
+BASELINE
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK
+
+SEEDED FAULT
+F
+======================================================================
+FAIL: test_mixed_provider_principals_refused (test_tosem_consistency.TOSEMConsistencyTests.test_mixed_provider_principals_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/fedfence-benign-fault-h841nx24/tests/test_tosem_consistency.py", line 42, in test_mixed_provider_principals_refused
+    r=review(p,now=NOW); self.assertEqual('unknown',r['verdict'])
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'unknown' != 'pass'
+- unknown
++ pass
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.127s
+
+FAILED (failures=1)

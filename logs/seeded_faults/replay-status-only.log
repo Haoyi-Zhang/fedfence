@@ -1,0 +1,24 @@
+BASELINE
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK
+
+SEEDED FAULT
+F
+======================================================================
+FAIL: test_normalized_entire_result_replayed (test_tosem_consistency.TOSEMConsistencyTests.test_normalized_entire_result_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/fedfence-benign-fault-m58xdlhu/tests/test_tosem_consistency.py", line 90, in test_normalized_entire_result_replayed
+    self.assertEqual('unknown', got.status)
+AssertionError: 'unknown' != 'pass'
+- unknown
++ pass
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

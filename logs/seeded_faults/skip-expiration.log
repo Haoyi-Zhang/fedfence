@@ -1,0 +1,24 @@
+BASELINE
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.107s
+
+OK
+
+SEEDED FAULT
+F
+======================================================================
+FAIL: test_snapshot_age_exact_boundary (test_tosem_consistency.TOSEMConsistencyTests.test_snapshot_age_exact_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/fedfence-benign-fault-y05axrlp/tests/test_tosem_consistency.py", line 73, in test_snapshot_age_exact_boundary
+    self.assertEqual('unknown',review(packet(),now='2026-09-24T00:00:01Z')['verdict'])
+AssertionError: 'unknown' != 'pass'
+- unknown
++ pass
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.216s
+
+FAILED (failures=1)

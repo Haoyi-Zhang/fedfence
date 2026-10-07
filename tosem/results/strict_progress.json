@@ -5,7 +5,7 @@
     "deny_mask": 7,
     "expected": "fail",
     "replay_ok": true,
-    "seconds": 0.6961833469999874,
+    "seconds": 0.16096630300000925,
     "statements": 6,
     "verdict": "fail"
   }

@@ -1,0 +1,24 @@
+BASELINE
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.207s
+
+OK
+
+SEEDED FAULT
+F
+======================================================================
+FAIL: test_receipt_implementation_change (test_tosem_consistency.TOSEMConsistencyTests.test_receipt_implementation_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/fedfence-benign-fault-4swh_l9d/tests/test_tosem_consistency.py", line 67, in test_receipt_implementation_change
+    self.assertEqual('unknown',replay_receipt(c,now=NOW)['verdict'])
+AssertionError: 'unknown' != 'pass'
+- unknown
++ pass
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.213s
+
+FAILED (failures=1)

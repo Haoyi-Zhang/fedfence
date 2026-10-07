@@ -1,110 +1,110 @@
 {
   "cloud_accounts_used": false,
-  "implementation_sha256": "496e5d1d0b73369317ce2c0b4d7efc11183e4b62105e1003cc944a461bb4cbf7",
+  "implementation_sha256": "21d91428d1a3e7ea8a13508c540184784b843dc84f39f5599604a935e07b4299",
   "network_access": false,
   "passed": true,
-  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
-  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
   "steps": [
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_fse_tests.py"
       ],
       "exit_code": 0,
       "log": "logs/unit-tests.log",
       "name": "unit-tests",
-      "seconds": 39.87885878600014
+      "seconds": 10.209654166000007
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "artifact/scripts/self_check.py"
       ],
       "exit_code": 0,
       "log": "logs/core-self-check.log",
       "name": "core-self-check",
-      "seconds": 0.7938476580000042
+      "seconds": 0.5199312369999944
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_finite_audit.py"
       ],
       "exit_code": 0,
       "log": "logs/projection-audit.log",
       "name": "projection-audit",
-      "seconds": 0.6226744530001724
+      "seconds": 0.0963880099999983
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_relational_audit.py"
       ],
       "exit_code": 0,
       "log": "logs/relational-audit.log",
       "name": "relational-audit",
-      "seconds": 0.6227173379998021
+      "seconds": 0.15939331900000298
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_tosem_validation.py"
       ],
       "exit_code": 0,
       "log": "logs/two-sided-validation.log",
       "name": "two-sided-validation",
-      "seconds": 40.198919251999996
+      "seconds": 10.06841658399999
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_character_domain_audit.py"
       ],
       "exit_code": 0,
       "log": "logs/character-domain.log",
       "name": "character-domain",
-      "seconds": 5.008236618000183
+      "seconds": 4.346494946000007
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_final_validation.py"
       ],
       "exit_code": 0,
       "log": "logs/final-boundaries.log",
       "name": "final-boundaries",
-      "seconds": 168.73220114900005
+      "seconds": 38.52732994600001
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_seeded_faults.py"
       ],
       "exit_code": 0,
       "log": "logs/seeded-faults.log",
       "name": "seeded-faults",
-      "seconds": 18.573669592999977
+      "seconds": 5.22567909899999
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_repair_audit.py"
       ],
       "exit_code": 0,
       "log": "logs/repair-audit.log",
       "name": "repair-audit",
-      "seconds": 0.5555743579998307
+      "seconds": 0.062057157000026564
     },
     {
       "command": [
-        "/opt/pyvenv/bin/python3",
+        "/opt/hostedtoolcache/Python/3.12.14/x64/bin/python",
         "scripts/run_tosem_studies.py"
       ],
       "exit_code": 0,
       "log": "logs/source-studies.log",
       "name": "source-studies",
-      "seconds": 1.144867419000093
+      "seconds": 1.180309651000016
     }
   ]
 }

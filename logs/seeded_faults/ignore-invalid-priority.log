@@ -1,0 +1,25 @@
+BASELINE
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.122s
+
+OK
+
+SEEDED FAULT
+F
+======================================================================
+FAIL: test_gate_invalid_dominates_overgrant (test_tosem_consistency.TOSEMConsistencyTests.test_gate_invalid_dominates_overgrant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/fedfence-benign-fault-rvvmg4q5/tests/test_tosem_consistency.py", line 30, in test_gate_invalid_dominates_overgrant
+    self.assertEqual('unknown',r['verdict']); self.assertTrue(r['required_token_checks']['invalid'])
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'unknown' != 'fail'
+- unknown
++ fail
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.125s
+
+FAILED (failures=1)

@@ -4,20 +4,23 @@ This is the existing FedFence implementation, revised in place for **“FedFence
 
 The current entry points are this README and this directory's Makefile. The paper lives in the **sibling `../paper/` directory**. Older FSE documentation and output directories are not the authority for the present manuscript's counts or claims.
 
-For the delivered current evidence, `make native-audit` passively checks the
-retained 225-file Linux campaign against this artifact's actual scientific
-sources, and `make tables` validates all selected inputs before regenerating
-tables. Both select `tosem/results/native-science` explicitly. `make coherence-tests`
-runs twelve separate portable passive-consumer regressions, also a required
-scientific-CI step; they are not part of the 204 ordinary tests or nine stages.
-See [current consumer instructions](docs/CURRENT_EVIDENCE_CONSUMERS.md).
+The delivered ten-stage evidence is in `tosem/results/`, with raw logs in
+`logs/`; it supplies the paper's current tables and plot. The separate
+225-file nine-stage campaign remains in `tosem/results/native-science`.
+`make native-audit` passively checks that retained campaign against this
+artifact's actual scientific sources. The unchanged `make tables` target
+also selects its receipt explicitly; the default generator instead selects
+the ten-stage root outputs, as described below. `make coherence-tests` runs
+twelve separate portable passive-consumer regressions, also a required
+scientific-CI step; they are not part of the 204 ordinary tests or evidence stages.
+See [retained nine-stage consumer instructions](docs/CURRENT_EVIDENCE_CONSUMERS.md).
 
 ## Reproduce from the delivered layout
 
 ```sh
 cd artifact
 make evidence       # all ten offline evidence steps; regenerate paper tables
-make paper          # compile ../paper/FedFence_TOSEM.pdf
+make -C ../paper    # compile those tables into ../paper/FedFence_TOSEM.pdf
 make audit          # verify evidence/manuscript consistency
 # Or execute all three stages:
 make reproduce
@@ -25,7 +28,7 @@ make reproduce
 
 For just the ordinary regression suite, run `make tests`. For the corrected source-backed, source-frontier and maintenance studies, run `make studies`. Outputs are written to `tosem/results/`, with logs in `logs/`; quantitative LaTeX macros and tables are regenerated in `../paper/generated/`. Re-running overwrites generated results and timings. It does not change the supplied public-source fixtures.
 
-**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The supplied measurement snapshot used Python 3.13.5 on Linux; the accepted current native nine-stage campaign used CPython 3.12.14 on Linux. An earlier local repair recheck used bundled Python 3.12.14 on Windows. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
+**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The delivered ten-stage measurements and the separate retained nine-stage campaign used CPython 3.12.14 on Linux. The supplied paper was built on Windows with pdfTeX from TeX Live 2024 and installed `acmart` v2.12. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
 
 The preserved legacy YAML extractor has separate optional dependencies in `artifact/requirements.txt`; it is **not** exercised by the current JSON reproduction path. No cloud credentials, cloud account, paid API, external analyzer, repository checkout, network fetch or source program execution is required by the current reproduction command. Historical fetch scripts are not called by it.
 
@@ -52,12 +55,12 @@ separate required step and retains their raw log; the original scientific
 command and all 204-test/source-bound gates remain unchanged. This configuration
 is not a hosted CI success claim.
 
-Earlier campaigns precede this buffer change and remain bound to their original
-sources. The separate current native campaign identified below genuinely ran
-the changed matcher; it is not a reseal of those earlier records. The scalar
-suite alone does not refresh receipts or establish full-gate conformance or a
-measured speedup. The native receipt requires Linux CPython 3.12.14; the nine-
-and ten-stage routes remain distinct, and old evidence must not be rehashed.
+Earlier campaigns remain bound to their original sources. Both delivered
+campaigns identified below ran the changed matcher; neither is a reseal of
+earlier records. The scalar suite alone does not refresh receipts or establish
+full-gate conformance or a measured speedup. The native receipt requires Linux
+CPython 3.12.14; the nine- and ten-stage routes remain distinct, and old evidence
+must not be rehashed.
 
 On pushes to `main`, `scientific-checks.yml` automatically runs the owned fresh
 route, pinned to Linux CPython 3.12.14. After the separate eight assembler guards,
@@ -118,7 +121,19 @@ Public cases use explicitly identified **study adapters**. Fourteen configuratio
 
 ## Delivered evidence
 
-The current campaign is run **37670050420**, attempt 1, source commit
+The root `tosem/results/reproduction.json` records ten successful offline
+science stages on Linux CPython 3.12.14. Their outputs include 204 ordinary
+tests with no failures/errors/skips, eight seeded semantic fault controls,
+54 local timing samples, 18 warm-ups, and 18 summary cells. The table below
+describes those delivered root outputs. The supplied 41-page Windows-built
+paper and the same science outputs subsequently passed the original 53-check
+Linux package audit, recorded in `tosem/results/final_audit.json` and
+`docs/AUDIT_REPORT.md`. Seven scalar methods, eight assembler guards, and
+twelve passive-consumer tests were executed separately; they are not added
+to the 204 ordinary tests or the ten stages. These are finite model and
+package-consistency checks, not universal proof or a speed-gain comparison.
+
+The separately retained nine-stage campaign is run **37670050420**, attempt 1, source commit
 `07258c854b9136504952d2b842866074500847bf`: nine successful stages, 204 ordinary
 tests with no failures/errors/skips, and 225 bound evidence files, on Linux
 CPython 3.12.14. The original receipt and eight sidecars are retained under
@@ -129,15 +144,22 @@ consumer wrappers. The passive audit binds the unchanged 56 scientific files
 and 12 study inputs to the actual installed artifact root. It does not establish
 a new run, source authentication, proof correctness or a ten-stage/PDF pass.
 
-The table below describes the historical supplied snapshot. Retained
-pre-buffer-change native evidence remains in `tosem/current-native-37484284472/`,
+Retained pre-buffer-change native evidence remains in `tosem/current-native-37484284472/`,
 with its original `tosem/results/current_science_receipt.json`; that receipt must
-still reject the changed matcher. Historical 58.874-second execution metadata
-is not a measurement of the buffer-reuse implementation.
+still reject the changed matcher. Earlier raw records and negative controls
+remain retained with their original source bindings, separately from the
+delivered root outputs. No live cloud or public-source program was executed.
 
-The historical 194-test record, ten-stage receipts, eight seeded-fault trials, negative examples, and Python 3.13.5 Linux timing data remain unchanged. The newer campaign's 54 timings, 18 warm-ups, and 18 summary cells are retained separately; the paper's cost table and figure still use the historical measurements. The earlier Windows nine-stage recheck also passed 204 tests. No live cloud or public-source program was executed.
+To validate or regenerate the paper's delivered ten-stage root selection,
+without executing scientific drivers:
 
-To passively verify the current native records or regenerate paper tables from them:
+```sh
+python -B scripts/generate_tosem_tables.py --check  # validate/render; write nothing
+python -B scripts/generate_tosem_tables.py          # write ../paper/generated/
+make -C ../paper                                  # build from that selection
+```
+
+To passively verify the separate nine-stage records or select their semantic counts:
 
 ```sh
 make native-audit
@@ -146,11 +168,21 @@ make tables
 python -B scripts/generate_tosem_tables.py --current-receipt tosem/results/native-science/_fresh-science/current-science-receipt.json --evidence-root tosem/results/native-science
 ```
 
-These commands do not execute the scientific drivers. The explicit current-receipt mode fails if bound sources/data change or counts disagree. The original default table-generation path still refuses the old 194-test record with current 204-test sources. The full ten-stage audit remains a separate gate; this receipt does not turn its historical pass into a current pass.
+These commands do not execute the scientific drivers. The explicit
+current-receipt mode fails if bound sources/data change or counts disagree.
+`make tables`, `make current-tables`, and the table prerequisite of `make paper`
+select the nine-stage receipt, while scaling still comes from the root
+`tosem/results/local_scaling.csv`. They record that different selection in
+`generation.json`; they do not reproduce the ten-stage generation provenance.
+The default generator selects the root outputs and checks the current test
+count and all scaling rows and summaries before any writes. The full
+ten-stage/PDF audit remains a separate gate, not a property of the nine-stage
+receipt. `make reproduce` executes the complete ten-stage/build/audit route
+and replaces generated results and timing samples.
 
 | Layer | Actual unit and result | Authoritative output |
 |---|---|---|
-| Historical regression snapshot | 194 tests, 0 failures, 0 errors, 0 skips; current recheck: 204 tests | `tosem/results/unit_tests.json` (historical) |
+| Ordinary regression suite | 204 tests, 0 failures, 0 errors, 0 skips | `tosem/results/unit_tests.json` |
 | Core self-check | 3,945 bounded/symbolic comparisons | `tosem/results/core_self_check.json` |
 | Observation projection | 65,536 four-state/two-observation models | `tosem/results/finite_semantics_audit.json` |
 | Two-sided finite decision | 65,536 decisions over three atoms; 256 full certificate replay samples | `tosem/results/two_sided_exhaustive.json` |
@@ -176,7 +208,7 @@ These units are not interchangeable and must not be summed into a sample size, s
 - `artifact/fedfence/`: retained regular-language analysis core, with the character-domain correction applied; this inner `artifact` name is a historical path, not another FedFence system.
 - `tests/`, `scripts/`, `examples/`, `schemas/`: current regression tests, evidence drivers and benign fixtures.
 - `study/`: supplied source manifests, frozen patch/excerpt records and recorded corrections.
-- `tosem/results/`: supplied source-bound snapshots; regenerate for current source identities. `docs/CLAIM_EVIDENCE_MAP.md` describes the earlier claim mapping.
+- `tosem/results/`: delivered ten-stage root outputs and package audit; `native-science/` holds the separate retained nine-stage receipt and its original sidecars. `docs/CLAIM_EVIDENCE_MAP.md` describes the earlier claim mapping.
 - `tosem/history/`, `fse/results/`, `results/`: retained historical documentation and/or compatibility outputs. Do not use them to overwrite the current study's role and branch distinctions.
 
 The original core's own `artifact/README.md` and Makefile describe an older, narrower component-level workflow. The current whole-project entry point is the Makefile next to **this** README. The compatibility aliases `scripts/reproduce_final.py` and `scripts/audit_final.py` now dispatch to the TOSEM drivers.

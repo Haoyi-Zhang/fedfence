@@ -1,0 +1,1 @@
+{'schema': 'fedfence-relational-audit-v1', 'passed': True, 'states': 4, 'observations': 2, 'checks': {'two_sided_realizability': 16384, 'governance_restriction': 20736, 'intent_monotonicity': 20736, 'observation_refinement': 16384}, 'claim_boundary': 'finite counterexample search for elementary set-theoretic propositions, not a proof assistant or provider equivalence'}
