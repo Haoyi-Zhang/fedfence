@@ -32,6 +32,26 @@ RECORDS = ('two_sided_exhaustive', 'strict_literal_differential', 'dependency_me
            'public_study', 'source_frontier', 'maintenance_metadata', 'studies_summary',
            'validation_summary', 'final_validation_summary', 'two_sided_samples')
 
+# The three legacy records have no schema field in their existing producers.
+# Studies have no overall passed flag: fail/unknown are legitimate study outcomes.
+TABLE_SCHEMAS = {
+    'unit_tests': None,
+    'finite_semantics_audit': None,
+    'core_self_check': None,
+    'two_sided_exhaustive': 'fedfence-tosem-exhaustive-v1',
+    'strict_literal_differential': 'fedfence-tosem-strict-differential-v1',
+    'relational_audit': 'fedfence-relational-audit-v1',
+    'matcher_differential': 'fedfence-bounded-matcher-audit-v1',
+    'issuer_membership_differential': 'fedfence-issuer-membership-audit-v1',
+    'strict_glob_differential': 'fedfence-strict-bounded-glob-v1',
+    'character_domain_audit': 'fedfence-character-domain-audit-v1',
+    'local_scaling': 'fedfence-local-scaling-v1',
+    'public_study': 'fedfence-tosem-public-study-v1',
+    'source_frontier': 'fedfence-tosem-frontier-v1',
+    'maintenance_metadata': 'fedfence-tosem-maintenance-v1',
+}
+STUDY_RECORDS = {'public_study', 'source_frontier', 'maintenance_metadata'}
+
 
 def load(path):
     def unique(pairs):
@@ -52,6 +72,133 @@ def require(condition, detail):
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def validate_table_record(name, record):
+    """Shared selected-record checks, not a rerun or a native-receipt substitute."""
+    require(isinstance(record, dict) and record.get('schema') == TABLE_SCHEMAS[name],
+            name + ' schema')
+    if name not in STUDY_RECORDS:
+        require(record.get('passed') is True, name + ' passed')
+
+    def counts(obj, *keys):
+        require(all(type(obj.get(k)) is int and obj[k] >= 0 for k in keys), name + ' counts')
+
+    def verdicts(obj, total):
+        values = obj['verdicts']
+        require(isinstance(values, dict) and bool(values) and
+                set(values) <= {'pass', 'fail', 'unknown'}, name + ' verdict labels')
+        counts(values, *values)
+        require(sum(values.values()) == total, name + ' verdict counts')
+
+    if name == 'unit_tests':
+        counts(record, 'tests_run', 'failures', 'errors', 'skipped')
+        # Existing TOSEM and native audits require all methods to run without skips.
+        require(all(record[k] == 0 for k in ('failures', 'errors', 'skipped')),
+                'unit failure/error/skip')
+    elif name in ('two_sided_exhaustive', 'strict_literal_differential', 'strict_glob_differential'):
+        counts(record, 'checked')
+        verdicts(record, record['checked'])
+        if name == 'two_sided_exhaustive':
+            counts(record, 'relation_combinations', 'validity_settings', 'replay_samples')
+            require(record['checked'] == record['relation_combinations'] * record['validity_settings']
+                    and record['replay_samples'] <= record['checked'], name + ' counts')
+    elif name == 'relational_audit':
+        counts(record, 'states', 'observations')
+        counts(record['checks'], *record['checks'])
+        # The existing audit and producer select the four-state/two-observation bound.
+        require((record['states'], record['observations']) == (4, 2) and
+                record['checks'] == dict(two_sided_realizability=16384, governance_restriction=20736,
+                                        intent_monotonicity=20736, observation_refinement=16384),
+                name + ' counts')
+    elif name == 'finite_semantics_audit':
+        counts(record, 'checked_models', 'universe_states', 'observation_values')
+        require((record['checked_models'], record['universe_states'], record['observation_values']) ==
+                (65536, 4, 2) and bool(record['incorrect_existential_lifting_counterexample']),
+                name + ' counts/negative example')
+    elif name == 'core_self_check':
+        counts(record, 'comparisons')
+    elif name == 'matcher_differential':
+        counts(record, 'checked', 'patterns', 'values', 'matching_pairs', 'nonmatching_pairs')
+        require(record['checked'] == record['patterns'] * record['values'] ==
+                record['matching_pairs'] + record['nonmatching_pairs'], name + ' counts')
+    elif name == 'issuer_membership_differential':
+        counts(record, 'checked', 'accepted', 'rejected')
+        require(record['checked'] == record['accepted'] + record['rejected'] ==
+                len(record['subjects']) * len(record['audiences']) *
+                len(record['subject_refinements']) * len(record['audience_refinements']), name + ' counts')
+    elif name == 'character_domain_audit':
+        require(record['character_domain'] == 'python-str-codepoints-v1', name + ' character domain')
+        for component in ('partition', 'matcher', 'constructor', 'integration', 'rejection'):
+            require(record[component]['passed'] is True, name + ' ' + component + ' passed')
+        partition, matcher, constructor, integration, rejection = (record[k] for k in
+            ('partition', 'matcher', 'constructor', 'integration', 'rejection'))
+        counts(partition, 'partitions', 'primitive_signature_comparisons', 'codepoints_per_partition')
+        for row in partition['rows']:
+            counts(row, 'checked_codepoints', 'support_size', 'literal_classes')
+        require(partition['partitions'] == len(partition['rows']) and
+                partition['primitive_signature_comparisons'] ==
+                partition['partitions'] * partition['codepoints_per_partition'] and
+                all(r['passed'] is True and r['checked_codepoints'] == partition['codepoints_per_partition']
+                    and r['support_size'] == r['literal_classes'] + 1 for r in partition['rows']),
+                name + ' partition counts')
+        counts(matcher, 'checked', 'operators', 'patterns', 'words', 'matching', 'nonmatching')
+        counts(constructor, 'checked', 'positions', 'characters')
+        counts(integration, 'regular_cases', 'strict_packets')
+        counts(rejection, 'challenges')
+        require(matcher['checked'] == matcher['operators'] * matcher['patterns'] * matcher['words'] ==
+                matcher['matching'] + matcher['nonmatching'] and
+                constructor['checked'] == constructor['positions'] * constructor['characters'],
+                name + ' matcher/constructor counts')
+        require(integration['regular_cases'] == len(integration['rows']) and
+                integration['strict_packets'] == len(integration['strict_rows']) and
+                all(r['actual_safe'] == r['expected_safe'] and r['replay_ok'] is True
+                    for r in integration['rows']) and
+                all(r['verdict'] == r['expected'] and r['receipt_replay_ok'] is True
+                    for r in integration['strict_rows']) and
+                rejection['challenges'] == len(rejection['rows']) and
+                all(r['control_passed'] is True and r['detected'] is True for r in rejection['rows']),
+                name + ' control counts/verdicts')
+    elif name == 'public_study':
+        summary = record['summary']
+        counts(summary, 'commits', 'role_contracts', 'evaluations', 'safety_or_full_study_replay_checks')
+        verdicts(summary, summary['evaluations'])
+        require(summary['evaluations'] == len(record['rows']) and
+                summary['commits'] == len(record['sources']) and
+                summary['role_contracts'] == len(record['role_transitions']) and
+                summary['verdicts'] == Counter(r['result']['verdict'] for r in record['rows']) and
+                summary['safety_or_full_study_replay_checks'] == summary['evaluations'] and
+                all(r['result']['replay_ok'] is True for r in record['rows']), name + ' counts/verdicts')
+    elif name == 'source_frontier':
+        summary = record['summary']
+        counts(summary, 'records', 'full_source_files', 'executed_extractions')
+        counts(summary['annotation_counts'], *summary['annotation_counts'])
+        require(summary['records'] == len(record['rows']) and
+                summary['annotation_counts'] == Counter(r['original_annotation'] for r in record['rows']) and
+                summary['full_source_files'] == sum(r['full_source_available'] for r in record['rows']) and
+                summary['executed_extractions'] == 0 and
+                all(r['extraction_result'] == 'not-executed' for r in record['rows']), name + ' counts')
+    elif name == 'maintenance_metadata':
+        summary = record['summary']
+        counts(summary, 'records', 'reports_annotated_breakage', 'records_with_success_run_id')
+        require(summary['records'] == len(record['rows']) and
+                summary['reports_annotated_breakage'] ==
+                sum('hardening' not in r['observation'].lower() for r in record['rows']) and
+                summary['records_with_success_run_id'] ==
+                sum(bool(r['public_success_run']) for r in record['rows']), name + ' counts')
+
+
+def validate_differential_rows(folder, name, record):
+    """Passively reconcile selected verdict counts with their supplied CSV rows."""
+    path = folder / (name + '.csv')
+    if 'csv_sha256' in record:
+        require(sha(path) == record['csv_sha256'], name + ' CSV binding')
+    with path.open(newline='', encoding='utf-8') as stream:
+        rows = list(csv.DictReader(stream))
+    require(len(rows) == record['checked'] and
+            Counter(r['verdict'] for r in rows) == record['verdicts'] and
+            all(r['verdict'] == r['expected'] and r['replay_ok'] == 'True' for r in rows),
+            name + ' row counts/verdicts')
 
 
 def bounded_path(root, name):
@@ -132,16 +279,20 @@ def audit(root, receipt, evidence_root=None):
         require((base / (name + '.log')).stat().st_size > 0, 'missing stage log')
     require('3.12.14' in record['python'] and record['platform'].startswith('Linux-'), 'native environment')
     unit = load(base / 'unit_tests.json')
+    validate_table_record('unit_tests', unit)
     discovered = sum(sum(isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and
                          n.name.startswith('test_') for n in ast.walk(ast.parse(p.read_text(encoding='utf-8'))))
                      for p in (root / 'tests').glob('test_*.py'))
     require(type(unit['tests_run']) is int and unit['tests_run'] == discovered == 204, 'current test count')
-    require(unit['passed'] is True and all(type(unit[k]) is int and unit[k] == 0
-            for k in ('failures', 'errors', 'skipped')), 'unit failure/error/skip')
     log = (base / 'unit-tests.log').read_text(encoding='utf-8')
     require(re.search(r'Ran 204 tests in [\d.]+s\s+OK\s*$', log) is not None and
             len(re.findall(r'^test_.* \.\.\. ok$', log, re.M)) == 204, 'unit log/count agreement')
     data = {name: load(base / (name + '.json')) for name in RECORDS}
+    for name, value in data.items():
+        if name in TABLE_SCHEMAS:
+            validate_table_record(name, value)
+    for name in ('strict_literal_differential', 'strict_glob_differential'):
+        validate_differential_rows(base, name, data[name])
     implementation = linux_implementation_digest(root)
     validation, final, domain = (data[name] for name in
                                 ('validation_summary', 'final_validation_summary', 'character_domain_audit'))
@@ -184,6 +335,7 @@ def audit(root, receipt, evidence_root=None):
     require(relation['passed'] is True and relation['checks'] == dict(two_sided_realizability=16384,
             governance_restriction=20736, intent_monotonicity=20736, observation_refinement=16384), 'relational counts')
     projection = load(base / 'finite_semantics_audit.json')
+    validate_table_record('finite_semantics_audit', projection)
     require(projection['passed'] is True and projection['checked_models'] == 65536 and
             bool(projection['incorrect_existential_lifting_counterexample']), 'preserved negative projection example')
     core = (base / 'core-self-check.log').read_text(encoding='utf-8')

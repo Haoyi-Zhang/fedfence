@@ -2,7 +2,8 @@
 """Validate/render all selected evidence before writing paper macros and tables."""
 from pathlib import Path
 import argparse, ast, csv, json, math, re, statistics
-from audit_current_science import load as strict_load, require, sha
+from audit_current_science import (load as strict_load, require, sha,
+                                   validate_table_record, validate_differential_rows)
 ROOT=Path(__file__).resolve().parents[1]
 
 
@@ -47,7 +48,11 @@ def generate(root=ROOT,receipt_path=None,evidence_root=None):
     def load(name, fallback=None, historical=False):
         p=(CURRENT if CURRENT is not None and not historical else RES)/name
         if not p.exists() and fallback and CURRENT is None:p=ROOT/fallback
-        return strict_load(p)
+        value=strict_load(p)
+        validate_table_record(p.stem, value)
+        if p.stem in ('strict_literal_differential', 'strict_glob_differential'):
+            validate_differential_rows(p.parent, p.stem, value)
+        return value
     def tex(s):
         return str(s).replace('\\',r'\textbackslash{}').replace('_',r'\_').replace('&',r'\&').replace('%',r'\%').replace('#',r'\#')
     u=load('unit_tests.json','fse/results/unit_tests.json');f=load('two_sided_exhaustive.json');s=load('strict_literal_differential.json');r=load('relational_audit.json');p=load('public_study.json');fr=load('source_frontier.json');m=load('maintenance_metadata.json');proj=load('finite_semantics_audit.json','fse/results/finite_semantics_audit.json')
