@@ -1,8 +1,8 @@
 # FedFence — TOSEM research artifact
 
-This is the existing FedFence implementation, revised in place for **“FedFence: Specification-Guided Review of CI/CD Trust Changes: Two-Sided Conformance, Observation Boundaries, and Snapshot-Relative Replay.”** It is a local, specification-driven reviewer of supplied CI/CD trust snapshots, not a cloud deployment controller. `fse_workflow` remains the original package name to avoid a second implementation or a breaking namespace migration.
+FedFence implements **“Specification-Guided Review of CI/CD Trust Changes: Two-Sided Conformance, Observation Boundaries, and Snapshot-Relative Replay.”** It reviews supplied CI/CD trust snapshots against a local specification. The implementation uses the `fse_workflow` package.
 
-The current entry points are this README and this directory's Makefile. The paper lives in the **sibling `../paper/` directory**. Older FSE documentation and output directories are not the authority for the present manuscript's counts or claims.
+The entry points are this README and this directory's Makefile. The paper lives in the **sibling `../paper/` directory**.
 
 The delivered ten-stage evidence is in `tosem/results/`, with raw logs in
 `logs/`; it supplies the paper's current tables and plot. The separate
@@ -209,11 +209,11 @@ These units are not interchangeable and must not be summed into a sample size, s
 - `tests/`, `scripts/`, `examples/`, `schemas/`: current regression tests, evidence drivers and benign fixtures.
 - `study/`: supplied source manifests, frozen patch/excerpt records and recorded corrections.
 - `tosem/results/`: delivered ten-stage root outputs and package audit; `native-science/` holds the separate retained nine-stage receipt and its original sidecars. `docs/CLAIM_EVIDENCE_MAP.md` describes the earlier claim mapping.
-- `tosem/history/`, `fse/results/`, `results/`: retained historical documentation and/or compatibility outputs. Do not use them to overwrite the current study's role and branch distinctions.
+- `tosem/history/`: retained raw control observations; `fse/results/` and `results/`: component-level and compatibility outputs. Paper statistics use the evidence inputs identified above.
 
 The original core's own `artifact/README.md` and Makefile describe an older, narrower component-level workflow. The current whole-project entry point is the Makefile next to **this** README. The compatibility aliases `scripts/reproduce_final.py` and `scripts/audit_final.py` now dispatch to the TOSEM drivers.
 
-See `docs/CHANGELOG_TOSEM.md`, `docs/AUDIT_REPORT.md`, and `docs/FINAL_REPORT_ZH.md`. The final archive hash manifest detects accidental file changes; like review digests, it is not an authenticated signature. No submission to a journal, source publication, cloud action, maintainer contact, or author approval was performed by these scripts.
+See `docs/AUDIT_REPORT.md` for the recorded package checks and `docs/CLAIM_EVIDENCE_MAP.md` for the paper-to-code mapping.
 
 ## Current finite-helper repairs and earlier character-domain correction
 

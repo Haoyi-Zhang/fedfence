@@ -30,7 +30,7 @@ Raw NFA construction remains deliberately finite-alphabet. `glob('*', A).accepts
 
 ## Executed evidence and limits
 
-The current ordinary suite has 194 methods: the prior 146 and 48 new checks. New checks cover saturation of the full preferred pool, all ASCII values and the whole basic multilingual plane; an additional listed representative; equality `*`/`?`; container traversal and plain pattern tuples whose first value spells an operator; constructor positions; missing/duplicate certificate symbols; wrong/legacy domains; actual review controls; receipt invalidation; and stale/invalid inputs.
+The ordinary suite has 204 methods, including 48 character-domain checks and ten finite-event and observation-basis regressions. The character-domain checks cover saturation of the full preferred pool, all ASCII values and the whole basic multilingual plane; an additional listed representative; equality `*`/`?`; container traversal and plain pattern tuples whose first value spells an operator; constructor positions; missing/duplicate certificate symbols; wrong/legacy domains; actual review controls; receipt invalidation; and stale/invalid inputs.
 
 `make character-domain` runs a separate audit. Its three full-code-point sweeps yield 3,342,336 **primitive signature comparisons**, not that many policies or deployments. The concrete/quotient matcher comparison contains 57,498 equality/glob pairs over declared bounds, without adding the concrete word to the search support. Sixty further checks insert twelve characters at five typed-constructor positions. Four regular-language cases include closed positive controls, and three strict packets exercise fail, pass and stale unknown with full receipt replay.
 
