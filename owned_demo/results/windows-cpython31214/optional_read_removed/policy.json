@@ -1,0 +1,61 @@
+{
+  "permissions": [
+    {
+      "action": "read",
+      "aud": "sts.amazonaws.com",
+      "resource": "input/catalog.json",
+      "sub": "repo:owned/catalog:ref:refs/heads/main"
+    },
+    {
+      "action": "write",
+      "aud": "sts.amazonaws.com",
+      "resource": "dist/catalog.json",
+      "sub": "repo:owned/catalog:ref:refs/heads/main"
+    },
+    {
+      "action": "write",
+      "aud": "sts.amazonaws.com",
+      "resource": "dist/index.html",
+      "sub": "repo:owned/catalog:ref:refs/heads/main"
+    },
+    {
+      "action": "read",
+      "aud": "sts.amazonaws.com",
+      "resource": "input/catalog.json",
+      "sub": "repo:owned/catalog:ref:refs/heads/release"
+    },
+    {
+      "action": "write",
+      "aud": "sts.amazonaws.com",
+      "resource": "dist/catalog.json",
+      "sub": "repo:owned/catalog:ref:refs/heads/release"
+    },
+    {
+      "action": "write",
+      "aud": "sts.amazonaws.com",
+      "resource": "dist/index.html",
+      "sub": "repo:owned/catalog:ref:refs/heads/release"
+    }
+  ],
+  "trust": {
+    "Statement": [
+      {
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+            "token.actions.githubusercontent.com:sub": [
+              "repo:owned/catalog:ref:refs/heads/main",
+              "repo:owned/catalog:ref:refs/heads/release"
+            ]
+          }
+        },
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ],
+    "Version": "2012-10-17"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "executed_extractions": 2,
+  "literal_supported": 1,
+  "owned_source_files": 2,
+  "public_source_records_changed": 0,
+  "unresolved_refused_before_generator": 1,
+  "unresolved_support": {
+    "issues": [
+      {
+        "code": "unresolved-interpolation",
+        "detail": "provider/IaC variables require resolution",
+        "location": "Statement[0].Condition.StringEquals.token.actions.githubusercontent.com:sub"
+      }
+    ],
+    "profile": "aws-github-scalar-sub-aud-v1",
+    "statements": 1,
+    "supported": false
+  }
+}

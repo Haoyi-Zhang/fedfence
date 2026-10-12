@@ -1,0 +1,29 @@
+{
+  "resource": {
+    "aws_iam_role": {
+      "catalog-publisher": {
+        "assume_role_policy": {
+          "Version": "2012-10-17",
+          "Statement": [{
+            "Effect": "Allow",
+            "Principal": {"Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"},
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {"StringEquals": {
+              "token.actions.githubusercontent.com:sub": [
+                "repo:owned/catalog:ref:refs/heads/main",
+                "repo:owned/catalog:ref:refs/heads/release",
+                "repo:owned/catalog:ref:refs/heads/dev",
+                "repo:owned/catalog:pull_request"
+              ],
+              "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+            }}
+          }]
+        },
+        "tags": {
+          "FedFenceIntentSubjects": "repo:owned/catalog:ref:refs/heads/main\nrepo:owned/catalog:ref:refs/heads/release",
+          "FedFenceIntentAudiences": "sts.amazonaws.com"
+        }
+      }
+    }
+  }
+}

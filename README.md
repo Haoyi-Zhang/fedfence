@@ -111,6 +111,28 @@ The first two commands return `pass` (exit 0) for the fresh supplied fixture. Th
 
 An invalid premise takes precedence over a simultaneously observed failure candidate. An invalid required identity is not labeled as a demonstrated deployment regression. `--previous` is used only to report changed dependencies; it is not a verdict cache. A full receipt binds the complete two-sided semantic result and is re-evaluated using the current implementation and caller clock. Receipt integrity and successful replay are not source authentication, approval authentication, or an independent checker. A successfully replayed failing receipt remains a failure.
 
+## Executable owned program demonstration
+
+`owned_demo/README.md` documents a separate source/frontend-to-generated-trust-
+policy-to-program chain. Two release identities have six required local file
+permissions justified by actual catalog read and publication operations. The
+retained Windows CPython 3.12.14 run has seven variants and fourteen subprocess
+executions: ten verified completions and four expected blocks. Same-information
+upper-only and direct two-sided lattice checks make the lower obligation and its
+limits explicit. Local operation checks are not AWS permission enforcement.
+
+```sh
+python -B scripts/run_owned_release_demo.py --out owned_demo/results/new-run
+python -B owned_demo/test_release_bundle.py -v
+```
+
+The output directory must be new. Use Python 3.12 or later for the retained repair
+generator. This manually executed local slice and its eight guard methods are
+separate from the 204 ordinary tests, retained native CI, public configurations,
+and 24 public-source annotations. Fourteen public regular-language configurations
+have empty required sets; seventeen repeated positive requirements occur in the
+remaining seven finite configurations, not in seventeen deployments.
+
 ## Supported analysis boundary
 
 The strict path accepts the documented GitHub-style legacy issuer profile and a narrow trust-policy fragment: supported `2012-10-17` statements, one exact GitHub OIDC provider ARN, `sts:AssumeRoleWithWebIdentity`, `Allow`/`Deny`, and positive `StringEquals`/`StringLike` conditions on `sub` and `aud`. Effective acceptance is a **tuple relation**, not independent subject and audience marginals. Unsupported context keys, mixed provider principals, operators and profiles are refused conservatively. See the manuscript and `fse_workflow/fragment.py` for the executable boundary.

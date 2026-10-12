@@ -1,0 +1,17 @@
+{
+  "status": "completed",
+  "trace": [
+    {
+      "action": "read",
+      "resource": "input/catalog.json"
+    },
+    {
+      "action": "write",
+      "resource": "dist/catalog.json"
+    },
+    {
+      "action": "write",
+      "resource": "dist/index.html"
+    }
+  ]
+}

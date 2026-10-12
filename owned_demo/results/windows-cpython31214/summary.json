@@ -1,0 +1,350 @@
+{
+  "execution_kind": "manual local Python subprocesses, not native CI",
+  "external_deployments": 0,
+  "operational_tokens_used": false,
+  "platform": "Windows-11-10.0.28000-SP0",
+  "public_counts_unchanged": true,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "remote_writes": false,
+  "required_identity_count": 2,
+  "required_permission_count": 6,
+  "schema": "fedfence-owned-release-demo-v1",
+  "scope": "Owned exact local application permissions; not AWS permission enforcement or CI deployment",
+  "source_chain": "extract_file -> synthesize_repair -> strict gate and receipt -> executable local publisher",
+  "status": "pass",
+  "variants": [
+    {
+      "combined_local": "fail",
+      "direct_two_sided_lattice": "fail",
+      "executions": [
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "primary-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        },
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "maintenance-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        }
+      ],
+      "lower_permissions": true,
+      "lower_trust": true,
+      "required_permissions": 6,
+      "required_tokens": 2,
+      "trust_gate": "fail",
+      "upper_only": "fail",
+      "upper_permissions": true,
+      "upper_trust": false,
+      "variant": "source_before"
+    },
+    {
+      "combined_local": "pass",
+      "direct_two_sided_lattice": "pass",
+      "executions": [
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "primary-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        },
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "maintenance-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        }
+      ],
+      "lower_permissions": true,
+      "lower_trust": true,
+      "required_permissions": 6,
+      "required_tokens": 2,
+      "trust_gate": "pass",
+      "upper_only": "pass",
+      "upper_permissions": true,
+      "upper_trust": true,
+      "variant": "generated"
+    },
+    {
+      "combined_local": "fail",
+      "direct_two_sided_lattice": "fail",
+      "executions": [
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "primary-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        },
+        {
+          "exit_code": 1,
+          "functional_content_verified": false,
+          "job": "maintenance-release",
+          "reason": "release identity not admitted",
+          "status": "blocked"
+        }
+      ],
+      "lower_permissions": false,
+      "lower_trust": false,
+      "required_permissions": 6,
+      "required_tokens": 2,
+      "trust_gate": "fail",
+      "upper_only": "pass",
+      "upper_permissions": true,
+      "upper_trust": true,
+      "variant": "required_release_removed"
+    },
+    {
+      "combined_local": "fail",
+      "direct_two_sided_lattice": "fail",
+      "executions": [
+        {
+          "exit_code": 1,
+          "functional_content_verified": false,
+          "job": "primary-release",
+          "reason": "release identity not admitted",
+          "status": "blocked"
+        },
+        {
+          "exit_code": 1,
+          "functional_content_verified": false,
+          "job": "maintenance-release",
+          "reason": "release identity not admitted",
+          "status": "blocked"
+        }
+      ],
+      "lower_permissions": false,
+      "lower_trust": false,
+      "required_permissions": 6,
+      "required_tokens": 2,
+      "trust_gate": "fail",
+      "upper_only": "pass",
+      "upper_permissions": true,
+      "upper_trust": true,
+      "variant": "empty_effective_trust"
+    },
+    {
+      "combined_local": "fail",
+      "direct_two_sided_lattice": "fail",
+      "executions": [
+        {
+          "exit_code": 1,
+          "functional_content_verified": false,
+          "job": "primary-release",
+          "reason": "missing write dist/index.html",
+          "status": "blocked"
+        },
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "maintenance-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        }
+      ],
+      "lower_permissions": false,
+      "lower_trust": true,
+      "required_permissions": 6,
+      "required_tokens": 2,
+      "trust_gate": "pass",
+      "upper_only": "pass",
+      "upper_permissions": true,
+      "upper_trust": true,
+      "variant": "required_page_write_removed"
+    },
+    {
+      "combined_local": "pass",
+      "direct_two_sided_lattice": "pass",
+      "executions": [
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "primary-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        },
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "maintenance-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        }
+      ],
+      "lower_permissions": true,
+      "lower_trust": true,
+      "required_permissions": 6,
+      "required_tokens": 2,
+      "trust_gate": "pass",
+      "upper_only": "pass",
+      "upper_permissions": true,
+      "upper_trust": true,
+      "variant": "optional_read_removed"
+    },
+    {
+      "combined_local": "fail",
+      "direct_two_sided_lattice": "fail",
+      "executions": [
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "primary-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        },
+        {
+          "exit_code": 0,
+          "functional_content_verified": true,
+          "job": "maintenance-release",
+          "status": "completed",
+          "trace": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            }
+          ]
+        }
+      ],
+      "lower_permissions": true,
+      "lower_trust": true,
+      "required_permissions": 6,
+      "required_tokens": 2,
+      "trust_gate": "pass",
+      "upper_only": "fail",
+      "upper_permissions": false,
+      "upper_trust": true,
+      "variant": "unrelated_permission_added"
+    }
+  ]
+}

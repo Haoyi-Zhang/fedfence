@@ -1,0 +1,214 @@
+{
+  "decision": {
+    "certificate_sha256": "0ec5eaa3deed8337719aebec7cc3b0958eab3f7a20824566d65d432cdb70b18f",
+    "exit_code": 1,
+    "findings": [
+      {
+        "blocking": true,
+        "kind": "subject-overgrant",
+        "message": "Effective policy admits an issuer-mintable subject outside intent.",
+        "severity": "high",
+        "statement": 0,
+        "witness": "sub=repo:owned/catalog:pull_request; aud=sts.amazonaws.com"
+      }
+    ],
+    "fragment": {
+      "issues": [],
+      "profile": "aws-github-scalar-sub-aud-v1",
+      "statements": 1,
+      "supported": true
+    },
+    "input_hashes": {
+      "contract": "322d359bd51369c3c54b2c112cbb3deaed37fa8cd154dfa002d50dbc62f1755c",
+      "governance": "9eb2185ea2704f356ac1a17c4b3ba521fce79a665b473abde004cccc89ba98eb",
+      "implementation": "505a8a79b041149046e0bb801602fc4f117991fcce1de20d56bca7e28c6f3472",
+      "issuer": "d41192493b9821e47b86390e9a4de5a1c20715f0a9c6df306ae5e35cdbf0f0ac",
+      "policy": "9fa5ede28e564f4fe1112c989e6343cd659d9fc7a60ef136bb90b8baf0113c39",
+      "workflow": "79f0b526c20bbf935cb9e524522d8c5022e600b4ccfd4a5fbc9d5ccc7bcac36d"
+    },
+    "packet_sha256": "ca816a05bb6d8fea30bffbd01d4701769afd4bdb9756be0d342409e2607be746",
+    "replay_ok": true,
+    "required_token_checks": {
+      "all_satisfied": true,
+      "checks": [
+        {
+          "aud": "sts.amazonaws.com",
+          "index": 0,
+          "inside_intent": true,
+          "issuer_mintable": true,
+          "policy_admitted": true,
+          "reason": "Execute catalog read and both publication writes",
+          "satisfied": true,
+          "sub": "repo:owned/catalog:ref:refs/heads/main"
+        },
+        {
+          "aud": "sts.amazonaws.com",
+          "index": 1,
+          "inside_intent": true,
+          "issuer_mintable": true,
+          "policy_admitted": true,
+          "reason": "Execute catalog read and both publication writes",
+          "satisfied": true,
+          "sub": "repo:owned/catalog:ref:refs/heads/release"
+        }
+      ],
+      "invalid": [],
+      "missing": [],
+      "required": 2,
+      "satisfied": 2
+    },
+    "verdict": "fail"
+  },
+  "packet": {
+    "contract": {
+      "author": "owned-fixture-author",
+      "intent": {
+        "audiences": [
+          "sts.amazonaws.com"
+        ],
+        "branches": [
+          "main",
+          "release"
+        ],
+        "environments": [],
+        "pull_request": false,
+        "tags": []
+      },
+      "max_snapshot_age_seconds": 86400,
+      "repository": "owned/catalog",
+      "required_tokens": [
+        {
+          "aud": "sts.amazonaws.com",
+          "reason": "Execute catalog read and both publication writes",
+          "sub": "repo:owned/catalog:ref:refs/heads/main"
+        },
+        {
+          "aud": "sts.amazonaws.com",
+          "reason": "Execute catalog read and both publication writes",
+          "sub": "repo:owned/catalog:ref:refs/heads/release"
+        }
+      ],
+      "review": {
+        "approved_digest": "6cfc7b1ae8ad82621f5eba44042893335d508cec2d4c8bf3cb0abdab3eb09627",
+        "basis": "owner-supplied-specification",
+        "reference": "self-constructed local contract; metadata is not authenticated",
+        "reviewer": "owned-fixture-reviewer"
+      },
+      "schema": "fedfence-intent-v1",
+      "target_role": "catalog-publisher"
+    },
+    "schema": "fedfence-review-packet-v1",
+    "snapshots": {
+      "governance": {
+        "body": {
+          "environments": {},
+          "repository": "owned/catalog"
+        },
+        "observed_at": "2026-10-11T00:00:00Z",
+        "sha256": "d1ea3c4369174da88796a81d6fae2ee81cc22616c78ec90f92c1b9caa741de36",
+        "source": "owned local fixture, not authenticated provider capture"
+      },
+      "issuer": {
+        "body": {
+          "provider": "github-actions",
+          "repository": "owned/catalog",
+          "subject_mode": "legacy-default",
+          "version": "github-legacy-sub-aud-v1"
+        },
+        "observed_at": "2026-10-11T00:00:00Z",
+        "sha256": "96ae20137ac042a48e3c2b3b746187a5c75228c548f8c0fd56d8b1c86b8b134a",
+        "source": "owned local fixture, not authenticated provider capture"
+      },
+      "policy": {
+        "body": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRoleWithWebIdentity",
+              "Condition": {
+                "StringEquals": {
+                  "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                  "token.actions.githubusercontent.com:sub": [
+                    "repo:owned/catalog:ref:refs/heads/main",
+                    "repo:owned/catalog:ref:refs/heads/release",
+                    "repo:owned/catalog:ref:refs/heads/dev",
+                    "repo:owned/catalog:pull_request"
+                  ]
+                }
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "observed_at": "2026-10-11T00:00:00Z",
+        "sha256": "7b56d453dd0d388c30cd0d3bbe41e90996267d8564275af4a308b08e7103684b",
+        "source": "owned local fixture, not authenticated provider capture",
+        "target_role": "catalog-publisher"
+      },
+      "workflow": {
+        "body": {
+          "audience": "sts.amazonaws.com",
+          "jobs": [
+            {
+              "branch": "main",
+              "id": "primary-release"
+            },
+            {
+              "branch": "release",
+              "id": "maintenance-release"
+            }
+          ],
+          "permission_model": "Exact application-level read/write checks, not OS isolation or AWS permissions",
+          "permitted_permissions": [
+            {
+              "action": "read",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "resource": "dist/index.html"
+            },
+            {
+              "action": "read",
+              "resource": "dist/catalog.json"
+            }
+          ],
+          "provenance": "Self-constructed local fixture; no external deployment or token",
+          "repository": "owned/catalog",
+          "required_permissions": [
+            {
+              "action": "read",
+              "reason": "Load the product records used to construct the release bundle",
+              "resource": "input/catalog.json"
+            },
+            {
+              "action": "write",
+              "reason": "Publish the sorted machine-readable catalog",
+              "resource": "dist/catalog.json"
+            },
+            {
+              "action": "write",
+              "reason": "Publish the escaped human-readable catalog page",
+              "resource": "dist/index.html"
+            }
+          ],
+          "schema": "fedfence-owned-release-workflow-v1",
+          "target_role": "catalog-publisher"
+        },
+        "observed_at": "2026-10-11T00:00:00Z",
+        "sha256": "db70047f9b452a451c2f4688cc8d886e56e242d7eb61c63a37d78428c5493b07",
+        "source": "owned local fixture, not authenticated provider capture"
+      }
+    }
+  },
+  "receipt_sha256": "e3d9ad11bcb3d3bed3321c36359db5ea61763cb597dfd9ea6acfffc10b5a4b3b",
+  "schema": "fedfence-two-sided-receipt-v1",
+  "source_authenticity_verified": false
+}

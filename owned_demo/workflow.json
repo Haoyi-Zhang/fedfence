@@ -1,0 +1,23 @@
+{
+  "schema": "fedfence-owned-release-workflow-v1",
+  "provenance": "Self-constructed local fixture; no external deployment or token",
+  "repository": "owned/catalog",
+  "target_role": "catalog-publisher",
+  "audience": "sts.amazonaws.com",
+  "jobs": [
+    {"id": "primary-release", "branch": "main"},
+    {"id": "maintenance-release", "branch": "release"}
+  ],
+  "required_permissions": [
+    {"action": "read", "resource": "input/catalog.json", "reason": "Load the product records used to construct the release bundle"},
+    {"action": "write", "resource": "dist/catalog.json", "reason": "Publish the sorted machine-readable catalog"},
+    {"action": "write", "resource": "dist/index.html", "reason": "Publish the escaped human-readable catalog page"}
+  ],
+  "permitted_permissions": [
+    {"action": "read", "resource": "input/catalog.json"},
+    {"action": "write", "resource": "dist/catalog.json"},
+    {"action": "write", "resource": "dist/index.html"},
+    {"action": "read", "resource": "dist/catalog.json"}
+  ],
+  "permission_model": "Exact application-level read/write checks, not OS isolation or AWS permissions"
+}

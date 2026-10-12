@@ -1,0 +1,289 @@
+{
+  "backend_analysis": {
+    "allow_subject_edges": 81,
+    "allow_subject_states": 82,
+    "findings": [
+      {
+        "blocking": true,
+        "code": "required-token-not-admitted",
+        "detail": "Execute catalog read and both publication writes",
+        "kind": "required-token-not-admitted",
+        "witness": "sub=repo:owned/catalog:ref:refs/heads/main; aud=sts.amazonaws.com"
+      },
+      {
+        "blocking": true,
+        "code": "required-token-not-admitted",
+        "detail": "Execute catalog read and both publication writes",
+        "kind": "required-token-not-admitted",
+        "witness": "sub=repo:owned/catalog:ref:refs/heads/release; aud=sts.amazonaws.com"
+      }
+    ],
+    "intended_subject_edges": 82,
+    "intended_subject_states": 83,
+    "name": "catalog-publisher",
+    "safe": true
+  },
+  "cache_used_for_verdict": false,
+  "certificate": {
+    "case": {
+      "name": "catalog-publisher",
+      "policy": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+              "StringEquals": {
+                "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                "token.actions.githubusercontent.com:sub": [
+                  "repo:owned/catalog:ref:refs/heads/main",
+                  "repo:owned/catalog:ref:refs/heads/release"
+                ]
+              }
+            },
+            "Effect": "Allow",
+            "Principal": {
+              "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+            }
+          },
+          {
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+              "StringEquals": {
+                "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+                "token.actions.githubusercontent.com:sub": [
+                  "repo:owned/catalog:ref:refs/heads/main",
+                  "repo:owned/catalog:ref:refs/heads/release"
+                ]
+              }
+            },
+            "Effect": "Deny",
+            "Principal": {
+              "Federated": "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+            }
+          }
+        ],
+        "Version": "2012-10-17"
+      },
+      "repository_governance": {
+        "protected_environments": []
+      },
+      "spec": {
+        "allowed_audiences": [
+          "sts.amazonaws.com"
+        ],
+        "allowed_subjects": [
+          "repo:owned/catalog:ref:refs/heads/main",
+          "repo:owned/catalog:ref:refs/heads/release"
+        ]
+      }
+    },
+    "certificate_components": [
+      "PrincipalCert",
+      "ClaimKeyCert",
+      "ConditionErasureCert",
+      "IssuerProjectionCert",
+      "EffectiveAllowMinusDenyCert",
+      "GovernanceCert",
+      "UnsupportedBoundaryCert",
+      "ReplayWitnessCert",
+      "SelectedClaimProjectionCert"
+    ],
+    "character_domain": "python-str-codepoints-v1",
+    "judgment": "effective-claim-product-admission",
+    "kind": "fedfence-effective-case-certificate",
+    "name": "catalog-publisher",
+    "policy_profile": {
+      "allows": [
+        {
+          "allow_overapprox_core": true,
+          "aud_groups": [
+            {
+              "op": "equals",
+              "values": [
+                "sts.amazonaws.com"
+              ]
+            }
+          ],
+          "deny_exact_core": true,
+          "effect": "Allow",
+          "exact_github_principal": true,
+          "index": 0,
+          "malformed_principal": false,
+          "mixed_principal": false,
+          "principal_federated": [
+            "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          ],
+          "principal_wildcard": false,
+          "raw_condition_keys": [
+            "token.actions.githubusercontent.com:aud",
+            "token.actions.githubusercontent.com:sub"
+          ],
+          "selected_claim_groups": {},
+          "sub_groups": [
+            {
+              "op": "equals",
+              "values": [
+                "repo:owned/catalog:ref:refs/heads/main",
+                "repo:owned/catalog:ref:refs/heads/release"
+              ]
+            }
+          ],
+          "unsupported_claim_keys": [],
+          "unsupported_conditions": [],
+          "unsupported_principal": false,
+          "unsupported_statement_fields": []
+        }
+      ],
+      "denies": [
+        {
+          "allow_overapprox_core": true,
+          "aud_groups": [
+            {
+              "op": "equals",
+              "values": [
+                "sts.amazonaws.com"
+              ]
+            }
+          ],
+          "deny_exact_core": true,
+          "effect": "Deny",
+          "exact_github_principal": true,
+          "index": 0,
+          "malformed_principal": false,
+          "mixed_principal": false,
+          "principal_federated": [
+            "arn:aws:iam::000000000000:oidc-provider/token.actions.githubusercontent.com"
+          ],
+          "principal_wildcard": false,
+          "raw_condition_keys": [
+            "token.actions.githubusercontent.com:aud",
+            "token.actions.githubusercontent.com:sub"
+          ],
+          "selected_claim_groups": {},
+          "sub_groups": [
+            {
+              "op": "equals",
+              "values": [
+                "repo:owned/catalog:ref:refs/heads/main",
+                "repo:owned/catalog:ref:refs/heads/release"
+              ]
+            }
+          ],
+          "unsupported_claim_keys": [],
+          "unsupported_conditions": [],
+          "unsupported_principal": false,
+          "unsupported_statement_fields": []
+        }
+      ]
+    },
+    "replay_summary": {
+      "all_kinds": [],
+      "blocking_kinds": [],
+      "findings": [],
+      "safe": true,
+      "witnesses": []
+    },
+    "verdict": "safe",
+    "version": 6
+  },
+  "certificate_sha256": "48d912d92f4400c2af1597aa4b9cecf30bc57165128d94174b269c9158a2f2ea",
+  "changed_fields": [
+    "contract",
+    "implementation",
+    "policy",
+    "workflow",
+    "issuer",
+    "governance"
+  ],
+  "deployment_authorized": false,
+  "exit_code": 1,
+  "findings": [
+    {
+      "blocking": true,
+      "code": "required-token-not-admitted",
+      "detail": "Execute catalog read and both publication writes",
+      "kind": "required-token-not-admitted",
+      "witness": "sub=repo:owned/catalog:ref:refs/heads/main; aud=sts.amazonaws.com"
+    },
+    {
+      "blocking": true,
+      "code": "required-token-not-admitted",
+      "detail": "Execute catalog read and both publication writes",
+      "kind": "required-token-not-admitted",
+      "witness": "sub=repo:owned/catalog:ref:refs/heads/release; aud=sts.amazonaws.com"
+    }
+  ],
+  "fragment": {
+    "issues": [],
+    "profile": "aws-github-scalar-sub-aud-v1",
+    "statements": 2,
+    "supported": true
+  },
+  "input_hashes": {
+    "contract": "322d359bd51369c3c54b2c112cbb3deaed37fa8cd154dfa002d50dbc62f1755c",
+    "governance": "9eb2185ea2704f356ac1a17c4b3ba521fce79a665b473abde004cccc89ba98eb",
+    "implementation": "505a8a79b041149046e0bb801602fc4f117991fcce1de20d56bca7e28c6f3472",
+    "issuer": "d41192493b9821e47b86390e9a4de5a1c20715f0a9c6df306ae5e35cdbf0f0ac",
+    "policy": "8c388f7eb0d173be770fdb0b58e60288881c737d9886c72c43e3d6a0821b28f7",
+    "workflow": "79f0b526c20bbf935cb9e524522d8c5022e600b4ccfd4a5fbc9d5ccc7bcac36d"
+  },
+  "packet_sha256": "fa40b2650f6d9207cc3226dc32e55a3deaee76521e4aba39309555ac65c95627",
+  "replay_ok": true,
+  "required_token_checks": {
+    "all_satisfied": false,
+    "checks": [
+      {
+        "aud": "sts.amazonaws.com",
+        "index": 0,
+        "inside_intent": true,
+        "issuer_mintable": true,
+        "policy_admitted": false,
+        "reason": "Execute catalog read and both publication writes",
+        "satisfied": false,
+        "sub": "repo:owned/catalog:ref:refs/heads/main"
+      },
+      {
+        "aud": "sts.amazonaws.com",
+        "index": 1,
+        "inside_intent": true,
+        "issuer_mintable": true,
+        "policy_admitted": false,
+        "reason": "Execute catalog read and both publication writes",
+        "satisfied": false,
+        "sub": "repo:owned/catalog:ref:refs/heads/release"
+      }
+    ],
+    "invalid": [],
+    "missing": [
+      {
+        "aud": "sts.amazonaws.com",
+        "index": 0,
+        "inside_intent": true,
+        "issuer_mintable": true,
+        "policy_admitted": false,
+        "reason": "Execute catalog read and both publication writes",
+        "satisfied": false,
+        "sub": "repo:owned/catalog:ref:refs/heads/main"
+      },
+      {
+        "aud": "sts.amazonaws.com",
+        "index": 1,
+        "inside_intent": true,
+        "issuer_mintable": true,
+        "policy_admitted": false,
+        "reason": "Execute catalog read and both publication writes",
+        "satisfied": false,
+        "sub": "repo:owned/catalog:ref:refs/heads/release"
+      }
+    ],
+    "required": 2,
+    "satisfied": 0
+  },
+  "reviewer_identity_verified": false,
+  "runtime_provider_behavior_verified": false,
+  "schema": "fedfence-gate-result-v1",
+  "scope": "relative to supplied snapshots and reviewed specification; not live-cloud safety",
+  "source_authenticity_verified": false,
+  "verdict": "fail",
+  "workflow_reachability_checked": false
+}

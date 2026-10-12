@@ -1,0 +1,15 @@
+{
+  "count": 2,
+  "products": [
+    {
+      "id": "mug",
+      "name": "Blue mug",
+      "price_cents": 1999
+    },
+    {
+      "id": "notebook",
+      "name": "Notebook <A>",
+      "price_cents": 2500
+    }
+  ]
+}

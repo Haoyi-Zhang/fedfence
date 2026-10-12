@@ -1,0 +1,8 @@
+{
+  "audience_count": 1,
+  "environment_governance_added": [],
+  "environment_governance_required": [],
+  "kind": "intent-exact-repair",
+  "policy_language": "finite intent basis",
+  "subject_count": 2
+}
