@@ -263,6 +263,22 @@ Atomic certificates are version 3; effective-case certificates are version 6. Bo
 
 Run only the new audit using `make character-domain`. The full `make reproduce` now has ten evidence steps and includes it automatically. The verification checks are local; no cloud account, credentials, public workflow execution, or external security scanner is used.
 
+## Render retained local-cost observations
+
+The optional `plots/draw_local_costs.py` route reads the selected
+`tosem/results/local_scaling.csv` and JSON summary, validates all 54 measurements
+and 18 cells, and derives the same three six-point series used by the paper.
+Whiskers are the observed minimum and maximum, not confidence intervals.
+
+```sh
+python plots/draw_local_costs.py --output-dir /tmp/fedfence-figures --font-root /path/to/texmf-dist/fonts
+python -B -S plots/test_draw_local_costs.py
+```
+
+Drawing requires ReportLab and the external TeX Linux Libertine Type 1 font.
+Input validation and its nine tests use the standard library. Choose a fresh
+output directory outside the project; this route runs no source or timing study.
+
 ## Bounded flat-repository scientific checks
 
 From this directory, or a repository whose root is this artifact directory, run:
