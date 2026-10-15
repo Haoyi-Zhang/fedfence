@@ -40,9 +40,10 @@ failures during the subsequent write phase. No comparative timing claim follows.
 
 `make native-audit` and `make tables` are the passive current commands.
 `CURRENT_RECEIPT` and `CURRENT_EVIDENCE_ROOT` can explicitly select another valid
-campaign. The direct no-receipt generator still refuses the historical 194-test
-record against current 204-test discovery. It is retained for the unchanged
-ten-stage driver, which first creates its own genuinely fresh outer records.
+campaign. The direct no-receipt generator validates the delivered ten-stage root
+records, including their current 204-test record. The consumer regression uses
+an in-memory 194-test negative fixture to check that stale counts are rejected;
+it does not describe the delivered root record as stale.
 `make evidence`, `make reproduce` and `make audit` remain the separate original
 ten-stage route, including eight seeded faults and the PDF audit. They overwrite
 generated outputs, so execute in a fresh disjoint full-project scratch copy,
