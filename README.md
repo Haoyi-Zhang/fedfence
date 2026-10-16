@@ -28,7 +28,7 @@ make reproduce
 
 For just the ordinary regression suite, run `make tests`. For the corrected source-backed, source-frontier and maintenance studies, run `make studies`. Outputs are written to `tosem/results/`, with logs in `logs/`; quantitative LaTeX macros and tables are regenerated in `../paper/generated/`. Re-running overwrites generated results and timings. It does not change the supplied public-source fixtures.
 
-**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The delivered ten-stage measurements and the separate retained nine-stage campaign used CPython 3.12.14 on Linux. The supplied paper was built on Windows with pdfTeX from TeX Live 2024 and installed `acmart` v2.12. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, TikZ, PGFPlots, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk` and BibTeX. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
+**Requirements:** the demonstrated JSON path and all ten evidence steps use Python 3.10+ and its standard library. The delivered ten-stage measurements and the separate retained nine-stage campaign used CPython 3.12.14 on Linux. The supplied paper was built on Windows with pdfTeX from TeX Live 2024 and installed `acmart` v2.12. `make` is required for the Makefile commands. Paper compilation additionally needs a working TeX installation with `acmart`, `ACM-Reference-Format`, algorithm/algpseudocode and the packages listed in `../paper/main.tex`, plus `latexmk`, BibTeX, and Matplotlib for the eight schematic vectors. The paper Makefile regenerates them with `plots/draw_schematics.py`; pre-generated PDFs are included. The final PDF audit uses Poppler's `pdfinfo`, `pdftotext` and `pdffonts`. The supplied PDF does not require a TeX installation to read. No font files are distributed.
 
 The preserved legacy YAML extractor has separate optional dependencies in `artifact/requirements.txt`; it is **not** exercised by the current JSON reproduction path. No cloud credentials, cloud account, paid API, external analyzer, repository checkout, network fetch or source program execution is required by the current reproduction command. Historical fetch scripts are not called by it.
 
@@ -147,7 +147,7 @@ The root `tosem/results/reproduction.json` records ten successful offline
 science stages on Linux CPython 3.12.14. Their outputs include 204 ordinary
 tests with no failures/errors/skips, eight seeded semantic fault controls,
 54 local timing samples, 18 warm-ups, and 18 summary cells. The table below
-describes those delivered root outputs. The supplied 41-page Windows-built
+describes those delivered root outputs. The retained 41-page Windows-built
 paper and the same science outputs subsequently passed the original 53-check
 Linux package audit, recorded in `tosem/results/final_audit.json` and
 `docs/AUDIT_REPORT.md`. Seven scalar methods, eight assembler guards, and
