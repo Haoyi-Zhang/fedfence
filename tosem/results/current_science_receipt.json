@@ -10,7 +10,7 @@
     "identity_authority": "Main confirmed the downloaded native run/artifact/head; no remote lookup by this integrator."
   },
   "archive": {
-    "path": "completion_workspace/ci-results/P113/accepted-offline-campaign.zip",
+    "path": "<WORK_ROOT>/accepted-offline-campaign.zip",
     "bytes": 310501,
     "sha256": "87aaaef7405b382537a22d81ade3aeeecab6485fb16e9d1bac7f82ee2b8952d1"
   },
