@@ -106,7 +106,7 @@ def generate(root=ROOT,receipt_path=None,evidence_root=None):
             if r['task']==task:
                 points.append(f"{r['required_tokens']} {r['median_seconds']:.9f} {r['median_seconds']-r['min_seconds']:.9f} {r['max_seconds']-r['median_seconds']:.9f}")
         outputs[f'scaling-{name}.dat'] = '\n'.join(points)+'\n'
-    outputs['plot_provenance.json'] = json.dumps(dict(source='artifact/tosem/results/local_scaling.csv',csv_sha256=scaling['csv_sha256'],points_per_series=len(scaling['sizes']),series=3,range='observed min/max, not confidence intervals'),indent=2)+'\n'
+    outputs['plot_provenance.json'] = json.dumps(dict(source='artifact/tosem/results/local_scaling.csv',points_per_series=len(scaling['sizes']),series=3,range='observed min/max, not confidence intervals'),indent=2)+'\n'
     return outputs
 
 def run_metadata(root, receipt, path, storage, audited):

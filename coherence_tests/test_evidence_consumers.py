@@ -68,7 +68,8 @@ class EvidenceConsumers(unittest.TestCase):
         self.assertEqual(metadata['native_run']['stages'], 9)
         historical = audit.load(ROOT/'tosem/results/local_scaling.json')
         tables.validate_scaling(ROOT/'tosem/results', historical)
-        self.assertEqual(json.loads(outputs['plot_provenance.json'])['csv_sha256'], historical['csv_sha256'])
+        self.assertNotIn('csv_sha256', json.loads(outputs['plot_provenance.json']))
+        self.assertEqual(json.loads(outputs['plot_provenance.json'])['source'], 'artifact/tosem/results/local_scaling.csv')
 
     def test_historical_default_cannot_claim_current_204(self):
         # Genuine root evidence is now current; stale evidence is an explicit

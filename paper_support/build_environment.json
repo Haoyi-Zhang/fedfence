@@ -1,0 +1,14 @@
+{
+  "bibliography_engine": "BibTeX 0.99d (TeX Live 2024)",
+  "acmart_declaration": "2024/12/28 v2.12 Typesetting articles for the Association for Computing Machinery",
+  "acmart_sha256": "f5e24d4b29d24ab1cbdef46002febe7c2521f69b41c03d20bc92d8eef8fb5038",
+  "class_source": "installed-system-package",
+  "official_current_release": "2.20",
+  "compiled_with_current_release": false,
+  "latex_engine": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2024)",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.28000-SP0",
+  "font_files_distributed": false,
+  "production_TAPS_certified": false,
+  "pdf_sha256": "15ef97b6a9caffa036d17274a586adda772151fbc1ad788d3f67e451964f2eed"
+}

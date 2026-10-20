@@ -176,7 +176,9 @@ def main() -> int:
         return len(values)==row['repetitions']==3 and statistics.median(values)==row['median_seconds'] and min(values)==row['min_seconds'] and max(values)==row['max_seconds']
     check('local-cost-statistics-recomputed', len(scaling['summary']) == 18 and all(timing_agrees(r) for r in scaling['summary']))
     provenance=json.loads((PAPER/'generated/plot_provenance.json').read_text())
-    check('plot-provenance-is-measured-data', provenance['csv_sha256'] == scaling['csv_sha256'] and provenance['series']==3 and provenance['points_per_series']==6)
+    check('plot-provenance-is-measured-data', provenance['source'] == 'artifact/tosem/results/local_scaling.csv'
+          and hashlib.sha256((RESULTS/'local_scaling.csv').read_bytes()).hexdigest() == scaling['csv_sha256']
+          and provenance['series']==3 and provenance['points_per_series']==6)
     plot_values_agree = True
     for task, name in [('review-pass','pass'), ('review-positive-loss','loss'), ('receipt-replay','replay')]:
         with (PAPER/f'generated/scaling-{name}.dat').open() as stream:
@@ -250,7 +252,7 @@ def main() -> int:
         fonts = subprocess.check_output(['pdffonts', str(pdf)], text=True)
         fontrows = [line.split() for line in fonts.splitlines()[2:] if line.strip()]
         check('all-pdf-fonts-embedded', bool(fontrows) and all(row[-5] == 'yes' for row in fontrows))
-    build = json.loads((PAPER/'generated/build_environment.json').read_text())
+    build = json.loads((ROOT/'paper_support/build_environment.json').read_text())
     check('recorded-build-binds-delivered-pdf', pdf.exists() and build.get('pdf_sha256') == hashlib.sha256(pdf.read_bytes()).hexdigest()
           and bool(build.get('acmart_sha256')) and bool(build.get('acmart_declaration'))
           and build['font_files_distributed'] is False and build['production_TAPS_certified'] is False,
