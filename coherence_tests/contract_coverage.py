@@ -110,16 +110,73 @@ def clean_source(text):
     return ''.join(chars)
 
 
+def source_tokens(text):
+    return re.findall(r'"(?:[^"\\]|\\.)*"|[A-Za-z_][A-Za-z_0-9]*|[^\s]',text)
+
+
+def group_body(tokens,opening):
+    """Admit one complete, balanced group, without evaluating expressions."""
+    closing={'{':'}','[':']','(':')'}
+    if not tokens or tokens[0]!=opening:raise ValueError('Expected literal source group')
+    stack=[]
+    for index,token in enumerate(tokens):
+        if token in closing:stack.append(closing[token])
+        elif token in closing.values():
+            if not stack or stack.pop()!=token:raise ValueError('Unbalanced source group')
+            if not stack:
+                if index!=len(tokens)-1:raise ValueError('Trailing source expression')
+                return tokens[1:-1]
+    raise ValueError('Unclosed source group')
+
+
+def direct_fields(tokens):
+    """Read direct map assignments only; nested maps never become siblings."""
+    body=group_body(tokens,'{');fields={};index=0
+    closing={'{':'}','[':']','(':')'}
+    def key(token):
+        if token.startswith('"'):return json.loads(token)
+        if re.fullmatch(r'[A-Za-z_][A-Za-z_0-9]*',token):return token
+        raise ValueError('Unsupported source map key')
+    while index<len(body):
+        if body[index]==',':index+=1;continue
+        name=key(body[index])
+        if index+1>=len(body) or body[index+1]!='=':raise ValueError('Expected map assignment')
+        if name in fields:raise ValueError('Duplicate source field')
+        start=index+2;index=start;stack=[]
+        while index<len(body):
+            token=body[index]
+            if not stack and index>start:
+                if token==',':break
+                if index+1<len(body) and body[index+1]=='=':break
+            if token in closing:stack.append(closing[token])
+            elif token in closing.values():
+                if not stack or stack.pop()!=token:raise ValueError('Unbalanced source value')
+            index+=1
+        if stack or index==start:raise ValueError('Incomplete source value')
+        fields[name]=body[start:index]
+    return fields
+
+
 def literal_subjects(text,role):
     text=clean_source(text)
     matches=list(re.finditer(r'resource\s+"aws_iam_role"\s+"'+re.escape(role)+r'"\s*(\{)',text))
     if len(matches)!=1:raise ValueError('Missing or duplicate role')
     start=matches[0].start();end=block_end(text,matches[0].start(1));body=text[start:end]
-    if 'StringLike' in body or body.count('StringEquals')!=1:
-        raise ValueError('Only a single literal StringEquals block is admitted')
-    values=re.findall(r'"token\.actions\.githubusercontent\.com:sub"\s*=\s*(\[[^\]]*\]|"(?:[^"\\]|\\.)*")',body)
-    if len(values)!=1:raise ValueError('Missing or ambiguous subject assignment')
-    parsed=json.loads(values[0]);subjects=parsed if isinstance(parsed,list) else [parsed]
+    fields=direct_fields(source_tokens(text[matches[0].start(1):end]))
+    policy=fields.get('assume_role_policy',[])
+    if policy[:2]!=['jsonencode','('] or policy[-1:]!=[')']:
+        raise ValueError('Literal jsonencode trust policy required')
+    policy_fields=direct_fields(policy[2:-1])
+    statement=direct_fields(group_body(policy_fields.get('Statement',[]),'['))
+    if statement.get('Effect')!=['"Allow"'] or statement.get('Action')!=['"sts:AssumeRoleWithWebIdentity"']:
+        raise ValueError('Single Allow web-identity statement required')
+    condition=direct_fields(statement.get('Condition',[]))
+    if set(condition)!={'StringEquals'}:
+        raise ValueError('Only literal StringEquals conditions admitted')
+    equals=direct_fields(condition['StringEquals'])
+    value=equals.get('token.actions.githubusercontent.com:sub')
+    if value is None:raise ValueError('Missing trust-condition subject')
+    parsed=json.loads(''.join(value));subjects=parsed if isinstance(parsed,list) else [parsed]
     if not subjects or any(type(x) is not str or '$' in x or '*' in x or '?' in x for x in subjects):
         raise ValueError('Subject is not a resolved exact literal')
     return {'role':role,'start_line':text.count('\n',0,start)+1,

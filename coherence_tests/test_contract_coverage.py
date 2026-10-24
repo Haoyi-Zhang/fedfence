@@ -26,11 +26,32 @@ class ContractCoverageTests(unittest.TestCase):
         self.assertTrue(qualification(public,corrections)['finite_direct_set_disagreements'])
 
     def test_literal_projection_and_nested_quoted_braces(self):
-        text='# resource "aws_iam_role" "test" {}\nresource "aws_iam_role" "test" { name="{quoted}/*"\n assume_role_policy=jsonencode({Statement=[{Condition={StringEquals={"token.actions.githubusercontent.com:sub"=["repo:a/b:ref:refs/heads/main"]}}}]})\n}'
+        text='# resource "aws_iam_role" "test" {}\nresource "aws_iam_role" "test" { name="{quoted}/*"\n assume_role_policy=jsonencode({Statement=[{Effect="Allow" Action="sts:AssumeRoleWithWebIdentity" Condition={StringEquals={"token.actions.githubusercontent.com:sub"=["repo:a/b:ref:refs/heads/main"]}}}]})\n}'
         result=literal_subjects(text,'test')
         self.assertEqual(result['subjects'],['repo:a/b:ref:refs/heads/main'])
         for bad in (text+text,text.replace('repo:a/b','repo:${var.repo}'),text[:-1],text.replace('StringEquals','StringLike')):
             with self.assertRaises(ValueError):literal_subjects(bad,'test')
+
+    def test_subject_in_tags_is_not_a_trust_condition(self):
+        text='resource "aws_iam_role" "test" { tags={"token.actions.githubusercontent.com:sub"=["repo:a/b:ref:refs/heads/main"]} assume_role_policy=jsonencode({Statement=[{Effect="Allow" Action="sts:AssumeRoleWithWebIdentity" Condition={StringEquals={"token.actions.githubusercontent.com:aud"="sts.amazonaws.com"}}}]}) }'
+        with self.assertRaises(ValueError):literal_subjects(text,'test')
+
+    def test_wrong_nesting_duplicate_or_multiple_statements_rejected(self):
+        good='resource "aws_iam_role" "test" { assume_role_policy=jsonencode({Statement=[{Effect="Allow" Action="sts:AssumeRoleWithWebIdentity" Condition={StringEquals={"token.actions.githubusercontent.com:sub"="repo:a/b:ref:refs/heads/main"}}}]}) }'
+        self.assertEqual(literal_subjects(good,'test')['subjects'],['repo:a/b:ref:refs/heads/main'])
+        for bad in (
+                good.replace('Condition={StringEquals=', 'Metadata={StringEquals='),
+                good.replace('Effect="Allow"','Effect="Deny"'),
+                good.replace('Action="sts:AssumeRoleWithWebIdentity"','Action="other"'),
+                good.replace('Condition={StringEquals=', 'Condition={Other={} StringEquals='),
+                good.replace('Condition={StringEquals=', 'Condition={} Condition={StringEquals='),
+                good.replace('}]})','},{Effect="Allow"}]})'),
+                good.replace('assume_role_policy=jsonencode','nested={assume_role_policy=jsonencode').replace('}) }','})} }')):
+            with self.subTest(source=bad),self.assertRaises(ValueError):literal_subjects(bad,'test')
+
+    def test_quoted_brackets_and_unrelated_tags_do_not_change_condition(self):
+        text='resource "aws_iam_role" "test" { tags={"token.actions.githubusercontent.com:sub"="wrong"} assume_role_policy=jsonencode({Statement=[{Effect="Allow" Action="sts:AssumeRoleWithWebIdentity" Condition={StringEquals={"token.actions.githubusercontent.com:sub"=["repo:a/b]:ref:refs/heads/main"]}}}]}) }'
+        self.assertEqual(literal_subjects(text,'test')['subjects'],['repo:a/b]:ref:refs/heads/main'])
 
 
 if __name__=='__main__':unittest.main()
