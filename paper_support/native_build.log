@@ -759,7 +759,7 @@ pe1/public/newtx/NewTXMI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1
 ic/newtx/txmiaX.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/n
 ewtx/txsym.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/newtx/
 txsys.pfb>
-Output written on main.pdf (40 pages, 1234067 bytes).
+Output written on main.pdf (40 pages, 1234071 bytes).
 Transcript written on main.log.
 Latexmk: Getting log file 'main.log'
 Latexmk: Examining 'main.fls'
@@ -1440,55 +1440,11 @@ Package natbib Warning: Citation `ssdf' on page 37 undefined on input line 46.
 Underfull \vbox (badness 10000) has occurred while \output is active
 [38.38]) (./sections/16-conclusion.tex)
 [39.39] (./main.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 41--56
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Abdulaziz-algharbi. 2026.  Fix GitHub OID
-C sub claim: GitHub em-beds nu-meric owner/repo IDs now.  Git com-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--56
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) mit 7076165b461538aefcfa69ad0fe6780ecaa8970
-e.   [][]$https : / / github . com / Abdulaziz -[] algharbi / order -[] pools -
-[] infrastructure / commit /
-
-Underfull \hbox (badness 1210) in paragraph at lines 41--56
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) 7076165b461538aefcfa69ad0fe6780ecaa8970e$[]
-[]  Com-mit de-scribes a de-coded to-ken and end-to-end work-flow ver-i-fi-ca-t
-ion; frozen source
-
-Underfull \hbox (badness 10000) in paragraph at lines 217--230
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Babbel con-trib-u-tors. 2026.  Ter-raform
- AWS IAM role for a GitHub repos-i-tory.  Pinned source file at com-mit
-
-Underfull \hbox (badness 10000) in paragraph at lines 217--230
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) fb03d12160c20ab256b1ecd43eed10920a5894dc.  
- [][]$https : / / github . com / babbel / terraform -[] aws -[] iam -[] role -[
-] for -[] github -[] repository / blob /
-
+Underfull \vbox (badness 3838) has occurred while \output is active
 (d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/stringenc/se-pdfdoc.def)
 (d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/stringenc/se-utf8.def)
 [40.40]
-Underfull \hbox (badness 10000) in paragraph at lines 353--367
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Deploy-On-Friday2-0 con-trib-u-tors. 2026
-.  fix: re-strict GitHub OIDC trust and stage EKS 1.31 up-grade.  Git com-mit
-
-Underfull \hbox (badness 10000) in paragraph at lines 353--367
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) 9eeb7ff43b2a304e170e0d533b9b127b5a80b345.  
- [][]$https : / / github . com / Deploy -[] On -[] Friday2 -[] 0 / sports -[] s
-tore -[] infrastructure / commit /
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--496
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) init4tech con-trib-u-tors. 2026.  Pu-lumi
-/Go GitHub assume-role pol-icy con-struc-tor.  Pinned source file at
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--496
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) com-mit ed022635f7d5d3a599cb54f9b3b37a1750f
-45ca1.   [][]$https : / / github . com / init4tech / signet -[] infra -[] compo
-nents / blob /
-
-Underfull \hbox (badness 1394) in paragraph at lines 483--496
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) ed022635f7d5d3a599cb54f9b3b37a1750f45ca1 / 
-pkg / aws / iam . go$[][]  Frozen source meta-data sup-plied with the ar-ti-fac
-t, dated Sep-tem-ber 23,
-
+Underfull \vbox (badness 10000) has occurred while \output is active
 [41.41])
 
 Package natbib Warning: There were undefined citations.
@@ -1536,7 +1492,7 @@ pe1/public/newtx/NewTXMI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1
 ic/newtx/txmiaX.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/n
 ewtx/txsym.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/newtx/
 txsys.pfb>
-Output written on main.pdf (42 pages, 1262705 bytes).
+Output written on main.pdf (42 pages, 1260454 bytes).
 Transcript written on main.log.
 Latexmk: Getting log file 'main.log'
 Latexmk: Examining 'main.fls'
@@ -1889,53 +1845,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--26
 Underfull \vbox (badness 10000) has occurred while \output is active
 [38.38]) (./sections/16-conclusion.tex)
 [39.39] (./main.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 41--56
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Abdulaziz-algharbi. 2026.  Fix GitHub OID
-C sub claim: GitHub em-beds nu-meric owner/repo IDs now.  Git com-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--56
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) mit 7076165b461538aefcfa69ad0fe6780ecaa8970
-e.   [][]$https : / / github . com / Abdulaziz -[] algharbi / order -[] pools -
-[] infrastructure / commit /
-
-Underfull \hbox (badness 1210) in paragraph at lines 41--56
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) 7076165b461538aefcfa69ad0fe6780ecaa8970e$[]
-[]  Com-mit de-scribes a de-coded to-ken and end-to-end work-flow ver-i-fi-ca-t
-ion; frozen source
-
-Underfull \hbox (badness 10000) in paragraph at lines 217--230
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Babbel con-trib-u-tors. 2026.  Ter-raform
- AWS IAM role for a GitHub repos-i-tory.  Pinned source file at com-mit
-
-Underfull \hbox (badness 10000) in paragraph at lines 217--230
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) fb03d12160c20ab256b1ecd43eed10920a5894dc.  
- [][]$https : / / github . com / babbel / terraform -[] aws -[] iam -[] role -[
-] for -[] github -[] repository / blob /
-
+Underfull \vbox (badness 3838) has occurred while \output is active
 [40.40]
-Underfull \hbox (badness 10000) in paragraph at lines 353--367
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Deploy-On-Friday2-0 con-trib-u-tors. 2026
-.  fix: re-strict GitHub OIDC trust and stage EKS 1.31 up-grade.  Git com-mit
-
-Underfull \hbox (badness 10000) in paragraph at lines 353--367
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) 9eeb7ff43b2a304e170e0d533b9b127b5a80b345.  
- [][]$https : / / github . com / Deploy -[] On -[] Friday2 -[] 0 / sports -[] s
-tore -[] infrastructure / commit /
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--496
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) init4tech con-trib-u-tors. 2026.  Pu-lumi
-/Go GitHub assume-role pol-icy con-struc-tor.  Pinned source file at
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--496
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) com-mit ed022635f7d5d3a599cb54f9b3b37a1750f
-45ca1.   [][]$https : / / github . com / init4tech / signet -[] infra -[] compo
-nents / blob /
-
-Underfull \hbox (badness 1394) in paragraph at lines 483--496
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) ed022635f7d5d3a599cb54f9b3b37a1750f45ca1 / 
-pkg / aws / iam . go$[][]  Frozen source meta-data sup-plied with the ar-ti-fac
-t, dated Sep-tem-ber 23,
-
+Underfull \vbox (badness 10000) has occurred while \output is active
 [41.41])
 
 Class acmart Warning: ACM reference format is mandatory 
@@ -1963,7 +1875,7 @@ pe1/public/newtx/NewTXMI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1
 ic/newtx/txmiaX.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/n
 ewtx/txsym.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/newtx/
 txsys.pfb>
-Output written on main.pdf (42 pages, 1266763 bytes).
+Output written on main.pdf (42 pages, 1264532 bytes).
 Transcript written on main.log.
 Latexmk: Getting log file 'main.log'
 Latexmk: Examining 'main.fls'
