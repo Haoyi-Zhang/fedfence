@@ -1,0 +1,35 @@
+{
+  "repository": "Deploy-On-Friday2-0/sports-store-infrastructure",
+  "commit": "9eeb7ff43b2a304e170e0d533b9b127b5a80b345",
+  "path": "iam.tf",
+  "complete_source_bytes": 10934,
+  "source_content_identity": "f47b0942b858bd8ec54aa6a733a21fd377b565fc36a1bddded0fd379fc79fb42",
+  "literal_role_projections": [
+    {
+      "role": "github_actions_ecr",
+      "start_line": 174,
+      "end_line": 207,
+      "subjects": [
+        "repo:Deploy-On-Friday2-0@308323292/sports-store-auth-service@1310131112:ref:refs/heads/main",
+        "repo:Deploy-On-Friday2-0@308323292/sports-store-catalog-service@1310134732:ref:refs/heads/main",
+        "repo:Deploy-On-Friday2-0@308323292/sports-store-cart-service@1310133742:ref:refs/heads/main",
+        "repo:Deploy-On-Friday2-0@308323292/sports-store-order-service@1310141707:ref:refs/heads/main",
+        "repo:Deploy-On-Friday2-0@308323292/sports-store-payment-service@1310142804:ref:refs/heads/main",
+        "repo:Deploy-On-Friday2-0@308323292/sports-store-gateway@1310139274:ref:refs/heads/main"
+      ],
+      "strict_gate_or_cloud_authorization_established": false
+    },
+    {
+      "role": "github_actions_frontend",
+      "start_line": 247,
+      "end_line": 273,
+      "subjects": [
+        "repo:Deploy-On-Friday2-0@308323292/sports-store-frontend@1310129795:ref:refs/heads/main"
+      ],
+      "strict_gate_or_cloud_authorization_established": false
+    }
+  ],
+  "source_redistributed": false,
+  "frontier_24_excerpts_denominator_unchanged": true,
+  "scope": "literal subject projection from one complete file; not module, workflow, governance or owner-intent verification"
+}

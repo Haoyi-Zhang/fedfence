@@ -1,0 +1,284 @@
+{
+  "configurations": 21,
+  "groups": [
+    {
+      "profile": "finite-explicit-issuer-study-adapter",
+      "configurations": 7,
+      "nonempty_lower_configurations": 7,
+      "required_occurrences": 17,
+      "verdicts": {
+        "fail": 3,
+        "pass": 4
+      }
+    },
+    {
+      "profile": "regular-language-study-adapter",
+      "configurations": 14,
+      "nonempty_lower_configurations": 0,
+      "required_occurrences": 0,
+      "verdicts": {
+        "fail": 7,
+        "pass": 6,
+        "unknown": 1
+      }
+    }
+  ],
+  "rows": [
+    {
+      "id": "artur-main-branch",
+      "role": "source-selected-role",
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "artur-main-branch",
+      "role": "source-selected-role",
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "pmcg-master-branch",
+      "role": "source-selected-role",
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "pmcg-master-branch",
+      "role": "source-selected-role",
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "arriagada-main-branch",
+      "role": "source-selected-role",
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "arriagada-main-branch",
+      "role": "source-selected-role",
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "shadow-release-branches",
+      "role": "source-selected-role",
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "shadow-release-branches",
+      "role": "source-selected-role",
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "amr-org-scope",
+      "role": "source-selected-role",
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "amr-org-scope",
+      "role": "source-selected-role",
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "manyiu-repository-scope",
+      "role": "source-selected-role",
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "manyiu-repository-scope",
+      "role": "source-selected-role",
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "michele-environment-cut",
+      "role": "source-selected-role",
+      "configuration": "before",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "michele-environment-cut",
+      "role": "source-selected-role",
+      "configuration": "after",
+      "entry_point": "regular-language-study-adapter",
+      "model_verdict": "unknown",
+      "required_occurrences": 0,
+      "lower_evidence": "vacuous",
+      "direct_two_sided_verdict": null,
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "sports-store-role-split",
+      "role": "github_actions_ecr",
+      "configuration": "before",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 6,
+      "lower_evidence": "nonempty-reconstructed",
+      "direct_two_sided_verdict": "fail",
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "sports-store-role-split",
+      "role": "github_actions_ecr",
+      "configuration": "after",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 6,
+      "lower_evidence": "nonempty-reconstructed",
+      "direct_two_sided_verdict": "pass",
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "sports-store-role-split",
+      "role": "github_actions_frontend",
+      "configuration": "before",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 1,
+      "lower_evidence": "nonempty-reconstructed",
+      "direct_two_sided_verdict": "pass",
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "sports-store-role-split",
+      "role": "github_actions_frontend",
+      "configuration": "after",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 1,
+      "lower_evidence": "nonempty-reconstructed",
+      "direct_two_sided_verdict": "pass",
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "microticket-variable-branches",
+      "role": "github_deploy",
+      "configuration": "before",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 1,
+      "lower_evidence": "nonempty-reconstructed",
+      "direct_two_sided_verdict": "fail",
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "microticket-variable-branches",
+      "role": "github_deploy",
+      "configuration": "after-default-empty",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "model_verdict": "fail",
+      "required_occurrences": 1,
+      "lower_evidence": "nonempty-reconstructed",
+      "direct_two_sided_verdict": "fail",
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    },
+    {
+      "id": "microticket-variable-branches",
+      "role": "github_deploy",
+      "configuration": "after-observed-binding",
+      "entry_point": "finite-explicit-issuer-study-adapter",
+      "model_verdict": "pass",
+      "required_occurrences": 1,
+      "lower_evidence": "nonempty-reconstructed",
+      "direct_two_sided_verdict": "pass",
+      "owner_confirmed": false,
+      "deployment_claim_supported": false
+    }
+  ],
+  "finite_direct_set_comparisons": 7,
+  "finite_direct_set_disagreements": [],
+  "nonempty_owner_confirmed_public_deployment_contracts": 0,
+  "meaning": "model verdicts unchanged; empty lower sets do not demonstrate release preservation"
+}

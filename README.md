@@ -133,6 +133,33 @@ and 24 public-source annotations. Fourteen public regular-language configuration
 have empty required sets; seventeen repeated positive requirements occur in the
 remaining seven finite configurations, not in seventeen deployments.
 
+## Nonvacuity and complete-file literal projection
+
+`python -B coherence_tests/contract_coverage.py --output /tmp/contract-coverage`
+passively qualifies all 21 retained public configurations. Fourteen regular-language
+rows have no positive requirement (6 pass, 7 fail, 1 unknown); the 7 finite rows
+have 17 repeated positive requirements (4 pass, 3 fail). The latter are all checked
+against an ordinary direct two-sided set comparator using the same admitted
+tuples, declared intent and positive requirements: all seven agree. No policy
+solver advantage or owner-confirmed deployment contract is inferred. Empty lower
+sets remain mathematically valid but cannot demonstrate release preservation.
+
+A separate read-only retrieval obtained the complete `iam.tf` at the sports-store
+commit named in `study/corrections.json`. The bounded literal projector located
+both complete GitHub role blocks and recovered exactly the six ECR subjects and
+one frontend subject used by the existing after models. The line spans, content
+binding and extracted literals are in `results/contract-coverage/literal-source.json`.
+To repeat that projection, download the immutable file identified by repository,
+commit and path, and add `--source-file path/to/iam.tf` to the command above.
+No upstream source code is executed or redistributed. This is literal subject
+projection from one full file, not Terraform evaluation, complete workflow
+reachability, a provider/governance check, or an owner-approved release contract.
+It is separate from the unchanged 24-excerpt source-frontier denominator.
+
+Three additional normal/optimized regressions challenge lower-evidence accounting,
+finite admissions, malformed source, interpolation and duplicate role declarations.
+The original 204-test scientific routes and their recorded results are retained.
+
 ## Supported analysis boundary
 
 The strict path accepts the documented GitHub-style legacy issuer profile and a narrow trust-policy fragment: supported `2012-10-17` statements, one exact GitHub OIDC provider ARN, `sts:AssumeRoleWithWebIdentity`, `Allow`/`Deny`, and positive `StringEquals`/`StringLike` conditions on `sub` and `aud`. Effective acceptance is a **tuple relation**, not independent subject and audience marginals. Unsupported context keys, mixed provider principals, operators and profiles are refused conservatively. See the manuscript and `fse_workflow/fragment.py` for the executable boundary.

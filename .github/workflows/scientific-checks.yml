@@ -35,6 +35,21 @@ jobs:
         run: |
           set -euo pipefail
           timeout --signal=TERM --kill-after=5s 60s python -B coherence_tests/test_evidence_consumers.py -v 2>&1 | tee "$RUNNER_TEMP/p113-consumer-tests.log"
+      - name: Check nonvacuous public contracts and independent direct-set comparison
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -B coherence_tests/test_contract_coverage.py -v
+          python -O -B coherence_tests/test_contract_coverage.py -v
+          python -B coherence_tests/contract_coverage.py --output "$RUNNER_TEMP/p113-contract-coverage"
+          python - "$RUNNER_TEMP/p113-contract-coverage/coverage.json" <<'PY'
+          import json,sys
+          from pathlib import Path
+          actual=json.loads(Path(sys.argv[1]).read_text())
+          retained=json.loads(Path('results/contract-coverage/coverage.json').read_text())
+          if actual!=retained: raise SystemExit('Contract evidence qualification drift')
+          PY
+
       - name: Prepare a new source-bound copy on the reviewed main push
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: bash
