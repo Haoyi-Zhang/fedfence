@@ -318,6 +318,14 @@ The output directory must be new. The driver retains raw logs, fails on any nonz
 
 `.github/workflows/scientific-checks.yml` runs that command on Ubuntu 24.04 with CPython 3.12.14 for pushes to `main`, pull requests, or manual dispatch. A main push uses the fresh copy and mandatory collection described above; the other triggers retain checkout checks. It bounds wall time and process CPU/address space, uses one allowed CPU for the scientific driver, retains failure gates, and uploads raw logs and result files even after a failure. The action revisions are pinned. The separate fresh-native workflow is manual-only and shares the concurrency group, which does not serialize other projects. The retained pre-buffer-change Linux evidence identifies run 37484284472, artifact 11422128499, and source commit `e2535e4bdf8b04d098fe132ee008a018a8402ac8`. The Windows recheck is a separate local execution. The existing material-integrity workflow is retained separately.
 
+## Retained study proposal
+
+`study/CORPUS_PROTOCOL.md` is the unchanged pre-collection proposal from the
+earlier FSE draft. Its heading identifies that historical document, not the
+current TOSEM manuscript or a new completed deployment study. Its bytes are
+bound by the retained study receipts; current experiments and table consumers
+use the separate records described above.
+
 ## Portable path notation
 
 Published execution records use `<PYTHON_ROOT>`, `<NODE_ROOT>` and `<RUNTIME_ROOT>` for local tool installations, `<DEPENDENCIES_ROOT>` for local dependencies, and `<PROJECTS_ROOT>`, `<ARTIFACT_ROOT>`, `<SOURCE_ROOT>` and `<WORK_ROOT>` for the workspace, artifact checkout, source checkout and temporary work directory of the recorded run. These are path aliases, not literal directories or claims that historical temporary files are included in this bundle. Substitute the corresponding local roots when replaying a command. Recorded tool versions, source/input identities, measurements, outcomes and failures are unchanged. Current file inventories bind the portable published bytes; any `recorded_` identity denotes pre-normalization bytes.

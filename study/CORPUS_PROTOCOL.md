@@ -1,9 +1,6 @@
-# Historical empirical-study proposal
+# FSE empirical protocol v1 — freeze before collection
 
-This proposal was written for the earlier FSE draft, before collection. It is
-not the protocol or result record for the current TOSEM manuscript's retained
-studies. No population-level deployment result or owner-confirmed defect is
-established by this proposal.
+This is a proposed study protocol, not completed research. The current package contains no population-level deployment result and no owner-confirmed defect.
 
 ## Units and sampling
 A sampling unit is a public repository at a full commit SHA plus a role definition location. A policy instance produced from a module additionally needs the caller inputs and Terraform/provider versions. Repeated role clones are retained in a duplicate ledger but cannot inflate independent sample size. Documentation examples, reusable modules, instantiated repository policies, and real organization exports are separate strata. Do not treat a template as an operational AWS role.
