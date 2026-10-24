@@ -460,54 +460,60 @@ Underfull \vbox (badness 10000) has occurred while \output is active
 [28.28 <./figures/local-costs.pdf>]) (./sections/11-cases.tex
 (./figures/denominators.tex)
 
+LaTeX Warning: Reference `tab:nonvacuity' on page 29 undefined on input line 8.
+
+
+(./generated/contract-coverage.tex)
+
 Package natbib Warning: Citation `change-artur' on page 29 undefined on input l
-ine 7.
+ine 22.
 
 
 Package natbib Warning: Citation `change-pmcg' on page 29 undefined on input li
-ne 7.
+ne 22.
 
 
 Package natbib Warning: Citation `change-shadow' on page 29 undefined on input 
-line 7.
+line 22.
 
 
 Package natbib Warning: Citation `change-arriagada' on page 29 undefined on inp
-ut line 7.
+ut line 22.
 
 
 Package natbib Warning: Citation `change-amr' on page 29 undefined on input lin
-e 7.
+e 22.
 
 
 Package natbib Warning: Citation `change-manyiu' on page 29 undefined on input 
-line 7.
-
-
-Package natbib Warning: Citation `change-michele' on page 29 undefined on input
- line 9.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--25
-[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) One se-lected role
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--25
-[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Supported in the regular-
-
-Underfull \hbox (badness 10000) in paragraph at lines 25--25
-[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Conditional bind-ing, not ob-
-
-Package natbib Warning: Citation `change-sports' on page 29 undefined on input 
-line 29.
+line 22.
 
 
 [29.29 <./figures/denominators.pdf>]
 
-Package natbib Warning: Citation `change-microticket' on page 30 undefined on i
-nput line 36.
+Package natbib Warning: Citation `change-michele' on page 30 undefined on input
+ line 24.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) One se-lected role
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Supported in the regular-
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Conditional bind-ing, not ob-
+
+Package natbib Warning: Citation `change-sports' on page 30 undefined on input 
+line 44.
+
+
+[30.30]
+
+Package natbib Warning: Citation `change-microticket' on page 31 undefined on i
+nput line 53.
 
 ) (./sections/12-frontier.tex
-[30.30]
 
 Package natbib Warning: Citation `terraform-json' on page 31 undefined on input
  line 18.
@@ -528,14 +534,12 @@ nput line 20.
 Package natbib Warning: Citation `frontier-tyk' on page 31 undefined on input l
 ine 20.
 
-(./figures/evidence.tex)
+(./figures/evidence.tex
+[31.31])
 
-LaTeX Warning: Reference `sec:owned-release' on page 31 undefined on input line
+LaTeX Warning: Reference `sec:owned-release' on page 32 undefined on input line
  24.
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active
-[31.31]
 
 Package natbib Warning: Citation `change-caringal' on page 32 undefined on inpu
 t line 29.
@@ -568,8 +572,9 @@ ut line 29.
 Package natbib Warning: Citation `change-vicdf' on page 32 undefined on input l
 ine 29.
 
-) (./sections/13-integration.tex
-[32.32 <./figures/evidence.pdf>]
+
+[32.32 <./figures/evidence.pdf>]) (./sections/13-integration.tex
+Underfull \vbox (badness 10000) has occurred while \output is active
 [33.33]
 
 Package natbib Warning: Citation `zelkova' on page 34 undefined on input line 4
@@ -580,6 +585,7 @@ Package natbib Warning: Citation `margrave' on page 34 undefined on input line
 44.
 
 
+Underfull \vbox (badness 2005) has occurred while \output is active
 [34.34]
 
 LaTeX Warning: Reference `sec:validity' on page 35 undefined on input line 56.
@@ -590,109 +596,110 @@ Package natbib Warning: Citation `margrave' on page 35 undefined on input line
 4.
 
 
-Package natbib Warning: Citation `zelkova' on page 35 undefined on input line 6
+Underfull \vbox (badness 4048) has occurred while \output is active
+[35.35]
+
+Package natbib Warning: Citation `zelkova' on page 36 undefined on input line 6
 .
 
 
-Package natbib Warning: Citation `aws-custom-checks' on page 35 undefined on in
+Package natbib Warning: Citation `aws-custom-checks' on page 36 undefined on in
 put line 8.
 
 
-Package natbib Warning: Citation `cedar' on page 35 undefined on input line 10.
+Package natbib Warning: Citation `cedar' on page 36 undefined on input line 10.
 
 
 
-Package natbib Warning: Citation `cedar-vgd' on page 35 undefined on input line
+Package natbib Warning: Citation `cedar-vgd' on page 36 undefined on input line
  10.
 
 
-Package natbib Warning: Citation `margrave' on page 35 undefined on input line 
+Package natbib Warning: Citation `margrave' on page 36 undefined on input line 
 26.
 
 
-Package natbib Warning: Citation `zelkova' on page 35 undefined on input line 2
+Package natbib Warning: Citation `zelkova' on page 36 undefined on input line 2
 6.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Stronger/general neigh-bor-ing policy-
 
-Package natbib Warning: Citation `cedar' on page 35 undefined on input line 26.
+Package natbib Warning: Citation `cedar' on page 36 undefined on input line 26.
 
 
 
-Package natbib Warning: Citation `cedar-vgd' on page 35 undefined on input line
+Package natbib Warning: Citation `cedar-vgd' on page 36 undefined on input line
  26.
 
 
-Package natbib Warning: Citation `seven-sins' on page 35 undefined on input lin
+Package natbib Warning: Citation `seven-sins' on page 36 undefined on input lin
 e 26.
 
 
-Package natbib Warning: Citation `iac-replication' on page 35 undefined on inpu
+Package natbib Warning: Citation `iac-replication' on page 36 undefined on inpu
 t line 26.
 
 
-Package natbib Warning: Citation `gasel' on page 35 undefined on input line 26.
+Package natbib Warning: Citation `gasel' on page 36 undefined on input line 26.
 
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Configuration weak-nesses and richer
 
-Package natbib Warning: Citation `argus' on page 35 undefined on input line 26.
+Package natbib Warning: Citation `argus' on page 36 undefined on input line 26.
 
 
 
-Package natbib Warning: Citation `intoto' on page 35 undefined on input line 26
+Package natbib Warning: Citation `intoto' on page 36 undefined on input line 26
 .
 
 
-Package natbib Warning: Citation `sigstore' on page 35 undefined on input line 
+Package natbib Warning: Citation `sigstore' on page 36 undefined on input line 
 26.
 
 
-Package natbib Warning: Citation `slsa' on page 35 undefined on input line 26.
+Package natbib Warning: Citation `slsa' on page 36 undefined on input line 26.
 
 
-Package natbib Warning: Citation `seven-sins' on page 35 undefined on input lin
+Package natbib Warning: Citation `seven-sins' on page 36 undefined on input lin
 e 30.
 
 
-Package natbib Warning: Citation `iac-replication' on page 35 undefined on inpu
+Package natbib Warning: Citation `iac-replication' on page 36 undefined on inpu
 t line 30.
 
 
-Package natbib Warning: Citation `gang-eight' on page 35 undefined on input lin
+Package natbib Warning: Citation `gang-eight' on page 36 undefined on input lin
 e 30.
 
 
-[35.35]
+[36.36]
 
-Package natbib Warning: Citation `gasel' on page 36 undefined on input line 32.
+Package natbib Warning: Citation `gasel' on page 37 undefined on input line 32.
 
 
 
-Package natbib Warning: Citation `rehearsal' on page 36 undefined on input line
+Package natbib Warning: Citation `rehearsal' on page 37 undefined on input line
  34.
 
 
-Package natbib Warning: Citation `argus' on page 36 undefined on input line 37.
+Package natbib Warning: Citation `argus' on page 37 undefined on input line 37.
 
 
 
-Package natbib Warning: Citation `aws-validation' on page 36 undefined on input
+Package natbib Warning: Citation `aws-validation' on page 37 undefined on input
  line 39.
 
 
-Package natbib Warning: Citation `checkov' on page 36 undefined on input line 3
+Package natbib Warning: Citation `checkov' on page 37 undefined on input line 3
 9.
 
 
-Package natbib Warning: Citation `opa' on page 36 undefined on input line 39.
+Package natbib Warning: Citation `opa' on page 37 undefined on input line 39.
 
-
-[36.36]
 
 Package natbib Warning: Citation `hoare' on page 37 undefined on input line 44.
 
@@ -712,75 +719,21 @@ on input line 46.
 Package natbib Warning: Citation `ssdf' on page 37 undefined on input line 46.
 
 ) (./sections/15-validity.tex
-Underfull \vbox (badness 10000) has occurred while \output is active
 [37.37]
-[38.38]) (./sections/16-conclusion.tex) (./main.bbl
-Underfull \hbox (badness 10000) in paragraph at lines 41--56
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Abdulaziz-algharbi. 2026.  Fix GitHub OID
-C sub claim: GitHub em-beds nu-meric owner/repo IDs now.  Git com-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--56
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) mit 7076165b461538aefcfa69ad0fe6780ecaa8970
-e.   [][]$https : / / github . com / Abdulaziz -[] algharbi / order -[] pools -
-[] infrastructure / commit /
-
-Underfull \hbox (badness 1210) in paragraph at lines 41--56
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) 7076165b461538aefcfa69ad0fe6780ecaa8970e$[]
-[]  Com-mit de-scribes a de-coded to-ken and end-to-end work-flow ver-i-fi-ca-t
-ion; frozen source
-
-Underfull \vbox (badness 2119) has occurred while \output is active
-[39.39]
-Underfull \hbox (badness 10000) in paragraph at lines 217--230
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Babbel con-trib-u-tors. 2026.  Ter-raform
- AWS IAM role for a GitHub repos-i-tory.  Pinned source file at com-mit
-
-Underfull \hbox (badness 10000) in paragraph at lines 217--230
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) fb03d12160c20ab256b1ecd43eed10920a5894dc.  
- [][]$https : / / github . com / babbel / terraform -[] aws -[] iam -[] role -[
-] for -[] github -[] repository / blob /
-
-Underfull \hbox (badness 10000) in paragraph at lines 353--367
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Deploy-On-Friday2-0 con-trib-u-tors. 2026
-.  fix: re-strict GitHub OIDC trust and stage EKS 1.31 up-grade.  Git com-mit
-
-Underfull \hbox (badness 10000) in paragraph at lines 353--367
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) 9eeb7ff43b2a304e170e0d533b9b127b5a80b345.  
- [][]$https : / / github . com / Deploy -[] On -[] Friday2 -[] 0 / sports -[] s
-tore -[] infrastructure / commit /
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--496
-[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) init4tech con-trib-u-tors. 2026.  Pu-lumi
-/Go GitHub assume-role pol-icy con-struc-tor.  Pinned source file at
-
-Underfull \hbox (badness 10000) in paragraph at lines 483--496
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) com-mit ed022635f7d5d3a599cb54f9b3b37a1750f
-45ca1.   [][]$https : / / github . com / init4tech / signet -[] infra -[] compo
-nents / blob /
-
-Underfull \hbox (badness 1394) in paragraph at lines 483--496
-\T1/LinuxLibertineT-TLF/m/n/7 (+20) ed022635f7d5d3a599cb54f9b3b37a1750f45ca1 / 
-pkg / aws / iam . go$[][]  Frozen source meta-data sup-plied with the ar-ti-fac
-t, dated Sep-tem-ber 23,
-
-[40.40]
 Underfull \vbox (badness 10000) has occurred while \output is active
-[41.41])
+[38.38]) (./sections/16-conclusion.tex)
+[39.39]
+No file main.bbl.
 
 Package natbib Warning: There were undefined citations.
 
 
-[42.42]
+[40.40]
 
-LaTeX Warning: Hook 'shipout/lastpage' executed on wrong page (1 not 42).
+LaTeX Warning: Hook 'shipout/lastpage' executed on wrong page (1 not 40).
                Rerun to correct this.
 
-(./main.aux
-
-Package natbib Warning: Citation(s) may have changed.
-(natbib)                Rerun to get citations correct.
-
-)
+(./main.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -809,13 +762,13 @@ pe1/public/newtx/NewTXMI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1
 ic/newtx/txmiaX.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/n
 ewtx/txsym.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/newtx/
 txsys.pfb>
-Output written on main.pdf (42 pages, 1256611 bytes).
+Output written on main.pdf (40 pages, 1234067 bytes).
 Transcript written on main.log.
 Latexmk: Getting log file 'main.log'
 Latexmk: Examining 'main.fls'
 Latexmk: Examining 'main.log'
-Latexmk: Found input bbl file 'main.bbl'
-Latexmk: References changed.
+Latexmk: Missing bbl file 'main.bbl' in following:
+ No file main.bbl.
 Latexmk: References changed.
 Latexmk: References changed.
 Latexmk: Log file says output to 'main.pdf'
@@ -875,10 +828,786 @@ Latexmk: applying rule 'pdflatex'...
 Rule 'pdflatex':  Reasons for rerun
 Changed files or newly in use/created:
   main.aux
+  main.bbl
   main.out
 
 ------------
 Run number 2 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -halt-on-error -no-shell-escape -recorder  "main.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex)
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/acmart/acmart.cls
+Document Class: acmart 2024/12/28 v2.12 Typesetting articles for the Associatio
+n for Computing Machinery
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/xkeyval/keyval.tex))))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/xstring/xstring.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/xstring/xstring.tex))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/iftex/iftex.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amscls/amsart.cls
+Document Class: amsart 2020/05/29 v2.20.6
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsmath/amsmath.sty
+For additional information on amsmath, use the `?' option.
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsmath/amstext.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsmath/amsopn.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/microtype/microtype.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/microtype/microtype.cfg))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/refcount/refcount.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/totpages/totpages.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/everyshi/everyshi.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/environ/environ.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/trimspaces/trimspaces.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/setspace/setspace.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/natbib/natbib.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.st
+y) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/hyperref/nameref.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/gettitlestring/gettitlestrin
+g.sty (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/kvoptions/kvoptions.sty)
+)) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/hyperref/puenc.def)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/url/url.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/bitset/bitset.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/hyperref/hpdftex.def
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.
+sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/uniquecounter/uniquecounter.
+sty))) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/hyperxmp/hyperxmp.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/oberdiek/ifdraft.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/iftex/ifluatex.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/graphics/graphicx.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/graphics/graphics.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/graphics/trig.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/xcolor/xcolor.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/geometry/geometry.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/iftex/ifvtex.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/ncctools/manyfoot.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/ncctools/nccfoots.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/pdftex/glyphtounicode.tex)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/cmap/cmap.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty<<t1.cmap>>)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/libertine.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/iftex/ifxetex.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/base/textcomp.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/base/fontenc.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/fontaxes/fontaxes.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/LinLibertine_I.tex))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/inconsolata/zi4.sty
+`inconsolata-zi4' v1.12, 2019/05/17 Text macros for Inconsolata (msharpe))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/newtxmath.sty
+`newtxmath' v1.754, 2024/09/22 Math macros based originally on txfonts (msharpe
+) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/oberdiek/centernot.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/kastrup/binhex.tex)
+amsthm NOT loaded
+) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/caption/caption.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/caption/caption-ams-smf.sto)))
+ (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/float/float.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/comment/comment.sty
+Excluding comment 'comment') Excluding comment 'CCSXML'
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+Special comment 'acks'
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/T1LinuxLibertineT-TL
+F.fd)) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/mathtools/mathtools.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/tools/calc.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/tools/tabularx.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/tools/array.sty))
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/tools/longtable.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/multirow/multirow.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/algorithms/algorithm.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (./generated/results.tex) (./generated/tables.tex)
+Excluding 'CCSXML' comment. Include comment 'screenonly'
+Excluding comment 'printonly' Include comment 'anonsuppress'
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+) (./main.aux)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/omlnxlmi.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/untxexa.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/lmsntxsy.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/lmxntxexx.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/OT1LinuxLibertineT-T
+LF.fd)<<ot1.cmap>>
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/untxmia.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/untxsym.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/newtx/untxsyc.fd) (./main.out)
+ (./main.out)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+
+Package epstopdf Warning: Shell escape feature is not enabled.
+
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/upquote/upquote.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/caption/ltcaption.sty)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF
+.fd) (d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/microtype/mt-msa.cfg)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/microtype/mt-msb.cfg)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/TS1LinuxBiolinumT-TL
+F.fd)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-T
+LF.fd) (./sections/01-introduction.tex
+
+Package natbib Warning: Citation `openid' on page 1 undefined on input line 3.
+
+
+Package natbib Warning: Citation `jwt' on page 1 undefined on input line 3.
+
+
+Package natbib Warning: Citation `jws' on page 1 undefined on input line 3.
+
+
+Package natbib Warning: Citation `github-oidc' on page 1 undefined on input lin
+e 3.
+
+
+Package natbib Warning: Citation `github-aws' on page 1 undefined on input line
+ 3.
+
+
+[1.1{d:/LaTeXTools/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{d
+:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}
+{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.en
+c}{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_afusau.
+enc}{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_ncsll
+p.enc}{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_nao
+oyc.enc}{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_n
+h77jq.enc}{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn
+_7grukw.enc}]
+Underfull \hbox (badness 1275) in paragraph at lines 29--29
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Current de-pen-den-cies, time, se-man-ti
+cs,
+
+[2.2]) (./sections/02-background.tex
+
+Package natbib Warning: Citation `jwt' on page 3 undefined on input line 4.
+
+
+Package natbib Warning: Citation `jws' on page 3 undefined on input line 4.
+
+
+Package natbib Warning: Citation `jwt-bcp' on page 3 undefined on input line 4.
+
+
+
+Package natbib Warning: Citation `iam-logic' on page 3 undefined on input line 
+8.
+
+
+Package natbib Warning: Citation `iam-operators' on page 3 undefined on input l
+ine 8.
+
+
+[3.3]
+Underfull \hbox (badness 10000) in paragraph at lines 28--28
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Required iden-
+
+Package natbib Warning: Citation `github-environments' on page 4 undefined on i
+nput line 38.
+
+(./figures/collision.tex)
+[4.4]) (./sections/03-contract.tex
+[5.5 <./figures/collision.pdf>] (./figures/architecture.tex)
+Underfull \hbox (badness 1436) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Schema, lit-eral in-tent, dis-tinct de-c
+lared re-
+
+[6.6{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6
+f.enc} <./figures/architecture.pdf>] (./figures/decision.tex)
+[7.7]) (./sections/04-semantics.tex
+[8.8 <./figures/decision.pdf>]
+[9.9] (./figures/tuples.tex)) (./sections/05-relational.tex
+[10.10]
+[11.11 <./figures/tuples.pdf>]) (./sections/06-analysis.tex
+
+Package natbib Warning: Citation `iam-operators' on page 12 undefined on input 
+line 4.
+
+
+Package natbib Warning: Citation `aws-conditions' on page 12 undefined on input
+ line 4.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--22
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Web-identity as-sump-tion; ex-plicit Al-
+
+
+[12.12]
+
+Package natbib Warning: Citation `abstract-interpretation' on page 13 undefined
+ on input line 32.
+
+
+[13.13]
+
+Package natbib Warning: Citation `python-unicode' on page 14 undefined on input
+ line 40.
+
+
+[14.14]
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/latex/libertine/OT1LinuxBiolinumT-TL
+F.fd)
+Underfull \vbox (badness 1629) has occurred while \output is active
+[15.15{d:/LaTeXTools/texlive/2024/texmf-dist/fonts/enc/dvips/libertine/lbtn_edc
+awa.enc}]
+[16.16]) (./sections/07-replay.tex (./figures/receipt.tex)
+[17.17] (./figures/freshness.tex)
+[18.18 <./figures/receipt.pdf>]
+
+Package natbib Warning: Citation `pcc' on page 19 undefined on input line 46.
+
+
+Package natbib Warning: Citation `translation-validation' on page 19 undefined 
+on input line 46.
+
+
+[19.19 <./figures/freshness.pdf>]
+
+Package natbib Warning: Citation `intoto' on page 20 undefined on input line 56
+.
+
+
+Package natbib Warning: Citation `sigstore' on page 20 undefined on input line 
+56.
+
+
+Package natbib Warning: Citation `tuf' on page 20 undefined on input line 56.
+
+
+Package natbib Warning: Citation `slsa' on page 20 undefined on input line 56.
+
+) (./sections/08-implementation.tex
+Underfull \hbox (badness 3601) in paragraph at lines 30--30
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) A sat-u-rated pre-ferred pool omit-ted a
+
+
+[20.20]
+Underfull \vbox (badness 10000) has occurred while \output is active
+[21.21]) (./sections/09-method.tex
+
+Package natbib Warning: Citation `oracle' on page 22 undefined on input line 6.
+
+
+
+Underfull \vbox (badness 7012) has occurred while \output is active
+[22.22]
+Underfull \hbox (badness 10000) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Small al-pha-bet/length plus
+
+Underfull \hbox (badness 3302) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Full code-point sweep over
+
+Underfull \hbox (badness 1783) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Primitive pred-i-cates, not all
+
+Underfull \hbox (badness 2096) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Concrete re-cur-sive/scalar vs
+
+Underfull \hbox (badness 6094) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Recursive, scalar, and NFA
+
+Underfull \hbox (badness 3557) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) One lo-cal en-vi-ron-ment; de-
+
+Underfull \hbox (badness 1117) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Declared ex-pected judg-ment
+
+Underfull \hbox (badness 10000) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Eight iso-lated
+
+Underfull \hbox (badness 1742) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Preselected re-gres-sion as-ser-
+
+Underfull \hbox (badness 4543) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Not a pop-u-la-tion mu-ta-tion
+
+Underfull \hbox (badness 1102) in paragraph at lines 31--31
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Local di-gest and avail-abil-ity
+
+Package natbib Warning: Citation `quickcheck' on page 23 undefined on input lin
+e 36.
+
+
+Package natbib Warning: Citation `metamorphic' on page 23 undefined on input li
+ne 36.
+
+
+[23.23]
+
+Package natbib Warning: Citation `runeson' on page 24 undefined on input line 4
+1.
+
+
+Package natbib Warning: Citation `kalliamvakou' on page 24 undefined on input l
+ine 41.
+
+) (./sections/10-validation.tex
+[24.24]
+[25.25]
+[26.26] (./figures/local-costs.tex)
+Underfull \vbox (badness 10000) has occurred while \output is active
+[27.27] (./generated/character_domain_rows.tex)
+[28.28 <./figures/local-costs.pdf>]) (./sections/11-cases.tex
+(./figures/denominators.tex) (./generated/contract-coverage.tex)
+
+Package natbib Warning: Citation `change-artur' on page 29 undefined on input l
+ine 22.
+
+
+Package natbib Warning: Citation `change-pmcg' on page 29 undefined on input li
+ne 22.
+
+
+Package natbib Warning: Citation `change-shadow' on page 29 undefined on input 
+line 22.
+
+
+Package natbib Warning: Citation `change-arriagada' on page 29 undefined on inp
+ut line 22.
+
+
+Package natbib Warning: Citation `change-amr' on page 29 undefined on input lin
+e 22.
+
+
+Package natbib Warning: Citation `change-manyiu' on page 29 undefined on input 
+line 22.
+
+
+[29.29 <./figures/denominators.pdf>]
+
+Package natbib Warning: Citation `change-michele' on page 30 undefined on input
+ line 24.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) One se-lected role
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Supported in the regular-
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Conditional bind-ing, not ob-
+
+Package natbib Warning: Citation `change-sports' on page 30 undefined on input 
+line 44.
+
+
+[30.30]
+
+Package natbib Warning: Citation `change-microticket' on page 31 undefined on i
+nput line 53.
+
+) (./sections/12-frontier.tex
+
+Package natbib Warning: Citation `terraform-json' on page 31 undefined on input
+ line 18.
+
+
+Package natbib Warning: Citation `frontier-babbel' on page 31 undefined on inpu
+t line 20.
+
+
+Package natbib Warning: Citation `frontier-init4tech' on page 31 undefined on i
+nput line 20.
+
+
+Package natbib Warning: Citation `frontier-adhocteam' on page 31 undefined on i
+nput line 20.
+
+
+Package natbib Warning: Citation `frontier-tyk' on page 31 undefined on input l
+ine 20.
+
+(./figures/evidence.tex
+[31.31])
+
+Package natbib Warning: Citation `change-caringal' on page 32 undefined on inpu
+t line 29.
+
+
+Package natbib Warning: Citation `change-oasi' on page 32 undefined on input li
+ne 29.
+
+
+Package natbib Warning: Citation `change-orderpools' on page 32 undefined on in
+put line 29.
+
+
+Package natbib Warning: Citation `change-dst' on page 32 undefined on input lin
+e 29.
+
+
+Package natbib Warning: Citation `change-linyanqing' on page 32 undefined on in
+put line 29.
+
+
+Package natbib Warning: Citation `change-danish' on page 32 undefined on input 
+line 29.
+
+
+Package natbib Warning: Citation `change-linkforge' on page 32 undefined on inp
+ut line 29.
+
+
+Package natbib Warning: Citation `change-vicdf' on page 32 undefined on input l
+ine 29.
+
+
+[32.32 <./figures/evidence.pdf>]) (./sections/13-integration.tex
+Underfull \vbox (badness 10000) has occurred while \output is active
+[33.33]
+
+Package natbib Warning: Citation `zelkova' on page 34 undefined on input line 4
+4.
+
+
+Package natbib Warning: Citation `margrave' on page 34 undefined on input line 
+44.
+
+
+Underfull \vbox (badness 2005) has occurred while \output is active
+[34.34]) (./sections/14-related.tex
+
+Package natbib Warning: Citation `margrave' on page 35 undefined on input line 
+4.
+
+
+Underfull \vbox (badness 4048) has occurred while \output is active
+[35.35]
+
+Package natbib Warning: Citation `zelkova' on page 36 undefined on input line 6
+.
+
+
+Package natbib Warning: Citation `aws-custom-checks' on page 36 undefined on in
+put line 8.
+
+
+Package natbib Warning: Citation `cedar' on page 36 undefined on input line 10.
+
+
+
+Package natbib Warning: Citation `cedar-vgd' on page 36 undefined on input line
+ 10.
+
+
+Package natbib Warning: Citation `margrave' on page 36 undefined on input line 
+26.
+
+
+Package natbib Warning: Citation `zelkova' on page 36 undefined on input line 2
+6.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--26
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Stronger/general neigh-bor-ing policy-
+
+Package natbib Warning: Citation `cedar' on page 36 undefined on input line 26.
+
+
+
+Package natbib Warning: Citation `cedar-vgd' on page 36 undefined on input line
+ 26.
+
+
+Package natbib Warning: Citation `seven-sins' on page 36 undefined on input lin
+e 26.
+
+
+Package natbib Warning: Citation `iac-replication' on page 36 undefined on inpu
+t line 26.
+
+
+Package natbib Warning: Citation `gasel' on page 36 undefined on input line 26.
+
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--26
+[]|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Configuration weak-nesses and richer
+
+Package natbib Warning: Citation `argus' on page 36 undefined on input line 26.
+
+
+
+Package natbib Warning: Citation `intoto' on page 36 undefined on input line 26
+.
+
+
+Package natbib Warning: Citation `sigstore' on page 36 undefined on input line 
+26.
+
+
+Package natbib Warning: Citation `slsa' on page 36 undefined on input line 26.
+
+
+Package natbib Warning: Citation `seven-sins' on page 36 undefined on input lin
+e 30.
+
+
+Package natbib Warning: Citation `iac-replication' on page 36 undefined on inpu
+t line 30.
+
+
+Package natbib Warning: Citation `gang-eight' on page 36 undefined on input lin
+e 30.
+
+
+[36.36]
+
+Package natbib Warning: Citation `gasel' on page 37 undefined on input line 32.
+
+
+
+Package natbib Warning: Citation `rehearsal' on page 37 undefined on input line
+ 34.
+
+
+Package natbib Warning: Citation `argus' on page 37 undefined on input line 37.
+
+
+
+Package natbib Warning: Citation `aws-validation' on page 37 undefined on input
+ line 39.
+
+
+Package natbib Warning: Citation `checkov' on page 37 undefined on input line 3
+9.
+
+
+Package natbib Warning: Citation `opa' on page 37 undefined on input line 39.
+
+
+Package natbib Warning: Citation `hoare' on page 37 undefined on input line 44.
+
+
+
+Package natbib Warning: Citation `schneider' on page 37 undefined on input line
+ 44.
+
+
+Package natbib Warning: Citation `pcc' on page 37 undefined on input line 46.
+
+
+Package natbib Warning: Citation `translation-validation' on page 37 undefined 
+on input line 46.
+
+
+Package natbib Warning: Citation `ssdf' on page 37 undefined on input line 46.
+
+) (./sections/15-validity.tex
+[37.37]
+Underfull \vbox (badness 10000) has occurred while \output is active
+[38.38]) (./sections/16-conclusion.tex)
+[39.39] (./main.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 41--56
+[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Abdulaziz-algharbi. 2026.  Fix GitHub OID
+C sub claim: GitHub em-beds nu-meric owner/repo IDs now.  Git com-
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--56
+\T1/LinuxLibertineT-TLF/m/n/7 (+20) mit 7076165b461538aefcfa69ad0fe6780ecaa8970
+e.   [][]$https : / / github . com / Abdulaziz -[] algharbi / order -[] pools -
+[] infrastructure / commit /
+
+Underfull \hbox (badness 1210) in paragraph at lines 41--56
+\T1/LinuxLibertineT-TLF/m/n/7 (+20) 7076165b461538aefcfa69ad0fe6780ecaa8970e$[]
+[]  Com-mit de-scribes a de-coded to-ken and end-to-end work-flow ver-i-fi-ca-t
+ion; frozen source
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--230
+[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Babbel con-trib-u-tors. 2026.  Ter-raform
+ AWS IAM role for a GitHub repos-i-tory.  Pinned source file at com-mit
+
+Underfull \hbox (badness 10000) in paragraph at lines 217--230
+\T1/LinuxLibertineT-TLF/m/n/7 (+20) fb03d12160c20ab256b1ecd43eed10920a5894dc.  
+ [][]$https : / / github . com / babbel / terraform -[] aws -[] iam -[] role -[
+] for -[] github -[] repository / blob /
+
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/stringenc/se-pdfdoc.def)
+(d:/LaTeXTools/texlive/2024/texmf-dist/tex/generic/stringenc/se-utf8.def)
+[40.40]
+Underfull \hbox (badness 10000) in paragraph at lines 353--367
+[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) Deploy-On-Friday2-0 con-trib-u-tors. 2026
+.  fix: re-strict GitHub OIDC trust and stage EKS 1.31 up-grade.  Git com-mit
+
+Underfull \hbox (badness 10000) in paragraph at lines 353--367
+\T1/LinuxLibertineT-TLF/m/n/7 (+20) 9eeb7ff43b2a304e170e0d533b9b127b5a80b345.  
+ [][]$https : / / github . com / Deploy -[] On -[] Friday2 -[] 0 / sports -[] s
+tore -[] infrastructure / commit /
+
+Underfull \hbox (badness 10000) in paragraph at lines 483--496
+[]\T1/LinuxLibertineT-TLF/m/n/7 (+20) init4tech con-trib-u-tors. 2026.  Pu-lumi
+/Go GitHub assume-role pol-icy con-struc-tor.  Pinned source file at
+
+Underfull \hbox (badness 10000) in paragraph at lines 483--496
+\T1/LinuxLibertineT-TLF/m/n/7 (+20) com-mit ed022635f7d5d3a599cb54f9b3b37a1750f
+45ca1.   [][]$https : / / github . com / init4tech / signet -[] infra -[] compo
+nents / blob /
+
+Underfull \hbox (badness 1394) in paragraph at lines 483--496
+\T1/LinuxLibertineT-TLF/m/n/7 (+20) ed022635f7d5d3a599cb54f9b3b37a1750f45ca1 / 
+pkg / aws / iam . go$[][]  Frozen source meta-data sup-plied with the ar-ti-fac
+t, dated Sep-tem-ber 23,
+
+[41.41])
+
+Package natbib Warning: There were undefined citations.
+
+
+Class acmart Warning: ACM reference format is mandatory 
+(acmart)              for papers over one page. 
+(acmart)              Please add printacmref=true to the 
+(acmart)              \settopmatter command..
+
+
+[42.42]
+
+LaTeX Warning: Hook 'shipout/lastpage' executed on wrong page (40 not 42).
+               Rerun to correct this.
+
+(./main.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+ )
+(see the transcript file for additional information)<d:/LaTeXTools/texlive/2024
+/texmf-dist/fonts/type1/public/newtx/LibertineMathMI.pfb><d:/LaTeXTools/texlive
+/2024/texmf-dist/fonts/type1/public/newtx/LibertineMathMI7.pfb><d:/LaTeXTools/t
+exlive/2024/texmf-dist/fonts/type1/public/newtx/LibertineMathRM.pfb><d:/LaTeXTo
+ols/texlive/2024/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb><d:/L
+aTeXTools/texlive/2024/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pf
+b><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/libertine/LinBiolin
+umTI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/libertine/Li
+nLibertineT.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/liber
+tine/LinLibertineTB.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/publ
+ic/libertine/LinLibertineTI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/ty
+pe1/public/newtx/NewTXMI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1
+/public/newtx/txexs.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/publ
+ic/newtx/txmiaX.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/n
+ewtx/txsym.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/newtx/
+txsys.pfb>
+Output written on main.pdf (42 pages, 1262705 bytes).
+Transcript written on main.log.
+Latexmk: Getting log file 'main.log'
+Latexmk: Examining 'main.fls'
+Latexmk: Examining 'main.log'
+Latexmk: Found input bbl file 'main.bbl'
+Latexmk: References changed.
+Latexmk: References changed.
+Latexmk: References changed.
+Latexmk: Log file says output to 'main.pdf'
+Latexmk: Found bibliography file(s):
+  ./references.bib
+Latexmk: applying rule 'bibtex main'...
+Rule 'bibtex main':  Reasons for rerun
+Changed files or newly in use/created:
+  main.aux
+
+------------
+Run number 2 of rule 'bibtex main'
+------------
+------------
+Running 'bibtex  "main.aux"'
+------------
+This is BibTeX, Version 0.99d (TeX Live 2024)
+The top-level auxiliary file: main.aux
+The style file: ACM-Reference-Format.bst
+Database file #1: references.bib
+Warning--empty publisher in zelkova
+Warning--empty address in zelkova
+Warning--empty publisher in quickcheck
+Warning--empty address in quickcheck
+Warning--page numbers missing in both pages and numpages fields in quickcheck
+Warning--empty publisher in abstract-interpretation
+Warning--empty address in abstract-interpretation
+Warning--empty publisher in cedar-vgd
+Warning--empty address in cedar-vgd
+Warning--empty publisher in margrave
+Warning--empty address in margrave
+Warning--empty publisher in kalliamvakou
+Warning--empty address in kalliamvakou
+Warning--empty publisher in argus
+Warning--empty address in argus
+Warning--empty publisher in pcc
+Warning--empty address in pcc
+Warning--empty publisher in sigstore
+Warning--empty address in sigstore
+Warning--page numbers missing in both pages and numpages fields in sigstore
+Warning--empty publisher in gasel
+Warning--empty address in gasel
+Warning--empty publisher in translation-validation
+Warning--empty address in translation-validation
+Warning--page numbers missing in both pages and numpages fields in translation-validation
+Warning--empty publisher in gang-eight
+Warning--empty address in gang-eight
+Warning--empty publisher in seven-sins
+Warning--empty address in seven-sins
+Warning--empty publisher in rehearsal
+Warning--empty address in rehearsal
+Warning--empty publisher in intoto
+Warning--empty address in intoto
+(There were 33 warnings)
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex':  Reasons for rerun
+Changed files or newly in use/created:
+  main.aux
+  main.out
+
+------------
+Run number 3 of rule 'pdflatex'
 ------------
 ------------
 Running 'pdflatex  -interaction=nonstopmode -halt-on-error -no-shell-escape -recorder  "main.tex"'
@@ -1132,34 +1861,37 @@ Underfull \hbox (badness 1102) in paragraph at lines 31--31
 Underfull \vbox (badness 10000) has occurred while \output is active
 [27.27] (./generated/character_domain_rows.tex)
 [28.28 <./figures/local-costs.pdf>]) (./sections/11-cases.tex
-(./figures/denominators.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 25--25
+(./figures/denominators.tex) (./generated/contract-coverage.tex)
+[29.29 <./figures/denominators.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
 []|\T1/LinuxLibertineT-TLF/m/n/9 (+20) One se-lected role
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--25
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
 []|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Supported in the regular-
 
-Underfull \hbox (badness 10000) in paragraph at lines 25--25
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
 []|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Conditional bind-ing, not ob-
 
-[29.29 <./figures/denominators.pdf>]) (./sections/12-frontier.tex
-[30.30] (./figures/evidence.tex)
+[30.30]) (./sections/12-frontier.tex (./figures/evidence.tex
+[31.31])
+[32.32 <./figures/evidence.pdf>]) (./sections/13-integration.tex
 Underfull \vbox (badness 10000) has occurred while \output is active
-[31.31]) (./sections/13-integration.tex
-[32.32 <./figures/evidence.pdf>]
 [33.33]
+Underfull \vbox (badness 2005) has occurred while \output is active
 [34.34]) (./sections/14-related.tex
+Underfull \vbox (badness 4048) has occurred while \output is active
+[35.35]
 Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Stronger/general neigh-bor-ing policy-
 
 Underfull \hbox (badness 10000) in paragraph at lines 26--26
 []|\T1/LinuxLibertineT-TLF/m/n/9 (+20) Configuration weak-nesses and richer
 
-[35.35]
 [36.36]) (./sections/15-validity.tex
-Underfull \vbox (badness 10000) has occurred while \output is active
 [37.37]
-[38.38]) (./sections/16-conclusion.tex) (./main.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active
+[38.38]) (./sections/16-conclusion.tex)
+[39.39] (./main.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 41--56
 []\T1/LinuxLibertineT-TLF/m/n/7 (+20) Abdulaziz-algharbi. 2026.  Fix GitHub OID
 C sub claim: GitHub em-beds nu-meric owner/repo IDs now.  Git com-
@@ -1174,8 +1906,6 @@ Underfull \hbox (badness 1210) in paragraph at lines 41--56
 []  Com-mit de-scribes a de-coded to-ken and end-to-end work-flow ver-i-fi-ca-t
 ion; frozen source
 
-Underfull \vbox (badness 2119) has occurred while \output is active
-[39.39]
 Underfull \hbox (badness 10000) in paragraph at lines 217--230
 []\T1/LinuxLibertineT-TLF/m/n/7 (+20) Babbel con-trib-u-tors. 2026.  Ter-raform
  AWS IAM role for a GitHub repos-i-tory.  Pinned source file at com-mit
@@ -1185,6 +1915,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 217--230
  [][]$https : / / github . com / babbel / terraform -[] aws -[] iam -[] role -[
 ] for -[] github -[] repository / blob /
 
+[40.40]
 Underfull \hbox (badness 10000) in paragraph at lines 353--367
 []\T1/LinuxLibertineT-TLF/m/n/7 (+20) Deploy-On-Friday2-0 con-trib-u-tors. 2026
 .  fix: re-strict GitHub OIDC trust and stage EKS 1.31 up-grade.  Git com-mit
@@ -1208,8 +1939,6 @@ Underfull \hbox (badness 1394) in paragraph at lines 483--496
 pkg / aws / iam . go$[][]  Frozen source meta-data sup-plied with the ar-ti-fac
 t, dated Sep-tem-ber 23,
 
-[40.40]
-Underfull \vbox (badness 10000) has occurred while \output is active
 [41.41])
 
 Class acmart Warning: ACM reference format is mandatory 
@@ -1237,7 +1966,7 @@ pe1/public/newtx/NewTXMI.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1
 ic/newtx/txmiaX.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/n
 ewtx/txsym.pfb><d:/LaTeXTools/texlive/2024/texmf-dist/fonts/type1/public/newtx/
 txsys.pfb>
-Output written on main.pdf (42 pages, 1265165 bytes).
+Output written on main.pdf (42 pages, 1266763 bytes).
 Transcript written on main.log.
 Latexmk: Getting log file 'main.log'
 Latexmk: Examining 'main.fls'
