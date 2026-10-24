@@ -9,13 +9,13 @@
       "engine": "pdfium",
       "dpi": 200,
       "pages_rendered": 12,
-      "render_directory_external_to_package": "/mnt/data/fedfence_final_render_pdfium"
+      "render_directory_external_to_package": "<WORK_ROOT>/pdfium"
     },
     {
       "engine": "pdftoppm",
       "dpi": 160,
       "pages_rendered": 12,
-      "render_directory_external_to_package": "/mnt/data/fedfence_final_render_pdftoppm"
+      "render_directory_external_to_package": "<WORK_ROOT>/pdftoppm"
     }
   ],
   "checks": {

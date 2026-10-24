@@ -20,6 +20,9 @@
   "public_post_fix_action_runs_observed": 2,
   "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
   "recorded_at_utc": "2026-09-24T06:13:26.071919+00:00",
+  "recorded_result_files": {
+    "fse/results/pdf_visual_qa.json": "cd460458df0e8e80cff005907d0b6c10e99fc4eb6f472514bcc0d43519db8675"
+  },
   "result_files": {
     "fse/results/demo_after_stale.json": "d0ae0e8b63600c487c08998ea6f5309f75086791e7a1a5cf85238d7b19ef2571",
     "fse/results/demo_after_unsupported.json": "352edbfead4aaa0a43609523021964c04342429d0d575aa0c031ed5b90da39d7",
@@ -38,7 +41,7 @@
     "fse/results/legacy_boundary_probe_case.json": "e28a3080260513833193c5ced54638ec0885fc0b209ca70b361c5ffeaf3939cc",
     "fse/results/legacy_case_replay.json": "8a9749643ca935884423afa8708bd1b3692c083daa854914ed5ff365134c0c6a",
     "fse/results/legacy_fragment_inventory.json": "cb1b92cbdcd9a40b69f8db4f7b6688832e18782e78505e67457458978a3db99e",
-    "fse/results/pdf_visual_qa.json": "cd460458df0e8e80cff005907d0b6c10e99fc4eb6f472514bcc0d43519db8675",
+    "fse/results/pdf_visual_qa.json": "6580ed32b1a95fb928a46fa2f74b0717023a8a23f780e431da3c05d0c369394c",
     "fse/results/provenance.json": "cf32dd19ec536f85d23b6cd6d8aa2a2cc3e5017db39a2083a79672671ed6dfa6",
     "fse/results/public_change_latency.json": "601f8e7a12a2117cdd4bbd80ece2dab4ac113d40e3cc940780933501844a63a1",
     "fse/results/public_change_study.csv": "bde7fea64b894fb6fb7429011c77407d879ee679c0bd8c7347d611641442278b",
